@@ -80,6 +80,7 @@
     </filelist>
     <deps>
       <dep type="php" rel="ge" version="4.1.0" />
+      <dep type="pkg" rel="has" optional="yes">Date</dep>
     </deps>
   </release>
   <changelog>
