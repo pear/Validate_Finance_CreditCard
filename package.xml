@@ -8,8 +8,10 @@
 * string (predifined type alpha upper and/or lowercase, numeric,...)
 * date (min, max)
 * Credit cards
+* uri (RFC2396)
 * possibility valid multiple data with a single method call (::multiple)
-* Locale validation, i.e. DBI for spain, ssn for FR,US, more to come
+* Locale validation for US, UK, FR, DE, AT, PL, NL, pt_BR
+* Finance (ie IBAN)
   </description>
   <license>PHP</license>
   <maintainers>
@@ -24,6 +26,12 @@
       <role>lead</role>
       <name>Pierre-Alain Joye</name>
       <email>paj@pearfr.org</email>
+    </maintainer>
+    <maintainer>
+      <user>neufeind</user>
+      <role>developer</role>
+      <name>Stefan Neufeind</name>
+      <email>pear.neufeind@speedpartner.de</email>
     </maintainer>
     <maintainer>
       <user>timmyg</user>
@@ -48,27 +56,35 @@
     <version>0.3.0</version>
     <state>alpha</state>
     <date>2003-12-05</date>
-    <notes>- Added Finance Validations for Financial related datas 
+    <notes>- Added Finance Validations for Financial related datas
   (S. Neufeind, Piotr Klaban)
 - Add polish validation (Piotr Klaban)
-- Small german validation started, more in the next release
+- Add German validation (Stefen Neufeind)
 - Add EAN-UCC validtatio (see http://www.ean-ucc.org) (Piotr Klaban)
-- Add International Standard Serial Number (ISSN) 
+- Add International Standard Serial Number (ISSN)
   and Music Number(ISMN) (Piotr Klaban)
 - Drop Validate::url() in preferenc of Validate::uri() which is fully
   RFC2396 compliant
+- Move to PHP 3.0 license
     </notes>
     <filelist>
     <dir name="/">
       <file role="php">Validate.php</file>
       <dir name="Validate">
+        <file role="php">Finance.php</file>
+        <dir name="Finance">
+            <file role="php">IBAN.php</file>
+        </dir>
         <file role="php">ES.php</file>
-	<file role="php">US.php</file>
+        <file role="php">US.php</file>
         <file role="php">FR.php</file>
         <file role="php">UK.php</file>
         <file role="php">NL.php</file>
         <file role="php">US.php</file>
         <file role="php">PL.php</file>
+        <file role="php">DE.php</file>
+        <file role="php">AT.php</file>
+        <file role="php">ptBR.php</file>
       </dir>
       <dir name="tests" role="test">
         <file>number.php</file>
