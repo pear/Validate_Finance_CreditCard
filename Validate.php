@@ -60,13 +60,16 @@ class Validate
         if (!preg_match("|^[-+]?\s*[0-9]+($dec_regex)?\$|", $number)) {
             return false;
         }
+
         if ($decimal != '.') {
             $number = strtr($number, $decimal, '.');
         }
+
         $number = (float)str_replace(' ', '', $number);
         if ($min !== null && $min > $number) {
             return false;
         }
+
         if ($max !== null && $max < $number) {
             return false;
         }
@@ -468,9 +471,8 @@ class Validate
         }
         if ($t % 11) {
             return false;
-        } else {
-            return true;
         }
+        return true;
     }
 
 
@@ -808,7 +810,7 @@ class Validate
              */
             } elseif (strpos($opt['type'],'_') !== false) {
                 list($class, $method) = explode('_', $opt['type'], 2);
-                @include_once("Validate/$class.php");
+                @include_once "Validate/$class.php";
                 if (!class_exists("Validate_$class") ||
                     !in_array($method, get_class_methods("Validate_$class")))
                 {
