@@ -53,6 +53,7 @@
 - _check_control_number renamed to _checkControlNumber
   _get_control_number renamed to _getControlNumber
   _mult_weights renamed to _multWeights
+- added email test
     </notes>
     <filelist>
     <dir name="/">
@@ -60,6 +61,7 @@
       <dir name="tests" role="test">
         <file>number.php</file>
         <file>date.php</file>
+        <file>email.php</file>
       </dir>
       <dir name="docs" role="doc">
         <file>sample_multiple.php</file>
