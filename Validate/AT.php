@@ -54,7 +54,7 @@ class Validate_AT
                 $postcodes = array_map('trim', file($file));
             }
     
-            return in_array((int) $postcode, $postcodes);
+            return in_array((int)$postcode, $postcodes);
         }
         return (bool)ereg('^[0-9]{4}$', $postcode);
     }
