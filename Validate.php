@@ -373,7 +373,7 @@ class Validate
 
         $issn = strtoupper($issn);
         $issn = eregi_replace('ISSN', '', $issn);
-        $issn = str_replace(array('-','/',' ',"\t","\n"), '', $issn);
+        $issn = str_replace(array('-', '/', ' ', "\t", "\n"), '', $issn);
         $issn_num = eregi_replace('X', '0', $issn);
 
         // check if this is an 8-digit number
@@ -403,7 +403,7 @@ class Validate
 
         $ismn = eregi_replace('ISMN', '', $ismn);
         $ismn = eregi_replace('M', '3', $ismn); // change first M to 3
-        $ismn = str_replace(array('-','/',' ',"\t","\n"), '', $ismn);
+        $ismn = str_replace(array('-', '/', ' ', "\t", "\n"), '', $ismn);
 
         // check if this is a 10-digit number
         if (!is_numeric($ismn) || strlen($ismn) != 10) {
@@ -430,7 +430,7 @@ class Validate
     {
         static $weights_ean8 = array(3,1,3,1,3,1,3);
 
-        $ean = str_replace(array('-','/',' ',"\t","\n"), '', $ean);
+        $ean = str_replace(array('-', '/', ' ', "\t", "\n"), '', $ean);
 
         // check if this is a 8-digit number
         if (!is_numeric($ean) || strlen($ean) != 8) {
@@ -456,7 +456,7 @@ class Validate
     {
         static $weights_ean13 = array(1,3,1,3,1,3,1,3,1,3,1,3);
 
-        $ean = str_replace(array('-','/',' ',"\t","\n"), '', $ean);
+        $ean = str_replace(array('-', '/', ' ', "\t", "\n"), '', $ean);
 
         // check if this is a 13-digit number
         if (!is_numeric($ean) || strlen($ean) != 13) {
@@ -482,7 +482,7 @@ class Validate
     {
         static $weights_ean14 = array(3,1,3,1,3,1,3,1,3,1,3,1,3);
 
-        $ean = str_replace(array('-','/',' ',"\t","\n"), '', $ean);
+        $ean = str_replace(array('-', '/', ' ', "\t", "\n"), '', $ean);
 
         // check if this is a 14-digit number
         if (!is_numeric($ean) || strlen($ean) != 14) {
@@ -508,7 +508,7 @@ class Validate
     {
         static $weights_ucc12 = array(3,1,3,1,3,1,3,1,3,1,3);
 
-        $ucc = str_replace(array('-','/',' ',"\t","\n"), '', $ucc);
+        $ucc = str_replace(array('-', '/', ' ', "\t", "\n"), '', $ucc);
 
         // check if this is a 12-digit number
         if (!is_numeric($ucc) || strlen($ucc) != 12) {
@@ -534,7 +534,7 @@ class Validate
     {
         static $weights_sscc = array(3,1,3,1,3,1,3,1,3,1,3,1,3,1,3,1,3);
 
-        $sscc = str_replace(array('-','/',' ',"\t","\n"), '', $sscc);
+        $sscc = str_replace(array('-', '/', ' ', "\t", "\n"), '', $sscc);
 
         // check if this is a 18-digit number
         if (!is_numeric($sscc) || strlen($sscc) != 18) {
