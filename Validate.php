@@ -180,7 +180,7 @@ class Validate
         if (is_array($date)) {
             extract($date);
         }
-        for ($i = 0; $i < strlen($format) && strlen($date); $i++) {
+        for ($i = 0; $i < strlen($format); $i++) {
             $c = $format{$i};
             if ($c == '%') {
                 $next = $format{$i + 1};
@@ -212,10 +212,10 @@ class Validate
                         if ($next == 'Y') {
                             $year = (int)Validate::_substr($date, 4);
                         } else {
-                            $year = (int)(substr(date('Y'), 2) .
+                            $year = (int)(substr(date('Y'), 0, 2) .
                                           Validate::_substr($date, 2));
                         }
-                        if ($year < 0 || $year > 9999) {
+                        if (strlen($year) != 4 || $year < 0 || $year > 9999) {
                             return false;
                         }
                         break;
@@ -258,6 +258,10 @@ class Validate
                     return false;
                 }
             }
+        }
+        // there is remaing data, we don't want it
+        if (strlen($date)) {
+            return false;
         }
         if (isset($day) && isset($month) && isset($year)) {
             include_once 'Date/Calc.php';
