@@ -1,6 +1,6 @@
 <?php
 require_once 'PHPUnit.php';
-require "Validate/UK.php";
+require 'Validate/UK.php';
 
 class Validate_UK_Test extends PHPUnit_TestCase
 {
@@ -64,7 +64,7 @@ class Validate_UK_Test extends PHPUnit_TestCase
                 '34-234-56' => false
             );
 
-    function Validate_UK_Test( $name )
+    function Validate_UK_Test($name)
     {
         $this->PHPUnit_TestCase($name);
     }
@@ -81,7 +81,7 @@ class Validate_UK_Test extends PHPUnit_TestCase
 
     function testpostalCode()
     {
-        foreach ($this->postalCodes as $postalCode=>$expected_result){
+        foreach ($this->postalCodes as $postalCode => $expected_result) {
             $r = Validate_UK::postalCode($postalCode);
             $this->assertEquals($r, $expected_result);
         }
@@ -89,7 +89,7 @@ class Validate_UK_Test extends PHPUnit_TestCase
 
     function testNationalInsurance()
     {
-        foreach ($this->ni as $ni=>$expected_result){
+        foreach ($this->ni as $ni => $expected_result) {
             $r = Validate_UK::ni($ni);
             $this->assertEquals($r, $expected_result);
         }
@@ -97,7 +97,7 @@ class Validate_UK_Test extends PHPUnit_TestCase
 
     function testSortCodes()
     {
-        foreach ($this->sa as $sort_code=>$expected_result){
+        foreach ($this->sa as $sort_code => $expected_result) {
             $r = Validate_UK::sortCode($sort_code);
             $this->assertEquals($r, $expected_result);
         }
@@ -105,7 +105,7 @@ class Validate_UK_Test extends PHPUnit_TestCase
 }
 
 // runs the tests
-$suite = new PHPUnit_TestSuite("Validate_UK_Test");
+$suite = new PHPUnit_TestSuite('Validate_UK_Test');
 $result = PHPUnit::run($suite);
 // prints the tests
 echo $result->toString();
