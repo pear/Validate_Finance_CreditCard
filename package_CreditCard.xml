@@ -3,7 +3,7 @@
   <name>Validate_Finance_CreditCard</name>
   <summary>Validation class for Credit Cards</summary>
   <description>
-   Package to validate Credit Cards.
+   Package to validate Credit Card numbers and types.
   </description>
   <license>PHP</license>
   <maintainers>
@@ -22,6 +22,7 @@
     <notes>
 - Split from Validate into independent package
 - Request #2194 Improved CreditCard validation with CreditCard Type check, patch by Philippe
+- BC break: creditCard() method now named isValid() and creditCardType() method is now named isType()
     </notes>
     <filelist>
     <dir name="/">
@@ -37,6 +38,7 @@
     </filelist>
     <deps>
       <dep type="php" rel="ge" version="4.1.0" />
+      <dep type="ext" rel="has">pcre</dep>
     </deps>
   </release>
   <changelog>
