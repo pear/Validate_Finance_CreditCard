@@ -48,14 +48,14 @@
 - Bug #2879, Issn wrong validation
 - Better email validation
 - CS fixes
-- Splitted country and finance classes and credit card functions into their own sub packages of Validate
+- Split country and finance classes and credit card functions into their own sub packages of Validate
 - New developer (Helgi)
 - Few more none alpha chars added
 - _check_control_number renamed to _checkControlNumber
   _get_control_number renamed to _getControlNumber
   _mult_weights renamed to _multWeights
 - added email test
-- Splitted these functions over to a new sub package called Validate_ISPN (International Standard Product Numbers)
+- Split these functions over to a new sub package called Validate_ISPN (International Standard Product Numbers)
  * ISSN
  * ISBN
  * ISMN
