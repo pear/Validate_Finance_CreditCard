@@ -46,9 +46,8 @@
 - Bug #2936, typo
 - Better email validation
 - CS fixes
-- Splitted country classes and finance into their own sub packages of Validate
+- Splitted country and finance classes and credit card functions into their own sub packages of Validate
 - New developer (Helgi)
-- Request #2194 Improved CreditCard validation with CreditCard Type check, patch by Philippe
 - Few more none alpha chars added
     </notes>
     <filelist>

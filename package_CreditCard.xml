@@ -21,6 +21,7 @@ Validates credit cards
     <date>2004-03-17</date>
     <notes>
 - Split from Validate into independent package
+- Request #2194 Improved CreditCard validation with CreditCard Type check, patch by Philippe
     </notes>
     <filelist>
     <dir name="/">
