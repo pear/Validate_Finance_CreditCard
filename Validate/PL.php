@@ -59,7 +59,7 @@ class Validate_PL
      * @returns bool
      * @author Piotr Klaban <makler@man.torun.pl>
      */
-    function bank_branch($number)
+    function bankBranch($number)
     {
         static $weights_bank_branch = array(7,1,3,9,7,11,3);
 
