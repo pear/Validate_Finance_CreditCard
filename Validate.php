@@ -24,7 +24,7 @@ class Validate
     {
         $dec_prec   = $dec_prec ? "{1,$dec_prec}" : '+';
         $dec_regex  = $decimal  ? "[$decimal][0-9]$dec_prec" : '';
-        if (!preg_match("|^[-+]?[0-9]+($dec_regex)?\$|", $number)) {
+        if (!preg_match("|^[-+]?\s*[0-9]+($dec_regex)?\$|", $number)) {
             return false;
         }
         if ($decimal != '.') {
