@@ -152,13 +152,13 @@ class Validate_ISPN
      * @param  string  $ean number (only numeric chars will be considered)
      * @return bool    true if number is valid, otherwise false
      * @access public
-     * @see Validate_ISPN::_process()
+     * @see Validate_ISPN::process()
      * @author Piotr Klaban <makler@man.torun.pl>
      */
     function ean8($ean)
     {
         static $weights_ean8 = array(3,1,3,1,3,1,3);
-        return Validate_ISPN::_process($ean, 8, $weights_ean8);
+        return Validate_ISPN::process($ean, 8, $weights_ean8, 10, 10);
     }
 
     /**
@@ -172,13 +172,13 @@ class Validate_ISPN
      * @param  string  $ean number (only numeric chars will be considered)
      * @return bool    true if number is valid, otherwise false
      * @access public
-     * @see Validate_ISPN::_process()
+     * @see Validate_ISPN::process()
      * @author Piotr Klaban <makler@man.torun.pl>
      */
     function ean13($ean)
     {
         static $weights_ean13 = array(1,3,1,3,1,3,1,3,1,3,1,3);
-        return Validate_ISPN::_process($ean, 13, $weights_ean13);
+        return Validate_ISPN::process($ean, 13, $weights_ean13, 10, 10);
     }
 
     /**
@@ -192,13 +192,13 @@ class Validate_ISPN
      * @param  string  $ean number (only numeric chars will be considered)
      * @return bool    true if number is valid, otherwise false
      * @access public
-     * @see Validate_ISPN::_process()
+     * @see Validate_ISPN::process()
      * @author Piotr Klaban <makler@man.torun.pl>
      */
     function ean14($ean)
     {
         static $weights_ean14 = array(3,1,3,1,3,1,3,1,3,1,3,1,3);
-        return Validate_ISPN::_process($ean, 14, $weights_ean14);
+        return Validate_ISPN::process($ean, 14, $weights_ean14, 10, 10);
     }
 
     /**
@@ -212,13 +212,13 @@ class Validate_ISPN
      * @param  string  $ucc number (only numeric chars will be considered)
      * @return bool    true if number is valid, otherwise false
      * @access public
-     * @see Validate_ISPN::_process()
+     * @see Validate_ISPN::process()
      * @author Piotr Klaban <makler@man.torun.pl>
      */
     function ucc12($ucc)
     {
         static $weights_ucc12 = array(3,1,3,1,3,1,3,1,3,1,3);
-        return Validate_ISPN::_process($ucc, 12, $weights_ucc12);
+        return Validate_ISPN::process($ucc, 12, $weights_ucc12, 10, 10);
     }
 
     /**
@@ -232,26 +232,29 @@ class Validate_ISPN
      * @param  string  $sscc number (only numeric chars will be considered)
      * @return bool    true if number is valid, otherwise false
      * @access public
-     * @see Validate_ISPN::_process()
+     * @see Validate_ISPN::process()
      * @author Piotr Klaban <makler@man.torun.pl>
      */
     function sscc($sscc)
     {
         static $weights_sscc = array(3,1,3,1,3,1,3,1,3,1,3,1,3,1,3,1,3);
-        return Validate_ISPN::_process($sscc, 18, $weights_sscc);
+        return Validate_ISPN::process($sscc, 18, $weights_sscc, 10, 10);
     }
 
     /**
      * Does all the work for EAN8, EAN13, EAN14, UCC12 and SSCC
+     * and can be used for as base for similar kind of calculations
      * 
      * @param int $data number (only numeric chars will be considered)
      * @param int $lenght required length of number string
+     * @param int $modulo (optionsl) number
+     * @param int $subtract (optional) numbier
      * @param array $weights holds the weight that will be used in calculations for the validation
      * @return bool    true if number is valid, otherwise false
-     * @access private
+     * @access public
      * @see Validate::_checkControlNumber()
      */     
-    function _process($data, $length, &$weights)
+    function process($data, $length, &$weights, $modulo = 10, $subtract = 0)
     {
         //$weights = array(3,1,3,1,3,1,3,1,3,1,3,1,3,1,3,1,3);
         //$weights = array_slice($weights, 0, $length);
@@ -263,7 +266,7 @@ class Validate_ISPN
             return false;
         }
 
-        return Validate::_checkControlNumber($data, $weights, 10, 10);
+        return Validate::_checkControlNumber($data, $weights, $modulo, $subtract);
     }
 }
 ?>
