@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<package version="1.0">
+  <name>Validate_CA</name>
+  <summary>Validation class for Canada</summary>
+  <description>
+Package contains locale validation for Canada such as:
+ * Social Insurance Numbers (SIN)
+ * Postal Codes
+ * Regions (Provinces)
+ * Phone Numbers
+  </description>
+  <license>PHP</license>
+  <maintainers>
+    <maintainer>
+      <user>jausions</user>
+      <role>lead</role>
+      <name>Philippe Jausions</name>
+      <email>Philippe.Jausions@11abacus.com</email>
+    </maintainer>
+   </maintainers>
+  <release>
+
+    <version>0.1.0</version>
+    <state>alpha</state>
+    <date>2004-03-17</date>
+    <notes>
+- Initial package
+    </notes>
+    <filelist>
+    <dir name="/">
+      <dir name="Validate">
+        <file role="php">CA.php</file>
+      </dir>
+      <dir name="tests" role="test">
+        <file>validate_CA.php</file>
+      </dir>
+    </dir>
+    </filelist>
+    <deps>
+      <dep type="php" rel="ge" version="4.1.0" />
+      <dep type="ext" rel="has">pcre</dep>
+      <dep type="pkg" rel="ge" version="0.5">Validate_US</dep>
+    </deps>
+  </release>
+  <changelog>
+  </changelog>
+</package>
