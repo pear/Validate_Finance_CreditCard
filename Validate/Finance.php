@@ -62,12 +62,12 @@ class Validate_Finance
         
         // build checksum, preparation
         $banknote_replace_chars = range('A', 'Z');
-        foreach (range(10,35) as $tempvalue) {
+        foreach (range(10, 35) as $tempvalue) {
             $banknote_replace_values[]=strval($tempvalue);
         }
 
         // build checksum, substitute and calc
-        $tempbanknote = str_replace($banknote_replace_chars, $banknote_replace_values, substr($banknote,0,-1));
+        $tempbanknote = str_replace($banknote_replace_chars, $banknote_replace_values, substr($banknote, 0, -1));
         $tempcheckvalue = 0;
         for ($strcounter = 0; $strcounter < strlen($tempbanknote); $strcounter++) {
             $tempcheckvalue += intval($tempbanknote[$strcounter]);

@@ -45,7 +45,7 @@ class Validate_ptBR
     function cpf($cpf)
     {
         $cleaned = '';
-        for ($i=0; $i<strlen($cpf); $i++) {
+        for ($i = 0; $i < strlen($cpf); $i++) {
             $num = substr($cpf, $i, 1);
             if (ord($num) >= 48 && ord($num) <= 57) {
                 $cleaned .= $num;
@@ -114,8 +114,8 @@ class Validate_ptBR
     function cnpj($cnpj)
     {
         $cleaned = '';
-        for ($i=0; $i<strlen($cnpj); $i++) {
-            $num = substr($cnpj,$i,1);
+        for ($i = 0; $i < strlen($cnpj); $i++) {
+            $num = substr($cnpj, $i, 1);
             if (ord($num) >= 48 && ord($num) <= 57) {
                 $cleaned .= $num;
             }

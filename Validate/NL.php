@@ -55,7 +55,7 @@ class Validate_NL
 
         //we need at least 9 digits
         if (ereg("^[+0-9]{9,}$", $number)) {
-            $number = substr($number, strlen($number)-9);
+            $number = substr($number, strlen($number) - 9);
 
             //we only use the last 9 digits (so no troubles with international numbers)
             if (strlen($number) >= 9) {
@@ -107,8 +107,8 @@ class Validate_NL
             $number = str_pad($number, 10, '0', STR_PAD_LEFT);  //make sure we have a 10 digit number
 
             //create checksum
-            for ($i=0; $i < 10; $i++) {
-                $checksum += ( (int)$number[$i] * (10 - $i) );
+            for ($i = 0; $i < 10; $i++) {
+                $checksum += ((int)$number[$i] * (10 - $i));
             }
 
             //Banknumber is 'correct' if we can divide checksum by 11

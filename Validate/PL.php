@@ -103,13 +103,14 @@ class Validate_PL
             return false;
         }
 
-        if (Validate::_check_control_number($pesel, $weights_pesel, 10, 10) === false)
+        if (Validate::_check_control_number($pesel, $weights_pesel, 10, 10) === false) {
             return false;
+        }
 
         // now extract birth date from PESEL number
-        $vy = substr($pesel,0,2);
-        $vm = substr($pesel,2,2);
-        $vd = substr($pesel,4,2);
+        $vy = substr($pesel, 0, 2);
+        $vm = substr($pesel, 2, 2);
+        $vd = substr($pesel, 4, 2);
 
         // decode century
         if ($vm < 20) {
@@ -157,8 +158,9 @@ class Validate_PL
         }
 
         // first check first 9 digits
-        if (Validate::_check_control_number($regon, $weights_regon, 11) === false)
+        if (Validate::_check_control_number($regon, $weights_regon, 11) === false) {
           return false;
+       }
 
         // check wide number if there are 14 digits
         if (strlen($regon) == 14) {
