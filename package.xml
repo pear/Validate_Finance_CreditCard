@@ -83,7 +83,9 @@
         <file role="php">US.php</file>
         <file role="php">PL.php</file>
         <file role="php">DE.php</file>
-        <file role="php">AT.php</file>
+        <file role="php" name="AT.php">
+          <replace type="pear-config" from="@DATADIR@" to="data_dir" />
+        </file>
         <file role="php">ptBR.php</file>
       </dir>
       <dir name="tests" role="test">
@@ -91,10 +93,12 @@
         <file>date.php</file>
         <file>credit_card.php</file>
         <file>validate_NL.php</file>
+        <file>validate_AT.php</file>
       </dir>
       <dir name="docs" role="doc">
         <file>sample_multiple.php</file>
       </dir>
+      <file role="data" name="data/AT_postcodes.txt" install-as="AT_postcodes.txt" />
     </dir>
     </filelist>
     <deps>
