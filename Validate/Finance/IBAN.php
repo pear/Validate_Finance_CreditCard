@@ -38,7 +38,8 @@ define('VALIDATE_FINANCE_IBAN_CHECKSUM_INVALID',  -8);
 *
 * @author      Stefan Neufeind <neufeind@speedpartner.de>
 */
-class Validate_Finance_IBAN {
+class Validate_Finance_IBAN
+{
     /**
      * String containing the IBAN to be processed
      * @var     string
@@ -79,7 +80,7 @@ class Validate_Finance_IBAN {
                     'GR' => 'Greece',
                     'HU' => 'Hungary',
                     'IE' => 'Ireland',
-                    'IS' => 'Island',
+                    'IS' => 'Iceland',
                     'IT' => 'Italy',
                     'LU' => 'Luxembourg',
                     'NL' => 'The Netherlands',

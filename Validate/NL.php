@@ -21,11 +21,11 @@
 // Specific validation methods for data used in NL
 //
 
-require_once('Validate.php');
+require_once 'Validate.php';
 
-define( "VALIDATE_NL_PHONENUMBER_TYPE_ANY",     0);     //Any dutch phonenumber
-define( "VALIDATE_NL_PHONENUMBER_TYPE_NORMAL",  1);     //only normal phonenumber (mobile numers are not allowed)
-define( "VALIDATE_NL_PHONENUMBER_TYPE_MOBILE",  2);     //only mobile numbers are allowed
+define('VALIDATE_NL_PHONENUMBER_TYPE_ANY',     0);     //Any dutch phonenumber
+define('VALIDATE_NL_PHONENUMBER_TYPE_NORMAL',  1);     //only normal phonenumber (mobile numers are not allowed)
+define('VALIDATE_NL_PHONENUMBER_TYPE_MOBILE',  2);     //only mobile numbers are allowed
 
 class Validate_NL
 {
@@ -36,7 +36,7 @@ class Validate_NL
      * @param   bool    optional; strong checks (e.g. against a list of postcodes)
      * @return  bool    true if postcode is ok, false otherwise
      */
-    function postcode($postcode, $strong=false)
+    function postcode($postcode, $strong = false)
     {
         // $strong is not used here at the moment; added for API compatibility
         // checks might be added at a later stage

@@ -65,7 +65,7 @@ class Validate_US
     */
     function ssnGroupRange($groupNumber)
     {
-        if(is_array($groupNumber)){
+        if (is_array($groupNumber)) {
             extract($groupNumber);
         }
         if ($groupNumber < 10) {
@@ -97,7 +97,7 @@ class Validate_US
      */
     function ssnCheck($area, $group, $serial, $high_groups)
     {
-        if(is_array($area)){
+        if (is_array($area)) {
             extract($area);
         }
         // perform trivial checks
@@ -159,7 +159,7 @@ class Validate_US
         $lines =  explode("\n", ereg_replace("[^\n0-9]*",'',$source));
         $high_groups = array();
         foreach ($lines as $line) {
-            if(ereg('^([0-9]{3})([0-9]{2})([0-9]{3})([0-9]{2})([0-9]{3})([0-9]{2})([0-9]{3})([0-9]{2})([0-9]{3})([0-9]{2})([0-9]{3})([0-9]{2})$', $line, $grouping)) {
+            if (ereg('^([0-9]{3})([0-9]{2})([0-9]{3})([0-9]{2})([0-9]{3})([0-9]{2})([0-9]{3})([0-9]{2})([0-9]{3})([0-9]{2})([0-9]{3})([0-9]{2})$', $line, $grouping)) {
                 $high_groups[$grouping[1]] =  $grouping[2];
                 $high_groups[$grouping[3]] =  $grouping[4];
                 $high_groups[$grouping[5]] =  $grouping[6];

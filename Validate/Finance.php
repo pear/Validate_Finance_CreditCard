@@ -18,7 +18,7 @@
 //
 // $Id$
 
-require_once('Validate/Finance/IBAN.php');
+require_once 'Validate/Finance/IBAN.php';
 
 /**
 * Financial functions for validation and calculation
@@ -26,8 +26,8 @@ require_once('Validate/Finance/IBAN.php');
 * @author      Stefan Neufeind <neufeind@speedpartner.de>
 * @since       PHP 4.1.0
 */
-class Validate_Finance {
-
+class Validate_Finance
+{
     /**
      * Validation of an IBAN (international bankaccount number)
      *
@@ -36,7 +36,7 @@ class Validate_Finance {
      * @since     0.1
      * @return    boolean   true if IBAN is okay
      */
-    function iban($iban='')
+    function iban($iban = '')
     {
         return Validate_Finance_IBAN::validate($iban);
     } // end func iban
@@ -49,7 +49,7 @@ class Validate_Finance {
      * @since     0.1
      * @return    boolean   true if Euro banknote id is okay
      */
-    function banknoteEuro($banknote='')
+    function banknoteEuro($banknote = '')
     {
         $euro_countrycode = array('J', 'K', 'L', 'M', 'N', 'P', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z');
 

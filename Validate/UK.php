@@ -21,7 +21,7 @@
 //
 // Specific validation methods for data used in UK
 
-require_once('Validate.php');
+require_once 'Validate.php';
 
 class Validate_UK
 {
@@ -47,7 +47,7 @@ class Validate_UK
      * @param     bool    optional; strong checks (e.g. against a list of postcodes)
      * @return    bool
      */
-    function postcode($postcode, $strong=false)
+    function postcode($postcode, $strong = false)
     {
         // $strong is not used here at the moment; added for API compatibility
         // checks might be added at a later stage
@@ -76,7 +76,8 @@ class Validate_UK
      * @param     string $ni NI number
      * @return    bool
      */
-    function ni($ni){
+    function ni($ni)
+    {
         // remove spaces and uppercase it
         $ni = strtoupper(str_replace(' ', '', $ni));
         $preg = "/^[A-CEGHJ-NOPR-TW-Z][A-CEGHJ-NPR-TW-Z][0-9]{6}[ABCD]?$/";
@@ -109,7 +110,8 @@ class Validate_UK
      * @return    bool
      * @see
      */
-    function sortCode($sc){
+    function sortCode($sc)
+    {
         // must be in format nn-nn-nn (must contain dashes)
         // need to research the range of values - i have assumed 00-00-00 to 99-99-99
         // but it might be something like 01-01-01 to 50-99-99
@@ -127,7 +129,8 @@ class Validate_UK
      * @param     string $ac
      * @return    bool
      */
-    function bankAC($ac){
+    function bankAC($ac)
+    {
         // just checking to see if it is 6-8 digits
         // *THIS IS PROBABLY WRONG!!! RESEARCH*
         $preg = "/[0-9]{6,8}/";
@@ -144,7 +147,8 @@ class Validate_UK
      * @return    bool
      * @see
      */
-    function tel($tel){
+    function tel($tel)
+    {
         // just checks to see if it is numeric and starts with a 0
         // remove any wierd characters like (,),-,. etc
         $tel = str_replace(Array('(', ')', '-', '+', '.', ' '), '', $tel);
@@ -161,7 +165,8 @@ class Validate_UK
      * @param     string $reg the registration number
      * @return    bool
      */
-    function carReg($reg){
+    function carReg($reg)
+    {
         // checks for valid car licence plate
         // need to extend to include v old plates (without year prefix/suffix)
         // extend to reject invalid year letters (eg Z)
@@ -176,7 +181,7 @@ class Validate_UK
         // new ones
         $newpreg = "/[A-Z][0-9][05][A-Z]{3}/";
         $suffres = preg_match($newpreg, $reg);
-        if (!$suffres||!$preres&&!$newres){
+        if (!$suffres || !$preres && !$newres){
             return false;
         } else {
             return true;
@@ -194,7 +199,8 @@ class Validate_UK
      * @param     string $name
      * @return    string
      */
-    function passport($pp){
+    function passport($pp)
+    {
         // just checks for 9 digit number
         $preg = "/[0-9]{9}/";
         $match = (preg_match($preg, $pp))? true : false ;
@@ -210,7 +216,8 @@ class Validate_UK
      * @param     string $dl
      * @return    bool
      */
-    function drive($dl){
+    function drive($dl)
+    {
         $preg = "[A-Z]{5}[0-9]{6}[A-Z0-9]{5}";
         $match = (preg_match($preg, $dl))? true : false;
         return $match;

@@ -110,16 +110,17 @@ class Validate_PL
         $vd = substr($pesel,4,2);
 
         // decode century
-        if ($vm < 20)
+        if ($vm < 20) {
             $vy += 1900;
-        elseif ($vm < 40)
+        } elseif ($vm < 40) {
             $vy += 2000;
-        elseif ($vm < 60)
+        } elseif ($vm < 60) {
             $vy += 2100;
-        elseif ($vm < 80)
+        } elseif ($vm < 80) {
             $vy += 2200;
-        else
+        } else {
             $vy += 1800;
+        }
         $vm %= 20;
         $birth[0] = "$vy-$vm-$vd";
 
@@ -158,8 +159,7 @@ class Validate_PL
           return false;
 
         // check wide number if there are 14 digits
-        if (strlen($regon) == 14)
-        {
+        if (strlen($regon) == 14) {
             // check 14 digits
             return Validate::_check_control_number($regon, $weights_regon_local, 11);
         }

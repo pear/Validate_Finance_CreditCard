@@ -19,7 +19,7 @@
 // Specific validation methods for data used in DE
 //
 
-require_once('Validate.php');
+require_once 'Validate.php';
 
 class Validate_DE
 {
@@ -30,7 +30,7 @@ class Validate_DE
      * @param   bool    optional; strong checks (e.g. against a list of postcodes)
      * @return  bool    true if postcode is ok, false otherwise
      */
-    function postcode($postcode, $strong=false)
+    function postcode($postcode, $strong = false)
     {
         // $strong is not used here at the moment; added for API compatibility
         // checks might be added at a later stage

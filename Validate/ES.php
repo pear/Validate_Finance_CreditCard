@@ -21,7 +21,7 @@
 // Specific validation methods for data used in Spain
 //
 
-require_once('Validate.php');
+require_once 'Validate.php';
 
 class Validate_ES
 {

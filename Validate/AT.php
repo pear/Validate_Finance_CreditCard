@@ -21,7 +21,7 @@
 /**
 * Requires Validate
 */
-require_once('Validate.php');
+require_once 'Validate.php';
 
 /**
 * Validate_AT
@@ -44,7 +44,7 @@ class Validate_AT
     * @param    bool    optional; strong checks (e.g. against a list of postcodes)
     * @return   bool    true if postcode is ok, false otherwise
     */
-    function postcode($postcode, $strong=false)
+    function postcode($postcode, $strong = false)
     {
         if ($strong) {
             static $postcodes;

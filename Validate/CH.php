@@ -30,7 +30,7 @@
 /**
 * Requires base class Validate
 */
-require_once('Validate.php');
+require_once 'Validate.php';
 
 /**
 * Validate_CH 
@@ -56,8 +56,9 @@ class Validate_CH
     {
         $t_regex = preg_match('/\d{3}\.\d{2}\.\d{3}\.\d{3}/', $ssn, $matches );
         
-        if (!$t_regex)
+        if (!$t_regex) {
             return false;
+        }
 
         // weight 0 to non digits -> ignored
         $weights = array(5, 4, 3, 0, 2, 7, 0, 6, 5, 4, 0, 3, 2);
@@ -92,8 +93,9 @@ class Validate_CH
         $umn = preg_replace('/(\d{2})-(\d{3})-(\d{3})/', '$1$2$3', $umn); 
         $t_regex = preg_match('/\d{8}/', $umn);
 
-        if (!$t_regex)
+        if (!$t_regex) {
             return false;
+        }
 
         // NOW, we have to go on ourselves, as not the products
         // but the digits of the products are to be added!
