@@ -200,7 +200,7 @@ class Validate_CA_Test extends PHPUnit_TestCase
     function testPhoneNumber()
     {
         foreach ($this->phonenumbers as $nums) {
-            $r = Validate_US::phonenumber($nums[0], $nums[1]);
+            $r = Validate_CA::phonenumber($nums[0], $nums[1]);
             $this->assertEquals($r, $nums[2]);
         }
     }
