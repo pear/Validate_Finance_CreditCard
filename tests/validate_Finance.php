@@ -12,6 +12,15 @@ class Validate_Finance_Test extends PHPUnit_TestCase{
     function setUp(){}
     function tearDown(){}
 
+    function testIban()
+    {
+        $this->assertTrue(Validate_Finance::iban('CH10002300A1023502601'));
+        $this->assertTrue(Validate_Finance::iban('DE60700517550000007229'));
+        $this->assertFalse(Validate_Finance::iban('DE6070051755000000722'));
+        $this->assertFalse(Validate_Finance::iban('DE10002300A1023502601'));
+        $this->assertFalse(Validate_Finance::iban('PL12100500000123456789'));
+    }
+
     function testbanknoteEuro()
     {
         $this->assertTrue(Validate_Finance::banknoteEuro('X05108365955'));

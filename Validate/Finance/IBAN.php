@@ -279,12 +279,12 @@ class Validate_Finance_IBAN {
      * @access    public
      * @return    boolean   true if no error found
      */
-    function validate($arg='')
+    function validate($arg=null)
     {
-        if ( isset($this) ) {
-            $iban = $this->_iban;
-        } else {
+        if ( isset($arg) ) {
             $iban = $arg;
+        } else {
+            $iban = $this->_iban;
         }
 
         $errorcode=VALIDATE_FINANCE_IBAN_OK;
