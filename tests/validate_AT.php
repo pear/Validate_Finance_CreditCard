@@ -1,29 +1,40 @@
 <?php
 
-/**
-* Some simple tests for Validate::AT
-*/
+require_once 'PHPUnit.php';
+require_once 'Validate/AT.php';
 
-require_once('Validate/AT.php');
-
-function doAssert($should, $is)
-{
-    echo ($should == $is) ? "PASSED\n" : "FAILED\n";
+class Validate_AT_Test extends PHPUnit_TestCase{
+    function Validate_AT_Test($name)
+    {
+        $this->PHPUnit_TestCase($name);
+    }
+    function setUp(){}
+    function tearDown(){}
+    
+    function testpostcode()
+    {
+        $this->assertTrue(Validate_AT::postcode(7033));
+        $this->assertTrue(Validate_AT::postcode(7000));
+        $this->assertTrue(Validate_AT::postcode(4664));
+        $this->assertTrue(Validate_AT::postcode(2491));
+        $this->assertFalse(Validate_AT::postcode(1000));
+        $this->assertFalse(Validate_AT::postcode(9999));
+        $this->assertFalse(Validate_AT::postcode('abc'));
+        $this->assertFalse(Validate_AT::postcode('a7000'));
+    }
+    
+    function testssn()
+    {
+        $this->assertTrue(Validate_AT::ssn('4298 02-12-82'));
+        $this->assertTrue(Validate_AT::ssn('1508101050'));
+        $this->assertFalse(Validate_AT::ssn(1508101051));
+        $this->assertFalse(Validate_AT::ssn(4290021282));
+        $this->assertFalse(Validate_AT::ssn('21 34 23 12 74'));
+    }
 }
 
-doAssert(true, Validate_AT::postcode(7033));
-doAssert(true, Validate_AT::postcode(7000));
-doAssert(true, Validate_AT::postcode(4664));
-doAssert(true, Validate_AT::postcode(2491));
-doAssert(false, Validate_AT::postcode(1000));
-doAssert(false, Validate_AT::postcode(9999));
-doAssert(false, Validate_AT::postcode('abc'));
-doAssert(false, Validate_AT::postcode('a7000'));
-
-doAssert(true, Validate_AT::ssn('4298 02-12-82'));
-doAssert(true, Validate_AT::ssn('1508101050'));
-doAssert(false, Validate_AT::ssn(1508101051));
-doAssert(false, Validate_AT::ssn(4290021282));
-doAssert(false, Validate_AT::ssn('21 34 23 12 74'));
+$s = &new PHPUnit_TestSuite("Validate_AT_Test");
+$r = PHPUnit::run($s);
+echo $r->toString();
 
 ?>
