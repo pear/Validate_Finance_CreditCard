@@ -2,7 +2,7 @@
 require_once 'Validate.php';
 
 require_once 'PHPUnit.php';
-require_once 'Date.php'
+require_once 'Date.php';
 
 class Validate_date extends PHPUnit_TestCase
 {
