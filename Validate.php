@@ -374,7 +374,7 @@ class Validate
         $issn = strtoupper($issn);
         $issn = eregi_replace('ISSN', '', $issn);
         $issn = str_replace(array('-','/',' ',"\t","\n"), '', $issn);
-        $issn_num = eregi_replace("X", "0", $issn);
+        $issn_num = eregi_replace('X', '0', $issn);
 
         // check if this is an 8-digit number
         if (!is_numeric($issn_num) || strlen($issn) != 8) {
@@ -401,8 +401,8 @@ class Validate
     {
         static $weights_ismn = array(3,1,3,1,3,1,3,1,3);
 
-        $ismn = eregi_replace("ISMN", "", $ismn);
-        $ismn = eregi_replace("M", "3", $ismn); // change first M to 3
+        $ismn = eregi_replace('ISMN', '', $ismn);
+        $ismn = eregi_replace('M', '3', $ismn); // change first M to 3
         $ismn = str_replace(array('-','/',' ',"\t","\n"), '', $ismn);
 
         // check if this is a 10-digit number
@@ -648,6 +648,7 @@ class Validate
     /**
     * Bulk data validation for data introduced in the form of an
     * assoc array in the form $var_name => $value.
+    * Can be used on any of Validate subpackages
     *
     * @param  array   $data     Ex: array('name'=>'toto','email'='toto@thing.info');
     * @param  array   $val_type Contains the validation type and all parameters used in.
