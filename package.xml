@@ -50,14 +50,20 @@
       <role>contributor</role>
       <name>Dave Mertens</name>
       <email>zyprexia@php.net</email>
-    </maintainer>
+    </maintainer> 
   </maintainers>
   <release>
-    <version>0.4.1</version>
+ 
+    <version>0.4.2</version>
     <state>alpha</state>
     <date>2004-03-17</date>
-    <notes>- fixed issue when validating IBANs via a static call
-- added missing test validate_UK.php to package.xml
+    <notes>
+- Bug #2936, typo
+- Better email validation
+- CS fixes
+- BC break! 
+Country validation unified, now all postcode validation funcs are named postalCode
+- region() added in US (that is validation of the states) and FR (department)
     </notes>
     <filelist>
     <dir name="/">
@@ -105,6 +111,15 @@
     </deps>
   </release>
   <changelog>
+      <release>
+       <version>0.4.1</version>
+       <state>alpha</state>
+       <date>2004-03-17</date>
+       <notes>- fixed issue when validating IBANs via a static call
+ - added missing test validate_UK.php to package.xml
+       </notes>
+      </release>
+
       <release>
         <version>0.4.0</version>
         <state>alpha</state>
