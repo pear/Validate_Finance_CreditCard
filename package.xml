@@ -46,6 +46,7 @@
 	  </dir>
           <dir name="tests" role="test">
              <file>number.php</file>
+             <file>date.php</file>
           </dir>
         </dir>
     </filelist>
