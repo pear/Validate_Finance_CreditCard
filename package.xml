@@ -9,6 +9,7 @@
 * date (min, max)
 * Credit cards
 * possibility valid multiple data with a single method call (::multiple)
+* Locale validation, i.e. DBI for spain, ssn for FR,US, more to come
   </description>
   <license>PHP</license>
   <maintainers>
@@ -38,9 +39,9 @@
     </maintainer>
   </maintainers>
   <release>
-    <version>0.0.2</version>
+    <version>0.0.4</version>
     <state>alpha</state>
-    <date>2002-08-18</date>
+    <date>2003-02-16</date>
     <notes>Initial package release</notes>
     <filelist>
         <dir name="/">
