@@ -39,9 +39,9 @@ class Validate_US
         if (!is_numeric($ssn) || !(strlen($ssn) == 9)) {
             return false;
         }
-        $area   = intval(substr($ssn, 0, 3));
-        $group  = intval(substr($ssn, 3, 2));
-        $serial = intval(substr($ssn, 5, 4));
+        $area   = substr($ssn, 0, 3);
+        $group  = substr($ssn, 3, 2);
+        $serial = substr($ssn, 5, 4);
 
         if (!$high_groups) {
             $high_groups = Validate_US::ssnGetHighGroups();
