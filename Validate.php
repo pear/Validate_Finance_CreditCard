@@ -203,6 +203,11 @@ class Validate
      */
     function date($date, $options)
     {
+        $max = $min = false;
+        $format = '';
+        if (is_array($options)){
+            extract($options);
+        }
         $date_len   = strlen($format);
         for ($i = 0; $i < strlen($format); $i++) {
             $c = $format{$i};
