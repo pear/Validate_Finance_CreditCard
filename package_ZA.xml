@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<package version="1.0">
+  <name>Validate_ZA</name>
+  <summary>Validation class for ZA</summary>
+  <description>
+  Package containes locale validation for ZA such as:
+   * Postal Code
+   * Region (province)
+  </description>
+  <license>PHP</license>
+  <maintainers>
+    <maintainer>
+      <user>jacques</user>
+      <role>lead</role>
+      <name>Jacques Marneweck</name>
+      <email>jacques@php.net</email>
+    </maintainer>
+   </maintainers>
+   <release>
+
+    <version>0.1</version>
+    <state>alpha</state>
+    <date>2005-03-10</date>
+    <notes>
+    </notes>
+    <filelist>
+    <dir name="/">
+      <dir name="Validate">
+        <file role="php" name="ZA.php">
+          <replace type="pear-config" from="@DATADIR@" to="data_dir" />
+        </file>
+      </dir>
+      <dir name="tests" role="test">
+        <file>validate_ZA.php</file>
+      </dir>
+      <file role="data" name="data/ZA_postcodes.txt" install-as="ZA_postcodes.txt" />
+    </dir>
+    </filelist>
+    <deps>
+      <dep type="php" rel="ge" version="4.1.0" />
+    </deps>
+  </release>
+  <changelog>
+  </changelog>
+</package>
