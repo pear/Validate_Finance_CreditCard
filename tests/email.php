@@ -13,6 +13,7 @@ class Validate_Email_Test extends PHPUnit_TestCase
         
         // Some none english chars
         'hæjjæ@homms.com' => true,
+        'postmaster@tüv.de' => true,
 
         // Test for various ways with _
         'mark_@example.com' => true,
