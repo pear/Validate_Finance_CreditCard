@@ -3,7 +3,7 @@
 // +----------------------------------------------------------------------+
 // | PHP Version 4                                                        |
 // +----------------------------------------------------------------------+
-// | Copyright (c) 1997-2003 The PHP Group                                |
+// | Copyright (c) 1997-2004 The PHP Group                                |
 // +----------------------------------------------------------------------+
 // | This source file is subject to version 3.0 of the PHP license,       |
 // | that is bundled with this package in the file LICENSE, and is        |
@@ -19,8 +19,6 @@
 // Specific validation methods for data used in DE
 //
 
-require_once 'Validate.php';
-
 class Validate_DE
 {
     /**
@@ -35,7 +33,7 @@ class Validate_DE
         // $strong is not used here at the moment; added for API compatibility
         // checks might be added at a later stage
 
-        return (ereg('^[0-9]{5}$', $postcode));
+        return (bool)ereg('^[0-9]{5}$', $postcode);
     }
 
     /**
@@ -48,7 +46,7 @@ class Validate_DE
      */
     function bankcode($postcode)
     {
-        return (ereg('^[0-9]{8}$', $postcode));
+        return (bool)ereg('^[0-9]{8}$', $postcode);
     }
 }
 ?>

@@ -135,7 +135,7 @@ class Validate_CH
     
             return in_array($postcode, $postcodes);
         }
-        return (ereg('^[0-9]{4}$', $postcode));
+        return (bool)ereg('^[0-9]{4}$', $postcode);
     } 
 }
 ?>

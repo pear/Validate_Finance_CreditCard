@@ -13,7 +13,7 @@
 // | obtain it through the world-wide-web, please send a note to          |
 // | license@php.net so we can mail you a copy immediately.               |
 // +----------------------------------------------------------------------+
-// | Authors: Brent Cook <busterb@mail.utexas.edu>                        |
+// | Authors: Brent Cook <busterbcook@yahoo.com>                          |
 // |          Tim Gallagher <timg@sunflowerroad.com>                      |
 // +----------------------------------------------------------------------+
 //
@@ -21,9 +21,6 @@
 //
 // Specific validation methods for data used in the United States
 //
-
-require_once 'PEAR.php';
-//require_once 'File.php';
 
 class Validate_US
 {
@@ -183,7 +180,7 @@ class Validate_US
      */
     function postalCode($postalCode, $strong = false)
     {
-        return (bool) preg_match('/^[0-9]{5}(-[0-9]{4})?$/', $postalCode);
+        return (bool)preg_match('/^[0-9]{5}((-| )[0-9]{4})?$/', $postalCode);
     }
 
     /**
@@ -251,5 +248,40 @@ class Validate_US
         }
         return false;
     }
+
+    /**
+     * Validate a US phone number.  
+     *
+     * Can allow only seven digit numbers.
+     * Also allows the formats, (xxx) xxx-xxxx, xxx xxx-xxxx,
+     * or various combination without spaces or dashes.
+     * THIS SHOULD EVENTUALLY take a FORMAT in the options, instead 
+     *
+     * @param string    $number             phone to validate
+     * @param bool      $requireAreaCode    require the area code?
+     */
+    function phoneNumber($number, $requireAreaCode=true)
+    {
+        if (!$requireAreaCode && ereg('^[2-9][0-9]{2}[- ]?[0-9]{4}$', $number)) {
+            // just seven digits, maybe a space or dash
+            return true;
+        } else {
+            // ten digits, maybe  spaces and/or dashes and/or parentheses
+            if (ereg('^[2-9][0-9]{2}[- ]?[2-9][0-9]{2}[- ]?[0-9]{4}$', $number)) {
+                return true;
+            } else if (ereg('^\([2-9][0-9]{2}\)[- ]?[2-9][0-9]{2}[- ]?[0-9]{4}$', $number)) {
+                return true;
+            }
+
+            return true;
+        }
+
+        if ($number=='') {
+            return true;
+        }
+
+        return false;
+    }
+
 }
 ?>

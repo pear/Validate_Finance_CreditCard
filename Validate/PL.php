@@ -21,6 +21,8 @@
 // Specific validation methods for data used in Poland
 //
 
+require_once 'Validate.php';
+
 class Validate_PL
 {
     /**

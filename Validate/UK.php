@@ -21,8 +21,6 @@
 //
 // Specific validation methods for data used in UK
 
-require_once 'Validate.php';
-
 class Validate_UK
 {
     // overlay function
@@ -57,7 +55,7 @@ class Validate_UK
         $postcode = strtoupper(str_replace(' ', '', $postcode));
 
         $preg = "/^((GIR0AA)|((([A-PR-UWYZ][0-9][0-9]?)|([A-PR-UWYZ][A-HK-Y][0-9][0-9]?)|([A-PR-UWYZ][0-9][A-HJKSTUW])|([A-PR-UWYZ][A-HK-Y][0-9][ABEHMNPRVWXY]))[0-9][ABD-HJLNP-UW-Z]{2}))$/";
-        $match = preg_match($preg, $postcode)? true : false;
+        $match = preg_match($preg, $postcode) ? true : false;
         return $match;
     }
 
@@ -152,7 +150,7 @@ class Validate_UK
     {
         // just checks to see if it is numeric and starts with a 0
         // remove any wierd characters like (,),-,. etc
-        $tel = str_replace(Array('(', ')', '-', '+', '.', ' '), '', $tel);
+        $tel = str_replace(array('(', ')', '-', '+', '.', ' '), '', $tel);
         $preg = "/^0[0-9]{8,10}/";
         $match = (preg_match($preg, $tel))? true : false;
         return $match;

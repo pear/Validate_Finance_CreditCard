@@ -21,8 +21,6 @@
 // Specific validation methods for data used in NL
 //
 
-require_once 'Validate.php';
-
 define('VALIDATE_NL_PHONENUMBER_TYPE_ANY',     0);     //Any dutch phonenumber
 define('VALIDATE_NL_PHONENUMBER_TYPE_NORMAL',  1);     //only normal phonenumber (mobile numers are not allowed)
 define('VALIDATE_NL_PHONENUMBER_TYPE_MOBILE',  2);     //only mobile numbers are allowed
@@ -41,7 +39,7 @@ class Validate_NL
         // $strong is not used here at the moment; added for API compatibility
         // checks might be added at a later stage
 
-        return (boolean)(ereg('^[0-9]{4}\ {0,1}[A-Za-z]{2}$', $postcode)); // '1234 AB', '1234AB', '1234 ab'
+        return (bool)ereg('^[0-9]{4}\ {0,1}[A-Za-z]{2}$', $postcode); // '1234 AB', '1234AB', '1234 ab'
     }
 
     /**
@@ -91,7 +89,7 @@ class Validate_NL
      */
     function ssn($ssn)
     {
-        return (boolean)(ereg("^[0-9]{9}$", $ssn));
+        return (bool)ereg("^[0-9]{9}$", $ssn);
     }
 
     /**

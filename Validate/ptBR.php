@@ -33,7 +33,7 @@ class Validate_ptBR
      */
     function postalCode($postalCode, $strong = false)
     {
-        return (ereg('(^[0-9]{5})-([0-9]{3})$', $postalCode));
+        return (bool)ereg('(^[0-9]{5})-([0-9]{3})$', $postalCode);
     }
 
     /**
