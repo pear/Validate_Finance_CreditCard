@@ -557,9 +557,9 @@ class Validate
 
     function _modf($val, $div) {
         if (function_exists('bcmod')) {
-            return bcmod($val,$div);
+            return bcmod($val, $div);
         } elseif (function_exists('fmod')) {
-            return fmod($val,$div);
+            return fmod($val, $div);
         }
         $r = $a / $b;
         $i = intval($r);
@@ -584,7 +584,7 @@ class Validate
             return -1;
         }
         for ($i = 0; $i < $count; ++$i) {
-            $sum += intval(substr($number,$i,1)) * $weights[$i];
+            $sum += intval(substr($number, $i, 1)) * $weights[$i];
         }
 
         return $sum;
@@ -677,12 +677,12 @@ class Validate
             if (in_array(strtolower($opt['type']), $methods)) {
                 //$opt[$opt['type']] = $data[$var_name];
                 $method = $opt['type'];
-                $opt = array_slice($opt,1);
+                $opt = array_slice($opt, 1);
 
-                if (sizeof($opt) == 1){
+                if (sizeof($opt) == 1) {
                     $opt = array_pop($opt);
                 }
-                $valid[$var_name] = call_user_func(array('Validate', $method), $val2check,$opt);
+                $valid[$var_name] = call_user_func(array('Validate', $method), $val2check, $opt);
 
             /**
              * external validation method in the form:
@@ -702,7 +702,7 @@ class Validate
                 if (sizeof($opt) == 1) {
                     $opt = array_pop($opt);
                 }
-                $valid[$var_name] = call_user_func(array("Validate_$class", $method), $data[$var_name],$opt);
+                $valid[$var_name] = call_user_func(array("Validate_$class", $method), $data[$var_name], $opt);
             } else {
                 trigger_error("Invalid validation type {$opt['type']}", E_USER_WARNING);
             }
