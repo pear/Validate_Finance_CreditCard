@@ -38,79 +38,84 @@ class Validate_US_Test extends PHPUnit_TestCase
                 'QN55 1PT'  => false
                 
                 );
+
     var $phonenumbers = array(
                 /* test allowed seven digit numbers */
-                array('875-0987', false)    => true,
-                array('875 0987', false)    => true,
-                array('8750987', false)     => true,
-                array('1750987', false)     => false,
-                array('0750987', false)     => false,
-                array('875098a', false)     => false,
-                array('8dy0985', false)     => false,
+                array('875-0987', false, true),
+                array('875 0987', false, true),
+                array('8750987', false, true),
+                array('1750987', false, false),
+                array('0750987', false, false),
+                array('875098a', false, false),
+                array('8dy0985', false, false),
 
                 /* test allowed seven digit numbers */
-                array('875-0987', true)    => false,
-                array('875 0987', true)    => false,
-                array('8750987', true)     => false,
-                array('1750987', true)     => false,
-                array('0750987', true)     => false,
-                array('875098a', true)     => false,
-                array('8dy0985', true)     => false,
+                array('875-0987', true, false),
+                array('875 0987', true, false),
+                array('8750987', true, false),
+                array('1750987', true, false),
+                array('0750987', true, false),
+                array('875098a', true, false),
+                array('8dy0985', true, false),
 
                 /* test ten digit numbers without a required area code */
-                array('(467) 875-0987', false)  => true,
-                array('(467)-875-0987', false)  => true,
-                array('(467)875-0987', false)   => true,
-                array('(467) 875 0987', false)  => true,
-                array('(467)-875 0987', false)  => true,
-                array('(467)875 0987', false)   => true,
-                array('(467) 8750987', false)   => true,
-                array('(467)-8750987', false)   => true,
-                array('(467)8750987', false)    => true,
-                array('267 471-0967', false)    => true,
-                array('267-471-0967', false)    => true,
-                array('267471-0967', false)     => true,
-                array('419 285 9377', false)    => true,
-                array('419-285 9377', false)    => true,
-                array('419285 9377', false)     => true,
-                array('419 2859377', false)     => true,
-                array('267-4710967', false)     => true,
-                array('4192859377', false)      => true,
+                array('(467) 875-0987', false, true),
+                array('(467)-875-0987', false, true),
+                array('(467)875-0987', false, true),
+                array('(467) 875 0987', false, true),
+                array('(467)-875 0987', false, true),
+                array('(467)875 0987', false, true),
+                array('(467) 8750987', false, true),
+                array('(467)-8750987', false, true),
+                array('(467)8750987', false, true),
+                array('267 471-0967', false, true),
+                array('267-471-0967', false, true),
+                array('267471-0967', false, true),
+                array('419 285 9377', false, true),
+                array('419-285 9377', false, true),
+                array('419285 9377', false, true),
+                array('419 2859377', false, true),
+                array('267-4710967', false, true),
+                array('4192859377', false, true),
 
                 /* test ten digit numbers with a required area code */
-                array('(467) 875-0987', true)  => true,
-                array('(467)-875-0987', true)  => true,
-                array('(467)875-0987', true)   => true,
-                array('(467) 875 0987', true)  => true,
-                array('(467)-875 0987', true)  => true,
-                array('(467)875 0987', true)   => true,
-                array('(467) 8750987', true)   => true,
-                array('(467)-8750987', true)   => true,
-                array('(467)8750987', true)    => true,
-                array('267 471-0967', true)    => true,
-                array('267-471-0967', true)    => true,
-                array('267471-0967', true)     => true,
-                array('419 285 9377', true)    => true,
-                array('419-285 9377', true)    => true,
-                array('419285 9377', true)     => true,
-                array('419 2859377', true)     => true,
-                array('267-4710967', true)     => true,
-                array('4192859377', true)      => true,
+                array('(467) 875-0987', true, true),
+                array('(467)-875-0987', true, true),
+                array('(467)875-0987', true, true),
+                array('(467) 875 0987', true, true),
+                array('(467)-875 0987', true, true),
+                array('(467)875 0987', true, true),
+                array('(467) 8750987', true, true),
+                array('(467)-8750987', true, true),
+                array('(467)8750987', true, true),
+                array('267 471-0967', true, true),
+                array('267-471-0967', true, true),
+                array('267471-0967', true, true),
+                array('419 285 9377', true, true),
+                array('419-285 9377', true, true),
+                array('419285 9377', true, true),
+                array('419 2859377', true, true),
+                array('267-4710967', true, true),
+                array('4192859377', true, true),
+                array('(313) 535-8553', true, true),
 
                 /* test ten digit numbers without a required area code */
-                array('(167) 175-0987', false)  => false,
-                array('(467) 075-0987', false)  => false,
-                array('(467)-awe-0987', false)  => false,
-                array('(4r4x7)-875-0987', false)=> false,
-                array('(469875-0987', false)    => false,
-                array('98 487-0987', false)        => false,
+                array('(167) 175-0987', false, false),
+                array('(467) 075-0987', false, false),
+                array('(467)-awe-0987', false, false),
+                array('(4r4x7)-875-0987', false, false),
+                array('(469875-0987', false, false),
+                array('98 487-0987', false, false),
 
                 /* test ten digit numbers with a required area code */
-                array('(4a7) 875-0987', true)  => false,
-                array('(467)-085-0987', true)  => false,
-                array('(467)87-0987', true)   => false,
-                array('(46e) t75 0987', true)  => false
-
+                array('(4a7) 875-0987', true, false),
+                array('(467)-085-0987', true, false),
+                array('(467)87-0987', true, false),
+                array('(46e) t75 0987', true, false),
+                
+                // This should fail, less digit then is needed
+                array('(123) 456-78', true, false),
+                array('(517) 474-', true, false),
             );
 
     var $states = array(
@@ -171,9 +176,9 @@ class Validate_US_Test extends PHPUnit_TestCase
 
     function testPhonenumber()
     {
-        foreach ($this->phonenumbers as $nums => $expected_result) {
+        foreach ($this->phonenumbers as $nums) {
             $r = Validate_US::phonenumber($nums[0], $nums[1]);
-            $this->assertEquals($r, $expected_result);
+            $this->assertEquals($r, $nums[2]);
         }
     }
 
