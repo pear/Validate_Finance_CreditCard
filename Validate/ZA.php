@@ -20,6 +20,11 @@
 //
 // Specific validation methods for data used in ZA
 
+/**
+ * Uses Validate
+ */
+require_once 'Validate.php';
+
 class Validate_ZA
 {
     /**
@@ -80,5 +85,37 @@ class Validate_ZA
         }
         return (false);
     }                                                                              
+
+    /**
+     * Validate a South African ID Number
+     *
+     * @param   string  11 digit South African Identity Number
+     * @return  bool    true if valid else false
+     * @access  public
+     */
+    function ssn($id) {
+        $match = preg_match ("!^(\d{2})(\d{2})(\d{2})[0|5]\d{6}$!", $id, $matches);
+        if (!$match) {
+            return false;
+        }
+
+        list (, $year, $month, $day) = $matches;
+
+        /**
+         * Check that the date is valid
+         */
+        if (!Validate::date("$year-$month-$day", array('format' => '%y-%m-%d'))) {
+            return false;
+        }
+        
+        require_once 'Validate/Finance/CreditCard.php';
+
+        if (Validate_Finance_CreditCard::Luhn($id)) {
+            return true;
+        } else {
+            return false;
+        }
+        
+    }
 }
 ?>
