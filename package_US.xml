@@ -44,11 +44,6 @@ postalCode unified between countries (name wise), now all postcode validation fu
 - Added a var named $high_groups which will stores result of a query to a webpage that ssnGetHighGroups
 does to get list of all high groups, that will really help getting load if there is a need to validate more then one ssn
 in a row.
-
-Note!
-SSNs that end with 0000 will be taken as invalid at the moment, because as far as we know this isn't allowed.
-Example: 019880000
-If this is indeed allowed then please open up a bug report about that.
     </notes>
     <filelist>
     <dir name="/">
