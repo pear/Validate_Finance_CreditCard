@@ -60,7 +60,6 @@
       <dir name="tests" role="test">
         <file>number.php</file>
         <file>date.php</file>
-        <file>credit_card.php</file>
       </dir>
       <dir name="docs" role="doc">
         <file>sample_multiple.php</file>
