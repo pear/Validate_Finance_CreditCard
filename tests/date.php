@@ -50,4 +50,6 @@ test(Validate::date('25:00','%G:%i'), false);
 test(Validate::date('25:00','%G:%i:%s'), false);
 // 21
 test(Validate::date('121902','%m%Y'), true);
+// 22
+test(Validate::date('13120001','%d%m%Y'), true);
 ?>
