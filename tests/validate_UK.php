@@ -17,8 +17,10 @@ class Validate_UK_Test extends PHPUnit_TestCase
     var $ni = Array(
                 'JM 40 24 25 C' => true,
                 'JM56765F'      => false,
-                'JM567645T'     => true,
-                'JM567645R'     => false
+                'JM567645T'     => false,
+                'JM567645R'     => false,
+                'JM567645D'     => true,
+                'BG567645D'     => false
             );
 
     var $sa = Array(

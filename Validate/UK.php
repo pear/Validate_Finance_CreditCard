@@ -56,21 +56,25 @@ class Validate_UK
      * validates a National Insurance Number (ssn equiv)
      *
      * @access    public
-     * @author    Michael Dransfield <mikeNO@SPAMblueroot.net>
      * @param     string $ni NI number
      * @return    bool
      */
     function ni($ni){
         $ni = strtoupper(str_replace(' ', '', $ni));
-        $preg = "/^[A-Z]{2}[0-9]{6}[ABCDEFT]/";
-        $match = (preg_match($preg, $ni))? true : false;
-        return $match;
+        $preg = "/^[A-CEGHJ-NOPR-TW-Z][A-CEGHJ-NPR-TW-Z][0-9]{6}[ABCD]?$/";
+        if (preg_match($preg, $ni)) {
+            $bad_prefixes = array('GB', 'BG', 'NK', 'KN', 'TN', 'NT', 'ZZ');
+            return (array_search(substr($ni, 0, 2), $bad_prefixes) === false);
+   	    } else {
+   		      return false;
+        }
     }
     
     /**
-     * Validates a social security number; alias-function
+     * Validates a social security number; alias-function for ni()
      * @param string $ssn number to validate
      * @returns bool
+     * @see ni()
      */
     function ssn($ssn)
     {
