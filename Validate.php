@@ -23,12 +23,12 @@ class Validate
     function number($number, $decimal = null, $dec_prec = null, $min = null, $max = null)
     {
         $dec_prec   = $dec_prec ? "{1,$dec_prec}" : '+';
-        $dec_regex  = $decimal  ? $decimal . '[0-9]' . $dec_prec : '';
+        $dec_regex  = $decimal  ? "[$decimal][0-9]$dec_prec" : '';
         if (!preg_match("|^[-+]?[0-9]+($dec_regex)?\$|", $number)) {
             return false;
         }
         if ($decimal != '.') {
-            $number = str_replace($decimal, '.', $number);
+            $number = strtr($number, $decimal, '.');
         }
         $number = (float)$number;
         if ($min !== null && $min > $number) {
