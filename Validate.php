@@ -167,23 +167,23 @@ class Validate
      * @return bool    true if number is valid, otherwise false
      * @author Ondrej Jombik <nepto@pobox.sk>
      */
-    function creditcard($creditcard)
+    function creditCard($creditCard)
     {
-        $creditcard = preg_replace('/[^0-9]/','',$creditcard);
+        $creditCard = preg_replace('/[^0-9]/','',$creditCard);
 
-        if (empty($creditcard) || ($len_number = strlen($creditcard)) <= 0) {
+        if (empty($creditCard) || ($len_number = strlen($creditCard)) <= 0) {
             return false;
         }
         $sum = 0;
         for ($k = $len_number % 2; $k < $len_number; $k += 2) {
-            if ((intval($creditcard[$k]) * 2) > 9) {
-                $sum += (intval($creditcard[$k]) * 2) - 9;
+            if ((intval($creditCard{$k}) * 2) > 9) {
+                $sum += (intval($creditCard{$k}) * 2) - 9;
             } else {
-                $sum += intval($creditcard[$k]) * 2;
+                $sum += intval($creditCard{$k}) * 2;
             }
         }
         for ($k = ($len_number % 2) ^ 1; $k < $len_number; $k += 2) {
-            $sum += intval($creditcard[$k]);
+            $sum += intval($creditCard{$k});
         }
         return $sum % 10 ? false : true;
     }
