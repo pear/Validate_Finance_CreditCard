@@ -15,7 +15,6 @@
 // +----------------------------------------------------------------------+
 // | Authors: Tomas V.V.Cox <cox@idecnet.com>                             |
 // |          Pierre-Alain Joye <pajoye@phpindex.com>                     |
-// |                                                                      |
 // +----------------------------------------------------------------------+
 //
 // $Id$
@@ -23,21 +22,17 @@
 // Methods for common data validations
 //
 
-/**
-Experimental
-*/
-
-define('VAL_NUM',          '0-9');
-define('VAL_SPACE',        '\s');
-define('VAL_ALPHA_LOWER',  'a-z');
-define('VAL_ALPHA_UPPER',  'A-Z');
-define('VAL_ALPHA',        VAL_ALPHA_LOWER . VAL_ALPHA_UPPER);
-define('VAL_EALPHA_LOWER', VAL_ALPHA_LOWER . '·ÈÌÛ˙‡ËÏÚ˘‰ÎÔˆ¸‚ÍÓÙ˚ÒÁ');
-define('VAL_EALPHA_UPPER', VAL_ALPHA_UPPER . '¡…Õ”⁄¿»Ã“ŸƒÀœ÷‹¬ Œ‘€—«');
-define('VAL_EALPHA',       VAL_EALPHA_LOWER . VAL_EALPHA_UPPER);
-define('VAL_PUNCTUATION',  VAL_SPACE . '\.,;\:&"\'\?\!\(\)');
-define('VAL_NAME',         VAL_EALPHA . VAL_SPACE . "'");
-define('VAL_STREET',       VAL_NAME . "/\\∫™");
+define('VALIDATE_NUM',          '0-9');
+define('VALIDATE_SPACE',        '\s');
+define('VALIDATE_ALPHA_LOWER',  'a-z');
+define('VALIDATE_ALPHA_UPPER',  'A-Z');
+define('VALIDATE_ALPHA',        VALIDATE_ALPHA_LOWER . VALIDATE_ALPHA_UPPER);
+define('VALIDATE_EALPHA_LOWER', VALIDATE_ALPHA_LOWER . '·ÈÌÛ˙‡ËÏÚ˘‰ÎÔˆ¸‚ÍÓÙ˚ÒÁ');
+define('VALIDATE_EALPHA_UPPER', VALIDATE_ALPHA_UPPER . '¡…Õ”⁄¿»Ã“ŸƒÀœ÷‹¬ Œ‘€—«');
+define('VALIDATE_EALPHA',       VALIDATE_EALPHA_LOWER . VALIDATE_EALPHA_UPPER);
+define('VALIDATE_PUNCTUATION',  VALIDATE_SPACE . '\.,;\:&"\'\?\!\(\)');
+define('VALIDATE_NAME',         VALIDATE_EALPHA . VALIDATE_SPACE . "'");
+define('VALIDATE_STREET',       VALIDATE_NAME . "/\\∫™");
 
 class Validate
 {
@@ -78,7 +73,6 @@ class Validate
         return true;
     }
 
-
     /**
      * Validate a email
      *
@@ -113,24 +107,24 @@ class Validate
      * @param string    $string     String to validate
      * @param array     $options    Options array where:
      *                              'format' is the format of the string
-     *                                       Ex: VAL_NUM . VAL_ALPHA (see constants)
-     *                              'min_lenght' minimum length
-     *                              'max_lenght' maximum length
+     *                                  Ex: VALIDATE_NUM . VALIDATE_ALPHA (see constants)
+     *                              'min_length' minimum length
+     *                              'max_length' maximum length
      */
     function string($string, $options)
     {
         $format = null;
-        $min_lenght=$max_lenght = 0;
-        if(is_array($options)){
+        $min_length = $max_length = 0;
+        if (is_array($options)){
             extract($options);
         }
         if ($format && !preg_match("|^[$format]*\$|s", $string)) {
             return false;
         }
-        if ($min_lenght && strlen($string) < $min_lenght) {
+        if ($min_length && strlen($string) < $min_length) {
             return false;
         }
-        if ($max_lenght && strlen($string) > $max_lenght) {
+        if ($max_length && strlen($string) > $max_length) {
             return false;
         }
         return true;
@@ -169,16 +163,8 @@ class Validate
      *      http://hysteria.sk/prielom/prielom-12.html#3 (Slovak language)
      *      http://www.speech.cs.cmu.edu/~sburke/pub/luhn_lib.html (Perl lib)
      *
-     * Usage:
-     *  <?php
-     *	    require_once 'Validate.php';
-     *	    if (Validate::creditCard('credit_card_number')) {
-     *	        // Credit card number is OK
-     *	    }
-     *  ?>
-     *
      * @param  string  $number number (only numeric chars will be considered)
-     * @return bool           true if number is valid, otherwise false
+     * @return bool    true if number is valid, otherwise false
      * @author Ondrej Jombik <nepto@pobox.sk>
      */
     function creditcard($creditcard)
@@ -248,7 +234,7 @@ class Validate
                     case 'Y':
                     case 'y':
                         if ($next == 'Y') {
-                            $year   = Validate::_substr($date, 4);
+                            $year = Validate::_substr($date, 4);
                             $year = (int)$year?$year:'';
                         } else {
                             $year = (int)(substr(date('Y'), 0, 2) .
@@ -329,18 +315,10 @@ class Validate
      * Validate a ISBN number
      *
      * This function checks given number according
-     * Usage:
-     *  <?php
-     *	    require_once 'Validate.php';
-     *	    if (Validate::ISBN($myisbn)) {
-     *	        // ISBN is OK
-     *	    }
-     *  ?>
      *
      * @param  string  $isbn number (only numeric chars will be considered)
-     * @return bool           true if number is valid, otherwise false
-     * @author Damein Seguy (dams@nexen.net>,
-     * added by Pierre-Alain Joye <paj@pearfr.org>
+     * @return bool    true if number is valid, otherwise false
+     * @author Damien Seguy <dams@nexen.net>
      */
     function isbn($isbn)
     {
@@ -410,7 +388,7 @@ class Validate
     *                           'val_type' is not optional
     *                           others validations properties must have the same name as the function
     *                           parameters.
-    *                           Ex: array('toto'=>array('type'=>'string','format'='toto@thing.info','min_lenght'=>5));
+    *                           Ex: array('toto'=>array('type'=>'string','format'='toto@thing.info','min_length'=>5));
     * @param  boolean $remove if set, the elements not listed in data will be removed
     *
     * @return array   value name => true|false    the value name comes from the data key
@@ -434,7 +412,7 @@ class Validate
                 $method = $opt['type'];
                 $opt = array_slice($opt,1);
 
-                if(sizeof($opt)==1){
+                if (sizeof($opt) == 1){
                     $opt = array_pop($opt);
                 }
                 $valid[$var_name] = call_user_func(array('Validate', $method), $val2check,$opt);
@@ -447,10 +425,9 @@ class Validate
             } elseif (strpos($opt['type'],'_') !== false) {
                 list($class, $method) = explode('_', $opt['type'], 2);
                 $class = strtoupper($class);
-                @include_once "Validate/$class.php";
-                if ( !class_exists("Validate_$class")||
-                    !in_array($method, get_class_methods("Validate_$class")))
-                {
+                @include_once("Validate/$class.php");
+                if (!class_exists("Validate_$class") ||
+                    !in_array($method, get_class_methods("Validate_$class"))) {
                     trigger_error("Invalid validation type Validate_$class::$method", E_USER_WARNING);
                     continue;
                 }
