@@ -1,5 +1,5 @@
 <?php
-require_once '../Validate.php';
+require_once 'Validate.php';
 
 function test($res, $expected) {
     static $no = 1;
