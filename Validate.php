@@ -176,6 +176,129 @@ class Validate
         return $sum % 10 ? false : true;
     }
 
+    /**
+    * Validate date and times. Note that this method need the Date_Calc class
+    *
+    * @param string $date Date to validate
+    * @param string $format The format of the date (%d-%m-%Y)
+    * @param array  $min The date has to be greater than this array($day, $month, $year)
+    * @param array  $max The date has to be smaller than this array($day, $month, $year)
+    *
+    * @return bool
+    */
+    function date($date, $format, $min = array(), $max = array())
+    {
+        for ($i = 0; $i < strlen($format); $i++) {
+            $c = $format{$i};
+            if ($c == '%') {
+                $next = $format{$i + 1};
+                switch ($next) {
+                    case 'j':
+                    case 'd':
+                        if ($next == 'j') {
+                            $day = (int)Validate::_substr($date, 1, 2);
+                        } else {
+                            $day = (int)Validate::_substr($date, 2);
+                        }
+                        if ($day < 1 || $day > 31) {
+                            return false;
+                        }
+                        break;
+                    case 'm':
+                    case 'n':
+                        if ($next == 'm') {
+                            $month = (int)Validate::_substr($date, 2);
+                        } else {
+                            $month = (int)Validate::_substr($date, 1, 2); break;
+                        }
+                        if ($month < 1 || $month > 12) {
+                            return false;
+                        }
+                        break;
+                    case 'Y':
+                    case 'y':
+                        if ($next == 'Y') {
+                            $year = (int)Validate::_substr($date, 4); break;
+                        } else {
+                            $year = (int)(substr(date('Y'), 2) .
+                                          Validate::_substr($date, 2));
+                        }
+                        if ($year < 0 || $year > 9999) {
+                            return false;
+                        }
+                        break;
+                    case 'g':
+                    case 'h':
+                        if ($next == 'g') {
+                            $hour = Validate::_substr($date, 1, 2);
+                        } else {
+                            $hour = Validate::_substr($date, 2);
+                        }
+                        if ($hour < 0 || $hour > 12) {
+                            return false;
+                        }
+                        break;
+                    case 'G':
+                    case 'H':
+                        if ($next == 'G') {
+                            $hour = Validate::_substr($date, 1, 2);
+                        } else {
+                            $hour = Validate::_substr($date, 2);
+                        }
+                        if ($hour < 0 || $hour > 24) {
+                            return false;
+                        }
+                        break;
+                    case 's':
+                    case 'i':
+                        $t = Validate::_substr($date, 2);
+                        if ($t < 0 || $t > 60) {
+                            return false;
+                        }
+                        break;
+                    default:
+                        trigger_error("Not supported char `$next' after %", E_USER_WARNING);
+                }
+                $i++;
+            } else {
+                //literal
+                if (Validate::_substr($date, 1) != $c) {
+                    return false;
+                }
+            }
+        }
+        if (isset($day) && isset($month) && isset($year)) {
+            include_once 'Date/Calc.php';
+            if (!Date_Calc::isValidDate($day, $month, $year)) {
+                return false;
+            }
+            if ($min &&
+                (Date_Calc::compareDates($day, $month, $year,
+                                         $min[0], $min[1], $min[2]) > 0))
+            {
+                return false;
+            }
+            if ($max &&
+                (Date_Calc::compareDates($day, $month, $year,
+                                         $max[0], $max[1], $max[2]) < 0))
+            {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    function _substr(&$date, $num, $opt = false)
+    {
+        if ($opt && strlen($date) >= $opt && preg_match('/^[0-9]{'.$opt.'}/', $date, $m)) {
+            $ret = $m[0];
+        } else {
+            $ret = substr($date, 0, $num);
+        }
+        $date = substr($date, strlen($ret));
+        return $ret;
+    }
+
     /*
         To Do :
         External calls based on commented Date methods
