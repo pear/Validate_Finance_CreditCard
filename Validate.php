@@ -86,7 +86,7 @@ class Validate
     function url($url, $domain_check = false)
     {
         $purl = parse_url($url);
-        if (eregi('^http$', @$purl['scheme']) && !empty($purl['host']) {
+        if (eregi('^http$', @$purl['scheme']) && !empty($purl['host'])) {
             if ($domain_check && function_exists('checkdnsrr')) {
                 if (checkdnsrr($purl['host'], 'A')) {
                     return true;
