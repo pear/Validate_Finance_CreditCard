@@ -259,22 +259,11 @@ class Validate_Finance_IBAN
      * @param    string      $iban              IBAN to be validated / processed
      * @access   public
      */
-    function Validate_Finance_IBAN($iban='')
+    function Validate_Finance_IBAN($iban = '')
     {
         $iban = strtoupper($iban);
         $this->_iban = $iban;
     } // end constructor
-
-    /**
-     * Returns the current API version
-     *
-     * @access    public
-     * @return    float
-     */
-    function apiVersion()
-    {
-        return 1.0;
-    } // end func apiVersion
 
     /**
      * Returns the current IBAN
@@ -294,7 +283,7 @@ class Validate_Finance_IBAN
      * @access    public
      * @return    void
      */
-    function setIBAN($iban='')
+    function setIBAN($iban = '')
     {
         $iban = strtoupper($iban);
         $this->_iban = $iban;
@@ -307,7 +296,7 @@ class Validate_Finance_IBAN
      * @access    public
      * @return    boolean   true if no error found
      */
-    function validate($arg=null)
+    function validate($arg = null)
     {
         if ( isset($this) && is_a($this, 'Validate_Finance_IBAN') ) {
             $iban = $this->_iban;
@@ -367,7 +356,7 @@ class Validate_Finance_IBAN
             }
         }
 
-        if ( isset($this) ) {
+        if (isset($this)) {
             $this->_errorcode=$errorcode;
         }
         return ($errorcode == VALIDATE_FINANCE_IBAN_OK);

@@ -49,7 +49,7 @@ class Validate_PL
         }
 
         // check control sum
-        return Validate::_check_control_number($nip, $weights_nip, 11);
+        return Validate::_checkControlNumber($nip, $weights_nip, 11);
     }
 
     /**
@@ -72,7 +72,7 @@ class Validate_PL
         }
 
         // check control sum
-        return Validate::_check_control_number($number, $weights_bank_branch, 10);
+        return Validate::_checkControlNumber($number, $weights_bank_branch, 10);
     }
 
     /**
@@ -103,7 +103,7 @@ class Validate_PL
             return false;
         }
 
-        if (Validate::_check_control_number($pesel, $weights_pesel, 10, 10) === false) {
+        if (Validate::_checkControlNumber($pesel, $weights_pesel, 10, 10) === false) {
             return false;
         }
 
@@ -158,14 +158,14 @@ class Validate_PL
         }
 
         // first check first 9 digits
-        if (Validate::_check_control_number($regon, $weights_regon, 11) === false) {
+        if (Validate::_checkControlNumber($regon, $weights_regon, 11) === false) {
           return false;
        }
 
         // check wide number if there are 14 digits
         if (strlen($regon) == 14) {
             // check 14 digits
-            return Validate::_check_control_number($regon, $weights_regon_local, 11);
+            return Validate::_checkControlNumber($regon, $weights_regon_local, 11);
         }
 
         return true;

@@ -381,7 +381,7 @@ class Validate
             return false;
         }
 
-        return Validate::_check_control_number($issn, $weights_issn, 11, 11);
+        return Validate::_checkControlNumber($issn, $weights_issn, 11, 11);
     }
 
     /**
@@ -410,7 +410,7 @@ class Validate
             return false;
         }
 
-        return Validate::_check_control_number($ismn, $weights_ismn, 10, 10);
+        return Validate::_checkControlNumber($ismn, $weights_ismn, 10, 10);
     }
 
 
@@ -437,7 +437,7 @@ class Validate
             return false;
         }
 
-        return Validate::_check_control_number($ean, $weights_ean8, 10, 10);
+        return Validate::_checkControlNumber($ean, $weights_ean8, 10, 10);
     }
 
     /**
@@ -463,7 +463,7 @@ class Validate
             return false;
         }
 
-        return Validate::_check_control_number($ean, $weights_ean13, 10, 10);
+        return Validate::_checkControlNumber($ean, $weights_ean13, 10, 10);
     }
 
     /**
@@ -489,7 +489,7 @@ class Validate
             return false;
         }
 
-        return Validate::_check_control_number($ean, $weights_ean14, 10, 10);
+        return Validate::_checkControlNumber($ean, $weights_ean14, 10, 10);
     }
 
     /**
@@ -515,7 +515,7 @@ class Validate
             return false;
         }
 
-        return Validate::_check_control_number($ucc, $weights_ucc12, 10, 10);
+        return Validate::_checkControlNumber($ucc, $weights_ucc12, 10, 10);
     }
 
     /**
@@ -541,7 +541,7 @@ class Validate
             return false;
         }
 
-        return Validate::_check_control_number($sscc, $weights_sscc, 10, 10);
+        return Validate::_checkControlNumber($sscc, $weights_sscc, 10, 10);
     }
 
     function _substr(&$date, $num, $opt = false)
@@ -573,7 +573,7 @@ class Validate
      * @param array $weights reference to array of weights
      * @returns int returns product of number digits with weights
      */
-    function _mult_weights($number, &$weights) {
+    function _multWeights($number, &$weights) {
         if (!is_array($weights)) {
             return -1;
         }
@@ -600,9 +600,9 @@ class Validate
      * @param bool $allow_high (optional) true if function can return number higher than 10
      * @returns int -1 calculated control number is returned
      */
-    function _get_control_number($number, &$weights, $modulo = 10, $subtract = 0, $allow_high = false) {
+    function _getControlNumber($number, &$weights, $modulo = 10, $subtract = 0, $allow_high = false) {
         // calc sum
-        $sum = Validate::_mult_weights($number, $weights);
+        $sum = Validate::_multWeights($number, $weights);
         if ($sum == -1) {
             return -1;
         }
@@ -626,12 +626,12 @@ class Validate
      * @param int $subtract (optional) numbier
      * @returns bool
      **/
-    function _check_control_number($number, &$weights, $modulo = 10, $subtract = 0) {
+    function _checkControlNumber($number, &$weights, $modulo = 10, $subtract = 0) {
         if (strlen($number) < count($weights)) {
             return false;
         }
         $target_digit  = substr($number, count($weights), 1);
-        $control_digit = Validate::_get_control_number($number, $weights, $modulo, $subtract, $target_digit === 'X');
+        $control_digit = Validate::_getControlNumber($number, $weights, $modulo, $subtract, $target_digit === 'X');
 
         if ($control_digit == -1) {
             return false;

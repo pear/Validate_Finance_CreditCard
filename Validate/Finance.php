@@ -63,7 +63,7 @@ class Validate_Finance
         // build checksum, preparation
         $banknote_replace_chars = range('A', 'Z');
         foreach (range(10, 35) as $tempvalue) {
-            $banknote_replace_values[]=strval($tempvalue);
+            $banknote_replace_values[] = strval($tempvalue);
         }
 
         // build checksum, substitute and calc

@@ -65,7 +65,7 @@ class Validate_CH
 
         // although theoretically, a check "digit" of 10 could result, 
         // no such ssn is issued! allow_high is therefore meaningless...
-        $t_check = Validate::_check_control_number($ssn, $weights, 11, 11);
+        $t_check = Validate::_checkControlNumber($ssn, $weights, 11, 11);
 
         return $t_check; 
     } 

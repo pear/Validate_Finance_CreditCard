@@ -81,7 +81,7 @@ class Validate_FR
         }
         */
         $num = $parts[1].$parts[2].$parts[3].$parts[4].$parts[5].$parts[6];
-        $key = VALIDATE_FR_SSN_MODULUS - Validate::_modf($num,VALIDATE_FR_SSN_MODULUS);
+        $key = VALIDATE_FR_SSN_MODULUS - Validate::_modf($num, VALIDATE_FR_SSN_MODULUS);
 
         return ($key == $parts[7]) ? true : false;
     }
@@ -99,7 +99,7 @@ class Validate_FR
     function rib($rib)
     {
         if (is_array($rib)) {
-            $codebanque=$codeguichet=$nocompte=$key='';
+            $codebanque = $codeguichet = $nocompte = $key = '';
             extract($rib);
         } else {
             return false;
@@ -219,7 +219,7 @@ class Validate_FR
      */
     function postalCode($postalCode, $strong = false)
     {
-          return (bool) preg_match('/^[0-9]{5}$/', $postalCode);
+          return (bool)preg_match('/^[0-9]{5}$/', $postalCode);
     }
 
     /**
