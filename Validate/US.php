@@ -23,7 +23,7 @@
 //
 
 
-class ValidateUS
+class Validate_US
 {
     /**
      * Validates a social security number
@@ -45,9 +45,9 @@ class ValidateUS
         $serial = intval(substr($ssn, 5, 4));
 
         if (is_null($high_groups)) {
-            $high_groups = ValidateUS::ssnGetHighGroups();
+            $high_groups = Validate_US::ssnGetHighGroups();
         }
-        return ValidateUS::ssnCheck($area, $group, $serial, $high_groups);
+        return Validate_US::ssnCheck($area, $group, $serial, $high_groups);
     }
 
     /**
@@ -103,8 +103,8 @@ class ValidateUS
             return false;
         }
 
-        $high_group_range = ValidateUS::ssnGroupRange($high_group);
-        $group_range = ValidateUS::ssnGroupRange($group);
+        $high_group_range = Validate_US::ssnGroupRange($high_group);
+        $group_range = Validate_US::ssnGroupRange($group);
 
         // if the assigned range is higher than this group number, we're OK
         if ($high_group_range > $group_range) {

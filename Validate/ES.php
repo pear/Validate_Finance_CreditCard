@@ -24,7 +24,7 @@
 
 require_once 'Validate.php';
 
-class ValidateES
+class Validate_ES
 {
     /**
     * Valida un DNI Español (el dni tiene que ser de la forma 11111111X)
