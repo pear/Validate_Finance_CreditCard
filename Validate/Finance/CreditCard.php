@@ -80,25 +80,26 @@ class Validate_Finance_CreditCard
      */
     function isValid($creditCard, $cardType = null)
     {
-        $creditCard = str_replace(array('-', ' '), '', $creditCard);
-        if (($len_number = strlen($creditCard)) < 13
-            || !is_numeric($creditCard)) {
+        $cc = str_replace(array('-', ' '), '', $creditCard);
+        if (($len = strlen($cc)) < 13
+            || strspn($cc, '0123456789') != $len) {
+
             return false;
         }
 
         // Only apply the Luhn algorithm for cards other than enRoute
         // So check if we have a enRoute card now
-        if (strlen($creditCard) != 15
-            || (substr($creditCard, 0, 4) != '2014'
-                && substr($creditCard, 0, 4) != '2149')) {
+        if (strlen($cc) != 15
+            || (substr($cc, 0, 4) != '2014'
+                && substr($cc, 0, 4) != '2149')) {
 
-            if (!Validate_Finance_CreditCard::Luhn($creditCard)) {
+            if (!Validate_Finance_CreditCard::Luhn($cc)) {
                 return false;
             }
         }
 
         if (!is_null($cardType)) {
-            return Validate_Finance_CreditCard::isType($creditCard, $cardType);
+            return Validate_Finance_CreditCard::isType($cc, $cardType);
         }
 
         return true;
@@ -127,38 +128,39 @@ class Validate_Finance_CreditCard
 
         switch (strtoupper($cardType)) {
             case 'MASTERCARD':
-                $regex = '/^5[1-5]\d{14}$/';
+                $regex = '5[1-5][0-9]{14}';
                 break;
             case 'VISA':
-                $regex = '/^4(\d{12}|\d{15})$/';
+                $regex = '4([0-9]{12}|[0-9]{15})';
                 break;
             case 'AMEX':
             case 'AMERICANEXPRESS':
             case 'AMERICAN EXPRESS':
-                $regex = '/^3[47]\d{13}$/';
+                $regex = '3[47][0-9]{13}';
                 break;
             case 'DINERS':
             case 'DINERSCLUB':
             case 'DINERS CLUB':
             case 'CARTEBLANCHE':
             case 'CARTE BLANCHE':
-                $regex = '/^3(0[0-5]\d{11}|[68]\d{12})$/';
+                $regex = '3(0[0-5][0-9]{11}|[68][0-9]{12})';
                 break;
             case 'DISCOVER':
-                $regex = '/^6011\d{12}$/';
+                $regex = '6011[0-9]{12}';
                 break;
             case 'JCB':
-                $regex = '/^(3\d{15}|(2131|1800)\d{11})$/';
+                $regex = '(3[0-9]{15}|(2131|1800)[0-9]{11})';
                 break;
             case 'ENROUTE':
-                $regex = '/^2(014|149)\d{11}$/';
+                $regex = '2(014|149)[0-9]{11}';
                 break;
             default:
                 return false;
         }
+        $regex = '/^' . $regex . '$/';
 
-        $creditCard = str_replace(array('-', ' '), '', $creditCard);
-        return (bool)preg_match($regex, $creditCard);
+        $cc = str_replace(array('-', ' '), '', $creditCard);
+        return (bool)preg_match($regex, $cc);
     }
 }
 ?>

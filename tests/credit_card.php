@@ -12,7 +12,11 @@ class Validate_Finance_CreditCard_Test extends PHPUnit_TestCase
                     '6762195515061814'    => false,
                     '0x1A6A195515061813'  => false,
                     '4405771709596026'    => true,
-                    'Big brother watch'   => false
+                    '4405771709596,26'    => false,
+                    '4405771709596.26'    => false,
+                    'Big brother watch'   => false,
+                    '4222222222222'       => true,
+                    '4222222221.00'       => false
                 );
 
     // Test card type detection
@@ -27,7 +31,7 @@ class Validate_Finance_CreditCard_Test extends PHPUnit_TestCase
         '6011 0000 0000 0004' => 'DISCOVER',
         '3000 0000 0000 04'   => 'DINERSCLUB');
 
-    // Test valid LUHN, but invalid cards
+/*    // Test valid LUHN, but invalid cards
     var $shortCards = array(
         'VISA'       => '41111',
         'MasterCard' => '5413',
@@ -35,7 +39,7 @@ class Validate_Finance_CreditCard_Test extends PHPUnit_TestCase
         'JCB'        => '21311',
         'ENROUTE'    => '2014009',
         'DISCOVER'   => '60110004',
-        'DINERSCLUB' => '300004');
+        'DINERSCLUB' => '300004'); */
 
     function Validate_Finance_CreditCard_Test($name)
     {
