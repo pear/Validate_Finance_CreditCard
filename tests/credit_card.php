@@ -1,6 +1,6 @@
 <?php
 require_once 'PHPUnit.php';
-require_once 'Validate/CreditCard.php';
+require_once 'Validate/Finance/CreditCard.php';
 
 class Validate_CreditCard_Test extends PHPUnit_TestCase
 {
