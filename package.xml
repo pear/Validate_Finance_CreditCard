@@ -34,7 +34,7 @@
     <maintainer>
       <user>dufuz</user>
       <role>lead</role>
-      <name>Helgi &THORN;ormar</name>
+      <name>Helgi Þormar</name>
       <email>dufuz@php.net</email>
     </maintainer> 
   </maintainers>
@@ -47,6 +47,7 @@
 - Bug #2936, typo
 - Bug #2879, Issn wrong validation
 - Better email validation
+- Request #997 validate:date minium and maximum accept Date objects
 - CS fixes
 - Split country and finance classes and credit card functions into their own sub packages of Validate
 - New lead/developer (Helgi)
