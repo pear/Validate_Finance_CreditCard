@@ -23,9 +23,9 @@
 
 require_once('Validate.php');
 
-define( "PHONENUMBER_TYPE_ANY",     0);     //Any dutch phonenumber
-define( "PHONENUMBER_TYPE_NORMAL",  1);     //only normal phonenumber (mobile numers are not allowed)
-define( "PHONENUMBER_TYPE_MOBILE",  2);     //only mobile numbers are allowed
+define( "VALIDATE_NL_PHONENUMBER_TYPE_ANY",     0);     //Any dutch phonenumber
+define( "VALIDATE_NL_PHONENUMBER_TYPE_NORMAL",  1);     //only normal phonenumber (mobile numers are not allowed)
+define( "VALIDATE_NL_PHONENUMBER_TYPE_MOBILE",  2);     //only mobile numbers are allowed
 
 class Validate_NL
 {
@@ -61,14 +61,14 @@ class Validate_NL
             if (strlen($number) >= 9)) {
                 switch ($type) 
                 {
-                    case PHONENUMBER_TYPE_ANY:
+                    case VALIDATE_NL_PHONENUMBER_TYPE_ANY:
                         $result = true;     //we have a 9 digit numeric number.
                         break;
-                    case PHONENUMBER_TYPE_NORMAL:
+                    case VALIDATE_NL_PHONENUMBER_TYPE_NORMAL:
                         if ((int)$number[0] != 6)
                             $result = true;     //normal phonenumbers don't begin with 6 (00316, +316 and 06 are reserved for mobile numbers)
                         break;
-                    case PHONENUMBER_TYPE_MOBILE:
+                    case VALIDATE_NL_PHONENUMBER_TYPE_MOBILE:
                         if ((int)$number[0] == 6)
                             $result = true;     //mobilenumbers start with a 6
                         break;
