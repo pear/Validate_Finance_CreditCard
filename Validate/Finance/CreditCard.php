@@ -96,7 +96,7 @@ class Validate_Finance_CreditCard
             }
         }
 
-        if (!is_null($cardType)) {
+        if (is_string($cardType)) {
             return Validate_Finance_CreditCard::type($cc, $cardType);
         }
 
