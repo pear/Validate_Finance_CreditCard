@@ -45,16 +45,23 @@ class Validate
      * Validate a number
      *
      * @param string    $number     Number to validate
-     * @param mixed     $decimal    The decimal char or false when decimal not allowed
-     * @param int       $dec_prec   Number of allowed decimals
+     * @param array     $options    array where:
+     *                              'decimal'   is the decimal char or false when decimal not allowed
+     *                                          i.e. ',.' to allow both ',' and '.'
+     *                              'dec_prec'  Number of allowed decimals
+     *                              'min'       minimun value
+     *                              'max'       maximum value
      */
-    function number($number, $decimal = null, $dec_prec = null, $min = null, $max = null)
+    function number($number, $options)
     {
-        if (is_array($number)) {
-            extract($number);
+        $decimal=$dec_prec=$min=$max= null;
+        if(is_array($options)){
+            extract($options);
         }
+
         $dec_prec   = $dec_prec ? "{1,$dec_prec}" : '+';
         $dec_regex  = $decimal  ? "[$decimal][0-9]$dec_prec" : '';
+
         if (!preg_match("|^[-+]?\s*[0-9]+($dec_regex)?\$|", $number)) {
             return false;
         }
@@ -80,8 +87,8 @@ class Validate
      */
     function email($email, $check_domain = false)
     {
-        if (is_array($email)) {
-            extract($email);
+        if($check_domain){
+
         }
 
         if (ereg('^[-!#$%&\'*+\\./0-9=?A-Z^_`a-z{|}~]+'.'@'.
@@ -104,14 +111,18 @@ class Validate
      * Validate a string using the given format 'format'
      *
      * @param string    $string     String to validate
-     * @param string    $format     Ex: VAL_NUM . VAL_ALPHA (see constants)
-     * @param int       $min_lenght Minimum length of the string
-     * @param int       $max_lenght Maximum length of the string
+     * @param array     $options    Options array where:
+     *                              'format' is the format of the string
+     *                                       Ex: VAL_NUM . VAL_ALPHA (see constants)
+     *                              'min_lenght' minimum length
+     *                              'max_lenght' maximum length
      */
-    function string($string, $format = null, $min_lenght = 0, $max_lenght = 0)
+    function string($string, $options)
     {
-        if (is_array($string)) {
-            extract($string);
+        $format = null;
+        $min_lenght=$max_lenght = 0;
+        if(is_array($options)){
+            extract($options);
         }
         if ($format && !preg_match("|^[$format]*\$|s", $string)) {
             return false;
@@ -133,9 +144,6 @@ class Validate
      */
     function url($url, $domain_check = false)
     {
-        if (is_array($url)) {
-            extract($url);
-        }
         $purl = parse_url($url);
         if (preg_match('|^http$|i', @$purl['scheme']) && !empty($purl['host'])) {
             if ($domain_check && function_exists('checkdnsrr')) {
@@ -173,46 +181,42 @@ class Validate
      * @return bool           true if number is valid, otherwise false
      * @author Ondrej Jombik <nepto@pobox.sk>
      */
-    function creditCard($number)
+    function creditcard($creditcard)
     {
-        if (is_array($number)) {
-            extract($number);
-        }
+        $creditcard = preg_replace('/[^0-9]/','',$creditcard);
 
-        $number = preg_replace('/[^0-9]/','',$number);
-
-        if (empty($number) || ($len_number = strlen($number)) <= 0) {
+        if (empty($creditcard) || ($len_number = strlen($creditcard)) <= 0) {
             return false;
         }
         $sum = 0;
         for ($k = $len_number % 2; $k < $len_number; $k += 2) {
-            if ((intval($number[$k]) * 2) > 9) {
-                $sum += (intval($number[$k]) * 2) - 9;
+            if ((intval($creditcard[$k]) * 2) > 9) {
+                $sum += (intval($creditcard[$k]) * 2) - 9;
             } else {
-                $sum += intval($number[$k]) * 2;
+                $sum += intval($creditcard[$k]) * 2;
             }
         }
         for ($k = ($len_number % 2) ^ 1; $k < $len_number; $k += 2) {
-            $sum += intval($number[$k]);
+            $sum += intval($creditcard[$k]);
         }
         return $sum % 10 ? false : true;
     }
 
     /**
-    * Validate date and times. Note that this method need the Date_Calc class
-    *
-    * @param string $date Date to validate
-    * @param string $format The format of the date (%d-%m-%Y)
-    * @param array  $min The date has to be greater than this array($day, $month, $year)
-    * @param array  $max The date has to be smaller than this array($day, $month, $year)
-    *
-    * @return bool
-    */
-    function date($date, $format, $min = array(), $max = array())
+     * Validate date and times. Note that this method need the Date_Calc class
+     *
+     * @param string    $date   Date to validate
+     * @param array     $options array options where :
+     *                          'format' The format of the date (%d-%m-%Y)
+     *                          'min' The date has to be greater
+     *                                than this array($day, $month, $year)
+     *                          'max' The date has to be smaller than
+     *                                this array($day, $month, $year)
+     *
+     * @return bool
+     */
+    function date($date, $options)
     {
-        if (is_array($date)) {
-            extract($date);
-        }
         $date_len   = strlen($format);
         for ($i = 0; $i < strlen($format); $i++) {
             $c = $format{$i};
@@ -338,9 +342,8 @@ class Validate
      * @author Damein Seguy (dams@nexen.net>,
      * added by Pierre-Alain Joye <paj@pearfr.org>
      */
-    function ISBN($isbn)
+    function isbn($isbn)
     {
-
         if (preg_match("/[^0-9 IXSBN-]/", $isbn)) {
             return false;
         }
@@ -402,12 +405,12 @@ class Validate
     * Bulk data validation for data introduced in the form of an
     * assoc array in the form $var_name => $value.
     *
-    * @param  array   $data Ex: array('name'=>'toto','email'='toto@thing.info');
-    * @param  array   $opt   Contains the validation type and all parameters used in.
-    *                        'type' is not optional
-    *                        others validations properties must have the same name as the function
-    *                        parameters.
-    *                        Ex: array('toto'=>array('type'=>'string','format'='toto@thing.info','min_lenght'=>5));
+    * @param  array   $data     Ex: array('name'=>'toto','email'='toto@thing.info');
+    * @param  array   $val_type Contains the validation type and all parameters used in.
+    *                           'val_type' is not optional
+    *                           others validations properties must have the same name as the function
+    *                           parameters.
+    *                           Ex: array('toto'=>array('type'=>'string','format'='toto@thing.info','min_lenght'=>5));
     * @param  boolean $remove if set, the elements not listed in data will be removed
     *
     * @return array   value name => true|false    the value name comes from the data key
@@ -423,24 +426,35 @@ class Validate
                 continue;
             }
             $opt = $val_type[$var_name];
+            $methods = get_class_methods('Validate');
+            $val2check = $data[$var_name];
             // core validation method
-            if (in_array($opt['type'], get_class_methods('Validate'))) {
-                $opt[$opt['type']] = $data[$var_name];
-                $valid[$var_name] = call_user_func(array('Validate', $opt['type']), $opt);
+            if (in_array(strtolower($opt['type']), $methods)) {
+                //$opt[$opt['type']] = $data[$var_name];
+                $method = $opt['type'];
+                $opt = array_slice($opt,1);
 
-            // external validation method in the form:
-            // "<class name><underscore><method name>"
-            // Ex: us_ssn will include class Validate/US.php and call method ssn()
-            } elseif (strpos('_', $opt['type']) !== false) {
+                if(sizeof($opt)==1){
+                    $opt = array_pop($opt);
+                }
+                $valid[$var_name] = call_user_func(array('Validate', $method), $val2check,$opt);
+
+            /**
+             * external validation method in the form:
+             * "<class name><underscore><method name>"
+             * Ex: us_ssn will include class Validate/US.php and call method ssn()
+             */
+            } elseif (strpos($opt['type'],'_') !== false) {
                 list($class, $method) = explode('_', $opt['type'], 2);
                 $class = strtoupper($class);
-                if (!@include_once "Validate/$class.php" ||
+                @include_once "Validate/$class.php";
+                if ( !class_exists("Validate_$class")||
                     !in_array($method, get_class_methods("Validate_$class")))
                 {
                     trigger_error("Invalid validation type Validate_$class::$method", E_USER_WARNING);
                     continue;
                 }
-                $valid[$var_name] = call_user_func(array("Validate_$class", $method), $args);
+                $valid[$var_name] = call_user_func(array("Validate_$class", $method), $data[$var_name]);
             } else {
                 trigger_error("Invalid validation type {$opt['type']}", E_USER_WARNING);
             }
