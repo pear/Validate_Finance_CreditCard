@@ -23,7 +23,7 @@
 //
 
 require_once 'PEAR.php';
-require_once 'File.php';
+//require_once 'File.php';
 
 class Validate_US
 {
@@ -46,7 +46,7 @@ class Validate_US
         $group  = intval(substr($ssn, 3, 2));
         $serial = intval(substr($ssn, 5, 4));
 
-        if (is_null($high_groups)) {
+        if (!$high_groups) {
             $high_groups = Validate_US::ssnGetHighGroups();
         }
         return Validate_US::ssnCheck($area, $group, $serial, $high_groups);
@@ -95,10 +95,10 @@ class Validate_US
      * @param array $high_groups array of highest issued group numbers
      *                           area number=>group number
      */
-    function ssnCheck($ssnCheck, $group, $serial, $high_groups)
+    function ssnCheck($area, $group, $serial, $high_groups)
     {
-        if(is_array($ssnCheck)){
-            extract($ssnCheck);
+        if(is_array($area)){
+            extract($area);
         }
         // perform trivial checks
         // no field should contain all zeros
@@ -141,12 +141,12 @@ class Validate_US
      * @param bool   $is_text Take the $highgroup_htm param as directly the contents
      * @returns array
      */
-    function ssnGetHighGroups($uri = 'http://www.ssa.gov/foia/highgroup.htm',
+    function ssnGetHighGroups($uri = 'http://www.ssa.gov/employer/highgroup.txt',
                               $is_text = false)
     {
         if (!$is_text) {
             if (!$fd = @fopen($uri, 'r')) {
-                trigger_error("Could not access the SSA High Groups file", E_USER_WARNING);
+                trigger_error('Could not access the SSA High Groups file', E_USER_WARNING);
                 return array();
             }
             $source = '';
@@ -156,21 +156,16 @@ class Validate_US
             fclose($fd);
         }
 
-        $search = array ("'<script[^>]*?>.*?</script>'si",  // Strip javascript
-                         "'<[\/\!]*?[^<>]*?>'si",           // Strip html tags
-                         "'([\r\n])[\s]+'",                 // Strip white space
-                         "'\*'si");
-
-        $replace = array ('','','\\1','');
-
-        $lines = explode("\n", preg_replace($search, $replace, $source));
+        $lines =  explode("\n", ereg_replace("[^\n0-9]*",'',$source));
         $high_groups = array();
         foreach ($lines as $line) {
-            $line = trim($line);
-            if ((strlen($line) == 3) && is_numeric($line)) {
-                $current_group = $line;
-            } elseif ((strlen($line) == 2) && is_numeric($line)) {
-                $high_groups[$current_group] = $line;
+            if(ereg('^([0-9]{3})([0-9]{2})([0-9]{3})([0-9]{2})([0-9]{3})([0-9]{2})([0-9]{3})([0-9]{2})([0-9]{3})([0-9]{2})([0-9]{3})([0-9]{2})$', $line, $grouping)) {
+                $high_groups[$grouping[1]] =  $grouping[2];
+                $high_groups[$grouping[3]] =  $grouping[4];
+                $high_groups[$grouping[5]] =  $grouping[6];
+                $high_groups[$grouping[7]] =  $grouping[8];
+                $high_groups[$grouping[9]] =  $grouping[10];
+                $high_groups[$grouping[11]] =  $grouping[12];
             }
         }
         return $high_groups;
