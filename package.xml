@@ -29,7 +29,7 @@
     </maintainer>
     <maintainer>
       <user>neufeind</user>
-      <role>developer</role>
+      <role>lead</role>
       <name>Stefan Neufeind</name>
       <email>pear.neufeind@speedpartner.de</email>
     </maintainer>
@@ -53,15 +53,11 @@
     </maintainer>
   </maintainers>
   <release>
-    <version>0.4.0</version>
+    <version>0.4.1</version>
     <state>alpha</state>
-    <date>2004-03-16</date>
-    <notes>- pt_BR moved to ptBR required for multiple support(BC break)
-- Add CH validation (Switzerland)
-- added Euro banknotes IDs 
-- Improved UK postcodes validation
-- Fixed allowed_scheme options in Validate::uri() (Torsten Roehr)
-- Fixed optional arguments in Validate::number() (Torsten Roehr)
+    <date>2004-03-17</date>
+    <notes>- fixed issue when validating IBANs via a static call
+- added missing test validate_UK.php to package.xml
     </notes>
     <filelist>
     <dir name="/">
@@ -94,6 +90,7 @@
         <file>validate_CH.php</file>
         <file>validate_DE.php</file>
         <file>validate_NL.php</file>
+        <file>validate_UK.php</file>
         <file>validate_Finance.php</file>
       </dir>
       <dir name="docs" role="doc">
@@ -108,6 +105,19 @@
     </deps>
   </release>
   <changelog>
+      <release>
+        <version>0.4.0</version>
+        <state>alpha</state>
+        <date>2004-03-16</date>
+        <notes>- pt_BR moved to ptBR required for multiple support(BC break)
+- Add CH validation (Switzerland)
+- added Euro banknotes IDs 
+- Improved UK postcodes validation
+- Fixed allowed_scheme options in Validate::uri() (Torsten Roehr)
+- Fixed optional arguments in Validate::number() (Torsten Roehr)
+        </notes>
+      </release>
+
       <release>
         <version>0.3.0</version>
         <state>alpha</state>
@@ -131,6 +141,7 @@
         <date>2003-06-15</date>
         <notes>- Add some dutch validations</notes>
       </release>
+
       <release>
         <version>0.1.1</version>
         <state>alpha</state>
