@@ -28,8 +28,8 @@ class Validate_UK
     /**
      * Validate a UK postcode
      *
-     * @param   string    $postcode       UK postcode to validate
-     * @return  true if postcode is ok, false otherwise
+     * @param   string  $postcode       UK postcode to validate
+     * @return  bool    true if postcode is ok, false otherwise
      */
     function postcode($postcode)
     {
