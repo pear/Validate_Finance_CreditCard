@@ -47,7 +47,7 @@ class Validate
      *                              'min'       minimun value
      *                              'max'       maximum value
      */
-    function number($number, $options)
+    function number($number, $options=array())
     {
         $decimal=$dec_prec=$min=$max= null;
         if(is_array($options)){
