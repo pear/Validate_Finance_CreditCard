@@ -14,12 +14,12 @@
 // | license@php.net so we can mail you a copy immediately.               |
 // +----------------------------------------------------------------------+
 // | Authors: Pierre-Alain Joye <paj@pearfr.org>                          |
+// |          Stefan Neufeind <pear.neufeind@speedpartner.de>             |
 // +----------------------------------------------------------------------+
 //
 // $Id$
 //
 // Specific validation methods for data used in UK
-//
 
 require_once('Validate.php');
 
@@ -33,8 +33,16 @@ class Validate_UK
     /**
      * validates a postcode
      *
+     * Validation according to the "UK Government Data Standards Catalogue"
+     * Using PostCode-format version 2.1, which can be obtained from:
+     * http://www.govtalk.gov.uk/gdsc/html/noframes/PostCode-2-1-Release.htm
+     *
+     * Note: The official validation-pattern was altered to also support postcodes
+     * with none or even spaces at various places. We don't count spaces as being
+     * "essential" for the validation-process.
+     * It was also necessary to refactor the regex to make it usable for preg_match.
+     *
      * @access    public
-     * @author    Michael Dransfield <mikeNO@SPAMblueroot.net>
      * @param     string  the postcode to be validated
      * @param     bool    optional; strong checks (e.g. against a list of postcodes)
      * @return    bool
@@ -47,19 +55,29 @@ class Validate_UK
         // remove spaces and uppercase it
         $postcode = strtoupper(str_replace(' ', '', $postcode));
 
-        $preg = "/^[A-Z]{1,2}[0-9]{1,2}[A-Z]?[0-9]{1,2}[A-Z]{2}/";
-        $match = (preg_match($preg, $postcode))? true : false;
+        $preg = "/^((GIR0AA)|((([A-PR-UWYZ][0-9][0-9]?)|([A-PR-UWYZ][A-HK-Y][0-9][0-9]?)|([A-PR-UWYZ][0-9][A-HJKSTUW])|([A-PR-UWYZ][A-HK-Y][0-9][ABEHMNPRVWXY]))[0-9][ABD-HJLNP-UW-Z]{2}))$/";
+        $match = preg_match($preg, $postcode)? true : false;
         return $match;
     }
 
     /**
      * validates a National Insurance Number (ssn equiv)
      *
+     * Validation according to the "UK Government Data Standards Catalogue"
+     * Using NationalInsuranceNumber-format version 2.1, which can be obtained from:
+     * http://www.govtalk.gov.uk/gdsc/html/noframes/NationalInsuranceNumber-2-1-Release.htm
+     *
+     * Note: The official validation-pattern was altered to also support numbers
+     * with none or even spaces at various places. We don't count spaces as being
+     * "essential"
+     * for the validation-process.
+     *
      * @access    public
      * @param     string $ni NI number
      * @return    bool
      */
     function ni($ni){
+        // remove spaces and uppercase it
         $ni = strtoupper(str_replace(' ', '', $ni));
         $preg = "/^[A-CEGHJ-NOPR-TW-Z][A-CEGHJ-NPR-TW-Z][0-9]{6}[ABCD]?$/";
         if (preg_match($preg, $ni)) {
@@ -72,6 +90,7 @@ class Validate_UK
     
     /**
      * Validates a social security number; alias-function for ni()
+     *
      * @param string $ssn number to validate
      * @returns bool
      * @see ni()
@@ -83,7 +102,6 @@ class Validate_UK
 
     /**
      * Validates a sort code, must be passed with dashes in the right places
-     *
      *
      * @access    public
      * @author    Michael Dransfield <mikeNO@SPAMblueroot.net>
@@ -120,7 +138,6 @@ class Validate_UK
     /**
      * Checks that the entry is a number starting with 0 of the right length
      *
-     *
      * @access    public
      * @author    Michael Dransfield <mikeNO@SPAMblueroot.net>
      * @param     string $tel the tel number
@@ -138,7 +155,6 @@ class Validate_UK
 
     /**
      * Validates a car registration number
-     *
      *
      * @access    public
      * @author    Michael Dransfield <mikeNO@SPAMblueroot.net>
