@@ -22,6 +22,8 @@
 // Specific validation methods for data used in the United States
 //
 
+require_once 'PEAR.php';
+require_once 'File.php';
 
 class Validate_US
 {
@@ -129,24 +131,21 @@ class Validate_US
      * from the Social Security Administration website. This info can be
      * cached for performance (and to lessen the load on the SSA website)
      *
-     * @param string $source The SSA highgroup.htm file
+     * @param string $uri Path to the SSA highgroup.htm file
      * @param bool   $is_text Take the $highgroup_htm param as directly the contents
      * @returns array
      */
-    function ssnGetHighGroups($source = 'http://www.ssa.gov/foia/highgroup.htm',
+    function ssnGetHighGroups($uri = 'http://www.ssa.gov/foia/highgroup.htm',
                               $is_text = false)
     {
         if (!$is_text) {
-            if (!$fd = @fopen($source, 'r')) {
-                trigger_error("Could not access to the SSA High Groups file", E_USER_WARNING);
-                return array();
+            $source = File::readAll($uri);
+            if (PEAR::isError($source)) {
+                return PEAR::raiseError('Could not access the SSA High Groups file: ' . $uri);
+                return $source;
             }
-            $source = '';
-            while ($data = fread($fd, 2048)) {
-                $source .= $data;
-            }
-            fclose($fd);
         }
+
         $search = array ("'<script[^>]*?>.*?</script>'si",  // Strip javascript
                          "'<[\/\!]*?[^<>]*?>'si",           // Strip html tags
                          "'([\r\n])[\s]+'",                 // Strip white space
