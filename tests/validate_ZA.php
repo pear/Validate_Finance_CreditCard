@@ -20,6 +20,14 @@ class Validate_ZA_Test extends PHPUnit_TestCase{
         $this->assertFalse(Validate_ZA::postalCode('7991', true));
         $this->assertFalse(Validate_ZA::postalCode('0000', true));
     }
+
+    function testregion()
+    {
+        $this->assertTrue(Validate_ZA::region('WC'));
+        $this->assertTrue(Validate_ZA::region('EC'));
+        $this->assertFalse(Validate_ZA::region('NA'));
+        $this->assertFalse(Validate_ZA::region('ZZ'));
+    }
 }
 
 $s = &new PHPUnit_TestSuite('Validate_ZA_Test');
