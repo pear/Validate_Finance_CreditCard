@@ -35,7 +35,7 @@ define('VAL_ALPHA',        VAL_ALPHA_LOWER . VAL_ALPHA_UPPER);
 define('VAL_EALPHA_LOWER', VAL_ALPHA_LOWER . '·ÈÌÛ˙‡ËÏÚ˘‰ÎÔˆ¸‚ÍÓÙ˚ÒÁ');
 define('VAL_EALPHA_UPPER', VAL_ALPHA_UPPER . '¡…Õ”⁄¿»Ã“ŸƒÀœ÷‹¬ Œ‘€—«');
 define('VAL_EALPHA',       VAL_EALPHA_LOWER . VAL_EALPHA_UPPER);
-define('VAL_PUNCTUATION',  VAL_SPACE . ',;:"\'\?!\(\)');
+define('VAL_PUNCTUATION',  VAL_SPACE . '\.,;\:&"\'\?\!\(\)');
 define('VAL_NAME',         VAL_EALPHA . VAL_SPACE . "'");
 define('VAL_STREET',       VAL_NAME . "/\\∫™");
 
@@ -145,6 +145,9 @@ class Validate
      */
     function creditCard($number)
     {
+        if (is_array($number)) {
+            extract($number);
+        }
         if (empty($number) || ($len_number = strlen($number)) <= 0) {
             return false;
         }
@@ -174,6 +177,9 @@ class Validate
     */
     function date($date, $format, $min = array(), $max = array())
     {
+        if (is_array($date)) {
+            extract($date);
+        }
         for ($i = 0; $i < strlen($format) && strlen($date); $i++) {
             $c = $format{$i};
             if ($c == '%') {
@@ -243,7 +249,7 @@ class Validate
                         }
                         break;
                     default:
-                        trigger_error("Not supported char `$next' after %", E_USER_WARNING);
+                        trigger_error("Not supported char `$next' after % in offset " . ($i+2), E_USER_WARNING);
                 }
                 $i++;
             } else {
@@ -285,43 +291,54 @@ class Validate
         return $ret;
     }
 
-    /*
-        To Do :
-        External calls based on commented Date methods
-
-        @param  array   $data Ex: array('name'=>'toto','email'='toto@thing.info');
-        @param  array   $opt   Contains the validation type and all parameters used in.
-                            'type' is not optional
-                            others validations properties must have the same name as the function
-                            parameters.
-                            Ex: array('toto'=>array('type'=>'string','format'='toto@thing.info','min_lenght'=>5));
-        @param  boolean $remove if set, the invalid elements in data will be removed ( Not yet implemented)
-
-        @return array   value name => true|false    the value name comes from the data key
+    /**
+    * Bulk data validation for data introduced in the form of an
+    * assoc array in the form $var_name => $value.
+    *
+    * @param  array   $data Ex: array('name'=>'toto','email'='toto@thing.info');
+    * @param  array   $opt   Contains the validation type and all parameters used in.
+    *                        'type' is not optional
+    *                        others validations properties must have the same name as the function
+    *                        parameters.
+    *                        Ex: array('toto'=>array('type'=>'string','format'='toto@thing.info','min_lenght'=>5));
+    * @param  boolean $remove if set, the elements not listed in data will be removed
+    *
+    * @return array   value name => true|false    the value name comes from the data key
     */
     function multiple(&$data, &$val_type, $remove = false)
     {
-        $core_methods = array('number','string','email','url');
-
-        if (!is_null($data) && !is_null($val_type)) {
-            $keys = array_keys($data);
-            foreach ($keys as $var_name) {
-                if (isset($val_type[$var_name])) {
-                    $opt = $val_type[$var_name];
+        $keys = array_keys($data);
+        foreach ($keys as $var_name) {
+            if (!isset($val_type[$var_name])) {
+                if ($remove) {
+                    unset($data[$var_name]);
                 }
-                if (isset($opt['type']) && $opt['type'] != '') {
-                    if (in_array( $opt['type'], $core_methods)) {
-                        $opt[$opt['type']] = $data[$var_name];
-                        $valid[$var_name] = Validate::$opt['type']($opt);
-                    } else {
-                        // External call
-                    }
-                }
+                continue;
             }
-            return $valid;
-        } else {
-            return null;
+            $opt = $val_type[$var_name];
+            // core validation method
+            if (in_array($opt['type'], get_class_methods('Validate'))) {
+                $opt[$opt['type']] = $data[$var_name];
+                $valid[$var_name] = call_user_func(array('Validate', $opt['type']), $opt);
+
+            // external validation method in the form:
+            // "<class name><underscore><method name>"
+            // Ex: us_ssn will include class Validate/US.php and call method ssn()
+            } elseif (strpos('_', $opt['type']) !== false) {
+                list($class, $method) = explode('_', $opt['type'], 2);
+                $class = strtoupper($class);
+                if (!@include_once "Validate/$class.php" ||
+                    !in_array($method, get_class_methods("Validate_$class")))
+                {
+                    trigger_error("Invalid validation type Validate_$class::$method", E_USER_WARNING);
+                    continue;
+                }
+                $valid[$var_name] = call_user_func(array("Validate_$class", $method), $args);
+            } else {
+                trigger_error("Invalid validation type {$opt['type']}", E_USER_WARNING);
+            }
         }
+        return $valid;
     }
 }
 ?>
