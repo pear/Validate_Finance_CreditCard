@@ -45,31 +45,40 @@
     </maintainer>
   </maintainers>
   <release>
-    <version>0.1.2</version>
+    <version>0.3.0</version>
     <state>alpha</state>
-    <date>2003-??-??</date>
-    <notes>
-      - Added some dutch validations
+    <date>2003-12-05</date>
+    <notes>- Added Finance Validations for Financial related datas 
+  (S. Neufeind, Piotr Klaban)
+- Add polish validation (Piotr Klaban)
+- Small german validation started, more in the next release
+- Add EAN-UCC validtatio (see http://www.ean-ucc.org) (Piotr Klaban)
+- Add International Standard Serial Number (ISSN) 
+  and Music Number(ISMN) (Piotr Klaban)
+- Drop Validate::url() in preferenc of Validate::uri() which is fully
+  RFC2396 compliant
     </notes>
     <filelist>
     <dir name="/">
-          <file role="php">Validate.php</file>
-	      <dir name="Validate">
-	         <file role="php">ES.php</file>
-	         <file role="php">US.php</file>
-             <file role="php">FR.php</file>
-             <file role="php">UK.php</file>
-             <file role="php">NL.php</file>
-	      </dir>
-          <dir name="tests" role="test">
-             <file>number.php</file>
-             <file>date.php</file>
-             <file>credit_card.php</file>
-             <file>validate_NL.php</file>
-          </dir>
-          <dir name="docs" role="doc">
-             <file>sample_multiple.php</file>
-          </dir>
+      <file role="php">Validate.php</file>
+      <dir name="Validate">
+        <file role="php">ES.php</file>
+	<file role="php">US.php</file>
+        <file role="php">FR.php</file>
+        <file role="php">UK.php</file>
+        <file role="php">NL.php</file>
+        <file role="php">US.php</file>
+        <file role="php">PL.php</file>
+      </dir>
+      <dir name="tests" role="test">
+        <file>number.php</file>
+        <file>date.php</file>
+        <file>credit_card.php</file>
+        <file>validate_NL.php</file>
+      </dir>
+      <dir name="docs" role="doc">
+        <file>sample_multiple.php</file>
+      </dir>
     </dir>
     </filelist>
     <deps>
@@ -77,6 +86,12 @@
     </deps>
   </release>
   <changelog>
+      <release>
+        <version>0.2.0</version>
+        <state>alpha</state>
+        <date>2003-06-15</date>
+        <notes>- Add some dutch validations</notes>
+      </release>
       <release>
         <version>0.1.1</version>
         <state>alpha</state>

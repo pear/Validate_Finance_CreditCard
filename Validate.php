@@ -131,19 +131,37 @@ class Validate
     }
 
     /**
-     * Validate a URL
+     * Validate an URI (RFC2396)
      *
-     * @param string    $url            URL to validate
-     * @param boolean   $domain_check   Check or not if the domain exists
+     * @param string    $url        URI to validate
+     * @param array     $options    Options used by the validation method.
+     *                              key => type
+     *                              'domain_check' => boolean
+     *                                  Whether to check the DNS entry or not
+     *                              'allowed_scheme' => array, list of protocols
+     *                                  List of allowed schemes ('http',
+     *                                  'ssh+svn', 'mms')
      */
-    function url($url, $domain_check = false)
+    function uri($url, $options = null)
     {
-        $purl = parse_url($url);
-        if (preg_match('/^(https?|ftp)$/i', @$purl['scheme']) && !empty($purl['host'])) {
+        $domain_check = false;
+        $allowed_protocols = null;
+        if (is_array($options)) {
+            extract($options);
+        }
+        if (preg_match(
+            '!^(([^:/?#]+):)?(//([^/?#]*))?([^?#]*)(\?([^#]*))?(#(.*))?!',
+            $url,$matches)
+        ) {
+            $scheme = $matches[2];
+            $authority = $matches[4];
+            if ( is_array($allowed_schemes) &&
+                !in_array($scheme,$allowed_schemes)
+            ) {
+                return false;
+            }
             if ($domain_check && function_exists('checkdnsrr')) {
-                if (checkdnsrr($purl['host'], 'A')) {
-                    return true;
-                } else {
+                if (!checkdnsrr($authority, 'A')) {
                     return false;
                 }
             }
