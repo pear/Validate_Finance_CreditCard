@@ -2,8 +2,12 @@
 <package version="1.0">
   <name>Validate</name>
   <summary>Validation class</summary>
-  <description>
-    Coming soon
+  <description>Package to validate various datas. It includes :
+* numbers (min/max, decimal or not)
+* email (syntax, domain check)
+* string (predifined type alpha upper and/or lowercase, numeric,...)
+* date (min, max)
+* possibility valid multiple data with a single method call (::multiple)
   </description>
   <license>PHP</license>
   <maintainers>
@@ -15,9 +19,9 @@
     </maintainer>
     <maintainer>
       <user>pajoye</user>
-      <role>contributor</role>
+      <role>lead</role>
       <name>Pierre-Alain Joye</name>
-      <email>pajoye@pearfr.org</email>
+      <email>paj@pearfr.org</email>
     </maintainer>
     <maintainer>
       <user>timg</user>
@@ -33,16 +37,17 @@
     </maintainer>
   </maintainers>
   <release>
-    <version>0.0.1</version>
+    <version>0.0.2</version>
     <state>alpha</state>
-    <date>2002-06-07</date>
-    <notes>Initial public release</notes>
+    <date>2002-08-18</date>
+    <notes>Initial package release</notes>
     <filelist>
         <dir name="/">
           <file role="php">Validate.php</file>
 	  <dir name="Validate">
 	     <file role="php">ES.php</file>
 	     <file role="php">US.php</file>
+         <file role="php">FR.php</file>
 	  </dir>
           <dir name="tests" role="test">
              <file>number.php</file>
@@ -51,7 +56,7 @@
         </dir>
     </filelist>
     <deps>
-      <dep type="php" rel="ge" version="4.0.4pl1" />
+      <dep type="php" rel="ge" version="4.1.0+" />
     </deps>
   </release>
 </package>
