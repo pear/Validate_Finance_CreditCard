@@ -40,171 +40,6 @@ define('VALIDATE_FINANCE_IBAN_CHECKSUM_INVALID',  -8);
 */
 class Validate_Finance_IBAN {
     /**
-     * List of all IBAN countrycodes; also gives corresponding countrynames (in long form)
-     * @var     array
-     * @access  private
-     */
-    var $_iban_countrycode_countryname =
-        array(
-            'AD' => 'Andorra',
-            'AT' => 'Austria',
-            'BE' => 'Belgium',
-            'CH' => 'Swiss',
-            'CZ' => 'Czech Republic',
-            'DE' => 'Germany',
-            'DK' => 'Denmark',
-            'ES' => 'Spain',
-            'FI' => 'Finland',
-            'FR' => 'France',
-            'GB' => 'Great Britain',
-            'GI' => 'Gibraltar',
-            'GR' => 'Greece',
-            'HU' => 'Hungary',
-            'IE' => 'Ireland',
-            'IS' => 'Island',
-            'IT' => 'Italy',
-            'LU' => 'Luxembourg',
-            'NL' => 'The Netherlands',
-            'NO' => 'Norwegian',
-            'PL' => 'Poland',
-            'PT' => 'Portugal',
-            'SE' => 'Sweden',
-            'SI' => 'Slovenia'
-        );
-
-    /**
-     * List of IBAN length; can be used for a quick check
-     * @var     array
-     * @access  private
-     */
-    var $_iban_countrycode_length =
-        array(
-            'AD' => 24,
-            'AT' => 20,
-            'BE' => 16,
-            'CH' => 21,
-            'CZ' => 24,
-            'DE' => 22,
-            'DK' => 18,
-            'ES' => 24,
-            'FI' => 18,
-            'FR' => 27,
-            'GB' => 22,
-            'GI' => 23,
-            'GR' => 27,
-            'HU' => 28,
-            'IE' => 22,
-            'IS' => 26,
-            'IT' => 27,
-            'LU' => 20,
-            'NL' => 18,
-            'NO' => 15,
-            'PL' => 28,
-            'PT' => 25,
-            'SE' => 24,
-            'SI' => 19
-        );
-
-    /**
-     * List of where the bankcode inside an IBAN starts (starting from 0) and its length
-     * @var     array
-     * @access  private
-     */
-    var $_iban_countrycode_bankcode =
-        array(
-            'AD' => array('start' =>  4, 'length' =>  8), // first 4 chars are bankcode, last 4 chars are the branch
-            'AT' => array('start' =>  4, 'length' =>  5),
-            'BE' => array('start' =>  4, 'length' =>  3),
-            'CH' => array('start' =>  4, 'length' =>  5),
-            'CZ' => array('start' =>  4, 'length' =>  4),
-            'DE' => array('start' =>  4, 'length' =>  8),
-            'DK' => array('start' =>  4, 'length' =>  4),
-            'ES' => array('start' =>  4, 'length' =>  8),
-            'FI' => array('start' =>  4, 'length' =>  6),
-            'FR' => array('start' =>  4, 'length' => 10),
-            'GB' => array('start' =>  4, 'length' =>  4),
-            'GI' => array('start' =>  4, 'length' =>  4),
-            'GR' => array('start' =>  4, 'length' =>  7), // first 3 chars bankcode, last 4 chars branch
-            'HU' => array('start' =>  4, 'length' =>  7), // first 3 chars bankcode, last 4 chars branch, followed by 1 char (checksum)
-            'IE' => array('start' =>  4, 'length' => 10), // first 4 chars bankcode, last 6 chars branch
-            'IS' => array('start' =>  4, 'length' =>  4),
-            'IT' => array('start' =>  4, 'length' => 11),
-            'LU' => array('start' =>  4, 'length' =>  3),
-            'NL' => array('start' =>  4, 'length' =>  4),
-            'NO' => array('start' =>  4, 'length' =>  4),
-            'PL' => array('start' =>  4, 'length' =>  8),
-            'PT' => array('start' =>  4, 'length' =>  8),
-            'SE' => array('start' =>  4, 'length' =>  3),
-            'SI' => array('start' =>  4, 'length' =>  5)
-        );
-
-    /**
-     * List of where the bankaccount-number inside an IBAN starts (starting from 0) and its length
-     * @var     array
-     * @access  private
-     */
-    var $_iban_countrycode_bankaccount =
-        array(
-            'AD' => array('start' => 12, 'length' => 12),
-            'AT' => array('start' =>  9, 'length' => 11),
-            'BE' => array('start' =>  7, 'length' =>  9),
-            'CH' => array('start' =>  9, 'length' => 12),
-            'CZ' => array('start' =>  8, 'length' => 16),
-            'DE' => array('start' => 12, 'length' => 10),
-            'DK' => array('start' =>  8, 'length' => 10),
-            'ES' => array('start' => 12, 'length' => 12),
-            'FI' => array('start' => 10, 'length' =>  8),
-            'FR' => array('start' => 14, 'length' => 13),
-            'GB' => array('start' =>  8, 'length' => 14),
-            'GI' => array('start' =>  8, 'length' => 15),
-            'GR' => array('start' => 11, 'length' => 16),
-            'HU' => array('start' => 12, 'length' => 15), // followed by 1 char (checksum)
-            'IE' => array('start' => 14, 'length' =>  8),
-            'IS' => array('start' =>  8, 'length' => 18),
-            'IT' => array('start' => 15, 'length' => 12),
-            'LU' => array('start' =>  8, 'length' => 13),
-            'NL' => array('start' =>  8, 'length' => 10),
-            'NO' => array('start' =>  8, 'length' =>  7),
-            'PL' => array('start' => 12, 'length' => 16),
-            'PT' => array('start' => 12, 'length' => 13),
-            'SE' => array('start' =>  7, 'length' => 17),
-            'SE' => array('start' =>  7, 'length' =>  8) // followed by 1 char (checksum)
-        );
-
-    /**
-     * List of regex for validating an IBAN according to standards for each country
-     * @var     array
-     * @access  private
-     */
-    var $_iban_countrycode_regex =
-        array(
-            'AD' => '/^AD[0-9]{2}[0-9]{8}[A-Z0-9]{12}$/',
-            'AT' => '/^AT[0-9]{2}[0-9]{5}[0-9]{11}$/',
-            'BE' => '/^BE[0-9]{2}[0-9]{3}[0-9]{9}$/',
-            'CH' => '/^CH[0-9]{2}[0-9]{5}[A-Z0-9]{12}$/',
-            'CZ' => '/^CH[0-9]{2}[0-9]{4}[0-9]{16}$/',
-            'DE' => '/^DE[0-9]{2}[0-9]{8}[0-9]{10}$/',
-            'DK' => '/^DK[0-9]{2}[0-9]{4}[0-9]{10}$/',
-            'ES' => '/^ES[0-9]{2}[0-9]{8}[0-9]{12}$/',
-            'FI' => '/^FI[0-9]{2}[0-9]{6}[0-9]{8}$/',
-            'FR' => '/^FR[0-9]{2}[0-9]{10}[A-Z0-9]{13}$/',
-            'GB' => '/^GB[0-9]{2}[A-Z]{4}[0-9]{14}$/',
-            'GI' => '/^GB[0-9]{2}[A-Z]{4}[A-Z0-9]{15}$/',
-            'GR' => '/^GB[0-9]{2}[0-9]{7}[A-Z0-9]{16}$/',
-            'HU' => '/^GB[0-9]{2}[0-9]{7}[0-9]{1}[0-9]{15}[0-9]{1}$/',
-            'IE' => '/^IE[0-9]{2}[A-Z0-9]{4}[0-9]{6}[0-9]{8}$/',
-            'IS' => '/^IS[0-9]{2}[0-9]{4}[0-9]{18}$/',
-            'IT' => '/^IT[0-9]{2}[A-Z]{1}[0-9]{10}[A-Z0-9]{12}$/',
-            'LU' => '/^LU[0-9]{2}[0-9]{3}[A-Z0-9]{13}$/',
-            'NL' => '/^NL[0-9]{2}[A-Z]{4}[0-9]{10}$/',
-            'NO' => '/^NO[0-9]{2}[0-9]{4}[0-9]{7}$/',
-            'PL' => '/^PL[0-9]{2}[0-9]{8}[0-9]{16}$/',
-            'PT' => '/^PT[0-9]{2}[0-9]{8}[0-9]{13}$/',
-            'SE' => '/^SE[0-9]{2}[0-9]{3}[0-9]{17}$/',
-            'SI' => '/^SE[0-9]{2}[0-9]{5}[0-9]{8}[0-9]{2}$/'
-        );
-
-    /**
      * String containing the IBAN to be processed
      * @var     string
      * @access  private
@@ -217,6 +52,206 @@ class Validate_Finance_IBAN {
      * @access  private
      */
     var $_errorcode = 0;
+    
+    /**
+     * List of all IBAN countrycodes; also gives corresponding countrynames (in long form)
+     * @return  array
+     * @access  private
+     */
+    function _getCountrycodeCountryname()
+    {
+        static $_iban_countrycode_countryname;
+        if (!isset($_iban_countrycode_countryname)) {
+            $_iban_countrycode_countryname =
+                array(
+                    'AD' => 'Andorra',
+                    'AT' => 'Austria',
+                    'BE' => 'Belgium',
+                    'CH' => 'Swiss',
+                    'CZ' => 'Czech Republic',
+                    'DE' => 'Germany',
+                    'DK' => 'Denmark',
+                    'ES' => 'Spain',
+                    'FI' => 'Finland',
+                    'FR' => 'France',
+                    'GB' => 'Great Britain',
+                    'GI' => 'Gibraltar',
+                    'GR' => 'Greece',
+                    'HU' => 'Hungary',
+                    'IE' => 'Ireland',
+                    'IS' => 'Island',
+                    'IT' => 'Italy',
+                    'LU' => 'Luxembourg',
+                    'NL' => 'The Netherlands',
+                    'NO' => 'Norwegian',
+                    'PL' => 'Poland',
+                    'PT' => 'Portugal',
+                    'SE' => 'Sweden',
+                    'SI' => 'Slovenia'
+                );    
+        }
+        return $_iban_countrycode_countryname;
+    }
+
+    /**
+     * List of IBAN length; can be used for a quick check
+     * @return  array
+     * @access  private
+     */
+    function _getCountrycodeIBANLength()
+    {
+        static $_iban_countrycode_length;
+        if (!isset($_iban_countrycode_length)) {
+            $_iban_countrycode_length =
+                array(
+                    'AD' => 24,
+                    'AT' => 20,
+                    'BE' => 16,
+                    'CH' => 21,
+                    'CZ' => 24,
+                    'DE' => 22,
+                    'DK' => 18,
+                    'ES' => 24,
+                    'FI' => 18,
+                    'FR' => 27,
+                    'GB' => 22,
+                    'GI' => 23,
+                    'GR' => 27,
+                    'HU' => 28,
+                    'IE' => 22,
+                    'IS' => 26,
+                    'IT' => 27,
+                    'LU' => 20,
+                    'NL' => 18,
+                    'NO' => 15,
+                    'PL' => 28,
+                    'PT' => 25,
+                    'SE' => 24,
+                    'SI' => 19
+                );
+        }
+        return $_iban_countrycode_length;
+    }
+
+    /**
+     * List of where the bankcode inside an IBAN starts (starting from 0) and its length
+     * @return  array
+     * @access  private
+     */
+    function _getCountrycodeBankcode()
+    {
+        static $_iban_countrycode_bankcode;
+        if (!isset($_iban_countrycode_bankcode)) {
+            $_iban_countrycode_bankcode =
+                array(
+                    'AD' => array('start' =>  4, 'length' =>  8), // first 4 chars are bankcode, last 4 chars are the branch
+                    'AT' => array('start' =>  4, 'length' =>  5),
+                    'BE' => array('start' =>  4, 'length' =>  3),
+                    'CH' => array('start' =>  4, 'length' =>  5),
+                    'CZ' => array('start' =>  4, 'length' =>  4),
+                    'DE' => array('start' =>  4, 'length' =>  8),
+                    'DK' => array('start' =>  4, 'length' =>  4),
+                    'ES' => array('start' =>  4, 'length' =>  8),
+                    'FI' => array('start' =>  4, 'length' =>  6),
+                    'FR' => array('start' =>  4, 'length' => 10),
+                    'GB' => array('start' =>  4, 'length' =>  4),
+                    'GI' => array('start' =>  4, 'length' =>  4),
+                    'GR' => array('start' =>  4, 'length' =>  7), // first 3 chars bankcode, last 4 chars branch
+                    'HU' => array('start' =>  4, 'length' =>  7), // first 3 chars bankcode, last 4 chars branch, followed by 1 char (checksum)
+                    'IE' => array('start' =>  4, 'length' => 10), // first 4 chars bankcode, last 6 chars branch
+                    'IS' => array('start' =>  4, 'length' =>  4),
+                    'IT' => array('start' =>  4, 'length' => 11),
+                    'LU' => array('start' =>  4, 'length' =>  3),
+                    'NL' => array('start' =>  4, 'length' =>  4),
+                    'NO' => array('start' =>  4, 'length' =>  4),
+                    'PL' => array('start' =>  4, 'length' =>  8),
+                    'PT' => array('start' =>  4, 'length' =>  8),
+                    'SE' => array('start' =>  4, 'length' =>  3),
+                    'SI' => array('start' =>  4, 'length' =>  5)
+                );
+        }
+        return $_iban_countrycode_bankcode;
+    }
+
+    /**
+     * List of where the bankaccount-number inside an IBAN starts (starting from 0) and its length
+     * @return  array
+     * @access  private
+     */
+    function _getCountrycodeBankaccount()
+    {
+        static $_iban_countrycode_bankaccount;
+        if (!isset($_iban_countrycode_bankaccount)) {
+            $_iban_countrycode_bankaccount =
+                array(
+                    'AD' => array('start' => 12, 'length' => 12),
+                    'AT' => array('start' =>  9, 'length' => 11),
+                    'BE' => array('start' =>  7, 'length' =>  9),
+                    'CH' => array('start' =>  9, 'length' => 12),
+                    'CZ' => array('start' =>  8, 'length' => 16),
+                    'DE' => array('start' => 12, 'length' => 10),
+                    'DK' => array('start' =>  8, 'length' => 10),
+                    'ES' => array('start' => 12, 'length' => 12),
+                    'FI' => array('start' => 10, 'length' =>  8),
+                    'FR' => array('start' => 14, 'length' => 13),
+                    'GB' => array('start' =>  8, 'length' => 14),
+                    'GI' => array('start' =>  8, 'length' => 15),
+                    'GR' => array('start' => 11, 'length' => 16),
+                    'HU' => array('start' => 12, 'length' => 15), // followed by 1 char (checksum)
+                    'IE' => array('start' => 14, 'length' =>  8),
+                    'IS' => array('start' =>  8, 'length' => 18),
+                    'IT' => array('start' => 15, 'length' => 12),
+                    'LU' => array('start' =>  8, 'length' => 13),
+                    'NL' => array('start' =>  8, 'length' => 10),
+                    'NO' => array('start' =>  8, 'length' =>  7),
+                    'PL' => array('start' => 12, 'length' => 16),
+                    'PT' => array('start' => 12, 'length' => 13),
+                    'SE' => array('start' =>  7, 'length' => 17),
+                    'SE' => array('start' =>  7, 'length' =>  8) // followed by 1 char (checksum)
+                );
+        }
+        return $_iban_countrycode_bankaccount;
+    }
+
+    /**
+     * List of regex for validating an IBAN according to standards for each country
+     * @return  array
+     * @access  private
+     */
+    function _getCountrycodeRegex()
+    {
+        static $_iban_countrycode_regex;
+        if (!isset($_iban_countrycode_regex)) {
+            $_iban_countrycode_regex =
+                array(
+                    'AD' => '/^AD[0-9]{2}[0-9]{8}[A-Z0-9]{12}$/',
+                    'AT' => '/^AT[0-9]{2}[0-9]{5}[0-9]{11}$/',
+                    'BE' => '/^BE[0-9]{2}[0-9]{3}[0-9]{9}$/',
+                    'CH' => '/^CH[0-9]{2}[0-9]{5}[A-Z0-9]{12}$/',
+                    'CZ' => '/^CH[0-9]{2}[0-9]{4}[0-9]{16}$/',
+                    'DE' => '/^DE[0-9]{2}[0-9]{8}[0-9]{10}$/',
+                    'DK' => '/^DK[0-9]{2}[0-9]{4}[0-9]{10}$/',
+                    'ES' => '/^ES[0-9]{2}[0-9]{8}[0-9]{12}$/',
+                    'FI' => '/^FI[0-9]{2}[0-9]{6}[0-9]{8}$/',
+                    'FR' => '/^FR[0-9]{2}[0-9]{10}[A-Z0-9]{13}$/',
+                    'GB' => '/^GB[0-9]{2}[A-Z]{4}[0-9]{14}$/',
+                    'GI' => '/^GB[0-9]{2}[A-Z]{4}[A-Z0-9]{15}$/',
+                    'GR' => '/^GB[0-9]{2}[0-9]{7}[A-Z0-9]{16}$/',
+                    'HU' => '/^GB[0-9]{2}[0-9]{7}[0-9]{1}[0-9]{15}[0-9]{1}$/',
+                    'IE' => '/^IE[0-9]{2}[A-Z0-9]{4}[0-9]{6}[0-9]{8}$/',
+                    'IS' => '/^IS[0-9]{2}[0-9]{4}[0-9]{18}$/',
+                    'IT' => '/^IT[0-9]{2}[A-Z]{1}[0-9]{10}[A-Z0-9]{12}$/',
+                    'LU' => '/^LU[0-9]{2}[0-9]{3}[A-Z0-9]{13}$/',
+                    'NL' => '/^NL[0-9]{2}[A-Z]{4}[0-9]{10}$/',
+                    'NO' => '/^NO[0-9]{2}[0-9]{4}[0-9]{7}$/',
+                    'PL' => '/^PL[0-9]{2}[0-9]{8}[0-9]{16}$/',
+                    'PT' => '/^PT[0-9]{2}[0-9]{8}[0-9]{13}$/',
+                    'SE' => '/^SE[0-9]{2}[0-9]{3}[0-9]{17}$/',
+                    'SI' => '/^SE[0-9]{2}[0-9]{5}[0-9]{8}[0-9]{2}$/'
+                );
+        }
+        return $_iban_countrycode_regex;
+    }
 
     /**
      * Class constructor
@@ -281,15 +316,28 @@ class Validate_Finance_IBAN {
 
         $errorcode=VALIDATE_FINANCE_IBAN_OK;
 
+        static $_iban_countrycode_countryname;
+        if (!isset($_iban_countrycode_countryname)) {
+            $_iban_countrycode_countryname = Validate_Finance_IBAN::_getCountrycodeCountryname();
+        }
+        static $_iban_countrycode_length;
+        if (!isset($_iban_countrycode_length)) {
+            $_iban_countrycode_ibanlength      = Validate_Finance_IBAN::_getCountrycodeIBANLength();
+        }
+        static $_iban_countrycode_regex;
+        if (!isset($_iban_countrycode_regex)) {
+            $_iban_countrycode_regex       = Validate_Finance_IBAN::_getCountrycodeRegex();
+        }
+        
         if (strlen($iban) <= 4) {
             $errorcode = VALIDATE_FINANCE_IBAN_TOO_SHORT;
-        } elseif (!isset( $this->_iban_countrycode_countryname[ substr($iban,0,2) ] )) {
+        } elseif (!isset( $_iban_countrycode_countryname[ substr($iban,0,2) ] )) {
             $errorcode = VALIDATE_FINANCE_IBAN_COUNTRY_INVALID;
-        } elseif (strlen($iban) < $this->_iban_countrycode_length[ substr($iban,0,2) ]) {
+        } elseif (strlen($iban) < $_iban_countrycode_ibanlength[ substr($iban,0,2) ]) {
             $errorcode = VALIDATE_FINANCE_IBAN_TOO_SHORT;
-        } elseif (strlen($iban) > $this->_iban_countrycode_length[ substr($iban,0,2) ]) {
+        } elseif (strlen($iban) > $_iban_countrycode_ibanlength[ substr($iban,0,2) ]) {
             $errorcode = VALIDATE_FINANCE_IBAN_TOO_LONG;
-        } elseif (!preg_match($this->_iban_countrycode_regex[ substr($iban,0,2) ],$iban)) {
+        } elseif (!preg_match($_iban_countrycode_regex[ substr($iban,0,2) ],$iban)) {
             $errorcode = VALIDATE_FINANCE_IBAN_INVALID_FORMAT;
         } else {
             // todo: maybe implement direct checks for bankcodes of certain countries
@@ -362,7 +410,8 @@ class Validate_Finance_IBAN {
     {
         $countrycode = $this->getCountrycode();
         if (is_string($countrycode)) {
-            return $this->_iban_countrycode_countryname[$countrycode];
+            $_iban_countrycode_countryname = Validate_Finance_IBAN::_getCountrycodeCountryname();
+            return $_iban_countrycode_countryname[$countrycode];
         } else { // e.g. if it's an error
             return $countrycode;
         }
@@ -380,8 +429,9 @@ class Validate_Finance_IBAN {
             $this->_errorcode = VALIDATE_FINANCE_IBAN_GENERAL_INVALID;
             return PEAR::raiseError($this->errorMessage($this->_errorcode), $this->_errorcode, PEAR_ERROR_TRIGGER, E_USER_WARNING, $this->errorMessage($this->_errorcode)." in VALIDATE_FINANCE_IBAN::getBankcode()");
         } else {
-            $currCountrycodeBankcode = $this->_iban_countrycode_bankcode[ substr($this->_iban,0,2) ];
-            return substr($this->_iban,$currCountrycodeBankcode['start'],$currCountrycodeBankcode['length']);
+            $_iban_countrycode_bankcode = Validate_Finance_IBAN::_getCountrycodeBankcode();
+            $currCountrycodeBankcode = $_iban_countrycode_bankcode[ substr($this->_iban,0,2) ];
+            return substr($this->_iban, $currCountrycodeBankcode['start'], $currCountrycodeBankcode['length']);
         }
     } // end func getBankcode
 
@@ -397,8 +447,9 @@ class Validate_Finance_IBAN {
             $this->_errorcode = VALIDATE_FINANCE_IBAN_GENERAL_INVALID;
             return PEAR::raiseError($this->errorMessage($this->_errorcode), $this->_errorcode, PEAR_ERROR_TRIGGER, E_USER_WARNING, $this->errorMessage($this->_errorcode)." in VALIDATE_FINANCE_IBAN::getBankaccount()");
         } else {
-          $currCountrycodeBankcode = $this->_iban_countrycode_bankaccount[ substr($iban,0,2) ];
-          return substr($this->_iban,$currCountrycodeBankcode['start'],$currCountrycodeBankcode['length']);
+            $_iban_countrycode_bankaccount = Validate_Finance_IBAN::_getCountrycodeBankaccount();
+            $currCountrycodeBankaccount = $_iban_countrycode_bankaccount[ substr($iban,0,2) ];
+            return substr($this->_iban, $currCountrycodeBankaccount['start'], $currCountrycodeBankaccount['length']);
         }
     } // end func getAccount
 
