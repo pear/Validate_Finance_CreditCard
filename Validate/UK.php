@@ -26,7 +26,7 @@ require_once 'Validate.php';
 class Validate_UK
 {
     // overlay function
-    function getZipValFunc(){
+    function getZipValFunc() {
         return 'postcode';
     }
 
@@ -88,7 +88,7 @@ class Validate_UK
             return false;
         }
     }
-    
+
     /**
      * Validates a social security number; alias-function for ni()
      *
