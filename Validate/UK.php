@@ -26,7 +26,7 @@ require_once 'Validate.php';
 
 class Validate_UK
 {
-    function valid_postcode_uk($code){
+    function postcode($code){
         if(is_array($code)){
             extract($code);
         }
