@@ -47,7 +47,12 @@
 - Bug #2936, typo
 - Bug #2879, Issn wrong validation
 - Better email validation
-- Request #997 validate:date minium and maximum accept Date objects
+- Request #997 validate:date minium and maximum accept Date objects (By Torsten Roehr)
+- Request #4055 Making multiple() cope with new dir structure (By Torsten Roehr)
+  To use with Validate_Finance_CreditCard then do 'type' => 'Finance_CreditCard_number'
+  For Validate_US it would be 'type' => 'US_ssn'
+  This applies to all packages like that under Validate.
+- unit testing for multiple (By Torsten Roehr)
 - CS fixes
 - Split country and finance classes and credit card functions into their own sub packages of Validate
 - New lead/developer (Helgi)
@@ -71,8 +76,9 @@
       <file role="php">Validate.php</file>
       <dir name="tests" role="test">
         <file>number.php</file>
-        <file>date.php</file>
+        <file>testdate.php</file>
         <file>email.php</file>
+        <file>multiple.php</file>
       </dir>
       <dir name="docs" role="doc">
         <file>sample_multiple.php</file>
