@@ -19,12 +19,17 @@
 //
 // $Id$
 
-/**
- * ISPN is also known as International Standard Product Numbers
- */
-
 require_once 'Validate.php';
 
+/**
+ * ISPN is also known as International Standard Product Numbers
+ *
+ * @category PHP
+ * @package  Validate_ISPN
+ * @version $Id$
+ * @see Validate
+ * @access public
+ */
 class Validate_ISPN
 {
     /**
