@@ -30,7 +30,7 @@
     <notes>
 - Split from Validate into independent package
 - CS fixes
-- Added issn and product_numbers tests
+- Added product_numbers test (tests for ISSN, EAN8, EAN13, EAN14, UCC12 and SSCC)
     </notes>
     <filelist>
     <dir name="/">
@@ -39,7 +39,6 @@
       </dir>
       <dir name="tests" role="test">
         <file>product_numbers.php</file>
-        <file>issn.php</file>
       </dir>
     </dir>
     </filelist>

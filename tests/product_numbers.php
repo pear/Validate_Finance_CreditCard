@@ -2,7 +2,7 @@
 require_once 'PHPUnit.php';
 require 'Validate/ISPN.php';
 
-class Validate_Trade_Test extends PHPUnit_TestCase
+class Validate_ISPN_Test extends PHPUnit_TestCase
 {
     var $ucc12 = array(
         '614141210220' => true,
@@ -29,15 +29,34 @@ class Validate_Trade_Test extends PHPUnit_TestCase
         '106141411928374651' => false
     );
 
-    function Validate_Trade_Test($name)
+    var $issn = array(
+        '0366-3590' => true,
+        '03663590' => true,
+        '0004-6620' => true,
+        '0394-6320' => true,
+        '0395-7500' => true,
+        '8675-4548' => true,
+        '4342-7677' => true,
+        '4545-6569' => true,
+        '3434-6872' => true,
+        
+        '9685-5656' => false,
+        '8768-4564' => false,
+        '4564-7786' => false,
+        '2317-8472' => false,
+        '8675-4543' => false,
+        '4342-7675' => false
+    );
+
+    function Validate_ISPN_Test($name)
     {
         $this->PHPUnit_TestCase($name);
     }
 
-    function testUCC12()
+    function testISSN()
     {
-        foreach ($this->ucc12 as $ucc12 => $expected_result) {
-            $r = Validate_ISPN::ucc12($ucc12);
+        foreach ($this->issn as $issn => $expected_result) {
+            $r = Validate_ISPN::issn($issn);
             $this->assertEquals($r, $expected_result);
         }
     }
@@ -66,6 +85,14 @@ class Validate_Trade_Test extends PHPUnit_TestCase
         }
     }
 
+    function testUCC12()
+    {
+        foreach ($this->ucc12 as $ucc12 => $expected_result) {
+            $r = Validate_ISPN::ucc12($ucc12);
+            $this->assertEquals($r, $expected_result);
+        }
+    }
+
     function testSSCC()
     {
         foreach ($this->sscc as $sscc => $expected_result) {
@@ -73,12 +100,11 @@ class Validate_Trade_Test extends PHPUnit_TestCase
             $this->assertEquals($r, $expected_result);
         }
     }
-
 }
 
 
 // runs the tests
-$suite = new PHPUnit_TestSuite('Validate_Trade_Test');
+$suite = new PHPUnit_TestSuite('Validate_ISPN_Test');
 $result = PHPUnit::run($suite);
 // prints the tests
 echo $result->toString();
