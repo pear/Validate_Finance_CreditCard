@@ -294,15 +294,11 @@ class Validate
             if (!checkdate($month, $day, $year)) {
                 return false;
             }
-
-            // If either $max or $min are array then they need Date_Calc
-            if (is_array($max) || is_array($min)) {
-                include_once 'Date/Calc.php';
-            }
-
+            
             if ($min) {
+                include_once 'Date/Calc.php';
                 if (is_a($min, 'Date') &&
-                    ($min->compareDates($day, $month, $year,
+                    (Date_Calc::compareDates($day, $month, $year,
                                              $min->getDay(), $min->getMonth(), $min->getYear()) < 0))
                 {
                     return false;
@@ -313,15 +309,16 @@ class Validate
                     return false;
                 }
             }
-            
+
             if ($max) {
+                include_once 'Date/Calc.php';
                 if (is_a($max, 'Date') &&
-                    ($max->compareDates($day, $month, $year,
+                    (Date_Calc::compareDates($day, $month, $year,
                                              $max->getDay(), $max->getMonth(), $max->getYear()) > 0))
                 {
                     return false;
                 } elseif (is_array($max) &&
-                        (Date_Calc::compareDates($day, $month, $year, 
+                        (Date_Calc::compareDates($day, $month, $year,
                                                  $max[0], $max[1], $max[2]) > 0))
                 {
                     return false;
@@ -451,6 +448,7 @@ class Validate
     function multiple(&$data, &$val_type, $remove = false)
     {
         $keys = array_keys($data);
+        $valid = array();
         foreach ($keys as $var_name) {
             if (!isset($val_type[$var_name])) {
                 if ($remove) {
@@ -478,8 +476,14 @@ class Validate
              * Ex: us_ssn will include class Validate/US.php and call method ssn()
              */
             } elseif (strpos($opt['type'], '_') !== false) {
-                list($class, $method) = explode('_', $opt['type'], 2);
-                @include_once "Validate/$class.php";
+                $validateType = explode('_', $opt['type']);
+                $method       = array_pop($validateType);
+                $class        = implode('_', $validateType);
+                $classPath    = str_replace('_', DIRECTORY_SEPARATOR, $class);
+                if (!@include_once "Validate/$classPath.php") {
+                    trigger_error("Validate_$class isn't installed or you may have some permissoin issues", E_USER_ERROR);
+                }
+
                 if (!class_exists("Validate_$class") ||
                     !in_array($method, get_class_methods("Validate_$class")))
                 {
