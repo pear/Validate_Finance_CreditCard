@@ -13,8 +13,7 @@
 // | obtain it through the world-wide-web, please send a note to          |
 // | license@php.net so we can mail you a copy immediately.               |
 // +----------------------------------------------------------------------+
-// | Authors: Pierre-Alain Joye <paj@pearfr.org>                          |
-// |          Stefan Neufeind <pear.neufeind@speedpartner.de>             |
+// | Authors: Michael Dransfield <mikeNO@SPAMblueroot.net>                |
 // +----------------------------------------------------------------------+
 //
 // $Id$
@@ -23,12 +22,6 @@
 
 class Validate_UK
 {
-    // overlay function
-    function getZipValFunc()
-    {
-        return 'postcode';
-    }
-
     /**
      * validates a postcode
      *
@@ -60,7 +53,8 @@ class Validate_UK
     }
 
     /**
-     * validates a National Insurance Number (ssn equiv)
+     * Validates a social security number whic in UK is 
+     * National Insurance Number or ni for short
      *
      * Validation according to the "UK Government Data Standards Catalogue"
      * Using NationalInsuranceNumber-format version 2.1, which can be obtained from:
@@ -72,32 +66,19 @@ class Validate_UK
      * for the validation-process.
      *
      * @access    public
-     * @param     string $ni NI number
+     * @param     string $ssn NI number
      * @return    bool
-     */
-    function ni($ni)
-    {
-        // remove spaces and uppercase it
-        $ni = strtoupper(str_replace(' ', '', $ni));
-        $preg = "/^[A-CEGHJ-NOPR-TW-Z][A-CEGHJ-NPR-TW-Z][0-9]{6}[ABCD]?$/";
-        if (preg_match($preg, $ni)) {
-            $bad_prefixes = array('GB', 'BG', 'NK', 'KN', 'TN', 'NT', 'ZZ');
-            return (array_search(substr($ni, 0, 2), $bad_prefixes) === false);
-        } else {
-            return false;
-        }
-    }
-
-    /**
-     * Validates a social security number; alias-function for ni()
-     *
-     * @param string $ssn number to validate
-     * @returns bool
-     * @see ni()
      */
     function ssn($ssn)
     {
-        return ni($ssn);
+        // remove spaces and uppercase it
+        $ssn = strtoupper(str_replace(' ', '', $ssn));
+        $preg = "/^[A-CEGHJ-NOPR-TW-Z][A-CEGHJ-NPR-TW-Z][0-9]{6}[ABCD]?$/";
+        if (preg_match($preg, $ssn)) {
+            $bad_prefixes = array('GB', 'BG', 'NK', 'KN', 'TN', 'NT', 'ZZ');
+            return (array_search(substr($ssn, 0, 2), $bad_prefixes) === false);
+        }
+        return false;
     }
 
     /**
@@ -115,7 +96,7 @@ class Validate_UK
         // need to research the range of values - i have assumed 00-00-00 to 99-99-99
         // but it might be something like 01-01-01 to 50-99-99
         $preg = "/[0-9]{2}\-[0-9]{2}\-[0-9]{2}/";
-        $match = (preg_match($preg, $sc))? true : false;
+        $match = (preg_match($preg, $sc)) ? true : false;
         return $match;
     }
 
@@ -133,7 +114,7 @@ class Validate_UK
         // just checking to see if it is 6-8 digits
         // *THIS IS PROBABLY WRONG!!! RESEARCH*
         $preg = "/[0-9]{6,8}/";
-        $match = (preg_match($preg, $ac))? true : false;
+        $match = (preg_match($preg, $ac)) ? true : false;
         return $match;
     }
 
@@ -152,7 +133,7 @@ class Validate_UK
         // remove any wierd characters like (,),-,. etc
         $tel = str_replace(array('(', ')', '-', '+', '.', ' '), '', $tel);
         $preg = "/^0[0-9]{8,10}/";
-        $match = (preg_match($preg, $tel))? true : false;
+        $match = (preg_match($preg, $tel)) ? true : false;
         return $match;
     }
 
@@ -182,9 +163,8 @@ class Validate_UK
         $suffres = preg_match($newpreg, $reg);
         if (!$suffres || !$preres && !$newres){
             return false;
-        } else {
-            return true;
         }
+        return true;
     }
 
     /**
@@ -202,7 +182,7 @@ class Validate_UK
     {
         // just checks for 9 digit number
         $preg = "/[0-9]{9}/";
-        $match = (preg_match($preg, $pp))? true : false ;
+        $match = (preg_match($preg, $pp)) ? true : false ;
         return $match;
     }
 
@@ -218,7 +198,7 @@ class Validate_UK
     function drive($dl)
     {
         $preg = "[A-Z]{5}[0-9]{6}[A-Z0-9]{5}";
-        $match = (preg_match($preg, $dl))? true : false;
+        $match = (preg_match($preg, $dl)) ? true : false;
         return $match;
     }
 }

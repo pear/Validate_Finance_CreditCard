@@ -47,7 +47,7 @@ class Validate_UK_Test extends PHPUnit_TestCase
                 'Q1 5AT' => false,
                 'BI10 4UD' => false
                 );
-    var $ni = Array(
+    var $ni = array(
                 'JM 40 24 25 C' => true,
                 'JM56765F'      => false,
                 'JM567645T'     => false,
@@ -56,7 +56,7 @@ class Validate_UK_Test extends PHPUnit_TestCase
                 'BG567645D'     => false
             );
 
-    var $sa = Array(
+    var $sa = array(
                 '09-01-24'  => true,
                 '345676'    => false,
                 '0-78-56'   => false,
@@ -90,7 +90,7 @@ class Validate_UK_Test extends PHPUnit_TestCase
     function testNationalInsurance()
     {
         foreach ($this->ni as $ni => $expected_result) {
-            $r = Validate_UK::ni($ni);
+            $r = Validate_UK::ssn($ni);
             $this->assertEquals($r, $expected_result);
         }
     }
