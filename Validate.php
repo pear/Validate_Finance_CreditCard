@@ -1,4 +1,9 @@
 <?php
+/* vim: set expandtab tabstop=4 shiftwidth=4: */
+// PHP/PEAR header goes here
+//
+// $Id$
+
 /**
 Experimental
 */
@@ -98,7 +103,7 @@ class Validate
         }
     }
     */
-    
+
     function url($url, $domain_check = false)
     {
         if ( is_array( $url ) )
@@ -118,7 +123,39 @@ class Validate
         return false;
     }
 
-    
+    /**
+     * Validate a number according to Luhn check algorithm
+     *
+     * This function checks given number according Luhn check
+     * algorithm. It is published on several places, also here:
+     *
+     *      http://www.webopedia.com/TERM/L/Luhn_formula.html
+     *      http://www.merriampark.com/anatomycc.htm
+     *      http://hysteria.sk/prielom/prielom-12.html#3 (Slovak language)
+     *      http://www.speech.cs.cmu.edu/~sburke/pub/luhn_lib.html (Perl lib)
+     *
+     * @param  string $number number
+     * @return bool           true if number is valid, otherwise false
+     */
+    function creditCard($number)
+    {
+        if (empty($number) || ($len_number = strlen($number)) <= 0) {
+            return false;
+        }
+        $sum = 0;
+        for ($k = $len_number % 2; $k < $len_number; $k += 2) {
+            if ((intval($number[$k]) * 2) > 9) {
+                $sum += (intval($number[$k]) * 2) - 9;
+            } else {
+                $sum += intval($number[$k]) * 2;
+            }
+        }
+        for ($k = ($len_number % 2) ^ 1; $k < $len_number; $k += 2) {
+            $sum += intval($number[$k]);
+        }
+        return $sum % 10 ? false : true;
+    }
+
     /*
         To Do :
         External calls based on commented Date methods
