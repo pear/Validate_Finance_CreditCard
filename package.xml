@@ -42,7 +42,13 @@
     <version>0.0.4</version>
     <state>alpha</state>
     <date>2003-02-16</date>
-    <notes>Initial package release</notes>
+    <notes>- Fix a string bug using 'format' argumenent (pierre)
+- Add isbn check
+- Add UK postalcode check (dams@php.net)
+- Add siret/siren to FR (dams@php.net)
+- Add rib to FR (pierre)
+- Update all functions to be callable from the multiple method (pierre)
+</notes>
     <filelist>
         <dir name="/">
           <file role="php">Validate.php</file>
