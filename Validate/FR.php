@@ -22,7 +22,7 @@
 //
 // Specific validation methods for data used in France
 //
-require_once "Validate/Validate.php";
+require_once "Validate.php";
 
 define('VALIDATE_FR_SSN_MODULUS', 97);
 
