@@ -14,9 +14,9 @@ class Validate_CH_Test extends PHPUnit_TestCase{
 
     function testpostcode()
     {
-        $this->assertTrue(Validate_CH::postcode('9658'));
-        $this->assertFalse(Validate_CH::postcode('9654'));
-        $this->assertFalse(Validate_CH::postcode('96c4'));
+        $this->assertTrue(Validate_CH::postcode('9658', true));
+        $this->assertFalse(Validate_CH::postcode('9654', true));
+        $this->assertFalse(Validate_CH::postcode('96c4', true));
     }
     
     function testssn()

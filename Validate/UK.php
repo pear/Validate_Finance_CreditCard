@@ -29,17 +29,21 @@ class Validate_UK
     function getZipValFunc(){
         return 'postcode';
     }
+
     /**
-     * validates a standard uk postcode
-     *
-     *
+     * validates a postcode
      *
      * @access    public
      * @author    Michael Dransfield <mikeNO@SPAMblueroot.net>
-     * @param     string $postcode the postcode to be validated
+     * @param     string  the postcode to be validated
+     * @param     bool    optional; strong checks (e.g. against a list of postcodes)
      * @return    bool
      */
-    function postcode($postcode){
+    function postcode($postcode, $strong=false)
+    {
+        // $strong is not used here at the moment; added for API compatibility
+        // checks might be added at a later stage
+
         // remove spaces and uppercase it
         $postcode = strtoupper(str_replace(' ', '', $postcode));
 
@@ -51,8 +55,6 @@ class Validate_UK
     /**
      * validates a National Insurance Number (ssn equiv)
      *
-     *
-     *
      * @access    public
      * @author    Michael Dransfield <mikeNO@SPAMblueroot.net>
      * @param     string $ni NI number
@@ -63,6 +65,16 @@ class Validate_UK
         $preg = "/^[A-Z]{2}[0-9]{6}[ABCDEFT]/";
         $match = (preg_match($preg, $ni))? true : false;
         return $match;
+    }
+    
+    /**
+     * Validates a social security number; alias-function
+     * @param string $ssn number to validate
+     * @returns bool
+     */
+    function ssn($ssn)
+    {
+        return ni($ssn);
     }
 
     /**

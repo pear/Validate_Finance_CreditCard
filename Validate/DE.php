@@ -26,11 +26,15 @@ class Validate_DE
     /**
      * Validate a German postcode
      *
-     * @param   string  $postcode       German postcode to validate
+     * @param   string  postcode to validate
+     * @param   bool    optional; strong checks (e.g. against a list of postcodes)
      * @return  bool    true if postcode is ok, false otherwise
      */
-    function postcode($postcode)
+    function postcode($postcode, $strong=false)
     {
+        // $strong is not used here at the moment; added for API compatibility
+        // checks might be added at a later stage
+
         return (ereg('^[0-9]{5}$', $postcode));
     }
 

@@ -13,14 +13,14 @@ class Validate_AT_Test extends PHPUnit_TestCase{
     
     function testpostcode()
     {
-        $this->assertTrue(Validate_AT::postcode(7033));
-        $this->assertTrue(Validate_AT::postcode(7000));
-        $this->assertTrue(Validate_AT::postcode(4664));
-        $this->assertTrue(Validate_AT::postcode(2491));
-        $this->assertFalse(Validate_AT::postcode(1000));
-        $this->assertFalse(Validate_AT::postcode(9999));
-        $this->assertFalse(Validate_AT::postcode('abc'));
-        $this->assertFalse(Validate_AT::postcode('a7000'));
+        $this->assertTrue(Validate_AT::postcode(7033, true));
+        $this->assertTrue(Validate_AT::postcode(7000, true));
+        $this->assertTrue(Validate_AT::postcode(4664, true));
+        $this->assertTrue(Validate_AT::postcode(2491, true));
+        $this->assertFalse(Validate_AT::postcode(1000, true));
+        $this->assertFalse(Validate_AT::postcode(9999, true));
+        $this->assertFalse(Validate_AT::postcode('abc', true));
+        $this->assertFalse(Validate_AT::postcode('a7000', true));
     }
     
     function testssn()

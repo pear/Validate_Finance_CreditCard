@@ -117,19 +117,24 @@ class Validate_CH
     *
     * @static
     * @access   public
-    * @param    integer swiss zip
-    * @return   bool    true on success
+    * @param    string  postcode to validate
+    * @param    bool    optional; strong checks (e.g. against a list of postcodes)
+    * @return   bool    true if postcode is ok, false otherwise
     */
-    function postcode($zip)
+    function postcode($postcode, $strong=false)
     {
-        static $postcodes;
-
-        if (!isset($postcodes)) {
-            $file = '@DATADIR@/Validate/CH_postcodes.txt';
-            $postcodes = array_map('trim', file($file));
+        if ($strong) {
+            static $postcodes;
+    
+            if (!isset($postcodes)) {
+                $file = '@DATADIR@/Validate/CH_postcodes.txt';
+                $postcodes = array_map('trim', file($file));
+            }
+    
+            return in_array($postcode, $postcodes);
+        } else {
+            return (ereg('^[0-9]{4}$', $postcode));
         }
-
-        return in_array($zip, $postcodes);
     } 
 }
 ?>

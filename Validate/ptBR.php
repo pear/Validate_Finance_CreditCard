@@ -36,6 +36,22 @@ class Validate_ptBR
     }
 
     /**
+     * validates a postcode; alias-function
+     *
+     * @access    public
+     * @param     string  the postcode to be validated
+     * @param     bool    optional; strong checks (e.g. against a list of postcodes)
+     * @return    bool
+     */
+    function postcode($postcode, $strong=false)
+    {
+        // $strong is not used here at the moment; added for API compatibility
+        // checks might be added at a later stage
+        
+        return cep($postcode);
+    }
+
+    /**
      * Validade CPF (Cadastro de Pessoa Física)
      *
      * @param   string $cpf  CPF to validate
