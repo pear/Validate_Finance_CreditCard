@@ -39,19 +39,10 @@
     </maintainer>
   </maintainers>
   <release>
-    <version>0.1.0</version>
+    <version>0.1.1</version>
     <state>alpha</state>
-    <date>2003-02-18</date>
-    <notes>***WARNING*** Interface has changed  ***
-- Fix the sources itself, the last release was broken
-- Set a maximum of 2 arguments, one for the value itself
-  and one for the options, if more are needed, an array is used.
-- Fix a weird behavior while using include inside a 'if',
-  never use an include|_once inside a 'if' (pierre)
-- Update all functions to be callable from the multiple method (pierre)
-- Fix a little bug in fr::rib
-- Add an usage sample in docs for the multiple method
-</notes>
+    <date>2003-03-12</date>
+    <notes>Validate::date(); argument parsing fixed</notes>
     <filelist>
     <dir name="/">
           <file role="php">Validate.php</file>
