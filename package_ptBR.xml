@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<package version="1.0">
+  <name>Validate_ptBR</name>
+  <summary>Validation_ptBR class</summary>
+  <description>Package to validate various datas. It includes :
+* numbers (min/max, decimal or not)
+* email (syntax, domain check)
+* string (predifined type alpha upper and/or lowercase, numeric,...)
+* date (min, max)
+* Credit cards
+* uri (RFC2396)
+* possibility valid multiple data with a single method call (::multiple)
+* Locale validation for AT, CH, DE, ES, FR, NL, PL, ptBR, UK, US
+* Finance (e.g. IBAN)
+  </description>
+  <license>PHP</license>
+  <maintainers>
+    <maintainer>
+      <user></user>
+      <role>lead</role>
+      <name>Silvano Girardi Jr.</name>
+      <email>silvano@php.net</email>
+    </maintainer>
+   </maintainers>
+  <release>
+
+    <version>0.5</version>
+    <state>alpha</state>
+    <date>2004-03-17</date>
+    <notes>
+- Split from Validate into independent package
+- CS fixes
+- BC break! 
+postalCode unified between countries (name wise), now all postcode validation funcs are named postalCode
+    </notes>
+    <filelist>
+    <dir name="/">
+      <dir name="Validate">
+        <file role="php">ptBR.php</file>
+      </dir>
+    </dir>
+    </filelist>
+    <deps>
+      <dep type="php" rel="ge" version="4.1.0" />
+    </deps>
+  </release>
+  <changelog>
+  </changelog>
+</package>

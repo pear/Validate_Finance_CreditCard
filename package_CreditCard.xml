@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<package version="1.0">
+  <name>Validate_CreditCard</name>
+  <summary>Validation_CreditCard class</summary>
+  <description>Package to validate various datas. It includes :
+Validates credit cards
+  </description>
+  <license>PHP</license>
+  <maintainers>
+    <maintainer>
+      <user></user>
+      <role></role>
+      <name></name>
+      <email></email>
+    </maintainer>
+   </maintainers>
+  <release>
+
+    <version>0.5</version>
+    <state>alpha</state>
+    <date>2004-03-17</date>
+    <notes>
+- Split from Validate into independent package
+    </notes>
+    <filelist>
+    <dir name="/">
+      <dir name="Validate">
+        <file role="php">CreditCard.php</file>
+      </dir>
+      <dir name="tests" role="test">
+        <file>credit_card.php</file>
+      </dir>
+    </dir>
+    </filelist>
+    <deps>
+      <dep type="php" rel="ge" version="4.1.0" />
+    </deps>
+  </release>
+  <changelog>
+  </changelog>
+</package>
