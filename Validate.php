@@ -50,7 +50,7 @@ class Validate
     function number($number, $options=array())
     {
         $decimal = $dec_prec = $min = $max = null;
-        if( is_array($options)) {
+        if (is_array($options)) {
             extract($options);
         }
 
