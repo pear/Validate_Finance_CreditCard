@@ -34,11 +34,12 @@
 - CS fixes
 - region() added in US (that is validation of the states)
 - phoneNumber() added.
+- Fix Bug #4068 Always returns true if area code is required in Validate_US::phoneNumber
 - BC break! 
 postalCode unified between countries (name wise), now all postcode validation funcs are named postalCode
 - Added test cases for some of the functions
 - Added a var named $high_groups which will stores result of a query to a webpage that ssnGetHighGroups
-does to get list of all high groups, that will really help getting load if there is a need to validate more then one ssn
+does to get list of all high groups, this will really help keeping the load down if there is a need to validate more then one ssn
 in a row.
     </notes>
     <filelist>
