@@ -26,7 +26,7 @@ class Validate_Number extends PHPUnit_TestCase
                                 'min'=>-9,'max'=>-7), true)
                 );
 
-    function Validate_Number( $name )
+    function Validate_Number($name)
     {
         $this->PHPUnit_TestCase($name);
     }
@@ -54,7 +54,7 @@ class Validate_Number extends PHPUnit_TestCase
 
 
 // runs the tests
-$suite = new PHPUnit_TestSuite("Validate_Number");
+$suite = new PHPUnit_TestSuite('Validate_Number');
 $result = PHPUnit::run($suite);
 // prints the tests
 echo $result->toString();
