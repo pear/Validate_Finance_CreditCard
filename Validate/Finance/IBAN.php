@@ -84,7 +84,7 @@ $GLOBALS['VALIDATE_FINANCE_IBAN_COUNTRYCODE_LENGTH'] =
      */
 $GLOBALS['VALIDATE_FINANCE_IBAN_COUNTRYCODE_BANKCODE'] =
         array(
-            'AD' => array('start' =>  4, 'length' =>  8), // first 4 chars are bankcode, last 4 chars are the district
+            'AD' => array('start' =>  4, 'length' =>  8), // first 4 chars are bankcode, last 4 chars are the branch
             'AT' => array('start' =>  4, 'length' =>  5),
             'BE' => array('start' =>  4, 'length' =>  3),
             'CH' => array('start' =>  4, 'length' =>  5),
@@ -96,9 +96,9 @@ $GLOBALS['VALIDATE_FINANCE_IBAN_COUNTRYCODE_BANKCODE'] =
             'FR' => array('start' =>  4, 'length' => 10),
             'GB' => array('start' =>  4, 'length' =>  4),
             'GI' => array('start' =>  4, 'length' =>  4),
-            'GR' => array('start' =>  4, 'length' =>  7), // first 3 chars are bankcode, last 4 chars are the district
-            'HU' => array('start' =>  4, 'length' =>  7), // first 3 chars are bankcode, last 4 chars are the district, followed by an extra character (padding??)
-            'IE' => array('start' =>  4, 'length' =>  4),
+            'GR' => array('start' =>  4, 'length' =>  7), // first 3 chars bankcode, last 4 chars branch
+            'HU' => array('start' =>  4, 'length' =>  7), // first 3 chars bankcode, last 4 chars branch, followed by 1 char (checksum)
+            'IE' => array('start' =>  4, 'length' => 10), // first 4 chars bankcode, last 6 chars branch
             'IS' => array('start' =>  4, 'length' =>  4),
             'IT' => array('start' =>  4, 'length' => 11),
             'LU' => array('start' =>  4, 'length' =>  3),
@@ -129,45 +129,45 @@ $GLOBALS['VALIDATE_FINANCE_IBAN_COUNTRYCODE_BANKACCOUNT'] =
             'GB' => array('start' =>  8, 'length' => 14),
             'GI' => array('start' =>  8, 'length' => 15),
             'GR' => array('start' => 11, 'length' => 16),
-            'HU' => array('start' => 12, 'length' => 15), // followed by an extra character (padding??)
-            'IE' => array('start' =>  8, 'length' => 14),
+            'HU' => array('start' => 12, 'length' => 15), // followed by 1 char (checksum)
+            'IE' => array('start' => 14, 'length' =>  8),
             'IS' => array('start' =>  8, 'length' => 18),
             'IT' => array('start' => 15, 'length' => 12),
-            'LU' => array('start' =>  8, 'length' => 17),
+            'LU' => array('start' =>  8, 'length' => 13),
             'NL' => array('start' =>  8, 'length' => 10),
             'NO' => array('start' =>  8, 'length' =>  7),
             'PL' => array('start' => 12, 'length' => 16),
             'PT' => array('start' => 12, 'length' => 13),
             'SE' => array('start' =>  7, 'length' => 17),
-            'SE' => array('start' =>  7, 'length' =>  8) // followed by two extra characters (padding??)
+            'SE' => array('start' =>  7, 'length' =>  8) // followed by 1 char (checksum)
         );
 
 $GLOBALS['VALIDATE_FINANCE_IBAN_COUNTRYCODE_REGEX'] =
         array(
-            'AD' => '/^AD[0-9]{2}[A-Z0-9]{8}[A-Z0-9]{12}$/',    // todo: check which chars are allowed in bankcode/bankaccounts
-            'AT' => '/^AT[0-9]{2}[A-Z0-9]{5}[A-Z0-9]{11}$/',    // todo: check which chars are allowed in bankcode/bankaccounts
-            'BE' => '/^BE[0-9]{2}[A-Z0-9]{3}[A-Z0-9]{9}$/',     // todo: check which chars are allowed in bankcode/bankaccounts
-            'CH' => '/^CH[0-9]{2}[A-Z0-9]{5}[A-Z0-9]{12}$/',    // todo: check which chars are allowed in bankcode/bankaccounts
-            'CZ' => '/^CH[0-9]{2}[A-Z0-9]{4}[A-Z0-9]{16}$/',    // todo: check which chars are allowed in bankcode/bankaccounts
+            'AD' => '/^AD[0-9]{2}[0-9]{8}[A-Z0-9]{12}$/',
+            'AT' => '/^AT[0-9]{2}[0-9]{5}[0-9]{11}$/',
+            'BE' => '/^BE[0-9]{2}[0-9]{3}[0-9]{9}$/',
+            'CH' => '/^CH[0-9]{2}[0-9]{5}[A-Z0-9]{12}$/',
+            'CZ' => '/^CH[0-9]{2}[0-9]{4}[0-9]{16}$/',
             'DE' => '/^DE[0-9]{2}[0-9]{8}[0-9]{10}$/',
-            'DK' => '/^DK[0-9]{2}[A-Z0-9]{4}[A-Z0-9]{10}$/',    // todo: check which chars are allowed in bankcode/bankaccounts
-            'ES' => '/^ES[0-9]{2}[A-Z0-9]{8}[A-Z0-9]{12}$/',    // todo: check which chars are allowed in bankcode/bankaccounts
-            'FI' => '/^FI[0-9]{2}[A-Z0-9]{6}[A-Z0-9]{8}$/',     // todo: check which chars are allowed in bankcode/bankaccounts
-            'FR' => '/^FR[0-9]{2}[A-Z0-9]{10}[A-Z0-9]{13}$/',   // todo: check which chars are allowed in bankcode/bankaccounts
-            'GB' => '/^GB[0-9]{2}[A-Z0-9]{4}[A-Z0-9]{14}$/',    // todo: check which chars are allowed in bankcode/bankaccounts
-            'GI' => '/^GB[0-9]{2}[A-Z0-9]{4}[A-Z0-9]{15}$/',    // todo: check which chars are allowed in bankcode/bankaccounts
-            'GR' => '/^GB[0-9]{2}[A-Z0-9]{7}[A-Z0-9]{16}$/',    // todo: check which chars are allowed in bankcode/bankaccounts
-            'HU' => '/^GB[0-9]{2}[A-Z0-9]{7}[A-Z0-9]{1}[A-Z0-9]{15}[A-Z0-9]{1}$/',  // todo: check which chars are allowed in bankcode/bankaccounts
-            'IE' => '/^IE[0-9]{2}[A-Z0-9]{4}[A-Z0-9]{14}$/',    // todo: check which chars are allowed in bankcode/bankaccounts
-            'IS' => '/^IS[0-9]{2}[A-Z0-9]{4}[A-Z0-9]{18}$/',    // todo: check which chars are allowed in bankcode/bankaccounts
-            'IT' => '/^IT[0-9]{2}[A-Z0-9]{11}[A-Z0-9]{12}$/',   // todo: check which chars are allowed in bankcode/bankaccounts
-            'LU' => '/^LU[0-9]{2}[A-Z0-9]{3}[A-Z0-9]{17}$/',    // todo: check which chars are allowed in bankcode/bankaccounts
-            'NL' => '/^NL[0-9]{2}[A-Z0-9]{4}[A-Z0-9]{10}$/',    // todo: check which chars are allowed in bankcode/bankaccounts
-            'NO' => '/^NO[0-9]{2}[A-Z0-9]{4}[A-Z0-9]{7}$/',     // todo: check which chars are allowed in bankcode/bankaccounts
-            'PL' => '/^PT[0-9]{2}[A-Z0-9]{8}[A-Z0-9]{16}$/',    // todo: check which chars are allowed in bankcode/bankaccounts
-            'PT' => '/^PT[0-9]{2}[A-Z0-9]{8}[A-Z0-9]{13}$/',    // todo: check which chars are allowed in bankcode/bankaccounts
-            'SE' => '/^SE[0-9]{2}[A-Z0-9]{3}[A-Z0-9]{17}$/',    // todo: check which chars are allowed in bankcode/bankaccounts
-            'SI' => '/^SE[0-9]{2}[A-Z0-9]{5}[A-Z0-9]{8}[A-Z0-9]{2}$/'  // todo: check which chars are allowed in bankcode/bankaccounts
+            'DK' => '/^DK[0-9]{2}[0-9]{4}[0-9]{10}$/',
+            'ES' => '/^ES[0-9]{2}[0-9]{8}[0-9]{12}$/',
+            'FI' => '/^FI[0-9]{2}[0-9]{6}[0-9]{8}$/',
+            'FR' => '/^FR[0-9]{2}[0-9]{10}[A-Z0-9]{13}$/',
+            'GB' => '/^GB[0-9]{2}[A-Z]{4}[0-9]{14}$/',
+            'GI' => '/^GB[0-9]{2}[A-Z]{4}[A-Z0-9]{15}$/',
+            'GR' => '/^GB[0-9]{2}[0-9]{7}[A-Z0-9]{16}$/',
+            'HU' => '/^GB[0-9]{2}[0-9]{7}[0-9]{1}[0-9]{15}[0-9]{1}$/',
+            'IE' => '/^IE[0-9]{2}[A-Z0-9]{4}[0-9]{6}[0-9]{8}$/',
+            'IS' => '/^IS[0-9]{2}[0-9]{4}[0-9]{18}$/',
+            'IT' => '/^IT[0-9]{2}[A-Z]{1}[0-9]{10}[A-Z0-9]{12}$/',
+            'LU' => '/^LU[0-9]{2}[0-9]{3}[A-Z0-9]{13}$/',
+            'NL' => '/^NL[0-9]{2}[A-Z]{4}[0-9]{10}$/',
+            'NO' => '/^NO[0-9]{2}[0-9]{4}[0-9]{7}$/',
+            'PL' => '/^PT[0-9]{2}[0-9]{8}[A-Z0-9]{16}$/',
+            'PT' => '/^PT[0-9]{2}[0-9]{8}[0-9]{13}$/',
+            'SE' => '/^SE[0-9]{2}[0-9]{3}[0-9]{17}$/',
+            'SI' => '/^SE[0-9]{2}[0-9]{5}[0-9]{8}[0-9]{2}$/'
         );
 
 // {{{ error codes
