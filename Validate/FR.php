@@ -42,13 +42,9 @@ class Validate_FR
      * @return bool           true if number is valid, otherwise false
      * @author Pierre-Alain Joye <paj@pearfr.org>
      */
-    function ssn($number)
+    function ssn($ssn)
     {
-        if( is_array($number) ) {
-            extract( $number );
-        }
-
-        $str    = strtolower(preg_replace('/[^0-9a-zA-Z]/','',$number));
+        $str    = strtolower(preg_replace('/[^0-9a-zA-Z]/','',$ssn));
 
         $regexp = "/^([12])(\d\d)(\d\d)(\d\d|2a|2b)(\d\d\d)(\d\d\d)(\d\d)$/";
 
@@ -110,19 +106,22 @@ class Validate_FR
      * @return bool           true if number is valid, otherwise false
      * @author Pierre-Alain Joye <paj@pearfr.org>
      */
-    function rib($aCodeBanque, $aCodeGuichet='', $aNoCompte='', $aKey='')
+    function rib($rib)
     {
-        if(is_array($aCodeBanque)) {
-            extract($aCodeBanque);
+        if(is_array($rib)) {
+            $codebanque=$codeguichet=$nocompte=$key='';
+            extract($rib);
+        } else {
+            return false;
         }
         $chars         = array('/[AJ]/','/[BKZ]/','/[CLT]/','/[DMU]/','/[ENV]/','/[FOW]/','/[GPX]/','/[HQY]/','/[IRZ]/');
         $values        = array('1','2','3','4','5','6','7','8','9');
 
-        $codebank    = preg_replace('/[^0-9]/','',$aCodeBanque);
-        $officecode  = preg_replace('/[^0-9]/','',$aCodeGuichet);
-        $account     = preg_replace($chars,$values,$aNoCompte);
+        $codebank    = preg_replace('/[^0-9]/','',$codebanque);
+        $officecode  = preg_replace('/[^0-9]/','',$codeguichet);
+        $account     = preg_replace($chars,$values,$nocompte);
 
-        echo " ". $codebank . " " . $officecode . " " . $account  . "\n";
+
         if (strlen($codebank)!=5){
             return false;
         }
@@ -135,17 +134,18 @@ class Validate_FR
             return false;
         }
 
-        $l      = $codebank.$officecode.$account;
-        $a1    = (int)substr($l,0,7);
-        $b1    = (int)substr($l,7,7);
-        $c1    = (int)substr($l,15,7);
+        $l     = $codebank.$officecode.$account;
+        $a1    = substr($l,0,7);
+        $b1    = substr($l,7,7);
+        $c1    = substr($l,14,7);
 
         $key   = 97 - Validate::_modf((62*$a1+34*$b1+3*$c1),97);
 
         if ($key==0){
             $key = 97;
         }
-        return $key==$aKey;
+
+        return $key==intval($key);
     }
 
 
@@ -159,14 +159,11 @@ class Validate_FR
      */
     function siren($siren)
     {
-        if( is_array($siren) ) {
-            extract( $number );
-        }
         $siren = str_replace(' ', '', $siren);
         if (!preg_match("/^(\d)(\d)(\d)(\d)(\d)(\d)(\d)(\d)(\d)$/",
             $siren,	$match)) {
             return false;
-        } else {
+        }
         $match[2] *= 2;
         $match[4] *= 2;
         $match[6] *= 2;
@@ -181,6 +178,7 @@ class Validate_FR
             }
             $somme += $match[$i];
         }
+
         return (($somme % 10) == 0);
     }
 
@@ -226,8 +224,9 @@ class Validate_FR
             $somme += $match[$i];
         }
 
-        return ( ($somme % 10) == 0 )
+        return ( ($somme % 10) == 0 );
 
     }
+
 }
 ?>

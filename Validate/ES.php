@@ -34,9 +34,6 @@ class Validate_ES
     */
     function dni($dni)
     {
-        if(is_array($dni)){
-            extract($dni);
-        }
         $letra  = substr($dni, -1);
         $number = substr($dni, 0, -1);
         if (!Validate::string($number, VAL_NUM, 8, 8)) {

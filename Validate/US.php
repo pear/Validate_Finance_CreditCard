@@ -35,9 +35,6 @@ class Validate_US
      */
     function ssn($ssn, $high_groups = null)
     {
-        if(is_array($ssn)){
-            extract($ssn);
-        }
         // remove any dashes, spaces, returns, tabs or slashes
         $ssn = str_replace(array('-','/',' ',"\t","\n"), '', $ssn);
 
@@ -98,10 +95,10 @@ class Validate_US
      * @param array $high_groups array of highest issued group numbers
      *                           area number=>group number
      */
-    function ssnCheck($area, $group, $serial, &$high_groups)
+    function ssnCheck($ssnCheck, $group, $serial, &$high_groups)
     {
-        if(is_array($area)){
-            extract($area);
+        if(is_array($ssnCheck)){
+            extract($ssnCheck);
         }
         // perform trivial checks
         // no field should contain all zeros
