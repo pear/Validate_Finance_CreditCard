@@ -110,7 +110,7 @@ class Validate_FR
      * @return bool           true if number is valid, otherwise false
      * @author Pierre-Alain Joye <paj@pearfr.org>
      */
-    function rib($aCodeBanque, $aCodeGuichet, $aNoCompte, $aKey)
+    function rib($aCodeBanque, $aCodeGuichet='', $aNoCompte='', $aKey='')
     {
         if(is_array($aCodeBanque)) {
             extract($aCodeBanque);
