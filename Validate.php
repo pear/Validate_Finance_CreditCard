@@ -257,7 +257,7 @@ class Validate
             } else {
                 //literal
                 if (Validate::_substr($date, 1) != $c) {
-                    //return false;
+                    return false;
                 }
             }
         }
