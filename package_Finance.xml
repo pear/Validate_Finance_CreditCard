@@ -22,6 +22,7 @@
     <date>2004-03-17</date>
     <notes>
 - Split from Validate into independent package
+- removed apiVersion function from IBAN
     </notes>
     <filelist>
     <dir name="/">
