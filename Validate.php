@@ -416,7 +416,7 @@ class Validate
     * assoc array in the form $var_name => $value.
     * Can be used on any of Validate subpackages
     *
-    * @param  array   $data     Ex: array('name'=>'toto','email'='toto@thing.info');
+    * @param  array   $data     Ex: array('name' => 'toto', 'email' => 'toto@thing.info');
     * @param  array   $val_type Contains the validation type and all parameters used in.
     *                           'val_type' is not optional
     *                           others validations properties must have the same name as the function
