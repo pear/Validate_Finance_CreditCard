@@ -266,7 +266,7 @@ class Validate
             return false;
         }
         if (isset($day) && isset($month) && isset($year)) {
-            if (!checkdate($day, $month, $year)) {
+            if (!checkdate($month, $day, $year)) {
                 return false;
             }
             if ($min || $max) {
