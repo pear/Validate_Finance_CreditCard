@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="ISO-8859-1" ?>
 <package version="1.0">
-  <name>Validate_CreditCard</name>
+  <name>Validate_Finance_CreditCard</name>
   <summary>Validation class for Credit Cards</summary>
   <description>
    Package to validate Credit Cards.
@@ -8,10 +8,10 @@
   <license>PHP</license>
   <maintainers>
     <maintainer>
-      <user></user>
-      <role></role>
-      <name></name>
-      <email></email>
+      <user>jausions</user>
+      <role>Lead</role>
+      <name>Philippe Jausions</name>
+      <email>Philippe.Jausions@11abacus.com</email>
     </maintainer>
    </maintainers>
   <release>
@@ -26,7 +26,9 @@
     <filelist>
     <dir name="/">
       <dir name="Validate">
+       <dir name="Finance">
         <file role="php">CreditCard.php</file>
+       </dir>
       </dir>
       <dir name="tests" role="test">
         <file>credit_card.php</file>
