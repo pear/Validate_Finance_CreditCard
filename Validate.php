@@ -14,7 +14,7 @@
 // | license@php.net so we can mail you a copy immediately.               |
 // +----------------------------------------------------------------------+
 // | Authors: Tomas V.V.Cox <cox@idecnet.com>                             |
-// |          Pierre-Alain Joye" <pajoye@phpindex.com>                    |
+// |          Pierre-Alain Joye <pajoye@phpindex.com>                     |
 // |                                                                      |
 // +----------------------------------------------------------------------+
 //
