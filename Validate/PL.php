@@ -5,10 +5,10 @@
 // +----------------------------------------------------------------------+
 // | Copyright (c) 1997-2003 The PHP Group                                |
 // +----------------------------------------------------------------------+
-// | This source file is subject to version 2.02 of the PHP license,      |
+// | This source file is subject to version 3.0 of the PHP license,       |
 // | that is bundled with this package in the file LICENSE, and is        |
-// | available at through the world-wide-web at                           |
-// | http://www.php.net/license/2_02.txt.                                 |
+// | available through the world-wide-web at the following url:           |
+// | http://www.php.net/license/3_0.txt.                                  |
 // | If you did not receive a copy of the PHP license and are unable to   |
 // | obtain it through the world-wide-web, please send a note to          |
 // | license@php.net so we can mail you a copy immediately.               |
@@ -25,7 +25,7 @@ class Validate_PL
 {
     /**
      * Validates NIP (Polish tax identification number)
-     * 
+     *
      * Sprawdza NIP (Numer Identyfikacji Podatkowej)
      * http://chemeng.p.lodz.pl/zylla/ut/nip-rego.html
      * http://www.republika.pl/stepa/cyfra2.htm
@@ -52,7 +52,7 @@ class Validate_PL
 
     /**
      * Validates bank number (Polish banks)
-     * 
+     *
      * @param string $number 8-digit number to validate
      * @returns bool
      * @author Piotr Klaban <makler@man.torun.pl>
@@ -75,7 +75,7 @@ class Validate_PL
 
     /**
      * Validates PESEL (Polish human identification number)
-     * 
+     *
      * Sprawdza PESEL (Powszechny Elektroniczny System Ewidencji Ludno¶ci)
      * http://www.mswia.gov.pl/crp_pesel.html
      * NOTE: some people can have the same PESEL, and some can have
@@ -108,7 +108,7 @@ class Validate_PL
         $vy = substr($pesel,0,2);
         $vm = substr($pesel,2,2);
         $vd = substr($pesel,4,2);
-  
+
         // decode century
         if ($vm < 20)
             $vy += 1900;
@@ -132,7 +132,7 @@ class Validate_PL
 
     /**
      * Validates REGON (Polish statistical national economy register)
-     * 
+     *
      * Sprawdza REGON (Rejestr Gospodarki Narodowej)
      * http://chemeng.p.lodz.pl/zylla/ut/nip-rego.html
      *

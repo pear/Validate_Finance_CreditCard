@@ -5,10 +5,10 @@
 // +----------------------------------------------------------------------+
 // | Copyright (c) 1997-2003 The PHP Group                                |
 // +----------------------------------------------------------------------+
-// | This source file is subject to version 2.02 of the PHP license,      |
+// | This source file is subject to version 3.0 of the PHP license,       |
 // | that is bundled with this package in the file LICENSE, and is        |
-// | available at through the world-wide-web at                           |
-// | http://www.php.net/license/2_02.txt.                                 |
+// | available through the world-wide-web at the following url:           |
+// | http://www.php.net/license/3_0.txt.                                  |
 // | If you did not receive a copy of the PHP license and are unable to   |
 // | obtain it through the world-wide-web, please send a note to          |
 // | license@php.net so we can mail you a copy immediately.               |
@@ -39,10 +39,10 @@ class Validate_NL
     {
         return (ereg('^[0-9]{4}\ {0,1}[A-Za-z]{2}$', $postcode)); // '1234 AB', '1234AB', '1234 ab'
     }
-    
-    
-    
-    /** 
+
+
+
+    /**
      * Validate a phonenumber
      *
      * @param   string  $number         Dutch phonenumber (can be in international format (eg +31 or 0031)
@@ -52,14 +52,14 @@ class Validate_NL
     function phonenumber($number, $type = PHONENUMBER_TYPE_ANY)
     {
         $result = false;
-        
+
         //we need at least 9 digits
         if (ereg("^[+0-9]{9,}$", $number)) {
             $number = substr($number, strlen($number)-9);
-            
+
             //we only use the last 9 digits (so no troubles with international numbers)
             if (strlen($number) >= 9) {
-                switch ($type) 
+                switch ($type)
                 {
                     case VALIDATE_NL_PHONENUMBER_TYPE_ANY:
                         $result = true;     //we have a 9 digit numeric number.
@@ -78,8 +78,8 @@ class Validate_NL
 
         return $result;
     }
-    
-    
+
+
     /**
      * Social Security Number check (very simple, just a 9 digit number..)
      * In Dutch SoFi (Sociaal Fiscaal) nummer
@@ -89,10 +89,10 @@ class Validate_NL
      */
     function SSN($number)
     {
-        return (ereg("^[0-9]{9}$", $number));   
+        return (ereg("^[0-9]{9}$", $number));
     }
-    
-    /** 
+
+    /**
      * Bankaccount validation check (based on 11proef)
      *
      * @param   string  $number     Dutch bankaccount number
@@ -102,7 +102,7 @@ class Validate_NL
     {
         $result     = false;        //by default we return false
         $checksum   = 0;
-        
+
         if (is_numeric((string)$number) && strlen((string)$number) <= 10) {
             $number = str_pad($number, 10, '0', STR_PAD_LEFT);  //make sure we have a 10 digit number
 
@@ -110,15 +110,15 @@ class Validate_NL
             for ($i=0; $i < 10; $i++) {
                 $checksum += ( (int)$number[$i] * (10 - $i) );
             }
-            
+
             //Banknumber is 'correct' if we can divide checksum by 11
             if ($checksum > 0 && $checksum % 11 == 0)
                 $result = true;
-                
+
             //return result
             return $result;
         }
     }
-    
+
 }
 ?>
