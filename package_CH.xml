@@ -11,10 +11,10 @@
   <license>PHP</license>
   <maintainers>
     <maintainer>
-      <user></user>
+      <user>pajoye</user>
       <role>lead</role>
-      <name>Hans-Peter Oeri</name>
-      <email>hp@oeri.ch</email>
+      <name>Pierre-Alain Joye</name>
+      <email>paj@pearfr.org</email>
     </maintainer>
    </maintainers>
   <release>
@@ -23,6 +23,9 @@
     <state>alpha</state>
     <date>2004-03-17</date>
     <notes>
+We're looking for someone to maintain this package for us!
+Drop us a note or email to pear-dev@lists.php.net if you're interested.
+
 - Split from Validate into independent package
 - CS fixes
 - BC break! 
