@@ -63,7 +63,7 @@ class Validate
         if ($decimal != '.') {
             $number = strtr($number, $decimal, '.');
         }
-        $number = (float)$number;
+        $number = (float)str_replace(' ', '', $number);
         if ($min !== null && $min > $number) {
             return false;
         }
