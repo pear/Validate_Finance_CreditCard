@@ -39,30 +39,37 @@
     </maintainer>
   </maintainers>
   <release>
-    <version>0.0.4</version>
+    <version>0.1.0</version>
     <state>alpha</state>
-    <date>2003-02-16</date>
-    <notes>- Fix a string bug using 'format' argumenent (pierre)
-- Add isbn check
-- Add UK postalcode check (dams@php.net)
-- Add siret/siren to FR (dams@php.net)
-- Add rib to FR (pierre)
+    <date>2003-02-18</date>
+    <notes>***WARNING*** Interface has changed  ***
+- Fix the sources itself, the last release was broken
+- Set a maximum of 2 arguments, one for the value itself
+  and one for the options, if more are needed, an array is used.
+- Fix a weird behavior while using include inside a 'if',
+  never use an include|_once inside a 'if' (pierre)
 - Update all functions to be callable from the multiple method (pierre)
+- Fix a little bug in fr::rib
+- Add an usage sample in docs for the multiple method
 </notes>
     <filelist>
-        <dir name="/">
+    <dir name="/">
           <file role="php">Validate.php</file>
-	  <dir name="Validate">
-	     <file role="php">ES.php</file>
-	     <file role="php">US.php</file>
-         <file role="php">FR.php</file>
-	  </dir>
+	      <dir name="Validate">
+	         <file role="php">ES.php</file>
+	         <file role="php">US.php</file>
+             <file role="php">FR.php</file>
+             <file role="php">UK.php</file>
+	      </dir>
           <dir name="tests" role="test">
              <file>number.php</file>
              <file>date.php</file>
-			 <file>credit_card.php</file>
+             <file>credit_card.php</file>
           </dir>
-        </dir>
+          <dir name="docs" role="doc">
+             <file>sample_multiple.php</file>
+          </dir>
+    </dir>
     </filelist>
     <deps>
       <dep type="php" rel="ge" version="4.1.0" />
