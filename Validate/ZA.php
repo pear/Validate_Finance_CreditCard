@@ -93,7 +93,8 @@ class Validate_ZA
      * @return  bool    true if valid else false
      * @access  public
      */
-    function ssn($id) {
+    function ssn($id)
+    {
         $match = preg_match ("!^(\d{2})(\d{2})(\d{2})[0|5]\d{6}$!", $id, $matches);
         if (!$match) {
             return false;
@@ -112,10 +113,8 @@ class Validate_ZA
 
         if (Validate_Finance_CreditCard::Luhn($id)) {
             return true;
-        } else {
-            return false;
         }
-        
+        return false;
     }
 }
 ?>
