@@ -81,7 +81,7 @@ class Validate_Finance_CreditCard
     function isValid($creditCard, $cardType = null)
     {
         $creditCard = str_replace(array('-', ' '), '', $creditCard);
-        if (($len_number = strlen($creditCard)) <= 13
+        if (($len_number = strlen($creditCard)) < 13
             || !is_numeric($creditCard)) {
             return false;
         }
