@@ -13,7 +13,7 @@
 // | obtain it through the world-wide-web, please send a note to          |
 // | license@php.net so we can mail you a copy immediately.               |
 // +----------------------------------------------------------------------+
-// | Authors: Pierre-Alain Joye <paj@pearfr.org>                          |
+// | Authors: Pierre-Alain Joye <pajoye@php.net>                          |
 // +----------------------------------------------------------------------+
 //
 // $Id$
@@ -38,7 +38,7 @@ class Validate_FR
      *
      * @param  string $number number or an array containaing the 'number'=>1234
      * @return bool           true if number is valid, otherwise false
-     * @author Pierre-Alain Joye <paj@pearfr.org>
+     * @author Pierre-Alain Joye <pajoye@php.net>
      */
     function ssn($ssn)
     {
@@ -94,7 +94,7 @@ class Validate_FR
      * @param  string $aNoCompte number or an array containaing the 'number'=>1234
      * @param  string $number number or an array containaing the 'number'=>1234
      * @return bool   true if number is valid, otherwise false
-     * @author Pierre-Alain Joye <paj@pearfr.org>
+     * @author Pierre-Alain Joye <pajoye@php.net>
      */
     function rib($rib)
     {
