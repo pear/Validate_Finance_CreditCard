@@ -19,7 +19,7 @@
 //
 // $Id$
 
-class Validate_CreditCard
+class Validate_Finance_CreditCard
 {
     /**
      * Validate a number according to Luhn check algorithm
