@@ -54,7 +54,16 @@
 - _check_control_number renamed to _checkControlNumber
   _get_control_number renamed to _getControlNumber
   _mult_weights renamed to _multWeights
-- added email, issn and product_numbers tests
+- added email test
+- Splitted these functions over to a new sub package called Validate_ISPN (International Standard Product Numbers)
+ * ISSN
+ * ISBN
+ * ISMN
+ * EAN8
+ * EAN13
+ * EAN14
+ * UCC12
+ * SSCC
     </notes>
     <filelist>
     <dir name="/">
@@ -63,8 +72,6 @@
         <file>number.php</file>
         <file>date.php</file>
         <file>email.php</file>
-        <file>product_numbers.php</file>
-        <file>issn.php</file>
       </dir>
       <dir name="docs" role="doc">
         <file>sample_multiple.php</file>

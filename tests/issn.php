@@ -1,6 +1,6 @@
 <?php
 require_once 'PHPUnit.php';
-require 'Validate.php';
+require 'Validate/ISPN.php';
 
 class Validate_ISSN_Test extends PHPUnit_TestCase
 {
@@ -31,7 +31,7 @@ class Validate_ISSN_Test extends PHPUnit_TestCase
     function testISSN()
     {
         foreach ($this->issn as $issn => $expected_result) {
-            $r = Validate::issn($issn);
+            $r = Validate_ISPN::issn($issn);
             $this->assertEquals($r, $expected_result);
         }
     }

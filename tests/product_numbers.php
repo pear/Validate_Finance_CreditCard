@@ -1,6 +1,6 @@
 <?php
 require_once 'PHPUnit.php';
-require 'Validate.php';
+require 'Validate/ISPN.php';
 
 class Validate_Trade_Test extends PHPUnit_TestCase
 {
@@ -37,7 +37,7 @@ class Validate_Trade_Test extends PHPUnit_TestCase
     function testUCC12()
     {
         foreach ($this->ucc12 as $ucc12 => $expected_result) {
-            $r = Validate::ucc12($ucc12);
+            $r = Validate_ISPN::ucc12($ucc12);
             $this->assertEquals($r, $expected_result);
         }
     }
@@ -45,7 +45,7 @@ class Validate_Trade_Test extends PHPUnit_TestCase
     function testEAN8()
     {
         foreach ($this->ean8 as $ean8 => $expected_result) {
-            $r = Validate::ean8($ean8);
+            $r = Validate_ISPN::ean8($ean8);
             $this->assertEquals($r, $expected_result);
         }
     }
@@ -53,7 +53,7 @@ class Validate_Trade_Test extends PHPUnit_TestCase
     function testEAN13()
     {
         foreach ($this->ean13 as $ean13 => $expected_result) {
-            $r = Validate::ean13($ean13);
+            $r = Validate_ISPN::ean13($ean13);
             $this->assertEquals($r, $expected_result);
         }
     }
@@ -61,7 +61,7 @@ class Validate_Trade_Test extends PHPUnit_TestCase
     function testEAN14()
     {
         foreach ($this->ean14 as $ean14 => $expected_result) {
-            $r = Validate::ean14($ean14);
+            $r = Validate_ISPN::ean14($ean14);
             $this->assertEquals($r, $expected_result);
         }
     }
@@ -69,7 +69,7 @@ class Validate_Trade_Test extends PHPUnit_TestCase
     function testSSCC()
     {
         foreach ($this->sscc as $sscc => $expected_result) {
-            $r = Validate::sscc($sscc);
+            $r = Validate_ISPN::sscc($sscc);
             $this->assertEquals($r, $expected_result);
         }
     }

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<package version="1.0">
+  <name>Validate_ISPAN</name>
+  <summary>Validation class for ISPAN (International Standard Product Numbers)</summary>
+  <description>
+   Package containes ISPAN (International Standard Product Numbers) validations such as:
+    * ISSN
+    * ISBN
+    * ISMN
+    * EAN8
+    * EAN13
+    * EAN14
+    * UCC12
+    * SSCC
+  </description>
+  <license>PHP</license>
+  <maintainers>
+    <maintainer>
+      <user>dufuz</user>
+      <role>lead</role>
+      <name>Helgi Þormar</name>
+      <email>dufuz@php.net</email>
+    </maintainer>
+   </maintainers>
+  <release>
+
+    <version>0.5</version>
+    <state>alpha</state>
+    <date>2004-03-17</date>
+    <notes>
+- Split from Validate into independent package
+- CS fixes
+- Added issn and product_numbers tests
+    </notes>
+    <filelist>
+    <dir name="/">
+      <dir name="Validate">
+        <file role="php">ISPN.php</file>
+      </dir>
+      <dir name="tests" role="test">
+        <file>product_numbers.php</file>
+        <file>issn.php</file>
+      </dir>
+    </dir>
+    </filelist>
+    <deps>
+      <dep type="php" rel="ge" version="4.1.0" />
+    </deps>
+  </release>
+  <changelog>
+  </changelog>
+</package>
