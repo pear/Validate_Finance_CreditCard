@@ -41,7 +41,7 @@ class Validate_NL
         // $strong is not used here at the moment; added for API compatibility
         // checks might be added at a later stage
 
-        return (ereg('^[0-9]{4}\ {0,1}[A-Za-z]{2}$', $postcode)); // '1234 AB', '1234AB', '1234 ab'
+        return (boolean)(ereg('^[0-9]{4}\ {0,1}[A-Za-z]{2}$', $postcode)); // '1234 AB', '1234AB', '1234 ab'
     }
 
     /**
@@ -91,7 +91,7 @@ class Validate_NL
      */
     function ssn($ssn)
     {
-        return (ereg("^[0-9]{9}$", $ssn));
+        return (boolean)(ereg("^[0-9]{9}$", $ssn));
     }
 
     /**
