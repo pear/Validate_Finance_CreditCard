@@ -96,6 +96,7 @@
         <file>credit_card.php</file>
         <file>validate_AT.php</file>
         <file>validate_CH.php</file>
+	<file>validate_DE.php</file>
         <file>validate_NL.php</file>
         <file>validate_Finance.php</file>
       </dir>

@@ -24,14 +24,27 @@ require_once('Validate.php');
 class Validate_DE
 {
     /**
-     * Validate a DE postcode
+     * Validate a German postcode
      *
-     * @param   string  $postcode       DE postcode to validate
+     * @param   string  $postcode       German postcode to validate
      * @return  bool    true if postcode is ok, false otherwise
      */
     function postcode($postcode)
     {
         return (ereg('^[0-9]{5}$', $postcode));
+    }
+
+    /**
+     * Validate a German bankcode
+     *
+     * German bankcodes consist of exactly 8 numbers
+     *
+     * @param   string  $postcode       German bankcode to validate
+     * @return  bool    true if bankcode is ok, false otherwise
+     */
+    function bankcode($postcode)
+    {
+        return (ereg('^[0-9]{8}$', $postcode));
     }
 }
 ?>
