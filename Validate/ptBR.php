@@ -143,7 +143,7 @@ class Validate_ptBR
 
             $sum = $number[0]*5+$number[1]*4+$number[2]*3+$number[3]*2+
                    $number[4]*9+$number[5]*8+$number[6]*7+$number[7]*6+
-                   $$number[8]*5+$number[9]*4+$number[10]*3+$number[11]*2;
+                   $number[8]*5+$number[9]*4+$number[10]*3+$number[11]*2;
 
             $sum -= (11*(intval($sum/11)));
 
