@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<package version="1.0">
+  <name>Validate</name>
+  <summary>Validation class</summary>
+  <description>
+    Coming soon
+  </description>
+  <license>PHP</license>
+  <maintainers>
+    <maintainer>
+      <user>cox</user>
+      <role>lead</role>
+      <name>Tomas V.V.Cox</name>
+      <email>cox@php.net</email>
+    </maintainer>
+    <maintainer>
+      <user>pajoye</user>
+      <role>contributor</role>
+      <name>Pierre-Alain Joye</name>
+      <email>pajoye@phpindex.com</email>
+    </maintainer>
+    <maintainer>
+      <user>timg</user>
+      <role>contributor</role>
+      <name>Tim Gallagher</name>
+      <email>timg@sunflowerroad.com</email>
+    </maintainer>
+    <maintainer>
+      <user>busterb</user>
+      <role>contributor</role>
+      <name>Brent Cook</name>
+      <email>busterb@mail.utexas.edu</email>
+    </maintainer>
+  </maintainers>
+  <release>
+    <version>0.0.1</version>
+    <state>alpha</state>
+    <date>2002-06-07</date>
+    <notes>Initial public release</notes>
+    <filelist>
+        <dir name="/">
+          <file role="php">Validate.php</file>
+	  <dir name="Validate">
+	     <file role="php">ES.php</file>
+	     <file role="php">US.php</file>
+	  </dir>
+          <dir name="tests" role="test">
+             <file>number.php</file>
+          </dir>
+        </dir>
+    </filelist>
+    <deps>
+      <dep type="php" rel="ge" version="4.0.4pl1" />
+    </deps>
+  </release>
+</package>
