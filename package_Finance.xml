@@ -1,17 +1,10 @@
 <?xml version="1.0" encoding="ISO-8859-1" ?>
 <package version="1.0">
   <name>Validate_Finance</name>
-  <summary>Validation_Finance class</summary>
-  <description>Package to validate various datas. It includes :
-* numbers (min/max, decimal or not)
-* email (syntax, domain check)
-* string (predifined type alpha upper and/or lowercase, numeric,...)
-* date (min, max)
-* Credit cards
-* uri (RFC2396)
-* possibility valid multiple data with a single method call (::multiple)
-* Locale validation for AT, CH, DE, ES, FR, NL, PL, ptBR, UK, US
-* Finance (e.g. IBAN)
+  <summary>Validation class for Finance</summary>
+  <description>
+   Package to validate Finance data. It includes :
+    * IBAN
   </description>
   <license>PHP</license>
   <maintainers>

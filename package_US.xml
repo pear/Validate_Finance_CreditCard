@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="ISO-8859-1" ?>
 <package version="1.0">
   <name>Validate_US</name>
-  <summary>Validation_US class</summary>
-  <description>Package containes locale validation for UK such as:
- * SSN
- * Postal Code
- * Regions (States)
- * Phone Numbers
+  <summary>Validation class for US</summary>
+  <description>
+   Package containes locale validation for UK such as:
+    * SSN
+    * Postal Code
+    * Regions (States)
+    * Phone Numbers
   </description>
   <license>PHP</license>
   <maintainers>

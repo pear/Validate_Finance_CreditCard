@@ -1,16 +1,17 @@
 <?xml version="1.0" encoding="ISO-8859-1" ?>
 <package version="1.0">
   <name>Validate_UK</name>
-  <summary>Validation_UK class</summary>
-  <description>Package containes locale validation for UK such as:
-  * SSN (NI)
-  * Postal Code
-  * Sort Code
-  * Bank AC
-  * Telephone numbers
-  * Car registration numbers
-  * Passports
-  * Driver license
+  <summary>Validation class for UK</summary>
+  <description>
+   Package containes locale validation for UK such as:
+    * SSN (NI)
+    * Postal Code
+    * Sort Code
+    * Bank AC
+    * Telephone numbers
+    * Car registration numbers
+    * Passports
+    * Driver license
   </description>
   <license>PHP</license>
   <maintainers>

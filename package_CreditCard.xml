@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="ISO-8859-1" ?>
 <package version="1.0">
   <name>Validate_CreditCard</name>
-  <summary>Validation_CreditCard class</summary>
-  <description>Package to validate various datas. It includes :
-Validates credit cards
+  <summary>Validation class for Credit Cards</summary>
+  <description>
+   Package to validate Credit Cards.
   </description>
   <license>PHP</license>
   <maintainers>

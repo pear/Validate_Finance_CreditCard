@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="ISO-8859-1" ?>
 <package version="1.0">
   <name>Validate_NL</name>
-  <summary>Validation_NL class</summary>
-  <description>Package containes locale validation for NL such as:
- * SSN
- * Postal Code
- * Phone Number
- * Bank Account Number (based on 11proef)
+  <summary>Validation class for NL</summary>
+  <description>
+   Package containes locale validation for NL such as:
+    * SSN
+    * Postal Code
+    * Phone Number
+    * Bank Account Number (based on 11proef)
   </description>
   <license>PHP</license>
   <maintainers>
