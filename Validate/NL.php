@@ -112,7 +112,7 @@ class Validate_NL
             }
             
             //Banknumber is 'correct' if we can divide checksum by 11
-            if ($checksum % 11 == 0)
+            if ($checksum > 0 && $checksum % 11 == 0)
                 $result = true;
                 
             //return result
