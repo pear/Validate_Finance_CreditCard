@@ -1,55 +1,73 @@
 <?php
 require_once 'Validate.php';
 
-function test($res, $expected) {
-    static $no = 1;
-    if ($res !== $expected) {
-        echo "test $no failed\n";
+require_once 'PHPUnit.php';
+require_once( "Validate/NL.php" );
+
+class Validate_date extends PHPUnit_TestCase
+{
+    var $dates = array(
+            '121202'        => array(array('format'=>'%d%m%y'), true),
+            '21202'         => array(array('format'=>'%d%m%y'), false),
+            '121402'        => array(array('format'=>'%d%m%y'), false),
+            '12120001'      => array(array('format'=>'%d%m%Y'), true),
+
+            /* Ambiguous date >> false
+             * They should be still valid. Maybe by changing the loop
+             * 1st check for the Y (4digits), and then m (2digits)
+             * if you got the idea ;)
+             */
+            '220001'        => array(array('format'=>'%j%n%Y'), false),
+            '2299'          => array(array('format'=>'%j%n%y'), false),
+            '2120001'       => array(array('format'=>'%j%m%Y'), false),
+            /* End */
+
+            '12121999'      => array(array('format'=>'%d%m%Y',
+                                'min'=>array('01','01','1995')), true),
+            '12121996'      => array(array('format'=>'%d%m%Y',
+                                'min'=>array('01','01','1995'),
+                                'max'=>array('01','01','1997')), true),
+            '29022002'      => array(array('format'=>'%d%m%Y'), false),
+            '12.12.1902'    => array(array('format'=>'%d.%m.%Y'), true),
+            '12/12/1902'    => array(array('format'=>'%d/%m/%Y'), true),
+            '12/12/1902'    => array(array('format'=>'%d/%m/%Y'), true),
+            '12:12:1902'    => array(array('format'=>'%d:%m:%Y'), true),
+            '12'            => array(array('format'=>'%g'), true),
+            '12'            => array(array('format'=>'%G'), true),
+            '13:00'         => array(array('format'=>'%g:%i'), false),
+            '24:59'         => array(array('format'=>'%G:%i'), true),
+            '25:00'         => array(array('format'=>'%G:%i'), false),
+            '25:00'         => array(array('format'=>'%G:%i:%s'), false),
+            '121902'        => array(array('format'=>'%m%Y'), true),
+            '13120001'      => array(array('format'=>'%d%m%Y'), true)
+        );
+    function Validate_date( $name )
+    {
+        $this->PHPUnit_TestCase($name);
     }
-    $no++;
+
+    /* will be used later */
+    function setup ()
+    {
+    }
+
+    function tearDown()
+    {
+    }
+
+    function testDate()
+    {
+        foreach ($this->dates as $date=>$data){
+            $r = Validate::date($date,$data[0]);
+            $this->assertEquals($r, $data[1]);
+        }
+    }
 }
-// 1
-test(Validate::date('121202','%d%m%y'), true);
-// 2
-test(Validate::date('21202','%d%m%y'), false);
-// 3
-test(Validate::date('121402','%d%m%y'), false);
-// 4
-test(Validate::date('12120001','%d%m%Y'), true);
-// 5
-test(Validate::date('2120001','%j%m%Y'), true);
-// 6
-test(Validate::date('220001','%j%n%Y'), true);
-// 7
-test(Validate::date('2299','%j%n%y'), true);
-// 8
-test(Validate::date('12121999','%d%m%Y', array('01','01','1995')), true);
-// 9
-test(Validate::date('12121996','%d%m%Y', array('01','01','1995'), array('01','01','1997')), true);
-// 10
-test(Validate::date('29022002','%d%m%Y'), false);
-// 11
-test(Validate::date('12.12.1902','%d.%m.%Y'), true);
-// 12
-test(Validate::date('12/12/1902','%d/%m/%Y'), true);
-// 13
-test(Validate::date('12/12/1902','%d/%m/%Y'), true);
-// 14
-test(Validate::date('12:12:1902','%d:%m:%Y'), true);
-// 15
-test(Validate::date('12','%g'), true);
-// 16
-test(Validate::date('12','%G'), true);
-// 17
-test(Validate::date('13:00','%g:%i'), false);
-// 18
-test(Validate::date('24:59','%G:%i'), true);
-// 19
-test(Validate::date('25:00','%G:%i'), false);
-// 20
-test(Validate::date('25:00','%G:%i:%s'), false);
-// 21
-test(Validate::date('121902','%m%Y'), true);
-// 22
-test(Validate::date('13120001','%d%m%Y'), true);
+
+// runs the tests
+$suite = new PHPUnit_TestSuite("Validate_date");
+$result = PHPUnit::run($suite);
+// prints the tests
+echo $result->toString();
+
 ?>

@@ -1,23 +1,44 @@
 <?php
+require_once 'PHPUnit.php';
 require_once 'Validate.php';
 
-function test($res, $expected) {
-    static $no = 1;
-    if ($res !== $expected) {
-        echo "test $no failed\n";
+class Validate_CreditCard extends PHPUnit_TestCase
+{
+    var $cards = array(
+                    0   => false,
+                    -1  => false,
+                    '6762195515061813'  => true,
+                    '6762195515061814'  => false,
+                    '4405771709596026'  => true,
+                    'Big brother is watching you' => false
+                );
+    function Validate_date( $name )
+    {
+        $this->PHPUnit_TestCase($name);
     }
-    $no++;
+
+    /* will be used later */
+    function setup ()
+    {
+    }
+
+    function tearDown()
+    {
+    }
+
+    function testCreditCard()
+    {
+        foreach ($this->cards as $card=>$expected_result){
+            $r = Validate::creditCard($card);
+            $this->assertEquals($r, $expected_result);
+        }
+    }
 }
-// 1
-test(Validate::creditCard(0), false);
-// 2
-test(Validate::creditCard(-1), false);
-// 3
-test(Validate::creditCard('6762195515061813'), true);
-// 4
-test(Validate::creditCard('6762195515061814'), false);
-// 5
-test(Validate::creditCard(array('number' => '4405771709596026')), true);
-// 6
-test(Validate::creditCard('Big brother is watching you'), false);
+
+// runs the tests
+$suite = new PHPUnit_TestSuite("Validate_CreditCard");
+$result = PHPUnit::run($suite);
+// prints the tests
+echo $result->toString();
+
 ?>
