@@ -178,14 +178,14 @@ $GLOBALS['VALIDATE_FINANCE_IBAN_COUNTRYCODE_REGEX'] =
  * sure to add the textual messages to the IBAN::errorMessage() function as well
  */
 
-define('IBAN_OK',                      1);
-define('IBAN_ERROR',                  -1);
-define('IBAN_GENERAL_INVALID',        -2);
-define('IBAN_TOO_SHORT',              -4);
-define('IBAN_TOO_LONG',               -5);
-define('IBAN_COUNTRY_INVALID',        -6);
-define('IBAN_INVALID_FORMAT',         -7); // tested via regex; e.g. if un-allowed characters in IBAN
-define('IBAN_CHECKSUM_INVALID',       -8);
+define('VALIDATE_FINANCE_IBAN_OK',                 1);
+define('VALIDATE_FINANCE_IBAN_ERROR',             -1);
+define('VALIDATE_FINANCE_IBAN_GENERAL_INVALID',   -2);
+define('VALIDATE_FINANCE_IBAN_TOO_SHORT',         -4);
+define('VALIDATE_FINANCE_IBAN_TOO_LONG',          -5);
+define('VALIDATE_FINANCE_IBAN_COUNTRY_INVALID',   -6);
+define('VALIDATE_FINANCE_IBAN_INVALID_FORMAT',    -7); // tested via regex; e.g. if un-allowed characters in IBAN
+define('VALIDATE_FINANCE_IBAN_CHECKSUM_INVALID',  -8);
 
 // }}}
 
@@ -287,18 +287,18 @@ class Validate_Finance_IBAN {
             $iban = $arg;
         }
 
-        $errorcode=IBAN_OK;
+        $errorcode=VALIDATE_FINANCE_IBAN_OK;
 
         if (strlen($iban) <= 4) {
-            $errorcode = IBAN_TOO_SHORT;
+            $errorcode = VALIDATE_FINANCE_IBAN_TOO_SHORT;
         } elseif (!isset( $GLOBALS['VALIDATE_FINANCE_IBAN_COUNTRYCODES'][ substr($iban,0,2) ] )) {
-            $errorcode = IBAN_COUNTRY_INVALID;
+            $errorcode = VALIDATE_FINANCE_IBAN_COUNTRY_INVALID;
         } elseif (strlen($iban) < $GLOBALS['VALIDATE_FINANCE_IBAN_COUNTRYCODE_LENGTH'][ substr($iban,0,2) ]) {
-            $errorcode = IBAN_TOO_SHORT;
+            $errorcode = VALIDATE_FINANCE_IBAN_TOO_SHORT;
         } elseif (strlen($iban) > $GLOBALS['VALIDATE_FINANCE_IBAN_COUNTRYCODE_LENGTH'][ substr($iban,0,2) ]) {
-            $errorcode = IBAN_TOO_LONG;
+            $errorcode = VALIDATE_FINANCE_IBAN_TOO_LONG;
         } elseif (!preg_match($GLOBALS['VALIDATE_FINANCE_IBAN_COUNTRYCODE_REGEX'][ substr($iban,0,2) ],$iban)) {
-            $errorcode = IBAN_INVALID_FORMAT;
+            $errorcode = VALIDATE_FINANCE_IBAN_INVALID_FORMAT;
         } else {
             // todo: maybe implement direct checks for bankcodes of certain countries
 
@@ -320,16 +320,16 @@ class Validate_Finance_IBAN {
 
             // checkvalue of 1 indicates correct IBAN checksum
             if ($tempcheckvalue != 1) {
-                $errorcode=IBAN_CHECKSUM_INVALID;
+                $errorcode=VALIDATE_FINANCE_IBAN_CHECKSUM_INVALID;
             } else {
-                $errorcode=IBAN_OK;
+                $errorcode=VALIDATE_FINANCE_IBAN_OK;
             }
         }
 
         if ( isset($this) ) {
             $this->_errorcode=$errorcode;
         }
-        return ($errorcode == IBAN_OK);
+        return ($errorcode == VALIDATE_FINANCE_IBAN_OK);
     } // end func validate
 
     // }}}
@@ -359,7 +359,7 @@ class Validate_Finance_IBAN {
             // return first two characters
             return substr($this->_iban,0,2);
         } else {
-            $this->_errorcode = IBAN_TOO_SHORT;
+            $this->_errorcode = VALIDATE_FINANCE_IBAN_TOO_SHORT;
             return PEAR::raiseError($this->errorMessage($this->_errorcode), $this->_errorcode, PEAR_ERROR_TRIGGER, E_USER_WARNING, $this->errorMessage($this->_errorcode)." in VALIDATE_FINANCE_IBAN::getCountrycode()");
         }
     } // end func getCountrycode
@@ -375,7 +375,7 @@ class Validate_Finance_IBAN {
     function getBankcode()
     {
         if (!$this->validate()) {
-            $this->_errorcode = IBAN_GENERAL_INVALID;
+            $this->_errorcode = VALIDATE_FINANCE_IBAN_GENERAL_INVALID;
             return PEAR::raiseError($this->errorMessage($this->_errorcode), $this->_errorcode, PEAR_ERROR_TRIGGER, E_USER_WARNING, $this->errorMessage($this->_errorcode)." in VALIDATE_FINANCE_IBAN::getBankcode()");
         }
         else
@@ -396,7 +396,7 @@ class Validate_Finance_IBAN {
     function getBankaccount()
     {
         if (!$this->validate()) {
-            $this->_errorcode = IBAN_GENERAL_INVALID;
+            $this->_errorcode = VALIDATE_FINANCE_IBAN_GENERAL_INVALID;
             return PEAR::raiseError($this->errorMessage($this->_errorcode), $this->_errorcode, PEAR_ERROR_TRIGGER, E_USER_WARNING, $this->errorMessage($this->_errorcode)." in VALIDATE_FINANCE_IBAN::getBankaccount()");
         }
         else
@@ -424,14 +424,14 @@ class Validate_Finance_IBAN {
         // define the varies error messages
         if (!isset($errorMessages)) {
             $errorMessages = array(
-                IBAN_OK                    => 'no error',
-                IBAN_ERROR                 => 'unknown error',
-                IBAN_GENERAL_INVALID       => 'IBAN generally invalid',
-                IBAN_TOO_SHORT             => 'IBAN is too short',
-                IBAN_TOO_LONG              => 'IBAN is too long',
-                IBAN_COUNTRY_INVALID       => 'IBAN countrycode is invalid',
-                IBAN_INVALID_FORMAT        => 'IBAN has invalid format',
-                IBAN_CHECKSUM_INVALID      => 'IBAN checksum is invalid'
+                VALIDATE_FINANCE_IBAN_OK                => 'no error',
+                VALIDATE_FINANCE_IBAN_ERROR             => 'unknown error',
+                VALIDATE_FINANCE_IBAN_GENERAL_INVALID   => 'IBAN generally invalid',
+                VALIDATE_FINANCE_IBAN_TOO_SHORT         => 'IBAN is too short',
+                VALIDATE_FINANCE_IBAN_TOO_LONG          => 'IBAN is too long',
+                VALIDATE_FINANCE_IBAN_COUNTRY_INVALID   => 'IBAN countrycode is invalid',
+                VALIDATE_FINANCE_IBAN_INVALID_FORMAT    => 'IBAN has invalid format',
+                VALIDATE_FINANCE_IBAN_CHECKSUM_INVALID  => 'IBAN checksum is invalid'
             );
         }
 
@@ -441,7 +441,7 @@ class Validate_Finance_IBAN {
         }
 
         // return the textual error message corresponding to the code
-        return isset($errorMessages[$value]) ? $errorMessages[$value] : $errorMessages[IBAN_ERROR];
+        return isset($errorMessages[$value]) ? $errorMessages[$value] : $errorMessages[VALIDATE_FINANCE_IBAN_ERROR];
     } // end func errorMessage
 
     // }}}
