@@ -2,16 +2,15 @@
 <package version="1.0">
   <name>Validate_UK</name>
   <summary>Validation_UK class</summary>
-  <description>Package to validate various datas. It includes :
-* numbers (min/max, decimal or not)
-* email (syntax, domain check)
-* string (predifined type alpha upper and/or lowercase, numeric,...)
-* date (min, max)
-* Credit cards
-* uri (RFC2396)
-* possibility valid multiple data with a single method call (::multiple)
-* Locale validation for AT, CH, DE, ES, FR, NL, PL, ptBR, UK, US
-* Finance (e.g. IBAN)
+  <description>Package containes locale validation for UK such as:
+  * SSN (NI)
+  * Postal Code
+  * Sort Code
+  * Bank AC
+  * Telephone numbers
+  * Car registration numbers
+  * Passports
+  * Driver license
   </description>
   <license>PHP</license>
   <maintainers>
@@ -20,12 +19,6 @@
       <role>lead</role>
       <name>Pierre-Alain Joye</name>
       <email>paj@pearfr.org</email>
-    </maintainer>
-     <maintainer>
-      <user>neufeind</user>
-      <role>lead</role>
-      <name>Stefan Neufeind</name>
-      <email>pear.neufeind@speedpartner.de</email>
     </maintainer>
    </maintainers>
   <release>
@@ -38,6 +31,8 @@
 - CS fixes
 - BC break! 
 postalCode unified between countries (name wise), now all postcode validation funcs are named postalCode
+ni was renamed to ssn to keep it the same in all classes
+- getZipValFunc removed
     </notes>
     <filelist>
     <dir name="/">
