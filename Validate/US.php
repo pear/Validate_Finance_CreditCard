@@ -271,6 +271,10 @@ class Validate_US
      */
     function phoneNumber($number, $requireAreaCode = true)
     {
+        if ($number == '') {
+            return true;
+        }
+
         if (!$requireAreaCode && ereg('^[2-9][0-9]{2}[- ]?[0-9]{4}$', $number)) {
             // just seven digits, maybe a space or dash
             return true;
@@ -281,12 +285,6 @@ class Validate_US
             } elseif (ereg('^\([2-9][0-9]{2}\)[- ]?[2-9][0-9]{2}[- ]?[0-9]{4}$', $number)) {
                 return true;
             }
-
-            return true;
-        }
-
-        if ($number == '') {
-            return true;
         }
 
         return false;
