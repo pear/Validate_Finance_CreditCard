@@ -139,7 +139,15 @@ class Validate
      *      http://hysteria.sk/prielom/prielom-12.html#3 (Slovak language)
      *      http://www.speech.cs.cmu.edu/~sburke/pub/luhn_lib.html (Perl lib)
      *
-     * @param  string $number number
+     * Usage:
+     *  <?php
+     *	    require_once 'Validate.php';
+     *	    if (Validate::creditCard('credit_card_number')) {
+     *	        // Credit card number is OK
+     *	    }
+     *  ?>
+     *
+     * @param  string  $number number (only numeric chars will be considered)
      * @return bool           true if number is valid, otherwise false
      * @author Ondrej Jombik <nepto@pobox.sk>
      */
