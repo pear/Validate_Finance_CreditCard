@@ -6,6 +6,7 @@
   Package containes locale validation for ZA such as:
    * Postal Code
    * Region (province)
+   * SSN
   </description>
   <license>PHP</license>
   <maintainers>
@@ -18,10 +19,11 @@
    </maintainers>
    <release>
 
-    <version>0.1</version>
+    <version>0.2</version>
     <state>alpha</state>
     <date>2005-03-10</date>
     <notes>
+        First release
     </notes>
     <filelist>
     <dir name="/">
@@ -38,6 +40,8 @@
     </filelist>
     <deps>
       <dep type="php" rel="ge" version="4.1.0" />
+      <dep type="pkg" rel="has">Validate</dep>
+      <dep type="pkg" rel="has">Validate_Finance_CreditCard</dep>
     </deps>
   </release>
   <changelog>
