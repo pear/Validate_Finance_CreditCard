@@ -142,7 +142,7 @@ class Validate_US
                 return array();
             }
             $source = '';
-            while ($data = fread($fp, 2048)) {
+            while ($data = fread($fd, 2048)) {
                 $source .= $data;
             }
             fclose($fd);
