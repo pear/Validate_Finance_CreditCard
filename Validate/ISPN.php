@@ -34,6 +34,7 @@ class Validate_ISPN
      *
      * This function checks given number according
      *
+     * @access public
      * @param  string  $isbn number (only numeric chars will be considered)
      * @return bool    true if number is valid, otherwise false
      * @author Damien Seguy <dams@nexen.net>
@@ -82,6 +83,7 @@ class Validate_ISPN
      * ISSN identifies periodical publications:
      * http://www.issn.org
      *
+     * @access public
      * @param  string  $issn number (only numeric chars will be considered)
      * @return bool    true if number is valid, otherwise false
      * @author Piotr Klaban <makler@man.torun.pl>
@@ -112,6 +114,7 @@ class Validate_ISPN
      * or an element in a multi-media kit:
      * http://www.ismn-international.org/
      *
+     * @access public
      * @param  string  $ismn ISMN number
      * @return bool    true if number is valid, otherwise false
      * @author Piotr Klaban <makler@man.torun.pl>
@@ -141,6 +144,7 @@ class Validate_ISPN
      * http://www.ean-ucc.org/
      * http://www.uc-council.org/checkdig.htm
      *
+     * @access public
      * @param  string  $ean number (only numeric chars will be considered)
      * @return bool    true if number is valid, otherwise false
      * @author Piotr Klaban <makler@man.torun.pl>
@@ -148,15 +152,7 @@ class Validate_ISPN
     function ean8($ean)
     {
         static $weights_ean8 = array(3,1,3,1,3,1,3);
-
-        $ean = str_replace(array('-', '/', ' ', "\t", "\n"), '', $ean);
-
-        // check if this is a 8-digit number
-        if (!is_numeric($ean) || strlen($ean) != 8) {
-            return false;
-        }
-
-        return Validate::_checkControlNumber($ean, $weights_ean8, 10, 10);
+        return Validate_ISPN::_process($ean, 8, $weights_ean8);
     }
 
     /**
@@ -167,6 +163,7 @@ class Validate_ISPN
      * http://www.ean-ucc.org/
      * http://www.uc-council.org/checkdig.htm
      *
+     * @access public
      * @param  string  $ean number (only numeric chars will be considered)
      * @return bool    true if number is valid, otherwise false
      * @author Piotr Klaban <makler@man.torun.pl>
@@ -174,15 +171,7 @@ class Validate_ISPN
     function ean13($ean)
     {
         static $weights_ean13 = array(1,3,1,3,1,3,1,3,1,3,1,3);
-
-        $ean = str_replace(array('-', '/', ' ', "\t", "\n"), '', $ean);
-
-        // check if this is a 13-digit number
-        if (!is_numeric($ean) || strlen($ean) != 13) {
-            return false;
-        }
-
-        return Validate::_checkControlNumber($ean, $weights_ean13, 10, 10);
+        return Validate_ISPN::_process($ean, 13, $weights_ean13);
     }
 
     /**
@@ -193,6 +182,7 @@ class Validate_ISPN
      * http://www.ean-ucc.org/
      * http://www.uc-council.org/checkdig.htm
      *
+     * @access public
      * @param  string  $ean number (only numeric chars will be considered)
      * @return bool    true if number is valid, otherwise false
      * @author Piotr Klaban <makler@man.torun.pl>
@@ -200,15 +190,7 @@ class Validate_ISPN
     function ean14($ean)
     {
         static $weights_ean14 = array(3,1,3,1,3,1,3,1,3,1,3,1,3);
-
-        $ean = str_replace(array('-', '/', ' ', "\t", "\n"), '', $ean);
-
-        // check if this is a 14-digit number
-        if (!is_numeric($ean) || strlen($ean) != 14) {
-            return false;
-        }
-
-        return Validate::_checkControlNumber($ean, $weights_ean14, 10, 10);
+        return Validate_ISPN::_process($ean, 14, $weights_ean14);
     }
 
     /**
@@ -219,6 +201,7 @@ class Validate_ISPN
      * http://www.ean-ucc.org/
      * http://www.uc-council.org/checkdig.htm
      *
+     * @access public
      * @param  string  $ucc number (only numeric chars will be considered)
      * @return bool    true if number is valid, otherwise false
      * @author Piotr Klaban <makler@man.torun.pl>
@@ -226,15 +209,7 @@ class Validate_ISPN
     function ucc12($ucc)
     {
         static $weights_ucc12 = array(3,1,3,1,3,1,3,1,3,1,3);
-
-        $ucc = str_replace(array('-', '/', ' ', "\t", "\n"), '', $ucc);
-
-        // check if this is a 12-digit number
-        if (!is_numeric($ucc) || strlen($ucc) != 12) {
-            return false;
-        }
-
-        return Validate::_checkControlNumber($ucc, $weights_ucc12, 10, 10);
+        return Validate_ISPN::_process($ucc, 12, $weights_ucc12);
     }
 
     /**
@@ -245,6 +220,7 @@ class Validate_ISPN
      * http://www.ean-ucc.org/
      * http://www.uc-council.org/checkdig.htm
      *
+     * @access public
      * @param  string  $sscc number (only numeric chars will be considered)
      * @return bool    true if number is valid, otherwise false
      * @author Piotr Klaban <makler@man.torun.pl>
@@ -252,15 +228,31 @@ class Validate_ISPN
     function sscc($sscc)
     {
         static $weights_sscc = array(3,1,3,1,3,1,3,1,3,1,3,1,3,1,3,1,3);
+        return Validate_ISPN::_process($sscc, 18, $weights_sscc);
+    }
 
-        $sscc = str_replace(array('-', '/', ' ', "\t", "\n"), '', $sscc);
+    /**
+     * Does all the work for EAN8, EAN13, EAN14, UCC12 and SSCC
+     * 
+     * @access private
+     * @param int $data number (only numeric chars will be considered)
+     * @param int $lenght required length of number string
+     * @param array $weights holds the weight that will be used in calculations for the validation
+     * @return bool    true if number is valid, otherwise false
+     */     
+    function _process($data, $length, &$weights)
+    {
+        //$weights = array(3,1,3,1,3,1,3,1,3,1,3,1,3,1,3,1,3);
+        //$weights = array_slice($weights, 0, $length);
+
+        $data = str_replace(array('-', '/', ' ', "\t", "\n"), '', $data);
 
         // check if this is a 18-digit number
-        if (!is_numeric($sscc) || strlen($sscc) != 18) {
+        if (!is_numeric($data) || strlen($data) != $length) {
             return false;
         }
 
-        return Validate::_checkControlNumber($sscc, $weights_sscc, 10, 10);
+        return Validate::_checkControlNumber($data, $weights, 10, 10);
     }
 }
 ?>
