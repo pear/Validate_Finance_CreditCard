@@ -50,6 +50,12 @@
       <role>contributor</role>
       <name>Dave Mertens</name>
       <email>zyprexia@php.net</email>
+    </maintainer>
+    <maintainer>
+      <user>dufuz</user>
+      <role>developer</role>
+      <name>Helgi Þormar</name>
+      <email>dufuz@php.net</email>
     </maintainer> 
   </maintainers>
   <release>
