@@ -43,7 +43,7 @@ $opts = array(
     'cc2'   => array('type'=>'creditcard'),
     'mail'  => array('type'=>'email'),
     'hissiret' => array('type'=>'FR_siret'),
-    'mystring' => array('type'=>'string',array('format'=>VALIDATE_ALPHA, 'min_lenght'=>3)),
+    'mystring' => array('type'=>'string',array('format'=>VALIDATE_ALPHA, 'min_length'=>3)),
     'iban'  => array('type'=>'Finance_iban'),
     'cep'   => array('type'=>'ptBR_cep')
     );
