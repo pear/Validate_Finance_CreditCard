@@ -5,10 +5,10 @@
 // +----------------------------------------------------------------------+
 // | Copyright (c) 1997-2003 The PHP Group                                |
 // +----------------------------------------------------------------------+
-// | This source file is subject to version 2.02 of the PHP license,      |
+// | This source file is subject to version 3.0 of the PHP license,       |
 // | that is bundled with this package in the file LICENSE, and is        |
-// | available at through the world-wide-web at                           |
-// | http://www.php.net/license/2_02.txt.                                 |
+// | available through the world-wide-web at the following url:           |
+// | http://www.php.net/license/3_0.txt.                                  |
 // | If you did not receive a copy of the PHP license and are unable to   |
 // | obtain it through the world-wide-web, please send a note to          |
 // | license@php.net so we can mail you a copy immediately.               |
@@ -188,7 +188,6 @@ class Validate
     function creditCard($creditCard)
     {
         $creditCard = preg_replace('/[^0-9]/','',$creditCard);
-
         if (empty($creditCard) || ($len_number = strlen($creditCard)) <= 0) {
             return false;
         }
@@ -436,6 +435,33 @@ class Validate
         }
 
         return Validate::_check_control_number($ismn, $weights_ismn, 10, 10);
+    }
+
+
+    /**
+     * Validate a EAN/UCC-8 number
+     *
+     * This function checks given EAN8 number
+     * used to identify trade items and special applications.
+     * http://www.ean-ucc.org/
+     * http://www.uc-council.org/checkdig.htm
+     *
+     * @param  string  $ean number (only numeric chars will be considered)
+     * @return bool    true if number is valid, otherwise false
+     * @author Piotr Klaban <makler@man.torun.pl>
+     */
+    function ean8($ean)
+    {
+        static $weights_ean8 = array(3,1,3,1,3,1,3);
+
+        $ean = str_replace(array('-','/',' ',"\t","\n"), '', $ean);
+
+        // check if this is a 8-digit number
+        if (!is_numeric($ean) || strlen($ean) != 8) {
+            return false;
+        }
+
+        return Validate::_check_control_number($ean, $weights_ean8, 10, 10);
     }
 
     /**
