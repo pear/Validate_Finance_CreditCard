@@ -718,7 +718,11 @@ class Validate
                     trigger_error("Invalid validation type Validate_$class::$method", E_USER_WARNING);
                     continue;
                 }
-                $valid[$var_name] = call_user_func(array("Validate_$class", $method), $data[$var_name]);
+                $opt = array_slice($opt,1);
+                if (sizeof($opt) == 1){
+                    $opt = array_pop($opt);
+                }
+                $valid[$var_name] = call_user_func(array("Validate_$class", $method), $data[$var_name],$opt);
             } else {
                 trigger_error("Invalid validation type {$opt['type']}", E_USER_WARNING);
             }
