@@ -65,7 +65,7 @@ class Validate_NL_Test extends PHPUnit_TestCase
     function testPhone()
     {
         foreach ($this->phonenumbers as $phonenumber => $data) {
-            $r = Validate_NL::phonenumber($phonenumber, $data[0]);
+            $r = Validate_NL::phoneNumber($phonenumber, $data[0]);
             $this->assertEquals($r, $data[1]);
         }
     }

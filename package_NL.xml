@@ -2,16 +2,11 @@
 <package version="1.0">
   <name>Validate_NL</name>
   <summary>Validation_NL class</summary>
-  <description>Package to validate various datas. It includes :
-* numbers (min/max, decimal or not)
-* email (syntax, domain check)
-* string (predifined type alpha upper and/or lowercase, numeric,...)
-* date (min, max)
-* Credit cards
-* uri (RFC2396)
-* possibility valid multiple data with a single method call (::multiple)
-* Locale validation for AT, CH, DE, ES, FR, NL, PL, ptBR, UK, US
-* Finance (e.g. IBAN)
+  <description>Package containes locale validation for NL such as:
+ * SSN
+ * Postal Code
+ * Phone Number
+ * Bank Account Number (based on 11proef)
   </description>
   <license>PHP</license>
   <maintainers>

@@ -49,7 +49,7 @@ class Validate_NL
      * @param   int     $type           Type of phonenumber to check
      * @return  bool    true if (phone) number is correct
      */
-    function phonenumber($number, $type = PHONENUMBER_TYPE_ANY)
+    function phoneNumber($number, $type = PHONENUMBER_TYPE_ANY)
     {
         $result = false;
 
