@@ -44,5 +44,5 @@ class Validate_Finance {
 
     // }}}
 
-} // end class Validate_FINANCE
+} // end class Validate_Finance
 ?>
