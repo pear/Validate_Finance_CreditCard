@@ -2,7 +2,7 @@
 require_once 'Validate.php';
 
 require_once 'PHPUnit.php';
-require_once( "Validate/NL.php" );
+require_once 'Date.php'
 
 class Validate_date extends PHPUnit_TestCase
 {
@@ -41,6 +41,7 @@ class Validate_date extends PHPUnit_TestCase
             '121902'        => array(array('format'=>'%m%Y'), true),
             '13120001'      => array(array('format'=>'%d%m%Y'), true)
         );
+
     function Validate_date( $name )
     {
         $this->PHPUnit_TestCase($name);
@@ -62,6 +63,29 @@ class Validate_date extends PHPUnit_TestCase
             $this->assertEquals($r, $data[1]);
         }
     }
+
+    function testDateMinMaxPearDate()
+    {
+        // cannot be declared as class var because of new Date() calls
+        $dateObjects = array(
+            '11111996'      => array(array('format'=>'%d%m%Y',
+                                'min' => new Date('19950101')), true),
+            '12121996'      => array(array('format'=>'%d%m%Y',
+                                'min' => new Date('19970101')), false),
+            '10101994'      => array(array('format'=>'%d%m%Y',
+                                'max' => new Date()), true),
+            '11111994'      => array(array('format'=>'%d%m%Y',
+                                'max' => new Date('19920101')), false),
+            '12121996'      => array(array('format'=>'%d%m%Y',
+                                'min' => new Date('19950101'),
+                                'max' => new Date()), true)
+        );
+
+        foreach ($dateObjects as $date => $data){
+            $r = Validate::date($date, $data[0]);
+             $this->assertEquals($r, $data[1]);
+          }
+      }
 }
 
 // runs the tests
