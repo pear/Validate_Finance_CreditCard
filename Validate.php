@@ -180,6 +180,7 @@ class Validate
         if (is_array($date)) {
             extract($date);
         }
+        $date_len   = strlen($format);
         for ($i = 0; $i < strlen($format); $i++) {
             $c = $format{$i};
             if ($c == '%') {
@@ -210,7 +211,8 @@ class Validate
                     case 'Y':
                     case 'y':
                         if ($next == 'Y') {
-                            $year = (int)Validate::_substr($date, 4);
+                            $year   = Validate::_substr($date, 4);
+                            $year = (int)$year?$year:'';
                         } else {
                             $year = (int)(substr(date('Y'), 0, 2) .
                                           Validate::_substr($date, 2));
@@ -244,7 +246,7 @@ class Validate
                     case 's':
                     case 'i':
                         $t = Validate::_substr($date, 2);
-                        if ($t < 0 || $t > 60) {
+                        if ($t < 0 || $t > 59) {
                             return false;
                         }
                         break;
@@ -255,7 +257,7 @@ class Validate
             } else {
                 //literal
                 if (Validate::_substr($date, 1) != $c) {
-                    return false;
+                    //return false;
                 }
             }
         }
@@ -270,13 +272,13 @@ class Validate
             }
             if ($min &&
                 (Date_Calc::compareDates($day, $month, $year,
-                                         $min[0], $min[1], $min[2]) > 0))
+                                         $min[0], $min[1], $min[2]) < 0))
             {
                 return false;
             }
             if ($max &&
                 (Date_Calc::compareDates($day, $month, $year,
-                                         $max[0], $max[1], $max[2]) < 0))
+                                         $max[0], $max[1], $max[2]) > 0))
             {
                 return false;
             }
