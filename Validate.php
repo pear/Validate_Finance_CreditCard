@@ -145,7 +145,7 @@ class Validate
     function uri($url, $options = null)
     {
         $domain_check = false;
-        $allowed_protocols = null;
+        $allowed_schemes = null;
         if (is_array($options)) {
             extract($options);
         }
