@@ -608,7 +608,7 @@ class Validate
         }
         $mod = Validate::_modf($sum, $modulo);  // calculate control digit
 
-        if ($subtract > $mod) {
+        if ($subtract > $mod && $mod > 0) {
             $mod = $subtract - $mod;
         }
         if ($allow_high === false) {
