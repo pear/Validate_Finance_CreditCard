@@ -44,7 +44,7 @@ class Validate_AT
     * @param    bool    optional; strong checks (e.g. against a list of postcodes)
     * @return   bool    true if postcode is ok, false otherwise
     */
-    function postcode($postcode, $strong = false)
+    function postalCode($postcode, $strong = false)
     {
         if ($strong) {
             static $postcodes;
@@ -55,9 +55,8 @@ class Validate_AT
             }
     
             return in_array((int) $postcode, $postcodes);
-        } else {
-            return (ereg('^[0-9]{4}$', $postcode));
         }
+        return (ereg('^[0-9]{4}$', $postcode));
     }
 
     /**

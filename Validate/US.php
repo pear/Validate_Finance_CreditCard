@@ -170,5 +170,86 @@ class Validate_US
         }
         return $high_groups;
     }
+
+    /**
+     * Validates a US Postal Code format (ZIP code)
+     *
+     * @param string $postalCode the ZIP code to validate
+     * @param   bool    optional; strong checks (e.g. against a list of postcodes) (not implanted)
+     * @return boolean TRUE if code is valid, FALSE otherwise
+     * @access public
+     * @static
+     * @todo Integrate with USPS web API
+     */
+    function postalCode($postalCode, $strong = false)
+    {
+        return (bool) preg_match('/^[0-9]{5}(-[0-9]{4})?$/', $postalCode);
+    }
+
+    /**
+     * Validates a "region" (i.e. state) code
+     *
+     * @param string $region 2-letter state code
+     * @return bool Whether the code is a valid state
+     * @static
+     */
+    function region($region)
+    {
+        switch (strtoupper($region)) {
+            case 'AL':
+            case 'AK':
+            case 'AZ':
+            case 'AR':
+            case 'CA':
+            case 'CO':
+            case 'CT':
+            case 'DE':
+            case 'DC':
+            case 'FL':
+            case 'GA':
+            case 'HI':
+            case 'ID':
+            case 'IL':
+            case 'IN':
+            case 'IA':
+            case 'KS':
+            case 'KY':
+            case 'LA':
+            case 'ME':
+            case 'MD':
+            case 'MA':
+            case 'MI':
+            case 'MN':
+            case 'MS':
+            case 'MO':
+            case 'MT':
+            case 'NE':
+            case 'NV':
+            case 'NH':
+            case 'NJ':
+            case 'NM':
+            case 'NY':
+            case 'NC':
+            case 'ND':
+            case 'OH':
+            case 'OK':
+            case 'OR':
+            case 'PA':
+            case 'RI':
+            case 'SC':
+            case 'SD':
+            case 'TN':
+            case 'TX':
+            case 'UT':
+            case 'VT':
+            case 'VA':
+            case 'WA':
+            case 'WV':
+            case 'WI':
+            case 'WY':
+                return true;
+        }
+        return false;
+    }
 }
 ?>

@@ -26,7 +26,8 @@ require_once 'Validate.php';
 class Validate_UK
 {
     // overlay function
-    function getZipValFunc() {
+    function getZipValFunc()
+    {
         return 'postcode';
     }
 
@@ -44,10 +45,10 @@ class Validate_UK
      *
      * @access    public
      * @param     string  the postcode to be validated
-     * @param     bool    optional; strong checks (e.g. against a list of postcodes)
+     * @param     bool    optional; strong checks (e.g. against a list of postcodes) (not implanted)
      * @return    bool
      */
-    function postcode($postcode, $strong = false)
+    function postalCode($postcode, $strong = false)
     {
         // $strong is not used here at the moment; added for API compatibility
         // checks might be added at a later stage

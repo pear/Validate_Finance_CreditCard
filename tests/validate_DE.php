@@ -12,14 +12,14 @@ class Validate_DE_Test extends PHPUnit_TestCase{
     function setUp(){}
     function tearDown(){}
 
-    function testpostcode()
+    function testpostalCode()
     {
-        $this->assertTrue(Validate_DE::postcode('10115'));
-        $this->assertTrue(Validate_DE::postcode('09111'));
-        $this->assertTrue(Validate_DE::postcode('80331'));
-        $this->assertFalse(Validate_DE::postcode('0115'));
-        $this->assertFalse(Validate_DE::postcode('101154'));
-        $this->assertFalse(Validate_DE::postcode('x1154'));
+        $this->assertTrue(Validate_DE::postalCode('10115'));
+        $this->assertTrue(Validate_DE::postalCode('09111'));
+        $this->assertTrue(Validate_DE::postalCode('80331'));
+        $this->assertFalse(Validate_DE::postalCode('0115'));
+        $this->assertFalse(Validate_DE::postalCode('101154'));
+        $this->assertFalse(Validate_DE::postalCode('x1154'));
     }
     
     function testbankcode()

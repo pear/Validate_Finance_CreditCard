@@ -4,7 +4,7 @@ require_once( "Validate/NL.php" );
 
 class Validate_NL_Test extends PHPUnit_TestCase
 {
-    var $postcodes = array(
+    var $postalCodes = array(
                     "1234 AB"   => true,
                     "1234 ab"   => true,
                     "1234AB"    => true,
@@ -40,7 +40,7 @@ class Validate_NL_Test extends PHPUnit_TestCase
                     "640400231" => false
                 );
 
-    function Validate_NL_Test( $name )
+    function Validate_NL_Test($name)
     {
         $this->PHPUnit_TestCase($name);
     }
@@ -54,17 +54,17 @@ class Validate_NL_Test extends PHPUnit_TestCase
     {
     }
 
-    function testPostcode()
+    function testpostalCode()
     {
-        foreach ($this->postcodes as $postcode=>$expected_result){
-            $r = Validate_NL::postcode($postcode);
+        foreach ($this->postalCodes as $postalCode => $expected_result) {
+            $r = Validate_NL::postalCode($postalCode);
             $this->assertEquals($r, $expected_result);
         }
     }
 
     function testPhone()
     {
-        foreach ($this->phonenumbers as $phonenumber=>$data){
+        foreach ($this->phonenumbers as $phonenumber => $data) {
             $r = Validate_NL::phonenumber($phonenumber, $data[0]);
             $this->assertEquals($r, $data[1]);
         }
@@ -72,7 +72,7 @@ class Validate_NL_Test extends PHPUnit_TestCase
 
     function testSSN()
     {
-        foreach ($this->ssns as $ssn=>$expected_result){
+        foreach ($this->ssns as $ssn => $expected_result) {
             $r = Validate_NL::SSN($ssn);
             $this->assertEquals($r, $expected_result);
         }
@@ -80,7 +80,7 @@ class Validate_NL_Test extends PHPUnit_TestCase
 
     function testBankAccount()
     {
-        foreach ($this->bank_accounts as $account=>$expected_result){
+        foreach ($this->bank_accounts as $account => $expected_result) {
             $r = Validate_NL::bankAccountNumber($account);
             $this->assertEquals($r, $expected_result);
         }
@@ -88,7 +88,7 @@ class Validate_NL_Test extends PHPUnit_TestCase
 }
 
 // runs the tests
-$suite = new PHPUnit_TestSuite("Validate_NL_Test");
+$suite = new PHPUnit_TestSuite('Validate_NL_Test');
 $result = PHPUnit::run($suite);
 // prints the tests
 echo $result->toString();

@@ -206,5 +206,53 @@ class Validate_FR
         }
         return (($sum % 10) == 0);
     }
+
+    /**
+     * Validates a French Postal Code format
+     *
+     * @param string $postalCode the code to validate
+     * @param   bool    optional; strong checks (e.g. against a list of postcodes) (not implanted)
+     * @return boolean TRUE if code is valid, FALSE otherwise
+     * @access public
+     * @static
+     * @todo Validate against department
+     */
+    function postalCode($postalCode, $strong = false)
+    {
+          return (bool) preg_match('/^[0-9]{5}$/', $postalCode);
+    }
+
+    /**
+     * Validates a French "departement"
+     *
+     * @param string $region 2-digit department number
+     * @return bool Whether the department is valid
+     * @static
+     */
+    function region($region)
+    {
+        if (is_numeric($region)
+            && floor($region) == ceil($region)) {
+            switch (strlen($region)) {
+                case 2:
+                    if ($region >= 1 && $region <= 95
+                        && $region != 20)) {
+                        return true;
+                    }
+                    break;
+                case 3:
+                    if ($region >= 971 && $region <= 975) {
+                        return true;
+                    }
+                    break;
+            }
+        }
+        switch (strtoupper($region)) {
+            case '2A':
+            case '2B':
+                return true;
+        }
+        return false;
+    }
 }
 ?>

@@ -27,28 +27,13 @@ class Validate_ptBR
      * and other languages)
      * format: xxxxx-xxx
      *
-     * @param   string  $cep   pt_BR CEP to validate
+     * @param   string  $postalCode   pt_BR CEP/postalCode to validate
+     * @param    bool    optional; strong checks (e.g. against a list of postcodes) (not implanted)
      * @return  bool           true if $cep is ok, false otherwise
      */
-    function cep($cep)
+    function postalCode($postalCode, $strong = false)
     {
-        return (ereg('(^[0-9]{5})-([0-9]{3})$', $cep));
-    }
-
-    /**
-     * validates a postcode; alias-function
-     *
-     * @access    public
-     * @param     string  the postcode to be validated
-     * @param     bool    optional; strong checks (e.g. against a list of postcodes)
-     * @return    bool
-     */
-    function postcode($postcode, $strong=false)
-    {
-        // $strong is not used here at the moment; added for API compatibility
-        // checks might be added at a later stage
-        
-        return cep($postcode);
+        return (ereg('(^[0-9]{5})-([0-9]{3})$', $postalCode));
     }
 
     /**

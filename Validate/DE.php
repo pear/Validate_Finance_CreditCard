@@ -27,10 +27,10 @@ class Validate_DE
      * Validate a German postcode
      *
      * @param   string  postcode to validate
-     * @param   bool    optional; strong checks (e.g. against a list of postcodes)
+     * @param   bool    optional; strong checks (e.g. against a list of postcodes) (not implanted)
      * @return  bool    true if postcode is ok, false otherwise
      */
-    function postcode($postcode, $strong = false)
+    function postalCode($postcode, $strong = false)
     {
         // $strong is not used here at the moment; added for API compatibility
         // checks might be added at a later stage

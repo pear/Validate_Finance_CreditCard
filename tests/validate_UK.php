@@ -4,8 +4,8 @@ require "Validate/UK.php";
 
 class Validate_UK_Test extends PHPUnit_TestCase
 {
-    var $postcodes = array(
-                /* some test-cases from the original of the postcode-check */
+    var $postalCodes = array(
+                /* some test-cases from the original of the postalCode-check */
                 'BS25 1NB'  => true,
                 'B5 5TF'    => true,
                 '5Ty6tty'   => false,
@@ -79,10 +79,10 @@ class Validate_UK_Test extends PHPUnit_TestCase
     {
     }
 
-    function testPostcode()
+    function testpostalCode()
     {
-        foreach ($this->postcodes as $postcode=>$expected_result){
-            $r = Validate_UK::postcode($postcode);
+        foreach ($this->postalCodes as $postalCode=>$expected_result){
+            $r = Validate_UK::postalCode($postalCode);
             $this->assertEquals($r, $expected_result);
         }
     }
