@@ -92,7 +92,7 @@ class Validate
                  '(2[0-4][0-9])|([0-1]?[0-9]?[0-9]))\.((25[0-5])|(2[0-4][0-9])|'.
                  '([0-1]?[0-9]?[0-9]))\.((25[0-5])|(2[0-4][0-9])|([0-1]?[0-9]?[0-9]))'.
                  '\.((25[0-5])|(2[0-4][0-9])|([0-1]?[0-9]?[0-9])))|'.
-                 '((([A-Za-z0-9\-])+\.)+[A-Za-z\-]+))$/';     
+                 '((([A-Za-z0-9\-])+\.)+[A-Za-z\-]+))$/';
         if (preg_match($regex, $email)) {
             if ($check_domain && function_exists('checkdnsrr')) {
                 list (, $domain)  = explode('@', $email);
@@ -190,8 +190,10 @@ class Validate
      *                          'format' The format of the date (%d-%m-%Y)
      *                          'min' The date has to be greater
      *                                than this array($day, $month, $year)
+     *                                or PEAR::Date object
      *                          'max' The date has to be smaller than
      *                                this array($day, $month, $year)
+     *                                or PEAR::Date object
      *
      * @return bool
      */
@@ -287,26 +289,46 @@ class Validate
         if (strlen($date)) {
             return false;
         }
+
         if (isset($day) && isset($month) && isset($year)) {
             if (!checkdate($month, $day, $year)) {
                 return false;
             }
-            if ($min || $max) {
+
+            // If either $max or $min are array then they need Date_Calc
+            if (is_array($max) || is_array($min)) {
                 include_once 'Date/Calc.php';
-                if ($min &&
-                    (Date_Calc::compareDates($day, $month, $year,
+            }
+
+            if ($min) {
+                if (is_a($min, 'Date') &&
+                    ($min->compareDates($day, $month, $year,
+                                             $min->getDay(), $min->getMonth(), $min->getYear()) < 0))
+                {
+                    return false;
+                } elseif (is_array($min) &&
+                        (Date_Calc::compareDates($day, $month, $year,
                                              $min[0], $min[1], $min[2]) < 0))
                 {
                     return false;
                 }
-                if ($max &&
-                    (Date_Calc::compareDates($day, $month, $year,
-                                             $max[0], $max[1], $max[2]) > 0))
+            }
+            
+            if ($max) {
+                if (is_a($max, 'Date') &&
+                    ($max->compareDates($day, $month, $year,
+                                             $max->getDay(), $max->getMonth(), $max->getYear()) > 0))
+                {
+                    return false;
+                } elseif (is_array($max) &&
+                        (Date_Calc::compareDates($day, $month, $year, 
+                                                 $max[0], $max[1], $max[2]) > 0))
                 {
                     return false;
                 }
             }
         }
+
         return true;
     }
 
