@@ -37,12 +37,20 @@
       <name>Brent Cook</name>
       <email>busterb@mail.utexas.edu</email>
     </maintainer>
+    <maintainer>
+      <user>zyprexia</user>
+      <role>contributor</role>
+      <name>Dave Mertens</name>
+      <email>zyprexia@php.net</email>
+    </maintainer>
   </maintainers>
   <release>
-    <version>0.1.1</version>
+    <version>0.1.2</version>
     <state>alpha</state>
-    <date>2003-03-12</date>
-    <notes>Validate::date(); argument parsing fixed</notes>
+    <date>2003-??-??</date>
+    <notes>
+      - Added some dutch validations
+    </notes>
     <filelist>
     <dir name="/">
           <file role="php">Validate.php</file>
@@ -51,6 +59,7 @@
 	         <file role="php">US.php</file>
              <file role="php">FR.php</file>
              <file role="php">UK.php</file>
+             <file role="php">NL.php</file>
 	      </dir>
           <dir name="tests" role="test">
              <file>number.php</file>
@@ -66,4 +75,12 @@
       <dep type="php" rel="ge" version="4.1.0" />
     </deps>
   </release>
+  <changelog>
+      <release>
+        <version>0.1.1</version>
+        <state>alpha</state>
+        <date>2003-03-12</date>
+        <notes>Validate::date(); argument parsing fixed</notes>
+      </release>
+  </changelog>
 </package>
