@@ -329,9 +329,9 @@ class Validate
             return false;
         }
 
-        $isbn = ereg_replace("-", "", $isbn);
-        $isbn = ereg_replace(" ", "", $isbn);
-        $isbn = eregi_replace("ISBN", "", $isbn);
+        $isbn = ereg_replace('-', '', $isbn);
+        $isbn = ereg_replace(' ', '', $isbn);
+        $isbn = eregi_replace('ISBN', '', $isbn);
         if (strlen($isbn) != 10) {
             return false;
         }
@@ -344,7 +344,7 @@ class Validate
             $t += $isbn[$i]*(10-$i);
         }
         $f = $isbn[9];
-        if ($f == "X") {
+        if ($f == 'X') {
             $t += 10;
         } else {
             $t += $f;
@@ -372,7 +372,7 @@ class Validate
         static $weights_issn = array(8,7,6,5,4,3,2);
 
         $issn = strtoupper($issn);
-        $issn = eregi_replace("ISSN", "", $issn);
+        $issn = eregi_replace('ISSN', '', $issn);
         $issn = str_replace(array('-','/',' ',"\t","\n"), '', $issn);
         $issn_num = eregi_replace("X", "0", $issn);
 
