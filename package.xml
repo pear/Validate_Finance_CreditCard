@@ -62,7 +62,7 @@
 - Add German validation (Stefen Neufeind)
 - Add EAN-UCC validtatio (see http://www.ean-ucc.org) (Piotr Klaban)
 - Add International Standard Serial Number (ISSN)
-  and Music Number(ISMN) (Piotr Klaban)
+  and Music Number(ISMN) (Piotr Klaban, David Grant)
 - Drop Validate::url() in preferenc of Validate::uri() which is fully
   RFC2396 compliant
 - Move to PHP 3.0 license

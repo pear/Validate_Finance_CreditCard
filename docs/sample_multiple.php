@@ -1,10 +1,6 @@
 <?php
 //include_once "Validate/FR.php";
 require_once "Validate.php";
-
-if(function_exists('multiple')){
-    die('FUCKKK');
-}
 /*
 test(Validate::creditCard('6762195515061813'), true);
 // 4
@@ -35,7 +31,8 @@ $values = array(
     'mail'  => 'foo@example.com',
     'hissiret' => '441 751 245 00016',
     'mystring' => 'ABCDEabcde',
-    'iban'  => 'CH10002300A1023502601'
+    'iban'  => 'CH10002300A1023502601',
+    'cep'   => '12345-123'
     );
 $opts = array(
     'amount'=> array('type'=>'number','decimal'=>',.','dec_prec'=>null,'min'=>1,'max'=>32000),
@@ -46,8 +43,9 @@ $opts = array(
     'cc2'   => array('type'=>'creditcard'),
     'mail'  => array('type'=>'email'),
     'hissiret' => array('type'=>'FR_siret'),
-    'mystring' => array('type'=>'string',array('format'=>VAL_ALPHA, 'min_lenght'=>3)),
-    'iban'  => array('type'=>'Finance_iban')
+    'mystring' => array('type'=>'string',array('format'=>VALIDATE_ALPHA, 'min_lenght'=>3)),
+    'iban'  => array('type'=>'Finance_iban'),
+    'cep'   => array('type'=>'ptBR_cep')
     );
 
 $result = Validate::multiple($values, $opts);

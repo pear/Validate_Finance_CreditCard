@@ -3,4 +3,7 @@ Create warnings for ambiguous date format with %j, or %n (currently test 5,6 and
 Adding 'r' format (RFC 822)
 
 More Countries support
+Mail on peardev if you are interested to add validations for your area
+
 Update banks SWIFT or IBANN validation for each country (when possible)
+
