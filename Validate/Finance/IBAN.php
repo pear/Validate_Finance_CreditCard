@@ -18,7 +18,33 @@
 //
 // $Id$
 
-$GLOBALS['VALIDATE_FINANCE_IBAN_COUNTRYCODES'] =
+/*
+ * Error codes for the IBAN interface, which will be mapped to textual messages
+ * in the IBAN::errorMessage() function.  If you are to add a new error code, be
+ * sure to add the textual messages to the IBAN::errorMessage() function as well
+ */
+
+define('VALIDATE_FINANCE_IBAN_OK',                 1);
+define('VALIDATE_FINANCE_IBAN_ERROR',             -1);
+define('VALIDATE_FINANCE_IBAN_GENERAL_INVALID',   -2);
+define('VALIDATE_FINANCE_IBAN_TOO_SHORT',         -4);
+define('VALIDATE_FINANCE_IBAN_TOO_LONG',          -5);
+define('VALIDATE_FINANCE_IBAN_COUNTRY_INVALID',   -6);
+define('VALIDATE_FINANCE_IBAN_INVALID_FORMAT',    -7); // tested via regex; e.g. if un-allowed characters in IBAN
+define('VALIDATE_FINANCE_IBAN_CHECKSUM_INVALID',  -8);
+
+/**
+* Validate and process IBAN (international bank account numbers)
+*
+* @author      Stefan Neufeind <neufeind@speedpartner.de>
+*/
+class Validate_Finance_IBAN {
+    /**
+     * List of all IBAN countrycodes; also gives corresponding countrynames (in long form)
+     * @var     array
+     * @access  private
+     */
+    var $_iban_countrycode_countryname =
         array(
             'AD' => 'Andorra',
             'AT' => 'Austria',
@@ -48,9 +74,10 @@ $GLOBALS['VALIDATE_FINANCE_IBAN_COUNTRYCODES'] =
 
     /**
      * List of IBAN length; can be used for a quick check
-     * @var  array
+     * @var     array
+     * @access  private
      */
-$GLOBALS['VALIDATE_FINANCE_IBAN_COUNTRYCODE_LENGTH'] =
+    var $_iban_countrycode_length =
         array(
             'AD' => 24,
             'AT' => 20,
@@ -80,9 +107,10 @@ $GLOBALS['VALIDATE_FINANCE_IBAN_COUNTRYCODE_LENGTH'] =
 
     /**
      * List of where the bankcode inside an IBAN starts (starting from 0) and its length
-     * @var  array
+     * @var     array
+     * @access  private
      */
-$GLOBALS['VALIDATE_FINANCE_IBAN_COUNTRYCODE_BANKCODE'] =
+    var $_iban_countrycode_bankcode =
         array(
             'AD' => array('start' =>  4, 'length' =>  8), // first 4 chars are bankcode, last 4 chars are the branch
             'AT' => array('start' =>  4, 'length' =>  5),
@@ -112,9 +140,10 @@ $GLOBALS['VALIDATE_FINANCE_IBAN_COUNTRYCODE_BANKCODE'] =
 
     /**
      * List of where the bankaccount-number inside an IBAN starts (starting from 0) and its length
-     * @var  array
+     * @var     array
+     * @access  private
      */
-$GLOBALS['VALIDATE_FINANCE_IBAN_COUNTRYCODE_BANKACCOUNT'] =
+    var $_iban_countrycode_bankaccount =
         array(
             'AD' => array('start' => 12, 'length' => 12),
             'AT' => array('start' =>  9, 'length' => 11),
@@ -142,7 +171,12 @@ $GLOBALS['VALIDATE_FINANCE_IBAN_COUNTRYCODE_BANKACCOUNT'] =
             'SE' => array('start' =>  7, 'length' =>  8) // followed by 1 char (checksum)
         );
 
-$GLOBALS['VALIDATE_FINANCE_IBAN_COUNTRYCODE_REGEX'] =
+    /**
+     * List of regex for validating an IBAN according to standards for each country
+     * @var     array
+     * @access  private
+     */
+    var $_iban_countrycode_regex =
         array(
             'AD' => '/^AD[0-9]{2}[0-9]{8}[A-Z0-9]{12}$/',
             'AT' => '/^AT[0-9]{2}[0-9]{5}[0-9]{11}$/',
@@ -170,49 +204,19 @@ $GLOBALS['VALIDATE_FINANCE_IBAN_COUNTRYCODE_REGEX'] =
             'SI' => '/^SE[0-9]{2}[0-9]{5}[0-9]{8}[0-9]{2}$/'
         );
 
-// {{{ error codes
-
-/*
- * Error codes for the IBAN interface, which will be mapped to textual messages
- * in the IBAN::errorMessage() function.  If you are to add a new error code, be
- * sure to add the textual messages to the IBAN::errorMessage() function as well
- */
-
-define('VALIDATE_FINANCE_IBAN_OK',                 1);
-define('VALIDATE_FINANCE_IBAN_ERROR',             -1);
-define('VALIDATE_FINANCE_IBAN_GENERAL_INVALID',   -2);
-define('VALIDATE_FINANCE_IBAN_TOO_SHORT',         -4);
-define('VALIDATE_FINANCE_IBAN_TOO_LONG',          -5);
-define('VALIDATE_FINANCE_IBAN_COUNTRY_INVALID',   -6);
-define('VALIDATE_FINANCE_IBAN_INVALID_FORMAT',    -7); // tested via regex; e.g. if un-allowed characters in IBAN
-define('VALIDATE_FINANCE_IBAN_CHECKSUM_INVALID',  -8);
-
-// }}}
-
-/**
-* Validate and process IBAN (international bank account numbers)
-*
-* @author      Stefan Neufeind <neufeind@speedpartner.de>
-*/
-class Validate_Finance_IBAN {
-    // {{{ properties
-
     /**
      * String containing the IBAN to be processed
-     * @var  string
-     * @access   private
+     * @var     string
+     * @access  private
      */
     var $_iban = '';
 
     /**
      * Integer containing errorcode of last validation
-     * @var      integer
-     * @access   private
+     * @var     integer
+     * @access  private
      */
     var $_errorcode = 0;
-
-    // }}}
-    // {{{ constructor
 
     /**
      * Class constructor
@@ -225,9 +229,6 @@ class Validate_Finance_IBAN {
         $this->_iban = $iban;
     } // end constructor
 
-    // }}}
-    // {{{ apiVersion()
-
     /**
      * Returns the current API version
      *
@@ -239,9 +240,6 @@ class Validate_Finance_IBAN {
         return 1.0;
     } // end func apiVersion
 
-    // }}}
-    // {{{ getIBAN()
-
     /**
      * Returns the current IBAN
      *
@@ -251,10 +249,7 @@ class Validate_Finance_IBAN {
     function getIBAN()
     {
         return $this->_iban;
-    } // end func setIBAN
-
-    // }}}
-    // {{{ setIBAN()
+    } // end func getIBAN
 
     /**
      * Sets the current IBAN to a new value
@@ -269,9 +264,6 @@ class Validate_Finance_IBAN {
         $this->_iban = $iban;
     } // end func setIBAN
 
-    // }}}
-    // {{{ validate()
-
     /**
      * Performs validation of the IBAN
      *
@@ -281,23 +273,23 @@ class Validate_Finance_IBAN {
      */
     function validate($arg=null)
     {
-        if ( isset($arg) ) {
-            $iban = $arg;
-        } else {
+        if ( isset($this) && is_a($this, 'Validate_Finance_IBAN') ) {
             $iban = $this->_iban;
+        } else {
+            $iban = $arg;
         }
 
         $errorcode=VALIDATE_FINANCE_IBAN_OK;
 
         if (strlen($iban) <= 4) {
             $errorcode = VALIDATE_FINANCE_IBAN_TOO_SHORT;
-        } elseif (!isset( $GLOBALS['VALIDATE_FINANCE_IBAN_COUNTRYCODES'][ substr($iban,0,2) ] )) {
+        } elseif (!isset( $this->_iban_countrycode_countryname[ substr($iban,0,2) ] )) {
             $errorcode = VALIDATE_FINANCE_IBAN_COUNTRY_INVALID;
-        } elseif (strlen($iban) < $GLOBALS['VALIDATE_FINANCE_IBAN_COUNTRYCODE_LENGTH'][ substr($iban,0,2) ]) {
+        } elseif (strlen($iban) < $this->_iban_countrycode_length[ substr($iban,0,2) ]) {
             $errorcode = VALIDATE_FINANCE_IBAN_TOO_SHORT;
-        } elseif (strlen($iban) > $GLOBALS['VALIDATE_FINANCE_IBAN_COUNTRYCODE_LENGTH'][ substr($iban,0,2) ]) {
+        } elseif (strlen($iban) > $this->_iban_countrycode_length[ substr($iban,0,2) ]) {
             $errorcode = VALIDATE_FINANCE_IBAN_TOO_LONG;
-        } elseif (!preg_match($GLOBALS['VALIDATE_FINANCE_IBAN_COUNTRYCODE_REGEX'][ substr($iban,0,2) ],$iban)) {
+        } elseif (!preg_match($this->_iban_countrycode_regex[ substr($iban,0,2) ],$iban)) {
             $errorcode = VALIDATE_FINANCE_IBAN_INVALID_FORMAT;
         } else {
             // todo: maybe implement direct checks for bankcodes of certain countries
@@ -332,8 +324,6 @@ class Validate_Finance_IBAN {
         return ($errorcode == VALIDATE_FINANCE_IBAN_OK);
     } // end func validate
 
-    // }}}
-
     /**
      * Returns errorcode corresponding to last validation
      *
@@ -344,8 +334,6 @@ class Validate_Finance_IBAN {
     {
         return $this->_errorcode;
     } // end func getErrorcode
-
-    // {{{ getCountrycode()
 
     /**
      * Returns the countrycode of the IBAN
@@ -364,8 +352,22 @@ class Validate_Finance_IBAN {
         }
     } // end func getCountrycode
 
-    // }}}
-    // {{{ getBankcode()
+    /**
+     * Returns the countryname of the IBAN
+     *
+     * @access    public
+     * @return    string
+     */
+    function getCountryname()
+    {
+        $countrycode = $this->getCountrycode();
+        if (is_string($countrycode)) {
+            return $this->_iban_countrycode_countryname[$countrycode];
+        } else { // e.g. if it's an error
+            return $countrycode;
+        }
+    } // end func getCountryname
+
     /**
      * Returns the bankcode of the IBAN
      *
@@ -380,13 +382,11 @@ class Validate_Finance_IBAN {
         }
         else
         {
-          $currCountrycodeBankcode = $GLOBALS['VALIDATE_FINANCE_IBAN_COUNTRYCODE_BANKCODE'][ substr($iban,0,2) ];
+          $currCountrycodeBankcode = $this->_iban_countrycode_bankcode[ substr($iban,0,2) ];
           return substr($this->_iban,$currCountrycodeBankcode['start'],$currCountrycodeBankcode['length']);
         }
     } // end func getBankcode
-    // }}}
 
-    // {{{ getBankaccount()
     /**
      * Returns the bankaccount of the IBAN
      *
@@ -401,13 +401,10 @@ class Validate_Finance_IBAN {
         }
         else
         {
-          $currCountrycodeBankcode = $GLOBALS['VALIDATE_FINANCE_IBAN_COUNTRYCODE_BANKACCOUNT'][ substr($iban,0,2) ];
+          $currCountrycodeBankcode = $this->_iban_countrycode_bankaccount[ substr($iban,0,2) ];
           return substr($this->_iban,$currCountrycodeBankcode['start'],$currCountrycodeBankcode['length']);
         }
     } // end func getAccount
-
-    // }}}
-    // {{{ errorMessage()
 
     /**
      * Return a textual error message for an IBAN error code
@@ -443,7 +440,5 @@ class Validate_Finance_IBAN {
         // return the textual error message corresponding to the code
         return isset($errorMessages[$value]) ? $errorMessages[$value] : $errorMessages[VALIDATE_FINANCE_IBAN_ERROR];
     } // end func errorMessage
-
-    // }}}
 } // end class VALIDATE_FINANCE_IBAN
 ?>
