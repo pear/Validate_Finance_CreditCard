@@ -49,8 +49,8 @@ class Validate
      */
     function number($number, $options=array())
     {
-        $decimal=$dec_prec=$min=$max= null;
-        if(is_array($options)){
+        $decimal = $dec_prec = $min = $max = null;
+        if( is_array($options)) {
             extract($options);
         }
 
@@ -117,7 +117,7 @@ class Validate
     {
         $format = null;
         $min_length = $max_length = 0;
-        if (is_array($options)){
+        if (is_array($options)) {
             extract($options);
         }
         if ($format && !preg_match("|^[$format]*\$|s", $string)) {
@@ -153,8 +153,8 @@ class Validate
         }
         if (preg_match(
             '!^(([^:/?#]+):)?(//([^/?#]*))?([^?#]*)(\?([^#]*))?(#(.*))?!',
-            $url,$matches)
-        ) {
+            $url,$matches))
+        {
             $scheme = $matches[2];
             $authority = $matches[4];
             if ( is_array($allowed_schemes) &&
@@ -365,7 +365,7 @@ class Validate
         }
 
         $t = 0;
-        for($i=0; $i< strlen($isbn)-1; $i++){
+        for ($i = 0; $i < strlen($isbn) - 1; $i++){
             $t += $isbn[$i]*(10-$i);
         }
         $f = $isbn[9];
@@ -582,9 +582,9 @@ class Validate
     }
 
     function _modf($val, $div) {
-        if( function_exists('bcmod') ){
+        if (function_exists('bcmod')) {
             return bcmod($val,$div);
-        } else if (function_exists('fmod')) {
+        } elseif (function_exists('fmod')) {
             return fmod($val,$div);
         }
         $r = $a / $b;
@@ -600,15 +600,16 @@ class Validate
      * @returns int returns product of number digits with weights
      */
     function _mult_weights($number, &$weights) {
-        if (!is_array($weights))
+        if (!is_array($weights)) {
             return -1;
-
+        }
         $sum = 0;
 
         $count = min(count($weights), strlen($number));
-        if ($count == 0) // empty string or weights array
+        if ($count == 0)  { // empty string or weights array
             return -1;
-        for ($i=0; $i<$count; ++$i) {
+        }
+        for ($i = 0; $i < $count; ++$i) {
             $sum += intval(substr($number,$i,1)) * $weights[$i];
         }
 
@@ -628,16 +629,17 @@ class Validate
     function _get_control_number($number, &$weights, $modulo = 10, $subtract = 0, $allow_high = false) {
         // calc sum
         $sum = Validate::_mult_weights($number, $weights);
-        if ($sum == -1)
+        if ($sum == -1) {
             return -1;
+        }
+        $mod = Validate::_modf($sum, $modulo);  // calculate control digit
 
-        $mod = Validate::_modf($sum, $modulo);  /* calculate control digit  */
-
-        if ($subtract > $mod)
+        if ($subtract > $mod) {
             $mod = $subtract - $mod;
-
-        if ($allow_high === false)
-          $mod %= 10;           /* change 10 to zero        */
+        }
+        if ($allow_high === false) {
+            $mod %= 10;           // change 10 to zero
+        }
         return $mod;
     }
 
@@ -651,21 +653,21 @@ class Validate
      * @returns bool
      **/
     function _check_control_number($number, &$weights, $modulo = 10, $subtract = 0) {
-        if (strlen($number) < count($weights))
+        if (strlen($number) < count($weights)) {
             return false;
-
+        }
         $target_digit  = substr($number, count($weights), 1);
         $control_digit = Validate::_get_control_number($number, $weights, $modulo, $subtract, $target_digit === 'X');
 
-        if ($control_digit == -1)
+        if ($control_digit == -1) {
             return false;
-
-        if ($target_digit === 'X' && $control_digit == 10)
+        }
+        if ($target_digit === 'X' && $control_digit == 10) {
             return true;
-
-        if ($control_digit != $target_digit)
+        }
+        if ($control_digit != $target_digit) {
             return false;
-
+        }
         return true;
     }
 
@@ -716,12 +718,13 @@ class Validate
                 list($class, $method) = explode('_', $opt['type'], 2);
                 @include_once("Validate/$class.php");
                 if (!class_exists("Validate_$class") ||
-                    !in_array($method, get_class_methods("Validate_$class"))) {
+                    !in_array($method, get_class_methods("Validate_$class")))
+                {
                     trigger_error("Invalid validation type Validate_$class::$method", E_USER_WARNING);
                     continue;
                 }
                 $opt = array_slice($opt,1);
-                if (sizeof($opt) == 1){
+                if (sizeof($opt) == 1) {
                     $opt = array_pop($opt);
                 }
                 $valid[$var_name] = call_user_func(array("Validate_$class", $method), $data[$var_name],$opt);
