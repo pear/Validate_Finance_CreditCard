@@ -1,6 +1,7 @@
 <?php
-
-die('Unfinished, untested, unworking. Don\'t use it');
+/**
+Experimental
+*/
 
 define('VAL_NUM',          '0-9');
 define('VAL_SPACE',        '\s');
@@ -19,10 +20,24 @@ class Validate
     /**
     * @param mixed $decimal The decimal char or false when decimal not allowed
     */
-    function number($number, $decimal = false)
+    function number($number, $decimal = null, $dec_prec = null, $min = null, $max = null)
     {
-        $decimal = $decimal ? $decimal . '[0-9]+' : '';
-        return ereg("^[0-9]+$decimal\$", $number);
+        $dec_prec   = $dec_prec ? "{0,$dec_prec}" : '*';
+        $dec_regex  = $decimal  ? $decimal . '[0-9]' . $dec_prec : '';
+        if (!ereg("^[0-9]+($dec_regex)?\$", $number)) {
+            return false;
+        }
+        if ($decimal != '.') {
+            $number = str_replace($decimal, '.', $number);
+        }
+        $number = (float)$number;
+        if ($min !== null && $min > $number) {
+            return false;
+        }
+        if ($max !== null && $max < $number) {
+            return false;
+        }
+        return true;
     }
 
     function email($email, $check_domain = false)
@@ -51,10 +66,10 @@ class Validate
         if ($format && !preg_match("|^[$format]*\$|s", $string)) {
             return false;
         }
-        if ($min_lenght && strlen($string) <= $min_lenght) {
+        if ($min_lenght && strlen($string) < $min_lenght) {
             return false;
         }
-        if ($max_lenght && strlen($string) >= $max_lenght) {
+        if ($max_lenght && strlen($string) > $max_lenght) {
             return false;
         }
         return true;
@@ -66,6 +81,22 @@ class Validate
             trigger_error(' no date class found ..', E_USER_ERROR);
             return false;
         }
+    }
+
+    function url($url, $domain_check = false)
+    {
+        $purl = parse_url($url);
+        if (eregi('^http$', @$purl['scheme']) && !empty($purl['host']) {
+            if ($domain_check && function_exists('checkdnsrr')) {
+                if (checkdnsrr($purl['host'], 'A')) {
+                    return true;
+                } else {
+                    return false;
+                }
+            }
+            return true;
+        }
+        return false;
     }
 
     function multiple($data, $options)
