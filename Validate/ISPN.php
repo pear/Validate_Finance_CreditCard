@@ -34,9 +34,9 @@ class Validate_ISPN
      *
      * This function checks given number according
      *
-     * @access public
      * @param  string  $isbn number (only numeric chars will be considered)
      * @return bool    true if number is valid, otherwise false
+     * @access public
      * @author Damien Seguy <dams@nexen.net>
      */
     function isbn($isbn)
@@ -83,9 +83,9 @@ class Validate_ISPN
      * ISSN identifies periodical publications:
      * http://www.issn.org
      *
-     * @access public
      * @param  string  $issn number (only numeric chars will be considered)
      * @return bool    true if number is valid, otherwise false
+     * @access public
      * @author Piotr Klaban <makler@man.torun.pl>
      */
     function issn($issn)
@@ -114,9 +114,9 @@ class Validate_ISPN
      * or an element in a multi-media kit:
      * http://www.ismn-international.org/
      *
-     * @access public
      * @param  string  $ismn ISMN number
      * @return bool    true if number is valid, otherwise false
+     * @access public
      * @author Piotr Klaban <makler@man.torun.pl>
      */
     function ismn($ismn)
@@ -144,9 +144,10 @@ class Validate_ISPN
      * http://www.ean-ucc.org/
      * http://www.uc-council.org/checkdig.htm
      *
-     * @access public
      * @param  string  $ean number (only numeric chars will be considered)
      * @return bool    true if number is valid, otherwise false
+     * @access public
+     * @see Validate_ISPN::_process()
      * @author Piotr Klaban <makler@man.torun.pl>
      */
     function ean8($ean)
@@ -163,9 +164,10 @@ class Validate_ISPN
      * http://www.ean-ucc.org/
      * http://www.uc-council.org/checkdig.htm
      *
-     * @access public
      * @param  string  $ean number (only numeric chars will be considered)
      * @return bool    true if number is valid, otherwise false
+     * @access public
+     * @see Validate_ISPN::_process()
      * @author Piotr Klaban <makler@man.torun.pl>
      */
     function ean13($ean)
@@ -182,9 +184,10 @@ class Validate_ISPN
      * http://www.ean-ucc.org/
      * http://www.uc-council.org/checkdig.htm
      *
-     * @access public
      * @param  string  $ean number (only numeric chars will be considered)
      * @return bool    true if number is valid, otherwise false
+     * @access public
+     * @see Validate_ISPN::_process()
      * @author Piotr Klaban <makler@man.torun.pl>
      */
     function ean14($ean)
@@ -201,9 +204,10 @@ class Validate_ISPN
      * http://www.ean-ucc.org/
      * http://www.uc-council.org/checkdig.htm
      *
-     * @access public
      * @param  string  $ucc number (only numeric chars will be considered)
      * @return bool    true if number is valid, otherwise false
+     * @access public
+     * @see Validate_ISPN::_process()
      * @author Piotr Klaban <makler@man.torun.pl>
      */
     function ucc12($ucc)
@@ -220,9 +224,10 @@ class Validate_ISPN
      * http://www.ean-ucc.org/
      * http://www.uc-council.org/checkdig.htm
      *
-     * @access public
      * @param  string  $sscc number (only numeric chars will be considered)
      * @return bool    true if number is valid, otherwise false
+     * @access public
+     * @see Validate_ISPN::_process()
      * @author Piotr Klaban <makler@man.torun.pl>
      */
     function sscc($sscc)
@@ -234,11 +239,12 @@ class Validate_ISPN
     /**
      * Does all the work for EAN8, EAN13, EAN14, UCC12 and SSCC
      * 
-     * @access private
      * @param int $data number (only numeric chars will be considered)
      * @param int $lenght required length of number string
      * @param array $weights holds the weight that will be used in calculations for the validation
      * @return bool    true if number is valid, otherwise false
+     * @access private
+     * @see Validate::_checkControlNumber()
      */     
     function _process($data, $length, &$weights)
     {
