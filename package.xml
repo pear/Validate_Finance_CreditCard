@@ -65,6 +65,7 @@
              <file>number.php</file>
              <file>date.php</file>
              <file>credit_card.php</file>
+             <file>validate_NL.php</file>
           </dir>
           <dir name="docs" role="doc">
              <file>sample_multiple.php</file>

@@ -58,7 +58,7 @@ class Validate_NL
             $number = substr($number, strlen($number)-9);
             
             //we only use the last 9 digits (so no troubles with international numbers)
-            if (strlen($number) >= 9)) {
+            if (strlen($number) >= 9) {
                 switch ($type) 
                 {
                     case VALIDATE_NL_PHONENUMBER_TYPE_ANY:
