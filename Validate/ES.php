@@ -14,7 +14,6 @@
 // | license@php.net so we can mail you a copy immediately.               |
 // +----------------------------------------------------------------------+
 // | Authors: Tomas V.V.Cox <cox@idecnet.com>                             |
-// |                                                                      |
 // +----------------------------------------------------------------------+
 //
 // $Id$
@@ -22,7 +21,7 @@
 // Specific validation methods for data used in Spain
 //
 
-require_once 'Validate.php';
+require_once('Validate.php');
 
 class Validate_ES
 {
@@ -36,10 +35,10 @@ class Validate_ES
     {
         $letra  = substr($dni, -1);
         $number = substr($dni, 0, -1);
-        if (!Validate::string($number, VAL_NUM, 8, 8)) {
+        if (!Validate::string($number, VALIDATE_NUM, 8, 8)) {
             return false;
         }
-        if (!Validate::string($letra, VAL_ALPHA)) {
+        if (!Validate::string($letra, VALIDATE_ALPHA)) {
             return false;
         }
         // El resto entero de la division del numero del dni/23 +1
