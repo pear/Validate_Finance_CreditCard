@@ -36,7 +36,7 @@ class Validate_Finance_Test extends PHPUnit_TestCase{
     }
 }
 
-$s = &new PHPUnit_TestSuite("Validate_Finance_Test");
+$s = &new PHPUnit_TestSuite('Validate_Finance_Test');
 $r = PHPUnit::run($s);
 echo $r->toString();
 
