@@ -34,7 +34,8 @@ $values = array(
     'cc2'   => '6762195515061814',
     'mail'  => 'foo@example.com',
     'hissiret' => '441 751 245 00016',
-    'mystring' => 'ABCDEabcde'
+    'mystring' => 'ABCDEabcde',
+    'iban'  => 'CH930762011623852957'
     );
 $opts = array(
     'amount'=> array('type'=>'number','decimal'=>',.','dec_prec'=>null,'min'=>1,'max'=>32000),
@@ -45,7 +46,8 @@ $opts = array(
     'cc2'   => array('type'=>'creditcard'),
     'mail'  => array('type'=>'email'),
     'hissiret' => array('type'=>'fr_siret'),
-    'mystring' => array('type'=>'string',array('format'=>VAL_ALPHA, 'min_lenght'=>3))
+    'mystring' => array('type'=>'string',array('format'=>VAL_ALPHA, 'min_lenght'=>3)),
+    'iban'  => array('type'=>'finance_iban')
     );
 
 $result = Validate::multiple($values, $opts);
