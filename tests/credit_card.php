@@ -31,6 +31,28 @@ class Validate_Finance_CreditCard_Test extends PHPUnit_TestCase
         '6011 0000 0000 0004' => 'DISCOVER',
         '3000 0000 0000 04'   => 'DINERSCLUB');
 
+    // Test CVV
+    var $cvv = array(
+        array('1',     'visa', false),
+        array('23',    'visa', false),
+        array('111',   'visa', true),
+        array('123',   'visa', true),
+        array('13',    'visa', false),
+        array('1234',  'visa', false),
+        array('897',   'mastercard', true),
+        array('123',   'jcb', false),
+        array('8765',  'jcb', false),
+        array('8765',  '',    false),
+        array('1234',  'amex', true),
+        array('465',   'amex', false),
+        array('10O7',  'amex', false),
+        array('abc',   'visa', false),
+        array('123.0', 'visa', false),
+        array('1.2',   'visa', false),
+        array('123',   'discover', true),
+        array('4429',  'discover', false)
+        );
+
 /*    // Test valid LUHN, but invalid cards
     var $shortCards = array(
         'VISA'       => '41111',
@@ -51,7 +73,7 @@ class Validate_Finance_CreditCard_Test extends PHPUnit_TestCase
         $pass = true;
         $msg = '';
         foreach ($this->cards as $card => $expected_result) {
-            if ($expected_result !== Validate_Finance_CreditCard::isValid($card)) {
+            if ($expected_result !== Validate_Finance_CreditCard::number($card)) {
                 $msg = ' on "' . $card . '" ' . (($expected_result) ? 'valid,' : 'invalid,');
                 $pass = false;
                 break;
@@ -68,7 +90,7 @@ class Validate_Finance_CreditCard_Test extends PHPUnit_TestCase
         foreach ($cardBrands as $brand) {
             foreach ($this->cardTypes as $card => $type) {
                 $expected_result = (bool) ($type === $brand);
-                if ($expected_result !== Validate_Finance_CreditCard::isType($card, $brand)) {
+                if ($expected_result !== Validate_Finance_CreditCard::type($card, $brand)) {
                     $msg = ' on "' . $card . '" is ' . (($type == $brand) ? '' : 'not') . ' a "' . $brand . '",';
                     $pass = false;
                     break;
@@ -86,7 +108,7 @@ class Validate_Finance_CreditCard_Test extends PHPUnit_TestCase
         foreach ($cardBrands as $brand) {
             foreach ($this->cardTypes as $card => $type) {
                 $expected_result = (bool) ($type === $brand);
-                if ($expected_result !== Validate_Finance_CreditCard::isValid($card, $brand)) {
+                if ($expected_result !== Validate_Finance_CreditCard::number($card, $brand)) {
                     $msg = ' on "' . $card . '" is ' . (($type == $brand) ? '' : 'not') . ' a valid "' . $brand . '",';
                     $pass = false;
                     break;
@@ -94,6 +116,15 @@ class Validate_Finance_CreditCard_Test extends PHPUnit_TestCase
             }
         }
         $this->assertTrue($pass, $msg);
+    }
+
+    function testCardVerificationValue()
+    {
+        foreach ($this->cvv as $cvv) {
+            list($cvv, $type, $expected_result) = $cvv;
+            $r = Validate_Finance_CreditCard::cvv($cvv, $type);
+            $this->assertEquals($r, $expected_result, $cvv . '(' . $type . ')');
+        }
     }
 
 /*    function testValidLuhn()

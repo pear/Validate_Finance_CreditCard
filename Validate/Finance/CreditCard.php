@@ -75,10 +75,8 @@ class Validate_Finance_CreditCard
      * @access public
      * @static
      * @see Luhn()
-     * @author Ondrej Jombik <nepto@pobox.sk>
-     * @author Philippe Jausions <Philippe.Jausions@11abacus.com>
      */
-    function isValid($creditCard, $cardType = null)
+    function number($creditCard, $cardType = null)
     {
         $cc = str_replace(array('-', ' '), '', $creditCard);
         if (($len = strlen($cc)) < 13
@@ -99,7 +97,7 @@ class Validate_Finance_CreditCard
         }
 
         if (!is_null($cardType)) {
-            return Validate_Finance_CreditCard::isType($cc, $cardType);
+            return Validate_Finance_CreditCard::type($cc, $cardType);
         }
 
         return true;
@@ -121,11 +119,10 @@ class Validate_Finance_CreditCard
      * @return bool   TRUE is type matches, FALSE otherwise
      * @access public
      * @static
-     * @author Philippe Jausions <Philippe.Jausions@11abacus.com>
      * @link http://www.beachnet.com/~hstiles/cardtype.html
      */
-    function isType($creditCard, $cardType) {
-
+    function type($creditCard, $cardType)
+    {
         switch (strtoupper($cardType)) {
             case 'MASTERCARD':
                 $regex = '5[1-5][0-9]{14}';
@@ -162,5 +159,61 @@ class Validate_Finance_CreditCard
         $cc = str_replace(array('-', ' '), '', $creditCard);
         return (bool)preg_match($regex, $cc);
     }
+
+
+    /**
+     * Validates a card verification value format
+     *
+     * This method only checks for the format. It doesn't
+     * validate that the value is the one on the card.
+     *
+     * CVV is also known as
+     *  - CVV2 Card Validation Value 2 (Visa)
+     *  - CVC  Card Validation Code (MasterCard)
+     *  - CID  Card Identification (American Express and Discover)
+     *  - CIN  Card Identification Number
+     *  - CSC  Card Security Code
+     *
+     * Important information regarding CVV:
+     *    If you happen to have to store credit card information, you must
+     *    NOT retain the CVV after transaction is complete. Usually this
+     *    means you cannot store it in a database, not even in an encrypted
+     *    form.
+     *
+     * This method returns FALSE for card types that don't support CVV.
+     *
+     * @param string  $cvv value to verify
+     * @param string  $cardType type/brand of card (case insensitive)
+     *               "MasterCard", "Visa", "AMEX", "AmericanExpress",
+     *               "American Express", "Discover"
+     * @return bool   TRUE if format is correct, FALSE otherwise
+     * @access public
+     * @static
+     */
+    function cvv($cvv, $cardType)
+    {
+        switch (strtoupper($cardType)) {
+            case 'MASTERCARD':
+            case 'VISA':
+            case 'DISCOVER':
+                $digits = 3;
+                break;
+            case 'AMEX':
+            case 'AMERICANEXPRESS':
+            case 'AMERICAN EXPRESS':
+                $digits = 4;
+                break;
+            default:
+                return false;
+        }
+
+        if (strlen($cvv) == $digits
+            && strspn($cvv, '0123456789') == $digits) {
+            return true;
+        }
+
+        return false;
+    }
 }
+
 ?>

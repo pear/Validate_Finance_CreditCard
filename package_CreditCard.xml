@@ -18,11 +18,12 @@
 
     <version>0.5</version>
     <state>alpha</state>
-    <date>2004-03-17</date>
+    <date>2004-03-22</date>
     <notes>
 - Split from Validate into independent package
+- BC break: creditCard() method now named number() and creditCardType() method is now named type()
 - Request #2194 Improved CreditCard validation with CreditCard Type check, patch by Philippe
-- BC break: creditCard() method now named isValid() and creditCardType() method is now named isType()
+- Added a cvv() method to check card verification value (aka CVV2, CVC, CID, CSC, CIN)
     </notes>
     <filelist>
     <dir name="/">
