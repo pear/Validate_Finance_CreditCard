@@ -22,7 +22,7 @@ class Validate
     */
     function number($number, $decimal = null, $dec_prec = null, $min = null, $max = null)
     {
-        $dec_prec   = $dec_prec ? "{0,$dec_prec}" : '*';
+        $dec_prec   = $dec_prec ? "{1,$dec_prec}" : '+';
         $dec_regex  = $decimal  ? $decimal . '[0-9]' . $dec_prec : '';
         if (!ereg("^[0-9]+($dec_regex)?\$", $number)) {
             return false;
