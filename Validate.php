@@ -139,7 +139,9 @@ class Validate
     function url($url, $domain_check = false)
     {
         $purl = parse_url($url);
-        if (preg_match('|^http$|i', @$purl['scheme']) && !empty($purl['host'])) {
+        if ((preg_match('|^http[s]?$|i', @$purl['scheme']) ||
+	     preg_match('|^ftp|i', @$purl['scheme'])
+	    ) && !empty($purl['host'])) {
             if ($domain_check && function_exists('checkdnsrr')) {
                 if (checkdnsrr($purl['host'], 'A')) {
                     return true;
