@@ -45,6 +45,7 @@
     <date>2004-03-17</date>
     <notes>
 - Bug #2936, typo
+- Bug #2879, Issn wrong validation
 - Better email validation
 - CS fixes
 - Splitted country and finance classes and credit card functions into their own sub packages of Validate
@@ -53,7 +54,7 @@
 - _check_control_number renamed to _checkControlNumber
   _get_control_number renamed to _getControlNumber
   _mult_weights renamed to _multWeights
-- added email test
+- added email, issn and product_numbers tests
     </notes>
     <filelist>
     <dir name="/">
@@ -62,6 +63,8 @@
         <file>number.php</file>
         <file>date.php</file>
         <file>email.php</file>
+        <file>product_numbers.php</file>
+        <file>issn.php</file>
       </dir>
       <dir name="docs" role="doc">
         <file>sample_multiple.php</file>
