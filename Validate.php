@@ -47,7 +47,7 @@ class Validate
      *                              'min'       minimun value
      *                              'max'       maximum value
      */
-    function number($number, $options=array())
+    function number($number, $options = array())
     {
         $decimal = $dec_prec = $min = $max = null;
         if (is_array($options)) {
@@ -134,6 +134,13 @@ class Validate
 
     /**
      * Validate an URI (RFC2396)
+     * This function will validate 'foobarstring' by default, to get it to validate
+     * only http, https, ftp and such you have to pass it in the allowed_schemes
+     * option, like this:
+     * <code>
+     * $options = array('allowed_schemes' => array('http', 'https', 'ftp'))
+     * var_dumpn(Validate::uri('http://www.example.org'), $options);
+     * </code>
      *
      * @param string    $url        URI to validate
      * @param array     $options    Options used by the validation method.
@@ -153,11 +160,11 @@ class Validate
         }
         if (preg_match(
             '!^(([^:/?#]+):)?(//([^/?#]*))?([^?#]*)(\?([^#]*))?(#(.*))?!',
-            $url,$matches))
+            $url, $matches))
         {
             $scheme = $matches[2];
             $authority = $matches[4];
-            if ( is_array($allowed_schemes) &&
+            if (is_array($allowed_schemes) &&
                 !in_array($scheme,$allowed_schemes)
             ) {
                 return false;
