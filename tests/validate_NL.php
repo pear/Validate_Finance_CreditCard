@@ -1,6 +1,6 @@
 <?php
 
-require_once( "Validate/NL.php" );
+require_once( "../Validate/NL.php" );
 
 //Phase 1: Testing zipcode (Validate_NL::postcode)
 echo "Testing postcode check\n";
@@ -37,11 +37,10 @@ echo ValidateResult("Incorrect SSN (12345678)", Validate_NL::SSN("12345678"), fa
 echo ValidateResult("Incorrect SSN (1234567890)", Validate_NL::SSN("1234567890"), false);
 echo ValidateResult("Correct SSN (123456789)", Validate_NL::SSN("123456789"), true);
 
-
-
-
-
-
+//Phase 4: test bankaccount number
+echo "\nTesting BankAccount number check (Validate_NL::bankAccountNumber)\n";
+echo validateResult("Correct bank number (640000231)", Validate_NL::bankAccountNumber("640000231"), true);
+echo validateResult("Incorrect bank number (640400231)", Validate_NL::bankAccountNumber("640400231"), false);
 
 
 
@@ -52,8 +51,8 @@ function validateResult($description, $result, $compareString)
     if ((string)$result == (string)$compareString) {
         $ret = "$description - PASSED\n";
     } else {
-        $ret = "$description - FAILED\nResult was $result, "
-                                        ."expecting $compareString\n";
+        $ret = "$description - FAILED\n\tResult was " . ($result == false ? "false" : $result) . ", "
+                                        ."expecting " . ($compareString == false ? "false" : $compareString) . "\n";
     }
     return $ret;
 

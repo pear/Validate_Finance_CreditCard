@@ -91,5 +91,34 @@ class Validate_NL
     {
         return (ereg("^[0-9]{9}$", $number));   
     }
+    
+    /** 
+     * Bankaccount validation check (based on 11proef)
+     *
+     * @param   string  $number     Dutch bankaccount number
+     * @return  bool    true is bankaccount number 'seems' correct
+     */
+    function bankAccountNumber($number)
+    {
+        $result     = false;        //by default we return false
+        $checksum   = 0;
+        
+        if (is_numeric((string)$number) && strlen((string)$number) <= 10) {
+            $number = str_pad($number, 10, '0', STR_PAD_LEFT);  //make sure we have a 10 digit number
+
+            //create checksum
+            for ($i=0; $i < 10; $i++) {
+                $checksum += ( (int)$number[$i] * (10 - $i) );
+            }
+            
+            //Banknumber is 'correct' if we can divide checksum by 11
+            if ($checksum % 11 == 0)
+                $result = true;
+                
+            //return result
+            return $result;
+        }
+    }
+    
 }
 ?>
