@@ -36,7 +36,7 @@ class Validate_US
         $ssn = str_replace(array('-','/',' ',"\t","\n"), '', $ssn);
 
         // check if this is a 9-digit number
-        if (!is_numeric($ssn) || !(strlen($ssn) == 9)) {
+        if (!is_numeric($ssn) || strlen($ssn) != 9) {
             return false;
         }
         $area   = substr($ssn, 0, 3);
@@ -114,19 +114,15 @@ class Validate_US
         // if the assigned range is higher than this group number, we're OK
         if ($high_group_range > $group_range) {
             return true;
-        } else {
+        } elseif ($high_group_range < $group_range) {
             // if the assigned range is lower than the group number, that's bad
-            if ($high_group_range < $group_range) {
-                return false;
-            } else {
-                // we must be in the same range, check the actual numbers
-                if ($high_group >= $group) {
-                    return true;
-                } else {
-                    return false;
-                }
-            }
+            return false;
+        } elseif ($high_group >= $group) {
+            // we must be in the same range, check the actual numbers
+            return true;
         }
+
+        return false;
     }
 
     /**
@@ -153,7 +149,7 @@ class Validate_US
             fclose($fd);
         }
 
-        $lines =  explode("\n", ereg_replace("[^\n0-9]*",'',$source));
+        $lines =  explode("\n", ereg_replace("[^\n0-9]*", '', $source));
         $high_groups = array();
         foreach ($lines as $line) {
             if (ereg('^([0-9]{3})([0-9]{2})([0-9]{3})([0-9]{2})([0-9]{3})([0-9]{2})([0-9]{3})([0-9]{2})([0-9]{3})([0-9]{2})([0-9]{3})([0-9]{2})$', $line, $grouping)) {
@@ -260,7 +256,7 @@ class Validate_US
      * @param string    $number             phone to validate
      * @param bool      $requireAreaCode    require the area code?
      */
-    function phoneNumber($number, $requireAreaCode=true)
+    function phoneNumber($number, $requireAreaCode = true)
     {
         if (!$requireAreaCode && ereg('^[2-9][0-9]{2}[- ]?[0-9]{4}$', $number)) {
             // just seven digits, maybe a space or dash
