@@ -35,7 +35,7 @@ $values = array(
     'mail'  => 'foo@example.com',
     'hissiret' => '441 751 245 00016',
     'mystring' => 'ABCDEabcde',
-    'iban'  => 'CH930762011623852957'
+    'iban'  => 'CH10002300A1023502601'
     );
 $opts = array(
     'amount'=> array('type'=>'number','decimal'=>',.','dec_prec'=>null,'min'=>1,'max'=>32000),

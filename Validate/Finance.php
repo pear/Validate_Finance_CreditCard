@@ -27,7 +27,7 @@ require_once('Validate/Finance/IBAN.php');
 * @version     0.1
 * @since       PHP 4.1.0
 */
-class Validate_FINANCE {
+class Validate_Finance {
 
     /**
      * Performs validation an IBAN (international bankaccoun number)
