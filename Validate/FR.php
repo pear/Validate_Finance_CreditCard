@@ -42,11 +42,11 @@ class Validate_FR
      */
     function ssn($ssn)
     {
-        $str    = strtolower(preg_replace('/[^0-9a-zA-Z]/','',$ssn));
+        $str    = strtolower(preg_replace('/[^0-9a-zA-Z]/', '', $ssn));
 
         $regexp = "/^([12])(\d\d)(\d\d)(\d\d|2a|2b)(\d\d\d)(\d\d\d)(\d\d)$/";
 
-        if (!preg_match($regexp,$str,$parts)) {
+        if (!preg_match($regexp, $str, $parts)) {
             return false;
         }
 
@@ -111,15 +111,15 @@ class Validate_FR
         $officecode  = preg_replace('/[^0-9]/', '', $codeguichet);
         $account     = preg_replace($chars, $values, $nocompte);
 
-        if (strlen($codebank) != 5){
+        if (strlen($codebank) != 5) {
             return false;
         }
 
-        if (strlen($officecode) != 5){
+        if (strlen($officecode) != 5) {
             return false;
         }
 
-        if (strlen($account) > 11){
+        if (strlen($account) > 11) {
             return false;
         }
 
@@ -128,9 +128,9 @@ class Validate_FR
         $b1    = substr($l, 7, 7);
         $c1    = substr($l, 14, 7);
 
-        $key   = 97 - Validate::_modf((62*$a1+34*$b1+3*$c1), 97);
+        $key   = 97 - Validate::_modf((62 * $a1 + 34 * $b1 + 3 * $c1), 97);
 
-        if ($key == 0){
+        if ($key == 0) {
             $key = 97;
         }
 
@@ -180,10 +180,10 @@ class Validate_FR
     function siret($siret)
     {
         $siret = str_replace(' ', '', $siret);
-        if (!preg_match("/^(\d)(\d)(\d)(\d)(\d)(\d)(\d)(\d)(\d)(\d)(\d)(\d)(\d)(\d)$/", $siret,	$match)) {
+        if (!preg_match("/^(\d)(\d)(\d)(\d)(\d)(\d)(\d)(\d)(\d)(\d)(\d)(\d)(\d)(\d)$/", $siret, $match)) {
             return false;
         } else {
-            if (!Validate_FR::siren(implode('', array_slice($match, 1,9)))) {
+            if (!Validate_FR::siren(implode('', array_slice($match, 1, 9)))) {
                 return false;
             }
         }
