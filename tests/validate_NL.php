@@ -1,6 +1,6 @@
 <?php
 
-require_once( "../Validate/NL.php" );
+require_once( "Validate/NL.php" );
 
 //Phase 1: Testing zipcode (Validate_NL::postcode)
 echo "Testing postcode check\n";
