@@ -24,7 +24,7 @@ class Validate
     {
         $dec_prec   = $dec_prec ? "{1,$dec_prec}" : '+';
         $dec_regex  = $decimal  ? $decimal . '[0-9]' . $dec_prec : '';
-        if (!ereg("^[0-9]+($dec_regex)?\$", $number)) {
+        if (!preg_match("|^[0-9]+($dec_regex)?\$|", $number)) {
             return false;
         }
         if ($decimal != '.') {
@@ -86,7 +86,7 @@ class Validate
     function url($url, $domain_check = false)
     {
         $purl = parse_url($url);
-        if (eregi('^http$', @$purl['scheme']) && !empty($purl['host'])) {
+        if (preg_match('|^http$|i', @$purl['scheme']) && !empty($purl['host'])) {
             if ($domain_check && function_exists('checkdnsrr')) {
                 if (checkdnsrr($purl['host'], 'A')) {
                     return true;
