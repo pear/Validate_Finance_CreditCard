@@ -14,7 +14,6 @@
 // | license@php.net so we can mail you a copy immediately.               |
 // +----------------------------------------------------------------------+
 // | Authors: Pierre-Alain Joye <paj@pearfr.org>                          |
-// |                                                                      |
 // +----------------------------------------------------------------------+
 //
 // $Id$
@@ -22,12 +21,19 @@
 // Specific validation methods for data used in UK
 //
 
-require_once 'Validate.php';
+require_once('Validate.php');
 
 class Validate_UK
 {
-    function postcode($postcode){
-        return (ereg ('^[A-Z]{1, 2}[0-9]{1, 2}[A-Z]{0, 1} [0-9][A-Z]{2}$', $postcode));
+    /**
+     * Validate a UK postcode
+     *
+     * @param   string    $postcode       UK postcode to validate
+     * @return  true if postcode is ok, false otherwise
+     */
+    function postcode($postcode)
+    {
+        return (ereg('^[A-Z]{1, 2}[0-9]{1, 2}[A-Z]{0, 1} [0-9][A-Z]{2}$', $postcode));
     }
 }
 ?>
