@@ -139,11 +139,15 @@ class Validate_US
                               $is_text = false)
     {
         if (!$is_text) {
-            $source = File::readAll($uri);
-            if (PEAR::isError($source)) {
-                return PEAR::raiseError('Could not access the SSA High Groups file: ' . $uri);
-                return $source;
+            if (!$fd = @fopen($source, 'r')) {
+                trigger_error("Could not access the SSA High Groups file", E_USER_WARNING);
+                return array();
             }
+            $source = '';
+            while ($data = fread($fd, 2048)) {
+                $source .= $data;
+            }
+            fclose($fd);
         }
 
         $search = array ("'<script[^>]*?>.*?</script>'si",  // Strip javascript
