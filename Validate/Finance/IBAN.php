@@ -297,7 +297,7 @@ class Validate_Finance_IBAN {
             // let's see if checksum is also correct
             $iban_replace_chars = range('A','Z');
             foreach (range(10,35) as $tempvalue) {
-              $iban_replace_values[]=strval($tempvalue);
+                $iban_replace_values[]=strval($tempvalue);
             }
 
             // move first 4 chars (countrycode and checksum) to the end of the string
@@ -379,11 +379,9 @@ class Validate_Finance_IBAN {
         if (!$this->validate()) {
             $this->_errorcode = VALIDATE_FINANCE_IBAN_GENERAL_INVALID;
             return PEAR::raiseError($this->errorMessage($this->_errorcode), $this->_errorcode, PEAR_ERROR_TRIGGER, E_USER_WARNING, $this->errorMessage($this->_errorcode)." in VALIDATE_FINANCE_IBAN::getBankcode()");
-        }
-        else
-        {
-          $currCountrycodeBankcode = $this->_iban_countrycode_bankcode[ substr($iban,0,2) ];
-          return substr($this->_iban,$currCountrycodeBankcode['start'],$currCountrycodeBankcode['length']);
+        } else {
+            $currCountrycodeBankcode = $this->_iban_countrycode_bankcode[ substr($this->_iban,0,2) ];
+            return substr($this->_iban,$currCountrycodeBankcode['start'],$currCountrycodeBankcode['length']);
         }
     } // end func getBankcode
 
@@ -398,9 +396,7 @@ class Validate_Finance_IBAN {
         if (!$this->validate()) {
             $this->_errorcode = VALIDATE_FINANCE_IBAN_GENERAL_INVALID;
             return PEAR::raiseError($this->errorMessage($this->_errorcode), $this->_errorcode, PEAR_ERROR_TRIGGER, E_USER_WARNING, $this->errorMessage($this->_errorcode)." in VALIDATE_FINANCE_IBAN::getBankaccount()");
-        }
-        else
-        {
+        } else {
           $currCountrycodeBankcode = $this->_iban_countrycode_bankaccount[ substr($iban,0,2) ];
           return substr($this->_iban,$currCountrycodeBankcode['start'],$currCountrycodeBankcode['length']);
         }

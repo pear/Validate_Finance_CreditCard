@@ -53,19 +53,15 @@
     </maintainer>
   </maintainers>
   <release>
-    <version>0.3.0</version>
+    <version>0.4.0</version>
     <state>alpha</state>
-    <date>2003-12-05</date>
-    <notes>- Added Finance Validations for Financial related datas
-  (S. Neufeind, Piotr Klaban)
-- Add polish validation (Piotr Klaban)
-- Add German validation (Stefan Neufeind)
-- Add EAN-UCC validtatio (see http://www.ean-ucc.org) (Piotr Klaban)
-- Add International Standard Serial Number (ISSN)
-  and Music Number(ISMN) (Piotr Klaban, David Grant)
-- Drop Validate::url() in preferenc of Validate::uri() which is fully
-  RFC2396 compliant
-- Move to PHP 3.0 license
+    <date>2004-03-16</date>
+    <notes>- pt_BR moved to ptBR required for multiple support(BC break)
+- Add CH validation (Switzerland)
+- added Euro banknotes IDs 
+- Improved UK postcodes validation
+- Fixed allowed_scheme options in Validate::uri() (Torsten Roehr)
+- Fixed optional arguments in Validate::number() (Torsten Roehr)
     </notes>
     <filelist>
     <dir name="/">
@@ -112,6 +108,23 @@
     </deps>
   </release>
   <changelog>
+      <release>
+        <version>0.3.0</version>
+        <state>alpha</state>
+        <date>2003-12-05</date>
+        <notes>- Added Finance Validations for Financial related datas
+  (S. Neufeind, Piotr Klaban)
+- Add polish validation (Piotr Klaban)
+- Add German validation (Stefan Neufeind)
+- Add EAN-UCC validtatio (see http://www.ean-ucc.org) (Piotr Klaban)
+- Add International Standard Serial Number (ISSN)
+  and Music Number(ISMN) (Piotr Klaban, David Grant)
+- Drop Validate::url() in preferenc of Validate::uri() which is fully
+  RFC2396 compliant
+- Move to PHP 3.0 license
+        </notes>
+      </release>
+
       <release>
         <version>0.2.0</version>
         <state>alpha</state>

@@ -95,7 +95,7 @@ class Validate_US
      * @param array $high_groups array of highest issued group numbers
      *                           area number=>group number
      */
-    function ssnCheck($ssnCheck, $group, $serial, &$high_groups)
+    function ssnCheck($ssnCheck, $group, $serial, $high_groups)
     {
         if(is_array($ssnCheck)){
             extract($ssnCheck);
@@ -145,7 +145,7 @@ class Validate_US
                               $is_text = false)
     {
         if (!$is_text) {
-            if (!$fd = @fopen($source, 'r')) {
+            if (!$fd = @fopen($uri, 'r')) {
                 trigger_error("Could not access the SSA High Groups file", E_USER_WARNING);
                 return array();
             }

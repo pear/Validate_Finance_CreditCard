@@ -131,7 +131,7 @@ class Validate_UK
         // just checking to see if it is 6-8 digits
         // *THIS IS PROBABLY WRONG!!! RESEARCH*
         $preg = "/[0-9]{6,8}/";
-        $match = (preg_match($preg, $sc))? true : false;
+        $match = (preg_match($preg, $ac))? true : false;
         return $match;
     }
 
