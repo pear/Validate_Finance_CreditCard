@@ -209,7 +209,7 @@ class Validate
                         if ($next == 'm') {
                             $month = (int)Validate::_substr($date, 2);
                         } else {
-                            $month = (int)Validate::_substr($date, 1, 2); break;
+                            $month = (int)Validate::_substr($date, 1, 2);
                         }
                         if ($month < 1 || $month > 12) {
                             return false;
@@ -218,7 +218,7 @@ class Validate
                     case 'Y':
                     case 'y':
                         if ($next == 'Y') {
-                            $year = (int)Validate::_substr($date, 4); break;
+                            $year = (int)Validate::_substr($date, 4);
                         } else {
                             $year = (int)(substr(date('Y'), 2) .
                                           Validate::_substr($date, 2));
