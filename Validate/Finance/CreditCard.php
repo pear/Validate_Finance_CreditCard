@@ -22,7 +22,7 @@
 class Validate_Finance_CreditCard
 {
     /**
-     * Validate a number according to Luhn check algorithm
+     * Validates a number according to Luhn check algorithm
      *
      * This function checks given number according Luhn check
      * algorithm. It is published on several places, also here:
@@ -35,6 +35,7 @@ class Validate_Finance_CreditCard
      * @param  string  $number to check
      * @return bool    TRUE if number is valid, FALSE otherwise
      * @access public
+     * @static
      * @author Ondrej Jombik <nepto@pobox.sk>
      */
     function Luhn($number)
@@ -56,23 +57,32 @@ class Validate_Finance_CreditCard
 
 
     /**
-     * Validate a number according to Luhn check algorithm
+     * Validates a credit card number
      *
-     * If a type is passed, the number will be checked against it.
+     * If a type is passed, the card will be checked against it.
+     * This method only checks the number locally. No banks or payment
+     * gateways are involved.
+     * This method doesn't guarantee that the card is legitimate. It merely
+     * checks the card number passes a mathematical algorithm.
      *
-     * @param  string  $creditCard number (only numeric chars will be considered)
-     * @param  string  $cardType card type ('visa', 'mastercard'...).
-     *                 Case-insensitive
-     * @return bool    TRUE if number is valid, FALSE otherwise
+     * @param string  $creditCard number (spaces and dashes tolerated)
+     * @param string  $cardType type/brand of card (case insensitive)
+     *               "MasterCard", "Visa", "AMEX", "AmericanExpress",
+     *               "American Express", "Diners", "DinersClub", "Diners Club",
+     *               "CarteBlanche", "Carte Blanche", "Discover", "JCB",
+     *               "EnRoute".
+     * @return bool   TRUE if number is valid, FALSE otherwise
      * @access public
-     * @see luhn()
+     * @static
+     * @see Luhn()
      * @author Ondrej Jombik <nepto@pobox.sk>
      * @author Philippe Jausions <Philippe.Jausions@11abacus.com>
      */
-    function creditCard($creditCard, $cardType = null)
+    function isValid($creditCard, $cardType = null)
     {
-        $creditCard = preg_replace('/[^0-9]/', '', $creditCard);
-        if (empty($creditCard) || ($len_number = strlen($creditCard)) <= 0) {
+        $creditCard = str_replace(array('-', ' '), '', $creditCard);
+        if (($len_number = strlen($creditCard)) <= 13
+            || !is_numeric($creditCard)) {
             return false;
         }
 
@@ -82,13 +92,13 @@ class Validate_Finance_CreditCard
             || (substr($creditCard, 0, 4) != '2014'
                 && substr($creditCard, 0, 4) != '2149')) {
 
-            if (!Validate_CreditCard::Luhn($creditCard)) {
+            if (!Validate_Finance_CreditCard::Luhn($creditCard)) {
                 return false;
             }
         }
 
         if (!is_null($cardType)) {
-            return Validate_CreditCard::creditCardType($creditCard, $cardType);
+            return Validate_Finance_CreditCard::isType($creditCard, $cardType);
         }
 
         return true;
@@ -98,14 +108,22 @@ class Validate_Finance_CreditCard
     /**
      * Validates the credit card number against a type
      *
-     * @param string $creditCard credit card number to check
-     * @param string $cardType Case-insensitive type (no spaces)
-     * @return boolean TRUE is type matches, FALSE otherwise
+     * This method only checks for the type marker. It doesn't
+     * validate the card number.
+     *
+     * @param string  $creditCard number (spaces and dashes tolerated)
+     * @param string  $cardType type/brand of card (case insensitive)
+     *               "MasterCard", "Visa", "AMEX", "AmericanExpress",
+     *               "American Express", "Diners", "DinersClub", "Diners Club",
+     *               "CarteBlanche", "Carte Blanche", "Discover", "JCB",
+     *               "EnRoute".
+     * @return bool   TRUE is type matches, FALSE otherwise
      * @access public
+     * @static
      * @author Philippe Jausions <Philippe.Jausions@11abacus.com>
      * @link http://www.beachnet.com/~hstiles/cardtype.html
      */
-    function creditCardType($creditCard, $cardType) {
+    function isType($creditCard, $cardType) {
 
         switch (strtoupper($cardType)) {
             case 'MASTERCARD':
@@ -116,11 +134,14 @@ class Validate_Finance_CreditCard
                 break;
             case 'AMEX':
             case 'AMERICANEXPRESS':
+            case 'AMERICAN EXPRESS':
                 $regex = '/^3[47]\d{13}$/';
                 break;
             case 'DINERS':
             case 'DINERSCLUB':
+            case 'DINERS CLUB':
             case 'CARTEBLANCHE':
+            case 'CARTE BLANCHE':
                 $regex = '/^3(0[0-5]\d{11}|[68]\d{12})$/';
                 break;
             case 'DISCOVER':
@@ -136,7 +157,7 @@ class Validate_Finance_CreditCard
                 return false;
         }
 
-        $creditCard = preg_replace('/[^0-9]/', '', $creditCard);
+        $creditCard = str_replace(array('-', ' '), '', $creditCard);
         return (bool)preg_match($regex, $creditCard);
     }
 }
