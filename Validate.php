@@ -429,7 +429,6 @@ class Validate
              */
             } elseif (strpos($opt['type'],'_') !== false) {
                 list($class, $method) = explode('_', $opt['type'], 2);
-                $class = strtoupper($class);
                 @include_once("Validate/$class.php");
                 if (!class_exists("Validate_$class") ||
                     !in_array($method, get_class_methods("Validate_$class"))) {

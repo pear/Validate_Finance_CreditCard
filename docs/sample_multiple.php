@@ -40,14 +40,14 @@ $values = array(
 $opts = array(
     'amount'=> array('type'=>'number','decimal'=>',.','dec_prec'=>null,'min'=>1,'max'=>32000),
     'name'  => array('type'=>'email','check_domain'=>false),
-    'rib'   => array('type'=>'fr_rib'),
-    'rib2'  => array('type'=>'fr_rib'),
+    'rib'   => array('type'=>'FR_rib'),
+    'rib2'  => array('type'=>'FR_rib'),
     'cc'    => array('type'=>'creditcard'),
     'cc2'   => array('type'=>'creditcard'),
     'mail'  => array('type'=>'email'),
-    'hissiret' => array('type'=>'fr_siret'),
+    'hissiret' => array('type'=>'FR_siret'),
     'mystring' => array('type'=>'string',array('format'=>VAL_ALPHA, 'min_lenght'=>3)),
-    'iban'  => array('type'=>'finance_iban')
+    'iban'  => array('type'=>'Finance_iban')
     );
 
 $result = Validate::multiple($values, $opts);
