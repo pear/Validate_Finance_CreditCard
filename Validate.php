@@ -266,21 +266,23 @@ class Validate
             return false;
         }
         if (isset($day) && isset($month) && isset($year)) {
-            include_once 'Date/Calc.php';
-            if (!Date_Calc::isValidDate($day, $month, $year)) {
+            if (!checkdate($day, $month, $year)) {
                 return false;
             }
-            if ($min &&
-                (Date_Calc::compareDates($day, $month, $year,
-                                         $min[0], $min[1], $min[2]) < 0))
-            {
-                return false;
-            }
-            if ($max &&
-                (Date_Calc::compareDates($day, $month, $year,
-                                         $max[0], $max[1], $max[2]) > 0))
-            {
-                return false;
+            if ($min || $max) {
+                include_once 'Date/Calc.php';
+                if ($min &&
+                    (Date_Calc::compareDates($day, $month, $year,
+                                             $min[0], $min[1], $min[2]) < 0))
+                {
+                    return false;
+                }
+                if ($max &&
+                    (Date_Calc::compareDates($day, $month, $year,
+                                             $max[0], $max[1], $max[2]) > 0))
+                {
+                    return false;
+                }
             }
         }
         return true;
