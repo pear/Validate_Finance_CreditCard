@@ -34,4 +34,6 @@ test(Validate::number('-8', null, null, -8, -7), true);
 test(Validate::number('-8.02', '.', null, -8, -7), false);
 // 13
 test(Validate::number('-8.02', '.', null, -9, -7), true);
+// 14
+test(Validate::number('-8.02', '.,', null, -9, -8), true);
 ?>
