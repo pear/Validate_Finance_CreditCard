@@ -3,7 +3,7 @@
 // +----------------------------------------------------------------------+
 // | PHP Version 4                                                        |
 // +----------------------------------------------------------------------+
-// | Copyright (c) 1997-2003 The PHP Group                                |
+// | Copyright (c) 1997-2005 The PHP Group                                |
 // +----------------------------------------------------------------------+
 // | This source file is subject to version 3.0 of the PHP license,       |
 // | that is bundled with this package in the file LICENSE, and is        |
@@ -44,7 +44,7 @@ class Validate_ptBR
      */
     function cpf($cpf)
     {
-        $cleaned = "";
+        $cleaned = '';
         for ($i=0; $i<strlen($cpf); $i++) {
             $num = substr($cpf, $i, 1);
             if (ord($num) >= 48 && ord($num) <= 57) {
@@ -55,7 +55,7 @@ class Validate_ptBR
 
         if (strlen($cpf) != 11) {
             return false;
-        } elseif ($cpf == "00000000000") {
+        } elseif ($cpf == '00000000000') {
             return false;
         } else {
             $number[0]  = intval(substr($cpf, 0, 1));
@@ -113,7 +113,7 @@ class Validate_ptBR
      */
     function cnpj($cnpj)
     {
-        $cleaned = "";
+        $cleaned = '';
         for ($i=0; $i<strlen($cnpj); $i++) {
             $num = substr($cnpj,$i,1);
             if (ord($num) >= 48 && ord($num) <= 57) {
@@ -123,7 +123,7 @@ class Validate_ptBR
         $cnpj = $cleaned;
         if (strlen($cnpj) != 14) {
             return false;
-        } elseif ($cnpj == "00000000000000") {
+        } elseif ($cnpj == '00000000000000') {
             return false;
         } else {
             $number[0]  = intval(substr($cnpj, 0, 1));

@@ -3,7 +3,7 @@
 // +----------------------------------------------------------------------+
 // | PHP Version 4                                                        |
 // +----------------------------------------------------------------------+
-// | Copyright (c) 1997-2004 The PHP Group                                |
+// | Copyright (c) 1997-2005 The PHP Group                                |
 // +----------------------------------------------------------------------+
 // | This source file is subject to version 3.0 of the PHP license,       |
 // | that is bundled with this package in the file LICENSE, and is        |
@@ -50,7 +50,7 @@ class Validate_AT
             static $postcodes;
     
             if (!isset($postcodes)) {
-                $file = '@DATADIR@/Validate/AT_postcodes.txt';
+                $file = '@DATADIR@/Validate_AT/AT_postcodes.txt';
                 $postcodes = array_map('trim', file($file));
             }
     

@@ -3,7 +3,7 @@
 // +----------------------------------------------------------------------+
 // | PHP Version 4                                                        |
 // +----------------------------------------------------------------------+
-// | Copyright (c) 1997-2003 The PHP Group                                |
+// | Copyright (c) 1997-2005 The PHP Group                                |
 // +----------------------------------------------------------------------+
 // | This source file is subject to version 3.0 of the PHP license,       |
 // | that is bundled with this package in the file LICENSE, and is        |
@@ -269,14 +269,14 @@ class Validate_US
             // ten digits, maybe  spaces and/or dashes and/or parentheses
             if (ereg('^[2-9][0-9]{2}[- ]?[2-9][0-9]{2}[- ]?[0-9]{4}$', $number)) {
                 return true;
-            } else if (ereg('^\([2-9][0-9]{2}\)[- ]?[2-9][0-9]{2}[- ]?[0-9]{4}$', $number)) {
+            } elseif (ereg('^\([2-9][0-9]{2}\)[- ]?[2-9][0-9]{2}[- ]?[0-9]{4}$', $number)) {
                 return true;
             }
 
             return true;
         }
 
-        if ($number=='') {
+        if ($number == '') {
             return true;
         }
 
