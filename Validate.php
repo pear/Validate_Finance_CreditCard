@@ -148,6 +148,9 @@ class Validate
         if (is_array($number)) {
             extract($number);
         }
+
+        $number = preg_replace('/[^0-9]/','',$number);
+
         if (empty($number) || ($len_number = strlen($number)) <= 0) {
             return false;
         }
@@ -297,6 +300,17 @@ class Validate
         }
         $date = substr($date, strlen($ret));
         return $ret;
+    }
+
+    function _modf($val, $div) {
+        if( function_exists('bcmod') ){
+            return bcmod($val,$div);
+        } else if (function_exists('fmod')) {
+            return fmod($val,$div);
+        }
+        $r = $a / $b;
+        $i = intval($r);
+        return intval(($r - $i) * $b);
     }
 
     /**
