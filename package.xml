@@ -33,7 +33,7 @@
     </maintainer>
     <maintainer>
       <user>dufuz</user>
-      <role>developer</role>
+      <role>lead</role>
       <name>Helgi Þormar</name>
       <email>dufuz@php.net</email>
     </maintainer> 
@@ -49,7 +49,7 @@
 - Better email validation
 - CS fixes
 - Split country and finance classes and credit card functions into their own sub packages of Validate
-- New developer (Helgi)
+- New lead/developer (Helgi)
 - Few more none alpha chars added
 - _check_control_number renamed to _checkControlNumber
   _get_control_number renamed to _getControlNumber
