@@ -1,8 +1,8 @@
 <?php
 require_once 'PHPUnit.php';
-require_once 'Validate.php';
+require_once 'Validate/CreditCard.php';
 
-class Validate_CreditCard extends PHPUnit_TestCase
+class Validate_CreditCard_Test extends PHPUnit_TestCase
 {
     var $cards = array(
                     0   => false,
@@ -36,7 +36,7 @@ class Validate_CreditCard extends PHPUnit_TestCase
         'DISCOVER'   => '60110004',
         'DINERSCLUB' => '300004');
 
-    function Validate_date( $name )
+    function Validate_CreditCard_Test($name)
     {
         $this->PHPUnit_TestCase($name);
     }
@@ -53,7 +53,7 @@ class Validate_CreditCard extends PHPUnit_TestCase
     function testCreditCard()
     {
         foreach ($this->cards as $card => $expected_result) {
-            $r = Validate::creditCard($card);
+            $r = Validate_CreditCard::creditCard($card);
             $this->assertEquals($r, $expected_result);
         }
     }
@@ -62,7 +62,7 @@ class Validate_CreditCard extends PHPUnit_TestCase
     {
         foreach (array_keys($this->cardTypes) as $comp_type) {
             foreach ($this->cardTypes as $type => $number) {
-                $r = Validate::creditCardType($number, $comp_type);
+                $r = Validate_CreditCard::creditCardType($number, $comp_type);
                 $this->assertEquals($r, (bool) ($type == $comp_type));
             }
         }
@@ -71,7 +71,7 @@ class Validate_CreditCard extends PHPUnit_TestCase
     function testValidLuhnCheckBadNumberCreditCardType()
     {
         foreach ($this->shortCards as $type => $number) {
-            $r = Validate::creditCard($number, $type);
+            $r = Validate_CreditCard::creditCard($number, $type);
             $this->assertEquals($r, false);
         }
     }
@@ -79,7 +79,7 @@ class Validate_CreditCard extends PHPUnit_TestCase
 }
 
 // runs the tests
-$suite = new PHPUnit_TestSuite('Validate_CreditCard');
+$suite = new PHPUnit_TestSuite('Validate_CreditCard_Test');
 $result = PHPUnit::run($suite);
 // prints the tests
 echo $result->toString();
