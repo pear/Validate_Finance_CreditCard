@@ -65,8 +65,8 @@ class Validate_UK
         if (preg_match($preg, $ni)) {
             $bad_prefixes = array('GB', 'BG', 'NK', 'KN', 'TN', 'NT', 'ZZ');
             return (array_search(substr($ni, 0, 2), $bad_prefixes) === false);
-   	    } else {
-   		      return false;
+        } else {
+            return false;
         }
     }
     
