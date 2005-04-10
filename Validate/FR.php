@@ -104,7 +104,7 @@ class Validate_FR
         } else {
             return false;
         }
-        $chars       = array('/[AJ]/','/[BKZ]/','/[CLT]/','/[DMU]/','/[ENV]/','/[FOW]/','/[GPX]/','/[HQY]/','/[IRZ]/');
+        $chars       = array('/[AJ]/','/[BKS]/','/[CLT]/','/[DMU]/','/[ENV]/','/[FOW]/','/[GPX]/','/[HQY]/','/[IRZ]/');
         $values      = array('1','2','3','4','5','6','7','8','9');
 
         $codebank    = preg_replace('/[^0-9]/', '', $codebanque);
