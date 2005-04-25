@@ -14,6 +14,7 @@
 // | license@php.net so we can mail you a copy immediately.               |
 // +----------------------------------------------------------------------+
 // | Authors: Pierre-Alain Joye <pajoye@php.net>                          |
+// |          bertrand Gugger <bertrand@toggg.com>                        |
 // +----------------------------------------------------------------------+
 //
 // $Id$
@@ -35,7 +36,7 @@ class Validate_FR
      * This function checks given number according the specs
      * available here:
      *      http://www.dads.cnav.fr/tds/Stru0103.htm
-     *
+     *      http://xml.insee.fr/schema/nir.html
      * @param  string $number number or an array containaing the 'number'=>1234
      * @return bool           true if number is valid, otherwise false
      * @author Pierre-Alain Joye <pajoye@php.net>
@@ -88,6 +89,7 @@ class Validate_FR
 
     /**
      * Validate a french RIB
+     * see http://www.ecbs.org/Download/Tr201v3.9.pdf
      *
      * @param  string $aCodeBanque number or an array containaing the 'number'=>1234
      * @param  string $aCodeGuichet number or an array containaing the 'number'=>1234
@@ -95,6 +97,7 @@ class Validate_FR
      * @param  string $number number or an array containaing the 'number'=>1234
      * @return bool   true if number is valid, otherwise false
      * @author Pierre-Alain Joye <pajoye@php.net>
+     * @author bertrand Gugger <bertrand@toggg.com>
      */
     function rib($rib)
     {
@@ -123,24 +126,22 @@ class Validate_FR
             return false;
         }
 
-        $l     = $codebank.$officecode.$account;
-        $a1    = substr($l, 0, 7);
-        $b1    = substr($l, 7, 7);
-        $c1    = substr($l, 14, 7);
-
-        $key   = 97 - Validate::_modf((62 * $a1 + 34 * $b1 + 3 * $c1), 97);
-
-        if ($key == 0) {
-            $key = 97;
+        if (strlen($key) != 2) {
+            return false;
         }
 
-        return $key == intval($key);
+        $l     = $codebank.$officecode.str_pad($account, 11, '0', STR_PAD_LEFT).$key.'0';
+        $keyChk = 0;
+        for ($i = 0; $i < 24; $i += 4) {
+            $keyChk = ($keyChk*9 + substr($l, $i, 4)) % 97;
+        }
+        return !$keyChk;
     }
 
 
     /**
      * Validate a french SIREN number
-     *
+     * see http://xml.insee.fr/schema/siret.html
      *
      * @param  string $siren  number or an array containaing the 'number'=>1234
      * @return bool           true if number is valid, otherwise false
@@ -171,7 +172,7 @@ class Validate_FR
 
     /**
      * Validate a french SIRET number
-     *
+     * see http://xml.insee.fr/schema/siret.html
      *
      * @param  string $siret  number or an array containaing the 'number'=>1234
      * @return bool           true if number is valid, otherwise false
@@ -219,7 +220,7 @@ class Validate_FR
      */
     function postalCode($postalCode, $strong = false)
     {
-          return (bool)preg_match('/^[0-9]{5}$/', $postalCode);
+          return (bool)preg_match('/^(0[1-9]|[1-9][0-9])[0-9][0-9][0-9]$/', $postalCode);
     }
 
     /**
@@ -236,7 +237,7 @@ class Validate_FR
             switch (strlen($region)) {
                 case 2:
                     if ($region >= 1 && $region <= 95
-                        && $region != 20)) {
+                        && $region != 20) {
                         return true;
                     }
                     break;
