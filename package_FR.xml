@@ -19,6 +19,12 @@
       <name>Pierre-Alain Joye</name>
       <email>pajoye@php.net</email>
     </maintainer>
+    <maintainer>
+      <user>toggg</user>
+      <role>lead</role>
+      <name>bertrand Gugger</name>
+      <email>bertrand@toggg.com</email>
+    </maintainer>
    </maintainers>
   <release>
 
@@ -31,11 +37,15 @@
 - BC break! 
 postalCode unified between countries (name wise), now all postcode validation funcs are named postalCode
 - added region() (departments) and postalCode
+- fixed rib calculation
     </notes>
     <filelist>
     <dir name="/">
       <dir name="Validate">
         <file role="php">FR.php</file>
+      </dir>
+      <dir name="tests" role="test">
+        <file>validate_FR.phpt</file>
       </dir>
     </dir>
     </filelist>
