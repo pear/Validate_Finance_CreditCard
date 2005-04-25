@@ -346,9 +346,9 @@ class Validate
         } elseif (function_exists('fmod')) {
             return fmod($val, $div);
         }
-        $r = $a / $b;
+        $r = $val / $div;
         $i = intval($r);
-        return intval(($r - $i) * $b);
+        return intval($val - $i * $div + .1);
     }
 
     /**
