@@ -40,8 +40,8 @@
     </filelist>
     <deps>
       <dep type="php" rel="ge" version="4.1.0" />
-      <dep type="pkg" rel="has">Validate</dep>
-      <dep type="pkg" rel="has">Validate_Finance_CreditCard</dep>
+      <dep type="pkg" rel="has" version="0.5.0">Validate</dep>
+      <dep type="pkg" rel="has" version="0.5.0">Validate_Finance_CreditCard</dep>
     </deps>
   </release>
   <changelog>
