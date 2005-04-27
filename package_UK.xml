@@ -41,7 +41,7 @@ ni was renamed to ssn to keep it the same in all classes
         <file role="php">UK.php</file>
       </dir>
       <dir name="tests" role="test">
-        <file>validate_UK.php</file>
+        <file>validate_UK.phpt</file>
       </dir>
     </dir>
     </filelist>

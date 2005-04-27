@@ -39,7 +39,7 @@ postalCode unified between countries (name wise), now all postcode validation fu
         </file>
       </dir>
       <dir name="tests" role="test">
-        <file>validate_CH.php</file>
+        <file>validate_CH.phpt</file>
       </dir>
       <file role="data" name="data/CH_postcodes.txt" install-as="CH_postcodes.txt" />
     </dir>

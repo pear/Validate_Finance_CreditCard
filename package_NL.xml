@@ -35,7 +35,7 @@ postalCode unified between countries (name wise), now all postcode validation fu
         <file role="php">NL.php</file>
       </dir>
       <dir name="tests" role="test">
-        <file>validate_NL.php</file>
+        <file>validate_NL.phpt</file>
       </dir>
     </dir>
     </filelist>

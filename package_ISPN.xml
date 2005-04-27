@@ -18,7 +18,7 @@
     <maintainer>
       <user>dufuz</user>
       <role>lead</role>
-      <name>Helgi &THORN;ormar</name>
+      <name>Helgi Þormar</name>
       <email>dufuz@php.net</email>
     </maintainer>
    </maintainers>
@@ -38,7 +38,7 @@
         <file role="php">ISPN.php</file>
       </dir>
       <dir name="tests" role="test">
-        <file>product_numbers.php</file>
+        <file>product_numbers.phpt</file>
       </dir>
     </dir>
     </filelist>

@@ -48,7 +48,7 @@ in a row.
         <file role="php">US.php</file>
       </dir>
       <dir name="tests" role="test">
-        <file>validate_US.php</file>
+        <file>validate_US.phpt</file>
       </dir>
     </dir>
     </filelist>

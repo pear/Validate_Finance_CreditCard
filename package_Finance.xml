@@ -33,7 +33,7 @@
         </dir>
       </dir>
       <dir name="tests" role="test">
-        <file>validate_Finance.php</file>
+        <file>validate_Finance.phpt</file>
       </dir>
     </dir>
     </filelist>

@@ -33,7 +33,7 @@ postalCode unified between countries (name wise), now all postcode validation fu
         <file role="php">DE.php</file>
       </dir>
       <dir name="tests" role="test">
-        <file>validate_DE.php</file>
+        <file>validate_DE.phpt</file>
       </dir>
     </dir>
     </filelist>

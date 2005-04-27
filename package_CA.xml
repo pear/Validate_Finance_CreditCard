@@ -32,7 +32,7 @@ Package contains locale validation for Canada such as:
         <file role="php">CA.php</file>
       </dir>
       <dir name="tests" role="test">
-        <file>validate_CA.php</file>
+        <file>validate_CA.phpt</file>
       </dir>
     </dir>
     </filelist>

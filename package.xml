@@ -75,10 +75,10 @@
     <dir name="/">
       <file role="php">Validate.php</file>
       <dir name="tests" role="test">
-        <file>number.php</file>
-        <file>testdate.php</file>
-        <file>email.php</file>
-        <file>multiple.php</file>
+        <file>number.phpt</file>
+        <file>testdate.phpt</file>
+        <file>email.phpt</file>
+        <file>multiple.phpt</file>
       </dir>
       <dir name="docs" role="doc">
         <file>sample_multiple.php</file>
