@@ -6,6 +6,9 @@ validate_FR.phpt: Unit tests for 'Validate/FR.php'
 
 require_once 'Validate/FR.php';
 
+echo "Test Validate_FR\n";
+echo "****************\n";
+
 $noYes = array('NO', 'YES');
 
 $ssns = array(  '156077851718185', // OK
@@ -60,6 +63,7 @@ $postalCodes = array('01234', // OK
                      '2A234', // NOK
                      '20234', // OK
                      '0123X'); // NOK
+
 $regions = array('12', // OK
                  '00', // NOK
                  '1', // NOK
@@ -105,6 +109,8 @@ foreach ($regions as $region) {
 }
 ?>
 --EXPECT--
+Test Validate_FR
+****************
 Test ssn
 156077851718185: YES
 2781120050003: NO
