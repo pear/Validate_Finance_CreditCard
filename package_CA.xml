@@ -39,7 +39,7 @@ Package contains locale validation for Canada such as:
     <deps>
       <dep type="php" rel="ge" version="4.1.0" />
       <dep type="ext" rel="has">pcre</dep>
-      <dep type="pkg" rel="ge" version="0.5">Validate_US</dep>
+      <dep type="pkg" rel="ge" version="0.5.0">Validate_US</dep>
     </deps>
   </release>
   <changelog>

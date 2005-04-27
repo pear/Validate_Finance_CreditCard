@@ -33,7 +33,7 @@
     </filelist>
     <deps>
       <dep type="php" rel="ge" version="4.1.0" />
-      <dep type="pkg" rel="has">Validate</dep>
+      <dep type="pkg" rel="has" version="0.5.0">Validate</dep>
     </deps>
   </release>
   <changelog>
