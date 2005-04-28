@@ -144,7 +144,7 @@ class Validate_US
         static $high_groups = array();
         static $lastUri = '';
 
-        if (($lastUri == $uri) and !empty($high_groups)) {
+        if ($lastUri == $uri && !empty($high_groups)) {
             return $high_groups;
         }
         $lastUri = $uri;
