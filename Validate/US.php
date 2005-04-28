@@ -25,14 +25,6 @@
 class Validate_US
 {
     /**
-     * Stores high groups that have been fetched from any given web page to
-     * keep the load down if having to validate more then one ssn in a row
-     *
-     * @access public
-     */
-    var $high_groups;
-
-    /**
      * Validates a social security number
      * @param string $ssn number to validate
      * @param array $high_groups array of highest issued SSN group numbers
@@ -139,17 +131,27 @@ class Validate_US
      * cached for performance (and to lessen the load on the SSA website)
      *
      * @param string $uri Path to the SSA highgroup.htm file
-     * @param bool   $is_text Take the $highgroup_htm param as directly the contents
+     * @param bool   $is_text Take the $uri param as directly the contents
      * @returns array
      */
     function ssnGetHighGroups($uri = 'http://www.ssa.gov/employer/highgroup.txt',
                               $is_text = false)
     {
-        if (!empty($this->high_groups)) {
-            return $this->high_groups;
-        }
+        /**
+         * Stores high groups that have been fetched from any given web page to
+         * keep the load down if having to validate more then one ssn in a row
+         */
+        static $high_groups = array();
+        static $lastUri = '';
 
-        if (!$is_text) {
+        if (($lastUri == $uri) and !empty($high_groups)) {
+            return $high_groups;
+        }
+        $lastUri = $uri;
+
+        if ($is_text) {
+            $source = $uri;
+        } else {
             if (!$fd = @fopen($uri, 'r')) {
                 trigger_error('Could not access the SSA High Groups file', E_USER_WARNING);
                 return array();
