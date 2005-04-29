@@ -463,7 +463,7 @@ class Validate
             if (in_array(strtolower($opt['type']), $methods)) {
                 //$opt[$opt['type']] = $data[$var_name];
                 $method = $opt['type'];
-                $opt = array_slice($opt, 1);
+                unset($opt['type']);
 
                 if (sizeof($opt) == 1) {
                     $opt = array_pop($opt);
@@ -490,7 +490,7 @@ class Validate
                     trigger_error("Invalid validation type Validate_$class::$method", E_USER_WARNING);
                     continue;
                 }
-                $opt = array_slice($opt, 1);
+                unset($opt['type']);
                 if (sizeof($opt) == 1) {
                     $opt = array_pop($opt);
                 }
