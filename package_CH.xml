@@ -46,7 +46,7 @@ postalCode unified between countries (name wise), now all postcode validation fu
     </filelist>
     <deps>
       <dep type="php" rel="ge" version="4.1.0" />
-      <dep type="pkg" rel="has" version="0.5.0">Validate</dep>
+      <dep type="pkg" rel="ge" version="0.5.0">Validate</dep>
     </deps>
   </release>
   <changelog>

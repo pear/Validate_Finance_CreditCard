@@ -53,7 +53,7 @@ in a row.
     </dir>
     </filelist>
     <deps>
-      <dep type="php" rel="ge" version="4.1.0" />
+      <dep type="php" rel="ge" version="4.2.0" />
     </deps>
   </release>
   <changelog>
