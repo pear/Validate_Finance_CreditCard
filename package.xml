@@ -34,7 +34,7 @@
     <maintainer>
       <user>dufuz</user>
       <role>lead</role>
-      <name>Helgi Þormar</name>
+      <name>Helgi &#222;ormar</name>
       <email>dufuz@php.net</email>
     </maintainer> 
     <maintainer>
@@ -42,7 +42,7 @@
       <role>lead</role>
       <name>bertrand Gugger</name>
       <email>bertrand@toggg.com</email>
-    </maintainer> 
+    </maintainer>
   </maintainers>
   <release>
  
