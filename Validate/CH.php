@@ -1,31 +1,25 @@
 <?php
 /* vim: set expandtab tabstop=4 shiftwidth=4: */
-// +----------------------------------------------------------------------+
-// | PHP Version 4                                                        |
-// +----------------------------------------------------------------------+
-// | Copyright (c) 1997-2005 The PHP Group                                |
-// +----------------------------------------------------------------------+
-// | This source file is subject to version 3.0 of the PHP license,       |
-// | that is bundled with this package in the file LICENSE, and is        |
-// | available through the world-wide-web at the following url:           |
-// | http://www.php.net/license/3_0.txt.                                  |
-// | If you did not receive a copy of the PHP license and are unable to   |
-// | obtain it through the world-wide-web, please send a note to          |
-// | license@php.net so we can mail you a copy immediately.               |
-// +----------------------------------------------------------------------+
-// | Copyright (c) 2004 Hans-Peter Oeri <hp@oeri.ch>                      |
-// +----------------------------------------------------------------------+
-//
-// $Id$
 
 /**
-* Validation functions for Swiss IDs 
-*
-* @version   $Id$
-* @author    Hans-Peter Oeri <hp@oeri.ch>
-* @copyright Copyright (c) 2004, Hans-Peter Oeri <hp@oeri.ch>
-* @license   PHP
-*/
+ * Methods for common data validations
+ *
+ * PHP versions 4
+ *
+ * LICENSE: This source file is subject to version 3.0 of the PHP license
+ * that is available through the world-wide-web at the following URI:
+ * http://www.php.net/license/3_0.txt.  If you did not receive a copy of
+ * the PHP License and are unable to obtain it through the web, please
+ * send a note to license@php.net so we can mail you a copy immediately.
+ *
+ * @category   Validate
+ * @package    Validate_CH
+ * @author     Hans-Peter Oeri <hp@oeri.ch>
+ * @copyright  2005 The PHP Group
+ * @license    http://www.php.net/license/3_0.txt  PHP License 3.0
+ * @version    CVS: $Id$
+ * @link       http://pear.php.net/package/Validate_CH
+ */
 
 /**
 * Requires base class Validate
@@ -33,11 +27,21 @@
 require_once 'Validate.php';
 
 /**
-* Validate_CH 
-*
-* @access    public
-* @version   $Id$
-*/
+ * Data validation class for Switzerland
+ *
+ * This class provides methods to validate:
+ *  - Social insurance number (aka SSN)
+ *  - Swiss university's immatriculation number
+ *  - Postal code
+ *
+ * @category   Validate
+ * @package    Validate_CH
+ * @author     Hans-Peter Oeri <hp@oeri.ch>
+ * @copyright  2005 The PHP Group
+ * @license    http://www.php.net/license/3_0.txt  PHP License 3.0
+ * @version    Release: @package_version@
+ * @link       http://pear.php.net/package/Validate_CH
+ */
 class Validate_CH
 {
     /**

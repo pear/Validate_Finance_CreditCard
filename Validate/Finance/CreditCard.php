@@ -14,13 +14,12 @@
  * send a note to license@php.net so we can mail you a copy immediately.
  *
  * @category   Validate
- * @package    Validate
- * @subpackage Validate_Finance_CreditCard
+ * @package    Validate_Finance_CreditCard
  * @author     Philippe Jausions <Philippe.Jausions@11abacus.com>
  * @copyright  2005 The PHP Group
  * @license    http://www.php.net/license/3_0.txt  PHP License 3.0
  * @version    CVS: $Id$
- * @link       http://pear.php.net/package/Validate
+ * @link       http://pear.php.net/package/Validate_Finance_CreditCard
  */
 
 /**
@@ -36,14 +35,13 @@
  * with a card issuer, or if the card is reported stolen, etc...
  *
  * @category   Validate
- * @package    Validate
- * @subpackage Validate_Finance_CreditCard
+ * @package    Validate_Finance_CreditCard
  * @author     Philippe Jausions <Philippe.Jausions@11abacus.com>
  * @author     Ondrej Jombik <nepto@pobox.sk>
  * @copyright  2005 The PHP Group
  * @license    http://www.php.net/license/3_0.txt  PHP License 3.0
  * @version    Release: @package_version@
- * @link       http://pear.php.net/package/Validate
+ * @link       http://pear.php.net/package/Validate_Finance_CreditCard
  */
 class Validate_Finance_CreditCard
 {

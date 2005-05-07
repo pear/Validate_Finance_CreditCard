@@ -14,13 +14,12 @@
  * send a note to license@php.net so we can mail you a copy immediately.
  *
  * @category   Validate
- * @package    Validate
- * @subpackage Validate_CA
+ * @package    Validate_CA
  * @author     Philippe Jausions <Philippe.Jausions@11abacus.com>
  * @copyright  2005 The PHP Group
  * @license    http://www.php.net/license/3_0.txt  PHP License 3.0
  * @version    CVS: $Id$
- * @link       http://pear.php.net/package/Validate
+ * @link       http://pear.php.net/package/Validate_CA
  */
 
 /**
@@ -33,13 +32,12 @@
  *  - Postal code
  *
  * @category   Validate
- * @package    Validate
- * @subpackage Validate_CA
+ * @package    Validate_CA
  * @author     Philippe Jausions <Philippe.Jausions@11abacus.com>
  * @copyright  2005 The PHP Group
  * @license    http://www.php.net/license/3_0.txt  PHP License 3.0
  * @version    Release: @package_version@
- * @link       http://pear.php.net/package/Validate
+ * @link       http://pear.php.net/package/Validate_CA
  */
 class Validate_CA
 {
