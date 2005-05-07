@@ -2,6 +2,7 @@
 validate_US.phpt: Unit tests for 
 --FILE--
 <?php
+// $Id$
 // Validate test script
 $noYes = array('NO', 'YES');
 require 'Validate/US.php';
