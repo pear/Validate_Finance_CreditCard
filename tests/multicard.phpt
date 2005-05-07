@@ -3,6 +3,7 @@ multicard.phpt: Unit tests for 'Validate.php' : mutltiple() with credit card
 This test needs Validate_Finance_CreditCard installed to be enabled
 --SKIPIF--
 <?php
+// $Id$
 if (!@include_once 'Validate/Finance/CreditCard.php') {
     echo ('skip Test skipped as Validate_Finance_CreditCard not installed');
 }

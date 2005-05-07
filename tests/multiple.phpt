@@ -2,6 +2,7 @@
 multiple.phpt: Unit tests for 'Validate.php' without extension (credit card)
 --FILE--
 <?php
+// $Id$
 // Validate test script
 $noYes = array('NO', 'YES');
 

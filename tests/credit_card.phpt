@@ -2,6 +2,7 @@
 credit_card.phpt: Unit tests for 'Validate/Finance/CreditCard.php'
 --FILE--
 <?php
+// $Id$
 // Validate test script
 $noYes = array('NO', 'YES');
 require_once 'Validate/Finance/CreditCard.php';

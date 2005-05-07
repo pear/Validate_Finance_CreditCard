@@ -2,6 +2,7 @@
 validate_NL.phpt: Unit tests for require_once( "Validate/NL.php" )
 --FILE--
 <?php
+// $Id$
 // Validate test script
 $noYes = array('NO', 'YES');
 require_once( "Validate/NL.php" );

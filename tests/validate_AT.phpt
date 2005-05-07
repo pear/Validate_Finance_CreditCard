@@ -2,6 +2,7 @@
 validate_AT.phpt: Unit tests for 'Validate/AT.php'
 --FILE--
 <?php
+// $Id$
 // Validate test script
 $noYes = array('NO', 'YES');
 require_once 'Validate/AT.php';

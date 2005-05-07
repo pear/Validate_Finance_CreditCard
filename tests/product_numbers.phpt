@@ -2,6 +2,7 @@
 product_numbers.phpt: Unit tests for 
 --FILE--
 <?php
+// $Id$
 // Validate test script
 $noYes = array('NO', 'YES');
 
