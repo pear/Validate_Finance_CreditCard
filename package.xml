@@ -4,12 +4,12 @@
   <summary>Validation class</summary>
   <description>
    Package to validate various datas. It includes :
-    * numbers (min/max, decimal or not)
-    * email (syntax, domain check)
-    * string (predifined type alpha upper and/or lowercase, numeric,...)
-    * date (min, max)
-    * uri (RFC2396)
-    * possibility valid multiple data with a single method call (::multiple)
+    - numbers (min/max, decimal or not)
+    - email (syntax, domain check)
+    - string (predifined type alpha upper and/or lowercase, numeric,...)
+    - date (min, max)
+    - uri (RFC2396)
+    - possibility valid multiple data with a single method call (::multiple)
   </description>
   <license>PHP</license>
   <maintainers>
