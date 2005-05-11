@@ -1,27 +1,38 @@
 <?php
 /* vim: set expandtab tabstop=4 shiftwidth=4: */
-// +----------------------------------------------------------------------+
-// | PHP Version 4                                                        |
-// +----------------------------------------------------------------------+
-// | Copyright (c) 1997-2005 The PHP Group                                |
-// +----------------------------------------------------------------------+
-// | This source file is subject to version 3.0 of the PHP license,       |
-// | that is bundled with this package in the file LICENSE, and is        |
-// | available through the world-wide-web at the following url:           |
-// | http://www.php.net/license/3_0.txt.                                  |
-// | If you did not receive a copy of the PHP license and are unable to   |
-// | obtain it through the world-wide-web, please send a note to          |
-// | license@php.net so we can mail you a copy immediately.               |
-// +----------------------------------------------------------------------+
-// | Authors: Tomas V.V.Cox <cox@idecnet.com>                             |
-// |          Pierre-Alain Joye <pajoye@php.net>                          |
-// +----------------------------------------------------------------------+
-//
-// $Id$
-//
-// Methods for common data validations
-//
 
+/**
+ * Validation class
+ *
+ * Package to validate various datas. It includes :
+ *   - numbers (min/max, decimal or not)
+ *   - email (syntax, domain check)
+ *   - string (predifined type alpha upper and/or lowercase, numeric,...)
+ *   - date (min, max)
+ *   - uri (RFC2396)
+ *   - possibility valid multiple data with a single method call (::multiple)
+ *
+ * PHP versions 4
+ *
+ * LICENSE: This source file is subject to version 3.0 of the PHP license
+ * that is available through the world-wide-web at the following URI:
+ * http://www.php.net/license/3_0.txt.  If you did not receive a copy of
+ * the PHP License and are unable to obtain it through the web, please
+ * send a note to license@php.net so we can mail you a copy immediately.
+ *
+ * @category   Validate
+ * @package    Validate
+ * @author     Tomas V.V.Cox <cox@idecnet.com>
+ * @author     Pierre-Alain Joye <pajoye@php.net>
+ * @copyright  2005 The PHP Group
+ * @license    http://www.php.net/license/3_0.txt  PHP License 3.0
+ * @version    CVS: $Id$
+ * @link       http://pear.php.net/package/Validate
+ */
+
+/**
+ * Methods for common data validations
+ */
 define('VALIDATE_NUM',          '0-9');
 define('VALIDATE_SPACE',        '\s');
 define('VALIDATE_ALPHA_LOWER',  'a-z');
@@ -34,6 +45,26 @@ define('VALIDATE_PUNCTUATION',  VALIDATE_SPACE . '\.,;\:&"\'\?\!\(\)');
 define('VALIDATE_NAME',         VALIDATE_EALPHA . VALIDATE_SPACE . "'");
 define('VALIDATE_STREET',       VALIDATE_NAME . "/\\ºª");
 
+/**
+ * Validation class
+ *
+ * Package to validate various datas. It includes :
+ *   - numbers (min/max, decimal or not)
+ *   - email (syntax, domain check)
+ *   - string (predifined type alpha upper and/or lowercase, numeric,...)
+ *   - date (min, max)
+ *   - uri (RFC2396)
+ *   - possibility valid multiple data with a single method call (::multiple)
+ *
+ * @category   Validate
+ * @package    Validate
+ * @author     Tomas V.V.Cox <cox@idecnet.com>
+ * @author     Pierre-Alain Joye <pajoye@php.net>
+ * @copyright  2005 The PHP Group
+ * @license    http://www.php.net/license/3_0.txt  PHP License 3.0
+ * @version    Release: @package_version@
+ * @link       http://pear.php.net/package/Validate
+ */
 class Validate
 {
     /**
@@ -46,6 +77,10 @@ class Validate
      *                              'dec_prec'  Number of allowed decimals
      *                              'min'       minimun value
      *                              'max'       maximum value
+     *
+     * @return boolean true if valid number, false if not
+     *
+     * @access public
      */
     function number($number, $options = array())
     {
@@ -81,6 +116,10 @@ class Validate
      *
      * @param string    $email          URL to validate
      * @param boolean   $domain_check   Check or not if the domain exists
+     *
+     * @return boolean true if valid email, false if not
+     *
+     * @access public
      */
     function email($email, $check_domain = false)
     {
@@ -115,6 +154,10 @@ class Validate
      *                                  Ex: VALIDATE_NUM . VALIDATE_ALPHA (see constants)
      *                              'min_length' minimum length
      *                              'max_length' maximum length
+     *
+     * @return boolean true if valid string, false if not
+     *
+     * @access public
      */
     function string($string, $options)
     {
@@ -153,6 +196,10 @@ class Validate
      *                              'allowed_schemes' => array, list of protocols
      *                                  List of allowed schemes ('http',
      *                                  'ssh+svn', 'mms')
+     *
+     * @return boolean true if valid uri, false if not
+     *
+     * @access public
      */
     function uri($url, $options = null)
     {
@@ -195,7 +242,9 @@ class Validate
      *                                this array($day, $month, $year)
      *                                or PEAR::Date object
      *
-     * @return bool
+     * @return boolean true if valid date/time, false if not
+     *
+     * @access public
      */
     function date($date, $options)
     {
@@ -356,7 +405,10 @@ class Validate
      *
      * @param string $number number string
      * @param array $weights reference to array of weights
+     *
      * @returns int returns product of number digits with weights
+     *
+     * @access protected
      */
     function _multWeights($number, &$weights) {
         if (!is_array($weights)) {
@@ -383,7 +435,10 @@ class Validate
      * @param int $modulo (optionsl) number
      * @param int $subtract (optional) number
      * @param bool $allow_high (optional) true if function can return number higher than 10
+     *
      * @returns int -1 calculated control number is returned
+     *
+     * @access protected
      */
     function _getControlNumber($number, &$weights, $modulo = 10, $subtract = 0, $allow_high = false) {
         // calc sum
@@ -409,8 +464,11 @@ class Validate
      * @param array $weights reference to array of weights
      * @param int $modulo (optionsl) number
      * @param int $subtract (optional) numbier
-     * @returns bool
-     **/
+     *
+     * @returns bool true if valid, false if not
+     *
+     * @access protected
+     */
     function _checkControlNumber($number, &$weights, $modulo = 10, $subtract = 0) {
         if (strlen($number) < count($weights)) {
             return false;
@@ -431,20 +489,22 @@ class Validate
     }
 
     /**
-    * Bulk data validation for data introduced in the form of an
-    * assoc array in the form $var_name => $value.
-    * Can be used on any of Validate subpackages
-    *
-    * @param  array   $data     Ex: array('name' => 'toto', 'email' => 'toto@thing.info');
-    * @param  array   $val_type Contains the validation type and all parameters used in.
-    *                           'val_type' is not optional
-    *                           others validations properties must have the same name as the function
-    *                           parameters.
-    *                           Ex: array('toto'=>array('type'=>'string','format'='toto@thing.info','min_length'=>5));
-    * @param  boolean $remove if set, the elements not listed in data will be removed
-    *
-    * @return array   value name => true|false    the value name comes from the data key
-    */
+     * Bulk data validation for data introduced in the form of an
+     * assoc array in the form $var_name => $value.
+     * Can be used on any of Validate subpackages
+     *
+     * @param  array   $data     Ex: array('name' => 'toto', 'email' => 'toto@thing.info');
+     * @param  array   $val_type Contains the validation type and all parameters used in.
+     *                           'val_type' is not optional
+     *                           others validations properties must have the same name as the function
+     *                           parameters.
+     *                           Ex: array('toto'=>array('type'=>'string','format'='toto@thing.info','min_length'=>5));
+     * @param  boolean $remove if set, the elements not listed in data will be removed
+     *
+     * @return array   value name => true|false    the value name comes from the data key
+     *
+     * @access public
+     */
     function multiple(&$data, &$val_type, $remove = false)
     {
         $keys = array_keys($data);
