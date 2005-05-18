@@ -122,9 +122,11 @@ class Validate_US
         }
 
         // check if this area has been assigned yet
-        if (!($high_group = $high_groups[$area])) {
+        if (!isset($high_groups[$area])) {
             return false;
         }
+
+        $high_group = $high_groups[$area];
 
         $high_group_range = Validate_US::ssnGroupRange($high_group);
         $group_range = Validate_US::ssnGroupRange($group);
