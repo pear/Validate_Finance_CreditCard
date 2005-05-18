@@ -3,8 +3,8 @@
   <name>Validate_Finance</name>
   <summary>Validation class for Finance</summary>
   <description>
-   Package to validate Finance data. It includes :
-    * IBAN
+Package to validate Finance data. It includes :
+ * IBAN
   </description>
   <license>PHP</license>
   <maintainers>

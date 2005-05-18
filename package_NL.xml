@@ -3,11 +3,11 @@
   <name>Validate_NL</name>
   <summary>Validation class for NL</summary>
   <description>
-   Package containes locale validation for NL such as:
-    * SSN
-    * Postal Code
-    * Phone Number
-    * Bank Account Number (based on 11proef)
+Package containes locale validation for NL such as:
+ * SSN
+ * Postal Code
+ * Phone Number
+ * Bank Account Number (based on 11proef)
   </description>
   <license>PHP</license>
   <maintainers>

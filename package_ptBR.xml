@@ -3,10 +3,10 @@
   <name>Validate_ptBR</name>
   <summary>Validation class for ptBR</summary>
   <description>
-   Package containes locale validation for ptBR such as:
-    * Postal Code
-    * CNPJ
-    * CPF
+Package containes locale validation for ptBR such as:
+ * Postal Code
+ * CNPJ
+ * CPF
   </description>
   <license>PHP</license>
   <maintainers>

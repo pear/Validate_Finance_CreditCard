@@ -3,13 +3,13 @@
   <name>Validate_FR</name>
   <summary>Validation class for FR</summary>
   <description>
-   Package containes locale validation for FR such as:
-    * SSN
-    * Postal Code
-    * RIB
-    * SIREN
-    * SIRET
-    * Region (Departements)
+Package containes locale validation for FR such as:
+ * SSN
+ * Postal Code
+ * RIB
+ * SIREN
+ * SIRET
+ * Region (Departements)
   </description>
   <license>PHP</license>
   <maintainers>

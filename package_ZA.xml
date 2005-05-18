@@ -3,10 +3,10 @@
   <name>Validate_ZA</name>
   <summary>Validation class for ZA</summary>
   <description>
-  Package containes locale validation for ZA such as:
-   * Postal Code
-   * Region (province)
-   * SSN
+Package containes locale validation for ZA such as:
+ * Postal Code
+ * Region (province)
+ * SSN
   </description>
   <license>PHP</license>
   <maintainers>

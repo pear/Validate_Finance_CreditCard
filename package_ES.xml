@@ -3,8 +3,8 @@
   <name>Validate_ES</name>
   <summary>Validation class for ES</summary>
   <description>
-   Package containes locale validation for ES such as:
-    * DNI
+Package containes locale validation for ES such as:
+ * DNI
   </description>
   <license>PHP</license>
   <maintainers>

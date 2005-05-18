@@ -3,9 +3,9 @@
   <name>Validate_AT</name>
   <summary>Validation class for AT</summary>
   <description>
-   Package containes locale validation for AT such as:
-    * SSN
-    *  Postal Code
+Package containes locale validation for AT such as:
+ * SSN
+ *  Postal Code
   </description>
   <license>PHP</license>
   <maintainers>

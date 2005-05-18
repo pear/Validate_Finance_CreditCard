@@ -3,10 +3,10 @@
   <name>Validate_CH</name>
   <summary>Validation class for CH</summary>
   <description>
-  Package containes locale validation for CH such as:
-   * SSN
-   * Postal Code
-   * Student ID
+Package containes locale validation for CH such as:
+ * SSN
+ * Postal Code
+ * Student ID
   </description>
   <license>PHP</license>
   <maintainers>

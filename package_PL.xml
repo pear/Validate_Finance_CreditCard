@@ -3,11 +3,11 @@
   <name>Validate_PL</name>
   <summary>Validation class for PL</summary>
   <description>
-   Package containes locale validation for PL such as:
-    * NIP
-    * Bank Numbers
-    * PESEL
-    * REGON
+Package containes locale validation for PL such as:
+ * NIP
+ * Bank Numbers
+ * PESEL
+ * REGON
   </description>
   <license>PHP</license>
   <maintainers>

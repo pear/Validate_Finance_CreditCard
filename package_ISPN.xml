@@ -3,15 +3,15 @@
   <name>Validate_ISPN</name>
   <summary>Validation class for ISPN (International Standard Product Numbers)</summary>
   <description>
-   Package containes ISPN (International Standard Product Numbers) validations such as:
-    * ISSN
-    * ISBN
-    * ISMN
-    * EAN8
-    * EAN13
-    * EAN14
-    * UCC12
-    * SSCC
+Package containes ISPN (International Standard Product Numbers) validations such as:
+ * ISSN
+ * ISBN
+ * ISMN
+ * EAN8
+ * EAN13
+ * EAN14
+ * UCC12
+ * SSCC
   </description>
   <license>PHP</license>
   <maintainers>

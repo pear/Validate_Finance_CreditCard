@@ -3,9 +3,9 @@
   <name>Validate_DE</name>
   <summary>Validation class for DE</summary>
   <description>
-   Package containes locale validation for DE such as:
-    * Postal Code
-    * Bank Code
+Package containes locale validation for DE such as:
+ * Postal Code
+ * Bank Code
   </description>
   <license>PHP</license>
   <maintainers>
