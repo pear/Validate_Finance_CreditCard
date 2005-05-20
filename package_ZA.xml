@@ -33,7 +33,7 @@ Package containes locale validation for ZA such as:
         </file>
       </dir>
       <dir name="tests" role="test">
-        <file>validate_ZA.php</file>
+        <file>validate_ZA.phpt</file>
       </dir>
       <file role="data" name="data/ZA_postcodes.txt" install-as="ZA_postcodes.txt" />
     </dir>
