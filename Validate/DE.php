@@ -58,12 +58,12 @@ class Validate_DE
      *
      * German bankcodes consist of exactly 8 numbers
      *
-     * @param   string  $postcode       German bankcode to validate
+     * @param   string  $bankcode       German bankcode to validate
      * @return  bool    true if bankcode is ok, false otherwise
      */
-    function bankcode($postcode)
+    function bankcode($bankcode)
     {
-        return (bool)ereg('^[0-9]{8}$', $postcode);
+        return (bool)ereg('^[0-9]{8}$', $bankcode);
     }
 }
 ?>
