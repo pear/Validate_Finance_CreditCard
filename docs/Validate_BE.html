@@ -1,0 +1,91 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+<head>
+  <title>Validate_BE</title>
+</head>
+<body style="color: rgb(0, 0, 0);" alink="#ee0000" link="#0000ee"
+ vlink="#551a8b">
+<h1><span style="font-weight: bold;">Validate_BE</span></h1>
+<br>
+<div
+ style="border-style: double none; padding: 2px 5px; text-align: right; border-top-color: rgb(102, 102, 204); border-bottom-color: rgb(102, 102, 204); background-color: rgb(204, 255, 255); float: right; clear: left; min-width: 20%; max-width: 80%; width: 40%;">This
+package was begin on May 2005<br>
+Christophe Gesch&eacute; // moosh@claroline.net<br>
+With help of coders of other Validate_FOO packages<br>
+</div>
+<ul>
+  <li>-Done- Post Code </li>
+  <li>-Done- Bank Account Number</li>
+  <li>-Todo- Transfer message (transfer from an bank account to another)</li>
+  <li>-Done- VAT</li>
+  <li>-Done- Natitonal ID</li>
+  <li>-Todo- Identity Card Number</li>
+  <li>-Done- SIS CARD ID (belgian "s&eacute;curit&eacute; sociale" ID)<br>
+  </li>
+</ul>
+<h2>Post Code</h2>
+Belgian post code are build as 4-figure number, with optionaly a B- to
+mark the country in the post code<br>
+The first number is the region.<br>
+<h2>Bank Account Number<br>
+</h2>
+<span style="font-family: monospace;">123-1234567-84</span><br>
+or<br>
+<span style="font-family: monospace;">123123456784</span><br>
+<br>
+<span style="font-family: monospace;">123</span> is the bankcode<br>
+<span style="font-family: monospace;">1234567</span> is the account
+number in this bank<br>
+<span style="font-family: monospace;">84</span> is the MOD97 of <span
+ style="font-family: monospace;">1231234567</span><br>
+<br>
+Validation accept account number with or without - <br>
+But if present, they need to be between the 3th and 4th number<br>
+and 10th and 11th number.<br>
+<br>
+TODO : The validation check if the bank exist<br>
+<br>
+<h2>Transfer message <span class="">(transfer from an bank account to
+another)</span><br>
+</h2>
+In Belgium, an transfer&nbsp; from your account to another.<br>
+On a transfert you can add a message<br>
+There is two types of messages <br>
+<ul>
+  <li>ordinary text</li>
+  <li>structured</li>
+</ul>
+<h3>Ordinary text</h3>
+&nbsp;2 lines of 53 caracters<br>
+<span style="font-family: monospace;">&nbsp;!#$%'()*+,-./0123456789:;&lt;=&gt;?@</span><br
+ style="font-family: monospace;">
+<span style="font-family: monospace;">ABCDEFGHIJKLMNOPQRSTUVWXYZ</span><br
+ style="font-family: monospace;">
+<span style="font-family: monospace;">[]^_`</span><br
+ style="font-family: monospace;">
+<span style="font-family: monospace;">abcdefghijklmnopqrstuvwxyz</span><br
+ style="font-family: monospace;">
+<span style="font-family: monospace;">{|}&pound;&sect;&agrave;&aacute;&auml;&acirc;&ccedil;&egrave;&eacute;&euml;&ecirc;&iuml;&icirc;&ntilde;&ograve;&oacute;&ouml;&ocirc;&ugrave;&ucirc;&uuml;&ucirc;&yuml;"</span><br
+ style="font-family: monospace;">
+<h3>Structured</h3>
+The structured message is build by the benificary.<br>
+Have the form <span style="font-family: monospace;">123/1234/12345;</span>
+<br>
+<h2>VAT</h2>
+VAT number in Belgium is 9-figure number<br>
+checksum is 97-valMOD97<br>
+<br>
+European system request 10-figure number<br>
+<h2>National ID</h2>
+National ID is the number given to each people in belgian registry.<br>
+It's the reversed birth date, (6-figure number)<br>
+and unique ID for this date (3-figure number)<br>
+Mod97 (2-figure number)<br>
+<span style="font-family: monospace;">730111361-73</span><br>
+<h2>Identity Card Number</h2>
+Obligatory to have an identicard&nbsp; from 12 year old.<br>
+The Identity Card Number as bank account number.<br>
+10-figure number + 2 for 97 - MOD97<br>
+<h2>SIS CARD ID (belgian "s&eacute;curit&eacute; sociale" ID)</h2>
+</body>
+</html>
