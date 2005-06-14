@@ -51,7 +51,7 @@ Package containes locale validation for BE such as:
      <file>validate_BE.phpt</file>
     </dir>
     <dir name="docs" role="doc">
-     <file>Validate_BE.html</file>
+     <file>Validate_BE.txt</file>
     </dir>
     <file role="data" name="data/BE_postcodes.txt" install-as="BE_postcodes.txt" />      
    </dir>
