@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Methods for common data validations
  *
@@ -99,10 +100,8 @@ class Validate_BE
                 if (file_exists($file))
                 foreach (file($file) as $line)
                     $postcodes[] = substr($line,0,4);
-                else
-                {
-                    die(' pearerror DATA FILE NOT FOUND '.$file);
-                    // return PEAR::raiseError("File does not exist: $file");
+                else {
+                    return false;
                 }
                     
             }
@@ -127,8 +126,7 @@ class Validate_BE
      */
     function bankcode($bankcode)
     {
-        if ((bool)ereg('^[0-9]{3}[ ./-]?[0-9]{7}[ ./-]?[0-9]{2}$', $bankcode))
-    	{
+        if ((bool)ereg('^[0-9]{3}[ ./-]?[0-9]{7}[ ./-]?[0-9]{2}$', $bankcode)) {
             $bankcode = str_replace(' ','',strtr($bankcode,'/-.','   '));
     	    $num = substr($bankcode, 0, 10);
         	$checksum = substr($bankcode, 10, 2);
@@ -156,15 +154,12 @@ class Validate_BE
     function vat($vat)
     {
         
-        if ( (bool) (ereg('^[0-9]{3}[ ./-]?[0-9]{3}[ ./-]?[0-9]{3}$', $vat)))
-        {
+        if ( (bool) (ereg('^[0-9]{3}[ ./-]?[0-9]{3}[ ./-]?[0-9]{3}$', $vat))) {
             $vat = str_replace(' ','',strtr($vat,'/-.','   '));
-            if  (strlen($vat) == 9)
-            {
+            if  (strlen($vat) == 9) {
                 $number   = substr( $vat ,0, 7);
                 $checksum =substr( $vat ,7,2);
-                if (VALIDATE_BE_VAT_MODULUS-$checksum == (Validate::_modf($number, VALIDATE_BE_VAT_MODULUS)))
-                {
+                if (VALIDATE_BE_VAT_MODULUS-$checksum == (Validate::_modf($number, VALIDATE_BE_VAT_MODULUS))) {
                     return true;
                 }
             }
@@ -256,18 +251,15 @@ class Validate_BE
         if ($phonenumber[0]=='+' && $phonenumber[1]!='+' ) $phonenumber = '+'.$phonenumber;
         $phonenumber = str_replace(' ','',strtr($phonenumber,'+/-.','0   '));
             
-        if (substr($phonenumber, 0, 2) == '00')
-        {
-         //   $is_inter = TRUE;
+        if (substr($phonenumber, 0, 2) == '00') {
+        //   $is_inter = TRUE;
             // International Number
-            if (!substr($phonenumber, 2, 2) == '32')
-            {
+            if (!substr($phonenumber, 2, 2) == '32') {
                 // international number but not with belgian prefix
                 //echo 'international non belge';
                 return false;
             }
-            else 
-            {
+            else {
                 $phonenumber = str_replace('0032','0',$phonenumber);
             }
             
@@ -300,7 +292,7 @@ class Validate_BE
             $phonenumber = substr($phonenumber, strlen($phonenumber) - 10);
             //we only use the last 9 digits (so no troubles with international numbers)
             if (strlen($phonenumber) >= 9) {
-        
+
             }
         }
 
