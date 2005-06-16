@@ -207,6 +207,7 @@ class Validate_CA
      *
      * Can allow only seven digit numbers.
      * Also allows the formats, (xxx) xxx-xxxx, xxx xxx-xxxx,
+     * And now x (xxx) xxx-xxxx
      * or various combination without spaces or dashes.
      * THIS SHOULD EVENTUALLY take a FORMAT in the options, instead
      *
@@ -214,12 +215,23 @@ class Validate_CA
      * @param bool      $requireAreaCode    require the area code?
      * @access public
      * @static
-     * @see Validate_US::phoneNumber
      */
     function phoneNumber($number, $requireAreaCode = true)
     {
-        require_once 'Validate/US.php';
-        return Validate_US::phoneNumber($number, $requireAreaCode);
+        if ($number == '') {
+            return true;
+        }
+
+        if (!$requireAreaCode && ereg('^[2-9][0-9]{2}[- ]?[0-9]{4}$', $number)) {
+            // just seven digits, maybe a space or dash
+            return true;
+        } else {
+            // ten digits, maybe  spaces and/or dashes and/or parentheses maybe a 1 or a 0..
+            if (ereg('^[0-1]?[- ]?[\(]?[2-9][0-9]{2}[\)]?[- ]?[2-9][0-9]{2}[- ]?[0-9]{4}$', $number)) {
+            	return true;
+            }
+        }
+        return false;
     }
 
 }
