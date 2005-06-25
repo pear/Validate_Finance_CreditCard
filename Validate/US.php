@@ -284,7 +284,7 @@ class Validate_US
      * Validate a US phone number.  
      *
      * Can allow only seven digit numbers.
-     * Also allows the formats, (xxx) xxx-xxxx, xxx xxx-xxxx,
+     * Also allows the formats, (xxx) xxx-xxxx, xxx xxx-xxxx and now 0-1 x xxx xxx-xxxx.,
      * or various combination without spaces or dashes.
      * THIS SHOULD EVENTUALLY take a FORMAT in the options, instead 
      *
@@ -298,13 +298,11 @@ class Validate_US
         }
 
         if (!$requireAreaCode && ereg('^[2-9][0-9]{2}[- ]?[0-9]{4}$', $number)) {
-            // just seven digits, maybe a space or dash
+            // just seven digits, maybe a space or 
             return true;
         } else {
-            // ten digits, maybe  spaces and/or dashes and/or parentheses
-            if (ereg('^[2-9][0-9]{2}[- ]?[2-9][0-9]{2}[- ]?[0-9]{4}$', $number)) {
-                return true;
-            } elseif (ereg('^\([2-9][0-9]{2}\)[- ]?[2-9][0-9]{2}[- ]?[0-9]{4}$', $number)) {
+            // ten digits, maybe  spaces and/or dashes and/or ntheses
+            if (ereg('^[0-1]?[- ]?[\(]?[2-9][0-9]{2}[\)]?[- ]?[2-9][0-9]{2}[- ]?[0-9]{4}$', $number)) {
                 return true;
             }
         }
