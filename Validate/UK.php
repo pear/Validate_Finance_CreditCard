@@ -15,6 +15,7 @@
  * @category   Validate
  * @package    Validate_UK
  * @author     Michael Dransfield <mikeNO@SPAMblueroot.net>
+ * @author     Ian P. Christian <pookey@pookey.co.uk>
  * @copyright  2005 The PHP Group
  * @license    http://www.php.net/license/3_0.txt  PHP License 3.0
  * @version    CVS: $Id$
@@ -37,6 +38,7 @@
  * @category   Validate
  * @package    Validate_UK
  * @author     Michael Dransfield <mikeNO@SPAMblueroot.net>
+ * @author     Ian P. Christian <pookey@pookey.co.uk>
  * @copyright  2005 The PHP Group
  * @license    http://www.php.net/license/3_0.txt  PHP License 3.0
  * @version    Release: @package_version@
@@ -154,7 +156,7 @@ class Validate_UK
         // just checks to see if it is numeric and starts with a 0
         // remove any wierd characters like (,),-,. etc
         $tel = str_replace(array('(', ')', '-', '+', '.', ' '), '', $tel);
-        $preg = "/^0[0-9]{8,10}/";
+        $preg = "/^0[125789][0-9]{9,10}$/";
         $match = (preg_match($preg, $tel)) ? true : false;
         return $match;
     }
