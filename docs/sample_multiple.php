@@ -39,13 +39,13 @@ $opts = array(
     'name'  => array('type'=>'email','check_domain'=>false),
     'rib'   => array('type'=>'FR_rib'),
     'rib2'  => array('type'=>'FR_rib'),
-    'cc'    => array('type'=>'creditcard'),
-    'cc2'   => array('type'=>'creditcard'),
+    'cc'    => array('type'=>'Finance_CreditCard_number'),
+    'cc2'   => array('type'=>'Finance_CreditCard_number'),
     'mail'  => array('type'=>'email'),
     'hissiret' => array('type'=>'FR_siret'),
     'mystring' => array('type'=>'string',array('format'=>VALIDATE_ALPHA, 'min_length'=>3)),
     'iban'  => array('type'=>'Finance_iban'),
-    'cep'   => array('type'=>'ptBR_cep')
+    'cep'   => array('type'=>'ptBR_postalcode')
     );
 
 $result = Validate::multiple($values, $opts);
