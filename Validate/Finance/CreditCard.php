@@ -94,7 +94,7 @@ class Validate_Finance_CreditCard
      *               "MasterCard", "Visa", "AMEX", "AmericanExpress",
      *               "American Express", "Diners", "DinersClub", "Diners Club",
      *               "CarteBlanche", "Carte Blanche", "Discover", "JCB",
-     *               "EnRoute".
+     *               "EnRoute", "Eurocard", "Eurocard/MasterCard".
      * @return bool   TRUE if number is valid, FALSE otherwise
      * @access public
      * @static
@@ -139,7 +139,7 @@ class Validate_Finance_CreditCard
      *               "MasterCard", "Visa", "AMEX", "AmericanExpress",
      *               "American Express", "Diners", "DinersClub", "Diners Club",
      *               "CarteBlanche", "Carte Blanche", "Discover", "JCB",
-     *               "EnRoute".
+     *               "EnRoute", "Eurocard", "Eurocard/MasterCard".
      * @return bool   TRUE is type matches, FALSE otherwise
      * @access public
      * @static
@@ -149,6 +149,8 @@ class Validate_Finance_CreditCard
     {
         switch (strtoupper($cardType)) {
             case 'MASTERCARD':
+            case 'EUROCARD':
+            case 'EUROCARD/MASTERCARD':
                 $regex = '5[1-5][0-9]{14}';
                 break;
             case 'VISA':
@@ -209,7 +211,8 @@ class Validate_Finance_CreditCard
      * @param string  $cvv value to verify
      * @param string  $cardType type/brand of card (case insensitive)
      *               "MasterCard", "Visa", "AMEX", "AmericanExpress",
-     *               "American Express", "Discover"
+     *               "American Express", "Discover", "Eurocard/MasterCard",
+     *               "Eurocard"
      * @return bool   TRUE if format is correct, FALSE otherwise
      * @access public
      * @static
@@ -218,6 +221,8 @@ class Validate_Finance_CreditCard
     {
         switch (strtoupper($cardType)) {
             case 'MASTERCARD':
+            case 'EUROCARD':
+            case 'EUROCARD/MASTERCARD':
             case 'VISA':
             case 'DISCOVER':
                 $digits = 3;
