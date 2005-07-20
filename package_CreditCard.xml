@@ -16,14 +16,11 @@
    </maintainers>
   <release>
 
-    <version>0.5.0</version>
+    <version>0.5.1</version>
     <state>alpha</state>
-    <date>2004-03-22</date>
+    <date>2005-07-20</date>
     <notes>
-- Split from Validate into independent package
-- BC break: creditCard() method now named number() and creditCardType() method is now named type()
-- Request #2194 Improved CreditCard validation with CreditCard Type check, patch by Philippe
-- Added a cvv() method to check card verification value (aka CVV2, CVC, CID, CSC, CIN)
+- Added support for Eurocard/Mastercard. Can be referenced by "EuroCard" or "EuroCard/MasterCard" (case-insensitive)
     </notes>
     <filelist>
     <dir name="/">
@@ -43,5 +40,24 @@
     </deps>
   </release>
   <changelog>
+<release>
+    <version>0.5.1</version>
+    <state>alpha</state>
+    <date>2005-07-20</date>
+    <notes>
+- Added support for Eurocard/Mastercard. Can be referenced by "EuroCard" or "EuroCard/MasterCard" (case-insensitive)
+    </notes>
+</release>
+<release>
+    <version>0.5.0</version>
+    <state>alpha</state>
+    <date>2005-05-20</date>
+    <notes>
+- Split from Validate into independent package
+- BC break: creditCard() method now named number() and creditCardType() method is now named type()
+- Request #2194 Improved CreditCard validation with CreditCard Type check, patch by Philippe
+- Added a cvv() method to check card verification value (aka CVV2, CVC, CID, CSC, CIN)
+    </notes>
+    </release>
   </changelog>
 </package>
