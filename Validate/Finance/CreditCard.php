@@ -132,7 +132,12 @@ class Validate_Finance_CreditCard
      * Validates the credit card number against a type
      *
      * This method only checks for the type marker. It doesn't
-     * validate the card number.
+     * validate the card number. Some card "brands" share the same
+     * numbering system, so checking the card type against any of the
+     * sister brand will return the same result.
+     *
+     * For instance, if a $card is a MasterCard, type($card, 'EuroCard')
+     * will also return true.
      *
      * @param string  $creditCard number (spaces and dashes tolerated)
      * @param string  $cardType type/brand of card (case insensitive)
