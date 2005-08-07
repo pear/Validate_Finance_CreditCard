@@ -209,17 +209,31 @@ class Validate
             extract($options);
         }
         if (preg_match(
-            '!^(([^:/?#]+):)?(//([^/?#]*))?([^?#]*)(\?([^#]*))?(#(.*))?!',
-            $url, $matches))
-        {
-            $scheme = $matches[2];
-            $authority = $matches[4];
+             '£^(?:([a-z][-+.a-z0-9]*):)?                             # 1. scheme
+              (?://                                                   # authority start
+              (?:((?:%[0-9a-f]{2}|[-a-z0-9_.!~*\'();:&=+$,])*)@)?     # 2. authority-userinfo
+              (?:((?:[a-z0-9](?:[-a-z0-9]*[a-z0-9])?\.)*[a-z](?:[-a-z0-9]*[a-z0-9])?\.?)  # 3. authority-hostname OR
+              |([0-9]{1,3}(?:\.[0-9]{1,3}){3}))                       # 4. authority-ipv4
+              (?::([0-9]*))?)?                                        # 5. authority-port
+              ((?:/(?:%[0-9a-f]{2}|[-a-z0-9_.!~*\'():@&=+$,;])*)+)?   # 6. path
+              (?:\?([^#]*))?                                          # 7. query
+              (?:\#((?:%[0-9a-f]{2}|[-a-z0-9_.!~*\'();/?:@&=+$,])*))? # 8. fragment
+              $£xi', $url, $matches)) {
+            $scheme = isset($matches[1]) ? $matches[1] : '';
+            $authority = isset($matches[3]) ? $matches[3] : '' ;
             if (is_array($allowed_schemes) &&
                 !in_array($scheme,$allowed_schemes)
             ) {
                 return false;
             }
-            if ($domain_check && function_exists('checkdnsrr')) {
+            if (isset($matches[4])) {
+                $parts = explode('.', $matches[4]);
+                foreach ($parts as $part) {
+                    if ($part > 255) {
+                        return false;
+                    }
+                }
+            } elseif ($domain_check && function_exists('checkdnsrr')) {
                 if (!checkdnsrr($authority, 'A')) {
                     return false;
                 }
@@ -343,7 +357,7 @@ class Validate
             if (!checkdate($month, $day, $year)) {
                 return false;
             }
-            
+
             if ($min) {
                 include_once 'Date/Calc.php';
                 if (is_a($min, 'Date') &&
