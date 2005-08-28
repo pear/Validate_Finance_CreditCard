@@ -18,6 +18,7 @@ $uris = array(
         '//127.0.333.1', // NOK
         'http://user:password@127.0.0.1:8080/pub/ietf/uri;rfc2396?test=ok&end=next#Related' , // OK
         '127.0.0.1', // NOK
+        '/tkik-wkik_rss.php?ver=2http://www.hyperlecture.info//http://www.hyperlecture.info/accueil', // OK
         // Try dns lookup
         array('//example.org', '', true), // OK
         array('//example.gor', '', true), // NOK
@@ -49,6 +50,7 @@ http://user:password@www.ics.uci.edu:8080/pub/ietf/uri;rfc2396?test=ok&end=next#
 //127.0.333.1: NO
 http://user:password@127.0.0.1:8080/pub/ietf/uri;rfc2396?test=ok&end=next#Related: YES
 127.0.0.1: NO
+/tkik-wkik_rss.php?ver=2http://www.hyperlecture.info//http://www.hyperlecture.info/accueil: YES
 //example.org: schemes() with domain check : YES
 //example.gor: schemes() with domain check : NO
 //example.org: schemes(ftp,http) without domain check : NO
