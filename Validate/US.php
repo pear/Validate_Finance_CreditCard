@@ -297,18 +297,18 @@ class Validate_US
             return true;
         }
 
-        if (!$requireAreaCode && ereg('^[2-9][0-9]{2}[- ]?[0-9]{4}$', $number)) {
-            // just seven digits, maybe a space or 
+        if (!$requireAreaCode && preg_match('/^[2-9]\d{2}[- ]?\d{4}$/', $number)) {
+            // just seven digits, maybe a space or dash
             return true;
         } else {
-            // ten digits, maybe  spaces and/or dashes and/or ntheses
-            if (ereg('^[0-1]?[- ]?[\(]?[2-9][0-9]{2}[\)]?[- ]?[2-9][0-9]{2}[- ]?[0-9]{4}$', $number)) {
-                return true;
+            // ten digits, maybe  spaces and/or dashes and/or parentheses maybe a 1 or a 0..
+            if (preg_match('/^[0-1]?[- ]?[\(]?[2-9]\d{2}[\)]?[- ]?[2-9]\d{2}[- ]?\d{4}$/', $number)) {
+            	return true;
             }
         }
-
         return false;
-    }
+    
+
 
 }
 ?>
