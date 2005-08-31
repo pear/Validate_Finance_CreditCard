@@ -18,22 +18,30 @@ $uris = array(
         '//127.0.333.1', // NOK
         'http://user:password@127.0.0.1:8080/pub/ietf/uri;rfc2396?test=ok&end=next#Related' , // OK
         '127.0.0.1', // NOK
-        '/tkik-wkik_rss.php?ver=2http://www.hyperlecture.info//http://www.hyperlecture.info/accueil', // OK
+        '/tkik-wkik_rss.php?ver=2http://www.hyperlecture.info//http://www.hyperlecture.info/accueil', // NOK
         // Try dns lookup
-        array('//example.org', '', true), // OK
-        array('//example.gor', '', true), // NOK
+        array('//example.org', 'domain_check' => true), // OK
+        array('//example.gor', 'domain_check' => true), // NOK
         // Try schemes lookup
-        array('//example.org', 'ftp,http'), // NOK
-        array('http://example.org', 'ftp,http'), // OK
-        array('http://example.org', 'ftp,http', true) // OK
+        array('//example.org', 'allowed_schemes' => array('ftp', 'http')), // NOK
+        array('http://example.org', 'allowed_schemes' => array('ftp', 'http')), // OK
+        array('http://example.org', 'allowed_schemes' => array('ftp', 'http'),
+                                    'domain_check' => true), // OK
+        array(
+        '/tkik-wkik_rss.php?ver=2http://www.hyperlecture.info//http://www.hyperlecture.info/accueil',
+            'strict' => '') // OK
     );
 
 foreach ($uris as $uri) {
     if (is_array($uri)) {
-        $options = array();
-        $options['domain_check'] = isset($uri[2]) ? $uri[2] : false;
-        $options['allowed_schemes'] = $uri[1] ? explode(',', $uri[1]) : null;
-        echo "{$uri[0]}: schemes({$uri[1]}) with". ($options['domain_check'] ? '' : 'out') . ' domain check : '.
+        $options = $uri;
+        unset($options[0]);
+        echo "{$uri[0]}: schemes(" .
+            (isset($options['allowed_schemes']) ?
+                implode(',', $options['allowed_schemes']) : '') .") with".
+            (isset($options['domain_check']) && $options['domain_check'] ?
+                             '' : 'out') . ' domain check : '.
+            (isset($options['strict']) ? "(strict : {$options['strict']}) " : '') .
             $noYes[Validate::uri($uri[0], $options )]."\n";
     } else {
         echo "{$uri}: ".
@@ -50,9 +58,10 @@ http://user:password@www.ics.uci.edu:8080/pub/ietf/uri;rfc2396?test=ok&end=next#
 //127.0.333.1: NO
 http://user:password@127.0.0.1:8080/pub/ietf/uri;rfc2396?test=ok&end=next#Related: YES
 127.0.0.1: NO
-/tkik-wkik_rss.php?ver=2http://www.hyperlecture.info//http://www.hyperlecture.info/accueil: YES
+/tkik-wkik_rss.php?ver=2http://www.hyperlecture.info//http://www.hyperlecture.info/accueil: NO
 //example.org: schemes() with domain check : YES
 //example.gor: schemes() with domain check : NO
 //example.org: schemes(ftp,http) without domain check : NO
 http://example.org: schemes(ftp,http) without domain check : YES
 http://example.org: schemes(ftp,http) with domain check : YES
+/tkik-wkik_rss.php?ver=2http://www.hyperlecture.info//http://www.hyperlecture.info/accueil: schemes() without domain check : (strict : ) YES
