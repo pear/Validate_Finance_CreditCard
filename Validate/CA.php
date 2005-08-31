@@ -222,12 +222,12 @@ class Validate_CA
             return true;
         }
 
-        if (!$requireAreaCode && ereg('^[2-9]\d{2}[- ]?\d{4}$', $number)) {
+        if (!$requireAreaCode && preg_match('/^[2-9]\d{2}[- ]?\d{4}$/', $number)) {
             // just seven digits, maybe a space or dash
             return true;
         } else {
             // ten digits, maybe  spaces and/or dashes and/or parentheses maybe a 1 or a 0..
-            if (ereg('^[0-1]?[- ]?[\(]?[2-9]\d{2}[\)]?[- ]?[2-9]\d{2}[- ]?\d{4}$', $number)) {
+            if (preg_match('/^[0-1]?[- ]?[\(]?[2-9]\d{2}[\)]?[- ]?[2-9]\d{2}[- ]?\d{4}$/', $number)) {
             	return true;
             }
         }
