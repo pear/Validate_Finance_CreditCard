@@ -203,6 +203,7 @@ class Validate
      */
     function uri($url, $options = null)
     {
+        $strict = ';/?:@$,';
         $domain_check = false;
         $allowed_schemes = null;
         if (is_array($options)) {
@@ -235,6 +236,13 @@ class Validate
                 }
             } elseif ($domain_check && function_exists('checkdnsrr')) {
                 if (!checkdnsrr($authority, 'A')) {
+                    return false;
+                }
+            }
+            if ($strict) {
+                $strict = '#[' . preg_quote($strict, '#') . ']#';
+                if ((isset($matches[7]) && preg_match($strict, $matches[7]))
+                 || (isset($matches[8]) && preg_match($strict, $matches[8]))) {
                     return false;
                 }
             }
