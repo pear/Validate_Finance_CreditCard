@@ -288,8 +288,9 @@ class Validate_US
      * or various combination without spaces or dashes.
      * THIS SHOULD EVENTUALLY take a FORMAT in the options, instead 
      *
-     * @param string    $number             phone to validate
-     * @param bool      $requireAreaCode    require the area code?
+     * @param  string    $number             phone to validate
+     * @param  bool      $requireAreaCode    require the area code? (default: true)
+     * @return bool                          The valid or invalid phone number
      */
     function phoneNumber($number, $requireAreaCode = true)
     {
@@ -307,6 +308,7 @@ class Validate_US
             }
         }
         return false;
+    }
     
 
 
