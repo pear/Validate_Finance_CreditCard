@@ -281,12 +281,12 @@ class Validate_US
     }
 
     /**
-     * Validate a US phone number.  
+     * Validate a US phone number.
      *
      * Can allow only seven digit numbers.
      * Also allows the formats, (xxx) xxx-xxxx, xxx xxx-xxxx and now 0-1 x xxx xxx-xxxx.,
      * or various combination without spaces or dashes.
-     * THIS SHOULD EVENTUALLY take a FORMAT in the options, instead 
+     * THIS SHOULD EVENTUALLY take a FORMAT in the options, instead
      *
      * @param  string    $number             phone to validate
      * @param  bool      $requireAreaCode    require the area code? (default: true)
@@ -298,9 +298,11 @@ class Validate_US
             return true;
         }
 
-        if (!$requireAreaCode && preg_match('/^[2-9]\d{2}[- ]?\d{4}$/', $number)) {
+        if (!$requireAreaCode) {
             // just seven digits, maybe a space or dash
-            return true;
+            if (preg_match('/^[2-9]\d{2}[- ]?\d{4}$/', $number)) {
+                return  true;
+            }
         } else {
             // ten digits, maybe  spaces and/or dashes and/or parentheses maybe a 1 or a 0..
             if (preg_match('/^[0-1]?[- ]?[\(]?[2-9]\d{2}[\)]?[- ]?[2-9]\d{2}[- ]?\d{4}$/', $number)) {
@@ -309,7 +311,7 @@ class Validate_US
         }
         return false;
     }
-    
+
 
 
 }
