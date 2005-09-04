@@ -38,12 +38,12 @@ define('VALIDATE_SPACE',        '\s');
 define('VALIDATE_ALPHA_LOWER',  'a-z');
 define('VALIDATE_ALPHA_UPPER',  'A-Z');
 define('VALIDATE_ALPHA',        VALIDATE_ALPHA_LOWER . VALIDATE_ALPHA_UPPER);
-define('VALIDATE_EALPHA_LOWER', VALIDATE_ALPHA_LOWER . 'áéíóúàèìòùäëïöüâêîôûñçþæð');
-define('VALIDATE_EALPHA_UPPER', VALIDATE_ALPHA_UPPER . 'ÁÉÍÓÚÀÈÌÒÙÄËÏÖÜÂÊÎÔÛÑÇÞÆÐ');
+define('VALIDATE_EALPHA_LOWER', VALIDATE_ALPHA_LOWER . 'ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½');
+define('VALIDATE_EALPHA_UPPER', VALIDATE_ALPHA_UPPER . 'ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½');
 define('VALIDATE_EALPHA',       VALIDATE_EALPHA_LOWER . VALIDATE_EALPHA_UPPER);
 define('VALIDATE_PUNCTUATION',  VALIDATE_SPACE . '\.,;\:&"\'\?\!\(\)');
 define('VALIDATE_NAME',         VALIDATE_EALPHA . VALIDATE_SPACE . "'");
-define('VALIDATE_STREET',       VALIDATE_NAME . "/\\ºª");
+define('VALIDATE_STREET',       VALIDATE_NAME . "/\\");
 
 /**
  * Validation class
@@ -123,6 +123,7 @@ class Validate
      */
     function email($email, $check_domain = false)
     {
+        // "Borrowed" from PEAR::HTML_QuickForm
         $regex = '/^((\"[^\"\f\n\r\t\v\b]+\")|([\w\!\#\$\%\&\'\*\+\-\~\/\^\`\|\{\}]+'.
                  '(\.[\w\!\#\$\%\&\'\*\+\-\~\/\^\`\|\{\}]+)*))@((\[(((25[0-5])|'.
                  '(2[0-4][0-9])|([0-1]?[0-9]?[0-9]))\.((25[0-5])|(2[0-4][0-9])|'.
@@ -210,7 +211,7 @@ class Validate
             extract($options);
         }
         if (preg_match(
-             '£^(?:([a-z][-+.a-z0-9]*):)?                             # 1. scheme
+             '^(?:([a-z][-+.a-z0-9]*):)?                             # 1. scheme
               (?://                                                   # authority start
               (?:((?:%[0-9a-f]{2}|[-a-z0-9_.!~*\'();:&=+$,])*)@)?     # 2. authority-userinfo
               (?:((?:[a-z0-9](?:[-a-z0-9]*[a-z0-9])?\.)*[a-z](?:[-a-z0-9]*[a-z0-9])?\.?)  # 3. authority-hostname OR
@@ -219,7 +220,7 @@ class Validate
               ((?:/(?:%[0-9a-f]{2}|[-a-z0-9_.!~*\'():@&=+$,;])*)+)?   # 6. path
               (?:\?([^#]*))?                                          # 7. query
               (?:\#((?:%[0-9a-f]{2}|[-a-z0-9_.!~*\'();/?:@&=+$,])*))? # 8. fragment
-              $£xi', $url, $matches)) {
+              $xi', $url, $matches)) {
             $scheme = isset($matches[1]) ? $matches[1] : '';
             $authority = isset($matches[3]) ? $matches[3] : '' ;
             if (is_array($allowed_schemes) &&
@@ -272,11 +273,12 @@ class Validate
     {
         $max = $min = false;
         $format = '';
-        if (is_array($options)){
+        if (is_array($options)) {
             extract($options);
         }
-        $date_len   = strlen($format);
-        for ($i = 0; $i < strlen($format); $i++) {
+
+        $date_len = strlen($format);
+        for ($i = 0; $i < $date_len; $i++) {
             $c = $format{$i};
             if ($c == '%') {
                 $next = $format{$i + 1};
