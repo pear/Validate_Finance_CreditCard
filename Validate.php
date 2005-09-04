@@ -43,7 +43,7 @@ define('VALIDATE_EALPHA_UPPER', VALIDATE_ALPHA_UPPER . '¡…Õ”⁄¿»Ã“ŸƒÀœ÷‹¬ Œ‘€—«ﬁ∆
 define('VALIDATE_EALPHA',       VALIDATE_EALPHA_LOWER . VALIDATE_EALPHA_UPPER);
 define('VALIDATE_PUNCTUATION',  VALIDATE_SPACE . '\.,;\:&"\'\?\!\(\)');
 define('VALIDATE_NAME',         VALIDATE_EALPHA . VALIDATE_SPACE . "'");
-define('VALIDATE_STREET',       VALIDATE_NAME . "/\\");
+define('VALIDATE_STREET',       VALIDATE_NAME . "/\\∫™");
 
 /**
  * Validation class
@@ -186,7 +186,7 @@ class Validate
      * option, like this:
      * <code>
      * $options = array('allowed_schemes' => array('http', 'https', 'ftp'))
-     * var_dumpn(Validate::uri('http://www.example.org'), $options);
+     * var_dump(Validate::uri('http://www.example.org'), $options);
      * </code>
      *
      * @param string    $url        URI to validate

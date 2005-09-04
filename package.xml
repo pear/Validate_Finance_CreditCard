@@ -36,7 +36,7 @@
       <role>lead</role>
       <name>Helgi &#222;ormar</name>
       <email>dufuz@php.net</email>
-    </maintainer> 
+    </maintainer>
     <maintainer>
       <user>toggg</user>
       <role>lead</role>
@@ -45,7 +45,7 @@
     </maintainer>
   </maintainers>
   <release>
- 
+
     <version>0.5.0</version>
     <state>alpha</state>
     <date>2004-03-17</date>
@@ -87,6 +87,7 @@
         <file>email.phpt</file>
         <file>multiple.phpt</file>
         <file>multicard.phpt</file>
+        <file>uri.phpt</file>
       </dir>
       <dir name="docs" role="doc">
         <file>sample_multiple.php</file>
@@ -114,7 +115,7 @@
         <date>2004-03-16</date>
         <notes>- pt_BR moved to ptBR required for multiple support(BC break)
 - Add CH validation (Switzerland)
-- added Euro banknotes IDs 
+- added Euro banknotes IDs
 - Improved UK postcodes validation
 - Fixed allowed_scheme options in Validate::uri() (Torsten Roehr)
 - Fixed optional arguments in Validate::number() (Torsten Roehr)
