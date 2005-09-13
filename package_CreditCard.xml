@@ -13,6 +13,12 @@
       <name>Philippe Jausions</name>
       <email>Philippe.Jausions@11abacus.com</email>
     </maintainer>
+    <maintainer>
+      <user>dufuz</user>
+      <role>lead</role>
+      <name>Helgi &#222;ormar</name>
+      <email>dufuz@php.net</email>
+    </maintainer>
    </maintainers>
   <release>
 

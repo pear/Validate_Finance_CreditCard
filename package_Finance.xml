@@ -14,12 +14,18 @@ Package to validate Finance data. It includes :
       <name>Stefan Neufeind</name>
       <email>pear.neufeind@speedpartner.de</email>
     </maintainer>
+    <maintainer>
+      <user>dufuz</user>
+      <role>lead</role>
+      <name>Helgi &#222;ormar</name>
+      <email>dufuz@php.net</email>
+    </maintainer>
    </maintainers>
   <release>
 
     <version>0.5.0</version>
     <state>alpha</state>
-    <date>2004-03-17</date>
+    <date>2005-05-20</date>
     <notes>
 - Split from Validate into independent package
 - removed apiVersion function from IBAN

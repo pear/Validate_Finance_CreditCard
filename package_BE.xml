@@ -30,9 +30,9 @@ Package containes locale validation for BE such as:
  <release>
   <version>0.1.0</version>
   <state>alpha</state>
-  <date>2004-05-26</date>
+  <date>2005-?-?</date>
   <notes>
-    -Done- Post Code 
+    -Done- Post Code
     -Done- Bank Account Number
     -Todo- Transfer message (transfer from an bank account to another)
     -Done- VAT
@@ -53,7 +53,7 @@ Package containes locale validation for BE such as:
     <dir name="docs" role="doc">
      <file>Validate_BE.txt</file>
     </dir>
-    <file role="data" name="data/BE_postcodes.txt" install-as="BE_postcodes.txt" />      
+    <file role="data" name="data/BE_postcodes.txt" install-as="BE_postcodes.txt" />
    </dir>
   </filelist>
   <deps>

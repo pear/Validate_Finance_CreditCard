@@ -16,17 +16,23 @@ Package containes locale validation for ptBR such as:
       <name>Silvano Girardi Jr.</name>
       <email>silvano@php.net</email>
     </maintainer>
+    <maintainer>
+      <user>dufuz</user>
+      <role>lead</role>
+      <name>Helgi &#222;ormar</name>
+      <email>dufuz@php.net</email>
+    </maintainer>
    </maintainers>
   <release>
 
     <version>0.5.0</version>
     <state>alpha</state>
-    <date>2004-03-17</date>
+    <date>2005-05-20</date>
     <notes>
 - Split from Validate into independent package
 - CS fixes
 - Fix Bug #3668, usage of $$foo were it should have been $foo
-- BC break! 
+- BC break!
 postalCode unified between countries (name wise), now all postcode validation funcs are named postalCode
     </notes>
     <filelist>

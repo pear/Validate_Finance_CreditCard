@@ -21,16 +21,22 @@ Package containes locale validation for UK such as:
       <name>Pierre-Alain Joye</name>
       <email>pajoye@php.net</email>
     </maintainer>
+    <maintainer>
+      <user>dufuz</user>
+      <role>lead</role>
+      <name>Helgi &#222;ormar</name>
+      <email>dufuz@php.net</email>
+    </maintainer>
    </maintainers>
   <release>
 
     <version>0.5.0</version>
     <state>alpha</state>
-    <date>2004-03-17</date>
+    <date>2005-05-20</date>
     <notes>
 - Split from Validate into independent package
 - CS fixes
-- BC break! 
+- BC break!
 postalCode unified between countries (name wise), now all postcode validation funcs are named postalCode
 ni was renamed to ssn to keep it the same in all classes
 - getZipValFunc removed

@@ -34,7 +34,7 @@ Package containes locale validation for FR such as:
     <notes>
 - Split from Validate into independent package
 - CS fixes
-- BC break! 
+- BC break!
 postalCode unified between countries (name wise), now all postcode validation funcs are named postalCode
 - added region() (departments) and postalCode
 - fixed rib calculation
