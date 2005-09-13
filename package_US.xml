@@ -29,6 +29,12 @@ Package containes locale validation for US such as:
       <name>Helgi &#222;ormar</name>
       <email>dufuz@php.net</email>
     </maintainer>
+    <maintainer>
+      <user>davidc</user>
+      <role>lead</role>
+      <name>David Coallier</name>
+      <email>davidc@php.net</email>
+    </maintainer>
    </maintainers>
   <release>
 
