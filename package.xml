@@ -46,13 +46,12 @@
   </maintainers>
   <release>
 
-    <version>0.6.0</version>
+    <version>0.6.1</version>
     <state>beta</state>
     <date>2005-09-13</date>
     <notes>
-- Move to Beta state
-- Enhance again email validation and unit test it
-- modulus methods fix if bcmath is not present
+- Bug #5390 XML Package Error
+- uri was enchanced to fully comply with RFC2396 (Bertrand) (forgotten in last release changelog)
     </notes>
     <filelist>
     <dir name="/">
@@ -77,10 +76,20 @@
   </release>
   <changelog>
       <release>
-        <version>0.5.0</version>
-        <state>alpha</state>
-        <date>2005-05-20</date>
-        <notes>- Bug #2936, typo
+       <version>0.6.0</version>
+       <state>beta</state>
+       <date>2005-09-13</date>
+       <notes>
+        - Move to Beta state
+        - Enhance again email validation and unit test it
+        - modulus methods fix if bcmath is not present
+       </notes>
+      </release>
+      <release>
+       <version>0.5.0</version>
+       <state>alpha</state>
+       <date>2005-05-20</date>
+       <notes>- Bug #2936, typo
 - Bug #2879, Issn wrong validation
 - Better email validation
 - Request #997 validate:date minium and maximum accept Date objects (By Torsten Roehr)
