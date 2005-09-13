@@ -1,5 +1,5 @@
 --TEST--
-email.phpt: Unit tests for 
+email.phpt: Unit tests for
 --FILE--
 <?php
 // $Id$
@@ -16,7 +16,7 @@ $emails = array(
         array('example@fluffffffrefrffrfrfrfrfrfr.is', false), // OK
         // with out the dns lookup
         'example@fluffffffrefrffrfrfrfrfrfr.is', // OK
-        
+
         // Some none english chars, those should fail until we fix the IDN stuff
         'hæjjæ@homms.com', // NOK
         'postmaster@tüv.de', // NOK
@@ -59,7 +59,15 @@ $emails = array(
         // Test for various ways with double @
         'mark@home@example.com', // NOK
         'mark@example.home@com', // NOK
-        'mark@example.com@home' // NOK
+        'mark@example.com@home', // NOK
+
+        // Killers ' tests
+        'ha"ho@example.com', // NOK
+        '<ha la la>blah</ha>@example.com', // NOK
+        '<hablahha>@example.com', // NOK
+        '"<ha la la>blah</ha>"@example.com', // NOK
+        '" "@example.com', // NOK
+        '@example.com' // NOK
     );
 
 foreach ($emails as $email) {
@@ -104,3 +112,9 @@ mark|foo@example.com: YES
 mark@home@example.com: NO
 mark@example.home@com: NO
 mark@example.com@home: NO
+ha"ho@example.com: NO
+<ha la la>blah</ha>@example.com: NO
+<hablahha>@example.com: NO
+"<ha la la>blah</ha>"@example.com: YES
+" "@example.com: YES
+@example.com: NO
