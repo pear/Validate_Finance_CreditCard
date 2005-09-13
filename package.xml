@@ -46,11 +46,41 @@
   </maintainers>
   <release>
 
-    <version>0.5.0</version>
-    <state>alpha</state>
-    <date>2005-05-20</date>
+    <version>0.6.0</version>
+    <state>beta</state>
+    <date>2005-09-13</date>
     <notes>
-- Bug #2936, typo
+- Move to Beta state
+- Enhance again email validation and unit test it
+- modulus methods fix if bcmath is not present
+    </notes>
+    <filelist>
+    <dir name="/">
+      <file role="php">Validate.php</file>
+      <dir name="tests" role="test">
+        <file>number.phpt</file>
+        <file>testdate.phpt</file>
+        <file>email.phpt</file>
+        <file>multiple.phpt</file>
+        <file>multicard.phpt</file>
+        <file>uri.phpt</file>
+      </dir>
+      <dir name="docs" role="doc">
+        <file>sample_multiple.php</file>
+      </dir>
+    </dir>
+    </filelist>
+    <deps>
+      <dep type="php" rel="ge" version="4.2.0" />
+      <dep type="pkg" rel="has" optional="yes">Date</dep>
+    </deps>
+  </release>
+  <changelog>
+      <release>
+        <version>0.5.0</version>
+        <state>alpha</state>
+        <date>2005-05-20</date>
+        <notes>- Bug #2936, typo
 - Bug #2879, Issn wrong validation
 - Better email validation
 - Request #997 validate:date minium and maximum accept Date objects (By Torsten Roehr)
@@ -76,30 +106,8 @@
  * EAN14
  * UCC12
  * SSCC
-- splited multiple() test in with (skipif not installed) or without card,
-    </notes>
-    <filelist>
-    <dir name="/">
-      <file role="php">Validate.php</file>
-      <dir name="tests" role="test">
-        <file>number.phpt</file>
-        <file>testdate.phpt</file>
-        <file>email.phpt</file>
-        <file>multiple.phpt</file>
-        <file>multicard.phpt</file>
-        <file>uri.phpt</file>
-      </dir>
-      <dir name="docs" role="doc">
-        <file>sample_multiple.php</file>
-      </dir>
-    </dir>
-    </filelist>
-    <deps>
-      <dep type="php" rel="ge" version="4.2.0" />
-      <dep type="pkg" rel="has" optional="yes">Date</dep>
-    </deps>
-  </release>
-  <changelog>
+- splited multiple() test in with (skipif not installed) or without card,</notes>
+      </release>
       <release>
        <version>0.4.1</version>
        <state>alpha</state>
