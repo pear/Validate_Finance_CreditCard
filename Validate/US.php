@@ -173,6 +173,7 @@ class Validate_US
             $source = $uri;
         } else {
             if (!$fd = @fopen($uri, 'r')) {
+                $lastUri = '';
                 trigger_error('Could not access the SSA High Groups file', E_USER_WARNING);
                 return array();
             }
@@ -195,7 +196,6 @@ class Validate_US
                 $high_groups[$grouping[11]] =  $grouping[12];
             }
         }
-        $this->high_groups = $high_groups;
         return $high_groups;
     }
 
