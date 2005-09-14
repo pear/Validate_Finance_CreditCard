@@ -27,7 +27,13 @@ Package containes locale validation for UK such as:
       <name>Helgi &#222;ormar</name>
       <email>dufuz@php.net</email>
     </maintainer>
-   </maintainers>
+    <maintainer>
+      <user>pookey</user>
+      <role>lead</role>
+      <name>Ian P. Christian</name>
+      <email>pookey@php.net</email>
+    </maintainer>
+  </maintainers>
   <release>
 
     <version>0.5.0</version>
