@@ -2,7 +2,7 @@
 /* vim: set expandtab tabstop=4 shiftwidth=4: */
 
 /**
- * Specific validation methods for data used in the UK
+ * Specific validation methods for data used in the IS
  *
  * PHP versions 4
  *
@@ -57,7 +57,7 @@ class Validate_IS
         if (!is_numeric($ssn)) {
             $ssn = str_replace(array(" ", "-"), "", $ssn);
         }
-        if (strlen($ssn) != 10) {
+        if (strlen($ssn) != 10 || !is_numeric($ssn)) {
             return false;
         }
         
@@ -141,7 +141,7 @@ class Validate_IS
              * fseek($fp, 0);
              */
             
-            $file = "@DATADIR@/Validate_IS/IS_postcodes.txt";
+            $file = "data/IS_postcodes.txt";
             if (file_exists($file)) {
                 if (is_writable($file) && filemtime($file) < time()-60*60*24*30) {
                     $url = "http://www.postur.is/Gogn/Gotuskra/postnumer.txt";
