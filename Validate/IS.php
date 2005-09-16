@@ -141,7 +141,7 @@ class Validate_IS
              * fseek($fp, 0);
              */
             
-            $file = "postnumer.txt";
+            $file = "@DATADIR@/Validate_IS/IS_postcodes.txt";
             if (file_exists($file)) {
                 if (is_writable($file) && filemtime($file) < time()-60*60*24*30) {
                     $url = "http://www.postur.is/Gogn/Gotuskra/postnumer.txt";
