@@ -45,7 +45,7 @@ define('VALIDATE_BE_VAT_MODULUS', 97);
  * @package    version@
  * @link       http://pear.php.net/package/Validate_BE
  */
-class Validate_BE
+class Validate_BE 
 {
     /**
     * Validate a Belgian social security number
@@ -60,7 +60,7 @@ class Validate_BE
     * @param    string  ssn to validate
     * @return   bool    true on success
     */
-    function ssn($ssn)
+    function ssn($ssn)     
     {
         if (!(bool) ereg('^[0-9]{11}$', $ssn)) return false;
         $year   = substr($ssn,0,2);
@@ -245,7 +245,7 @@ class Validate_BE
         $zoneprefixes['littlezone'] = array  ('010', '011', '012', '013', '014', '015', '016', '019', '050', '051', '052', '053', '054', '055', '056', '057', '058', '059', '060', '061', '063', '064', '065', '067', '068', '069', '071', '080', '081', '082', '083', '084', '085', '086', '087', '089');
         $zoneprefixes['bigzone'] = array  ('02', '03', '04', '09');
         $zoneprefixes['mobile']  = array('0472', '0473', '0474', '0475', '0476', '0477', '0478', '0479 ', '0485', '0486 ', '0494', '0495', '0496', '0497', '0498', '0499');
-                
+
         $result = false;
         $phonenumber = trim($phonenumber);
         if ($phonenumber[0]=='+' && $phonenumber[1]!='+' ) $phonenumber = '+'.$phonenumber;
@@ -275,29 +275,23 @@ class Validate_BE
         
         if (!$is_mobile && !$in_bigzone && !$in_littlezone) return false; // wrong prefix
             
-        if ($type == VALIDATE_BE_PHONENUMBER_TYPE_ANY || $type == VALIDATE_BE_PHONENUMBER_TYPE_NORMAL  )
-        {
+        if ($type == VALIDATE_BE_PHONENUMBER_TYPE_ANY || $type == VALIDATE_BE_PHONENUMBER_TYPE_NORMAL  ) {
             if(!$is_mobile && strlen($phonenumber) == 9 && is_numeric($phonenumber))
             
             $result = true;     //we have a 9 digit numeric number.
         }
-        if ($type == VALIDATE_BE_PHONENUMBER_TYPE_ANY || $type == VALIDATE_BE_PHONENUMBER_TYPE_MOBILE  )
-        {
+        if ($type == VALIDATE_BE_PHONENUMBER_TYPE_ANY || $type == VALIDATE_BE_PHONENUMBER_TYPE_MOBILE  ) {
             if($is_mobile && strlen($phonenumber) == 10 && is_numeric($phonenumber))
             $result = true;     //we have a 9 digit numeric number.
         }
         //we need at least 9 digits
-        if (ereg('^[+0-9]{9,}$', $phonenumber)) 
-        {
+        if (ereg('^[+0-9]{9,}$', $phonenumber)) {
             $phonenumber = substr($phonenumber, strlen($phonenumber) - 10);
             //we only use the last 9 digits (so no troubles with international numbers)
             if (strlen($phonenumber) >= 9) {
-
             }
         }
-
         return $result;
     }
-
 }
 ?>
