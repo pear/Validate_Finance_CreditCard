@@ -126,43 +126,33 @@ class Validate_IS
      */
     function postalCode($postcode, $strong = true)
     {
-        /* Sanity check, all Icelanidc postalcodes are between 101 and 950 */
+        /* Sanity check, all Icelandic postalcodes are between 101 and 950 */
         if ($postcode > 100 && $postcode < 950 && !$strong) {
             return true;
         }
         
         if ($strong) {
-            /*
-             * Live check
-             * $url = "http://www.postur.is/Gogn/Gotuskra/postnumer.txt";
-             * $fp = tmpfile();
-             * $contents = file_get_contents($url);
-             * $int = fputs($fp, $contents);
-             * fseek($fp, 0);
-             */
             
-            $file = "data/IS_postcodes.txt";
+            $file = "@DATADIR@/Validate_IS/IS_postcodes.txt";
+
             if (file_exists($file)) {
-                if (is_writable($file) && filemtime($file) < time()-60*60*24*30) {
+                if (is_writable($file) && filemtime($file) < time()-2592000) {
                     $url = "http://www.postur.is/Gogn/Gotuskra/postnumer.txt";
-                    $fp = fopen($file, "r+");
-                    $contents = file_get_contents($url);
-                    fputs($fp, $contents);
-                    fseek($fp, 0);
+
+                    $fpCsv = fopen($url, "r");
+                    $fp = fopen($file, "w");
+
+                    while (false !== ($data = fgetcsv($fpCsv, 128, ";"))) {
+                        fputs($fp, $data[0]. "\n");
+                    }
+                    fclose($fp);
+                    fclose($fpCsv);
                 }
-                else {
-                    $fp = fopen($file, "r");
-                }
+                $postCodes = file($file);
             }
             
-            if (isset($fp) && is_resource($fp)) {
-                while (false !== ($data = fgetcsv($fp, 128))) {
-                    if ($data[0] == $postcode) {
-                        fclose($fp);
-                        return true;
-                    }
-                }
-                fclose($fp);
+            if (is_array($postCodes) && in_array($postcode, $postCodes)) {
+                return true;
             }
         }
         
