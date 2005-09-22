@@ -20,7 +20,6 @@
  * @link       http://pear.php.net/package/Validate_BE
  */
 //require_once 'PEAR.php';
-require_once 'Validate.php';
 
 /**
  *
@@ -111,9 +110,9 @@ class Validate_BE
      */
     function postalCode($postcode, $strong = false)
     {
+        static $postcodes =null;
         $postcode = ltrim( ltrim( strtolower( $postcode ), 'b'), '-' );
         if ($strong) {
-            static $postcodes;
 
             if ( ! isset($postcodes) ) {
                 $file = '@DATADIR@/Validate_BE/BE_postcodes.txt';
