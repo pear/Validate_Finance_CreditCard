@@ -22,6 +22,13 @@
 //require_once 'PEAR.php';
 require_once 'Validate.php';
 
+/**
+ *
+ * @constant VALIDATE_BE_PHONENUMBER_TYPE_ANY 
+ * @constant VALIDATE_BE_PHONENUMBER_TYPE_NORMAL 
+ * @constant VALIDATE_BE_PHONENUMBER_TYPE_MOBILE 
+ * 
+ */
 define('VALIDATE_BE_PHONENUMBER_TYPE_ANY',     0);     //Any belgian phonenumber
 define('VALIDATE_BE_PHONENUMBER_TYPE_NORMAL',  1);     //only normal phonenumber (mobile numers are not allowed)
 define('VALIDATE_BE_PHONENUMBER_TYPE_MOBILE',  2);     //only mobile numbers are allowed
@@ -41,11 +48,10 @@ define('VALIDATE_BE_VAT_MODULUS', 97);
  * @author     Christophe Gesché <moosh@php.net>
  * @copyright  2005 The PHP Group
  * @license    http://www.php.net/license/3_0.txt  PHP License 3.0
- * @version    Release:
- * @package    version@
+ * @version    Release:@package    version@
  * @link       http://pear.php.net/package/Validate_BE
  */
-class Validate_BE 
+class Validate_BE
 {
     /**
     * Validate a Belgian social security number
@@ -60,28 +66,42 @@ class Validate_BE
     * @param    string  ssn to validate
     * @return   bool    true on success
     */
-    function ssn($ssn)     
+    function ssn($ssn)
     {
-        if (!(bool) ereg('^[0-9]{11}$', $ssn)) return false;
+        // RULE 1 : 11 digit.
+        if (!(bool) ereg('^[0-9]{11}$', $ssn)) {
+            return false;
+        }
+
+
+        // RULE 2 : ssn begin with a reversed date
         $year   = substr($ssn,0,2);
         $month  = substr($ssn,2,2);
         $day    = substr($ssn,4,2);
         $number = substr($ssn,0,9);
         $check  = substr($ssn,9,2);
+
         /**
          * Check that the date is valid
          */
         if (!Validate::date("$year-$month-$day", array('format' => '%y-%m-%d'))) {
             return false;
         }
-      	                                                                                                                       
-        if ((97-Validate::_modf($number, VALIDATE_BE_SSN_MODULUS)) == $check) return true;
-        // if the normal check faild, prepend 2 to the number and retry
-        if ((97-Validate::_modf(2000000000+$number, VALIDATE_BE_SSN_MODULUS)) == $check) return true;
-        
-        return false; 
-    } 
-    
+
+        // RULE 3 check is 97 - modulo 97 of all or RULES 3BIS
+        if ((97 - Validate::_modf($number, VALIDATE_BE_SSN_MODULUS)) == $check) {
+            return true;
+        }
+
+        // RULE 3 BIS
+        // if RULE 3 check faild, prepend 2 to the number and retry
+        if ((97 - Validate::_modf(2000000000 + $number, VALIDATE_BE_SSN_MODULUS)) == $check) {
+            return true;
+        }
+
+        return false;
+    }
+
     /**
      * Validate a Belgian postcode
      *
@@ -91,26 +111,28 @@ class Validate_BE
      */
     function postalCode($postcode, $strong = false)
     {
-        $postcode = ltrim(ltrim(strtolower($postcode),'b'),'-');
+        $postcode = ltrim( ltrim( strtolower( $postcode ), 'b'), '-' );
         if ($strong) {
             static $postcodes;
-    
-            if (!isset($postcodes)) {
+
+            if ( ! isset($postcodes) ) {
                 $file = '@DATADIR@/Validate_BE/BE_postcodes.txt';
-                if (file_exists($file))
-                foreach (file($file) as $line)
-                    $postcodes[] = substr($line,0,4);
+                if ( file_exists( $file ) ) {
+                    foreach ( file( $file ) as $line ) {
+                        $postcodes[] = substr( $line, 0, 4 );
+                    }
+                }
                 else {
                     return false;
                 }
-                    
+
             }
-            
+
             //if (!is_array($postcodes)) return false; // pearerror DATA FILE NOT FOUND
-            
-            return (bool)ereg('^[1-9][0-9]{3}$', $postcode) &&  in_array((int) $postcode, $postcodes) ;
+
+            return (bool) ereg( '^[1-9][0-9]{3}$', $postcode) &&  in_array((int) $postcode, $postcodes) ;
         }
-        return (bool)ereg('^[1-9][0-9]{3}$', $postcode);
+        return (bool) ereg( '^[1-9][0-9]{3}$', $postcode);
     }
 
     /**
@@ -124,21 +146,25 @@ class Validate_BE
      * @param   string  $bankcode       Belgian bankcode to validate
      * @return  bool    true if bankcode is ok, false otherwise
      */
-    function bankcode($bankcode)
+    function bankcode( $bankcode )
     {
-        if ((bool)ereg('^[0-9]{3}[ ./-]?[0-9]{7}[ ./-]?[0-9]{2}$', $bankcode)) {
-            $bankcode = str_replace(' ','',strtr($bankcode,'/-.','   '));
-    	    $num = substr($bankcode, 0, 10);
-        	$checksum = substr($bankcode, 10, 2);
-        	if ($checksum == Validate::_modf($num, VALIDATE_BE_BANKCODE_MODULUS))
-    			return true;
-    		else 
-        		return false;
-    	}
-    	else
-    		return false;
+        if ((bool) ereg( '^[0-9]{3}[ ./-]?[0-9]{7}[ ./-]?[0-9]{2}$', $bankcode ) ) {
+            $bankcode = str_replace( ' ', '', strtr( $bankcode, '/-.', '   ' ) );
+            $num = substr( $bankcode, 0, 10);
+            $checksum = substr( $bankcode, 10, 2);
+            if ( $checksum == Validate::_modf( $num, VALIDATE_BE_BANKCODE_MODULUS ) ) {
+                return true;
+            }
+            else {
+                return false;
+            }
+        }
+        else { 
+            return false;
+        }
+        
     }
-    
+
 
     /**
      * Validate a VAT account number
@@ -153,20 +179,19 @@ class Validate_BE
      */
     function vat($vat)
     {
-        
-        if ( (bool) (ereg('^[0-9]{3}[ ./-]?[0-9]{3}[ ./-]?[0-9]{3}$', $vat))) {
-            $vat = str_replace(' ','',strtr($vat,'/-.','   '));
+        if ( (bool) ( ereg('^[0-9]{3}[ ./-]?[0-9]{3}[ ./-]?[0-9]{3}$', $vat ) ) ) {
+            $vat = str_replace(' ', '', strtr($vat, '/-.', '   ' ) );
             if  (strlen($vat) == 9) {
-                $number   = substr( $vat ,0, 7);
-                $checksum =substr( $vat ,7,2);
-                if (VALIDATE_BE_VAT_MODULUS-$checksum == (Validate::_modf($number, VALIDATE_BE_VAT_MODULUS))) {
+                $number   = substr( $vat ,0, 7 );
+                $checksum = substr( $vat ,7 ,2 );
+                if (VALIDATE_BE_VAT_MODULUS - $checksum == (Validate::_modf($number, VALIDATE_BE_VAT_MODULUS ) ) ) {
                     return true;
                 }
             }
         }
         return false;
     }
-    
+
 
     /**
      * Validate a phonenumber
@@ -232,10 +257,12 @@ class Validate_BE
      * 070 commercieel
      * 0800 gratis
      * 0900-0905 commercieel
-
+     * 
+     * NOTE : this validate want a BELGIAN phonenumber to return true,
+     * not a valid number to call FROM belgium
      *
      * @param   string  $number         Belgian phonenumber (can be in international format (eg +32 or 0032)
-     * @param   int     $type           Type of phonenumber to check
+     * @param   int     $type           Type of phonenumber to check / to attempt
      * @return  bool    true if (phone) number is correct
      * @see http://roamers.proximus.be/fr/Call_In_Belgium/CIB_AZ.html
      */
@@ -247,48 +274,65 @@ class Validate_BE
         $zoneprefixes['mobile']  = array('0472', '0473', '0474', '0475', '0476', '0477', '0478', '0479 ', '0485', '0486 ', '0494', '0495', '0496', '0497', '0498', '0499');
 
         $result = false;
+        // Cleaning the phone number
         $phonenumber = trim($phonenumber);
-        if ($phonenumber[0]=='+' && $phonenumber[1]!='+' ) $phonenumber = '+'.$phonenumber;
-        $phonenumber = str_replace(' ','',strtr($phonenumber,'+/-.','0   '));
-            
+        // international numba can begin with + or ++
+        // If one, prepend a second
+        if ($phonenumber[0]=='+' && $phonenumber[1]!='+' ) {
+            $phonenumber = '+' . $phonenumber;
+        }
+        
+        // if  phone number begin by a + replace it by 0
+        // replace other non numerical  charater witha  blancspace
+        // finaly remove all blank spaces.
+        $phonenumber = str_replace(' ', '', strtr($phonenumber, '+/-.', '0   ' ) );
+
+        
+        // detect if it's a national or international numba
         if (substr($phonenumber, 0, 2) == '00') {
-        //   $is_inter = TRUE;
+            //   $is_inter = TRUE;
             // International Number
             if (!substr($phonenumber, 2, 2) == '32') {
                 // international number but not with belgian prefix
-                //echo 'international non belge';
+                // validate::failure ('not the international prefix');
                 return false;
             }
             else {
-                $phonenumber = str_replace('0032','0',$phonenumber);
+                $phonenumber = str_replace('0032', '0', $phonenumber);
             }
-            
+
         }
-//        else 
-//        {
-//            $is_inter = FALSE;
-//        }
-        
-        $is_mobile = ( in_array(substr($phonenumber,0,4), $zoneprefixes['mobile']));
-        $in_bigzone = ( in_array(substr($phonenumber,0,2), $zoneprefixes['bigzone']));
-        $in_littlezone = ( in_array(substr($phonenumber,0,3), $zoneprefixes['littlezone']));
-        
-        if (!$is_mobile && !$in_bigzone && !$in_littlezone) return false; // wrong prefix
-            
+
+        // search national prefix of numba (mobile, big zone, little zone)
+        $is_mobile = ( in_array(substr($phonenumber, 0, 4), $zoneprefixes['mobile'] ) );
+        $in_bigzone = ( in_array(substr($phonenumber, 0, 2), $zoneprefixes['bigzone'] ) );
+        $in_littlezone = ( in_array(substr($phonenumber, 0, 3), $zoneprefixes['littlezone'] ) );
+
+        // if national prefix not detected, it's a bad number
+        if ( ! $is_mobile && ! $in_bigzone && ! $in_littlezone) {
+            return false; // wrong prefix
+        }
+
+        // try to accept as Type VALIDATE_BE_PHONENUMBER_TYPE_NORMAL (not mobile)
         if ($type == VALIDATE_BE_PHONENUMBER_TYPE_ANY || $type == VALIDATE_BE_PHONENUMBER_TYPE_NORMAL  ) {
-            if(!$is_mobile && strlen($phonenumber) == 9 && is_numeric($phonenumber))
-            
-            $result = true;     //we have a 9 digit numeric number.
+            if( ! $is_mobile && strlen($phonenumber) == 9 && is_numeric($phonenumber)) {
+                $result = true;     //we have a 9 digit numeric number.
+            }
         }
+        
+        // try to accept as Type VALIDATE_BE_PHONENUMBER_TYPE_MOBILE
         if ($type == VALIDATE_BE_PHONENUMBER_TYPE_ANY || $type == VALIDATE_BE_PHONENUMBER_TYPE_MOBILE  ) {
-            if($is_mobile && strlen($phonenumber) == 10 && is_numeric($phonenumber))
-            $result = true;     //we have a 9 digit numeric number.
+            if( $is_mobile && strlen($phonenumber) == 10 && is_numeric($phonenumber)){
+                $result = true;     //we have a 9 digit numeric number.
+            }
         }
+        
         //we need at least 9 digits
         if (ereg('^[+0-9]{9,}$', $phonenumber)) {
             $phonenumber = substr($phonenumber, strlen($phonenumber) - 10);
             //we only use the last 9 digits (so no troubles with international numbers)
             if (strlen($phonenumber) >= 9) {
+                $result = false;
             }
         }
         return $result;
