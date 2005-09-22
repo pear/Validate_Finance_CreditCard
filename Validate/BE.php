@@ -19,7 +19,7 @@
  * @version    CVS: $Id$
  * @link       http://pear.php.net/package/Validate_BE
  */
-//require_once 'PEAR.php';
+require_once 'Validate.php';
 
 /**
  *
@@ -126,10 +126,8 @@ class Validate_BE
                 }
 
             }
-
-            //if (!is_array($postcodes)) return false; // pearerror DATA FILE NOT FOUND
-
-            return (bool) ereg( '^[1-9][0-9]{3}$', $postcode) &&  in_array((int) $postcode, $postcodes) ;
+            return (bool) ereg( '^[1-9][0-9]{3}$', $postcode)
+            	&&  in_array((int) $postcode, $postcodes) ;
         }
         return (bool) ereg( '^[1-9][0-9]{3}$', $postcode);
     }
