@@ -32,13 +32,8 @@ Package containes locale validation for BE such as:
   <state>alpha</state>
   <date>2005-09-15</date>
   <notes>
-    -Done- Post Code
-    -Done- Bank Account Number
-    -Todo- Transfer message (transfer from an bank account to another)
-    -Done- VAT
-    -Done- Natitonal ID
-    -Todo- Identity Card Number
-    -Done- SIS CARD ID (belgian "s&#233;curit&#233; sociale" ID)
+  * Fixed CS
+  * toggg and moosh now co-leads
   </notes>
   <filelist>
    <dir name="/">
@@ -62,5 +57,13 @@ Package containes locale validation for BE such as:
   </deps>
  </release>
  <changelog>
+  * first release 0.1.0
+    -Done- Post Code
+    -Done- Bank Account Number
+    -Todo- Transfer message (transfer from an bank account to another)
+    -Done- VAT
+    -Done- Natitonal ID
+    -Todo- Identity Card Number
+    -Done- SIS CARD ID (belgian "s&#233;curit&#233; sociale" ID)
  </changelog>
 </package>
