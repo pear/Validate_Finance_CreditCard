@@ -17,6 +17,12 @@ Package contains locale validation for Canada such as:
       <name>Philippe Jausions</name>
       <email>Philippe.Jausions@11abacus.com</email>
     </maintainer>
+      <maintainer>
+      <user>davidc</user>
+      <role>lead</role>
+      <name>David Coallier</name>
+      <email>davidc@php.net</email>
+    </maintainer>
    </maintainers>
   <release>
 
