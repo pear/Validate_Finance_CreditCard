@@ -23,12 +23,6 @@ Package contains locale validation for Canada such as:
       <name>David Coallier</name>
       <email>davidc@php.net</email>
     </maintainer>
-    <maintainer>
-      <user>dufuz</user>
-      <role>lead</role>
-      <name>Helgi Þormar</name>
-      <email>helgi@trance.is</email>
-    </maintainer>
    </maintainers>
   <release>
 
