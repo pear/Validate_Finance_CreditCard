@@ -17,20 +17,28 @@ Package contains locale validation for Canada such as:
       <name>Philippe Jausions</name>
       <email>Philippe.Jausions@11abacus.com</email>
     </maintainer>
-      <maintainer>
+    <maintainer>
       <user>davidc</user>
       <role>lead</role>
       <name>David Coallier</name>
       <email>davidc@php.net</email>
     </maintainer>
+    <maintainer>
+      <user>dufuz</user>
+      <role>lead</role>
+      <name>Helgi Þormar</name>
+      <email>helgi@trance.is</email>
+    </maintainer>
    </maintainers>
   <release>
 
-    <version>0.1.0</version>
+    <version>0.1.1</version>
     <state>alpha</state>
-    <date>2005-05-20</date>
+    <date>2005-09-27</date>
     <notes>
-- Initial package
+        - No more dependant of Validate/US.php
+        - We now have a strong, quicker phone validator
+        - validate_ca::phone checks for open brackets before accepting closing one.
     </notes>
     <filelist>
     <dir name="/">
@@ -45,7 +53,6 @@ Package contains locale validation for Canada such as:
     <deps>
       <dep type="php" rel="ge" version="4.2.0" />
       <dep type="ext" rel="has">pcre</dep>
-      <dep type="pkg" rel="ge" version="0.5.0">Validate_US</dep>
     </deps>
   </release>
   <changelog>
