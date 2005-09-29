@@ -4,9 +4,10 @@ This package was begin on May 2005
 Christophe Gesché // moosh@claroline.net
 With help of coders of other Validate_FOO packages
 
+
     * -Done- Post Code
     * -Done- Bank Account Number
-    * -Todo- Transfer message (transfer from an bank account to another)
+    * -Done- Transfer message (transfer from an bank account to another)
     * -Done- VAT
     * -Done- Natitonal ID
     * -Todo- Identity Card Number
@@ -46,9 +47,11 @@ ABCDEFGHIJKLMNOPQRSTUVWXYZ
 []^_`
 abcdefghijklmnopqrstuvwxyz
 {|}£§àáäâçèéëêïîñòóöôùûüûÿ"
-----------Structured
-The structured message is build by the benificary.
+----------Bank Message Transfert
+
+The structured message is build by the benificary. 
 Have the form 123/1234/12345;
+2 last are mod 97
 
 -----VAT
 VAT number in Belgium is 9-figure number
