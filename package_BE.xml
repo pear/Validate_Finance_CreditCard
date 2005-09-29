@@ -1,15 +1,16 @@
 <?xml version="1.0" encoding="ISO-8859-1" ?>
 <package version="1.0">
  <name>Validate_BE</name>
- <summary>Validation class for BE</summary>
+ <summary>Validation class for Belgium</summary>
  <description>
-Package containes locale validation for BE such as:
+Package containes locale validation for Belgium such as:
  * Postal Code
  * Bank Account Number
- * Transfer message (transfer from an bank account to another)
+ * Structured Bank Transfer message
+   (Nationnal transfer from an bank account to another)
  * VAT
  * Natitonal ID
- * Identity Card Number
+ * Identity Card Number (not ready)
  * SIS CARD ID (belgian "s&#233;curit&#233; sociale" ID)
  </description>
  <license>PHP</license>
@@ -28,11 +29,14 @@ Package containes locale validation for BE such as:
   </maintainer>
  </maintainers>
  <release>
-  <version>0.1.0</version>
+  <version>0.1.1</version>
   <state>alpha</state>
-  <date>2005-09-15</date>
+  <date>2005-09-28</date>
   <notes>
+  * Add new method to validate structured Bank Transfert Messages
   * Fixed CS
+  * Fixed check phone was bug for mobil begining with 04
+  * split test files
   * toggg and moosh now co-leads
   </notes>
   <filelist>
@@ -44,6 +48,13 @@ Package containes locale validation for BE such as:
     </dir>
     <dir name="tests" role="test">
      <file>validate_BE.phpt</file>
+     <file>validate_BE_bank_codes.phpt</file>
+     <file>validate_BE_bank_transfer_message.phpt</file>
+     <file>validate_BE_functions.inc.php</file>
+     <file>validate_BE_post_code.phpt</file>
+     <file>validate_BE_post_code_strong.phpt</file>
+     <file>validate_BE_ssn.phpt</file>
+     <file>validate_BE_vat.phpt</file>
     </dir>
     <dir name="docs" role="doc">
      <file>Validate_BE.txt</file>
