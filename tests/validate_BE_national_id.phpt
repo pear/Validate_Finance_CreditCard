@@ -30,7 +30,7 @@ Test nationalId
  X = validation result is wrong
  V 73011136173          : KO    KO
  V 73.01.11.361-73'     : KO    KO
- V 730111-361-73        :  OK    OK
+ V 730111-361-73        : OK    OK
  V 730111-361-73        : OK    OK
  V 730111-361-99        : KO    KO
  V 730211-361-99        : KO    KO
