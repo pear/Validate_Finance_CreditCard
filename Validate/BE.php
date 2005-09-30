@@ -331,9 +331,10 @@ class Validate_BE
 
         // search national prefix of numba (mobile, big zone, little zone)
         $is_mobile = ( in_array(substr($phonenumber, 0, 4), $zoneprefixes['mobile'] ) );
-        $in_bigzone = ( in_array(substr($phonenumber, 0, 2), $zoneprefixes['bigzone'] ) );
-        $in_littlezone = ( in_array(substr($phonenumber, 0, 3), $zoneprefixes['littlezone'] ) );
-
+        if (!$is_mobile) {
+            $in_bigzone = ( in_array(substr($phonenumber, 0, 2), $zoneprefixes['bigzone'] ) );
+            $in_littlezone = ( in_array(substr($phonenumber, 0, 3), $zoneprefixes['littlezone'] ) );
+        }
         // if national prefix not detected, it's a bad number
         if ( ! $is_mobile && ! $in_bigzone && ! $in_littlezone) {
             return false; // wrong prefix
@@ -355,10 +356,11 @@ class Validate_BE
 
         //we need at least 9 digits
         if (ereg('^[+0-9]{9,}$', $phonenumber)) {
-            $phonenumber = substr($phonenumber, strlen($phonenumber) - 10);
+            $phonenumber = substr($phonenumber, -9);
             //we only use the last 9 digits (so no troubles with international numbers)
-            if (strlen($phonenumber) >= 9) {
-                $result = false;
+            //we only use the last 9 digits (so no troubles with international numbers)
+            if (strlen($phonenumber) >= 10) {
+
             }
         }
         return $result;
