@@ -8,7 +8,7 @@ require_once 'Validate/BE.php';
 $nationalIdList = array( '73011136173'  => 'OK'
                        , '73.01.11.361-73'  => 'OK'
                        , '730111-361-73'  => 'OK'
-                       , '730111-361-73'  => 'OK'
+                       , '730111 361 73'  => 'OK'
                        , '730111-361-99'  => 'KO'
                        , '730211-361-99'  => 'KO'
                        );
@@ -28,10 +28,10 @@ Test nationalId
  _ Value                  State Return
  V = validation result is right
  X = validation result is wrong
- V 73011136173          : KO    KO
- V 73.01.11.361-73'     : KO    KO
+ V 73011136173          : OK    OK
+ V 73.01.11.361-73      : OK    OK
  V 730111-361-73        : OK    OK
- V 730111-361-73        : OK    OK
+ V 730111 361 73        : OK    OK
  V 730111-361-99        : KO    KO
  V 730211-361-99        : KO    KO
 ... SUCCESS
