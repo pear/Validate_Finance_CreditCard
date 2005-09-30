@@ -70,7 +70,7 @@ class Validate_BE
     */
     function nationalId($nationalId)
     {
-        $nationalId = strtr($nationalId,'-/\ :', '.....';
+        $nationalId = strtr($nationalId,'-/\ :', '.....');
         $nationalId = str_replace('.','',$nationalId);
         // RULE 1 : 11 digit.
         if (!(bool) ereg('^[0-9]{11}$', $nationalId)) {
