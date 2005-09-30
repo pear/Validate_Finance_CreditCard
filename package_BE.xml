@@ -31,12 +31,13 @@ Package containes locale validation for Belgium such as:
  <release>
   <version>0.1.1</version>
   <state>alpha</state>
-  <date>2005-09-28</date>
+  <date>2005-09-30</date>
   <notes>
   * Add new method to validate structured Bank Transfert Messages
+  * Add new method to validate nationalId
   * Fixed CS
   * Fixed check phone was bug for mobil begining with 04
-  * split test files
+  * split test files on per method
   * toggg and moosh now co-leads
   </notes>
   <filelist>
@@ -47,10 +48,11 @@ Package containes locale validation for Belgium such as:
      </file>
     </dir>
     <dir name="tests" role="test">
-     <file>validate_BE.phpt</file>
+     <file>validate_BE_functions.inc.php</file>
      <file>validate_BE_bank_codes.phpt</file>
      <file>validate_BE_bank_transfer_message.phpt</file>
-     <file>validate_BE_functions.inc.php</file>
+     <file>validate_BE_national_id.phpt</file>
+     <file>validate_BE_phone_numbers.phpt</file>
      <file>validate_BE_post_code.phpt</file>
      <file>validate_BE_post_code_strong.phpt</file>
      <file>validate_BE_ssn.phpt</file>

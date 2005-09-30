@@ -68,6 +68,57 @@ class Validate_BE
     * @param    string  ssn to validate
     * @return   bool    true on success
     */
+    function nationalId($nationalId)
+    {
+        $nationalId = strtr($nationalId,'-/\ :', '.....';
+        $nationalId = str_replace('.','',$nationalId);
+        // RULE 1 : 11 digit.
+        if (!(bool) ereg('^[0-9]{11}$', $nationalId)) {
+            return false;
+        }
+
+
+        // RULE 2 : ssn begin with a reversed date
+        $year   = substr($nationalId,0,2);
+        $month  = substr($nationalId,2,2);
+        $day    = substr($nationalId,4,2);
+        $number = substr($nationalId,0,9);
+        $check  = substr($nationalId,9,2);
+
+        /**
+         * Check that the date is valid
+         */
+        if (!Validate::date("$year-$month-$day", array('format' => '%y-%m-%d'))) {
+            return false;
+        }
+
+        // RULE 3 check is 97 - modulo 97 of all or RULES 3BIS
+        if ((97 - Validate::_modf($number, VALIDATE_BE_SSN_MODULUS)) == $check) {
+            return true;
+        }
+
+        // RULE 3 BIS
+        // if RULE 3 check faild, prepend 2 to the number and retry
+        if ((97 - Validate::_modf(2000000000 + $number, VALIDATE_BE_SSN_MODULUS)) == $check) {
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
+    * Validate a Belgian social security number
+    *
+    * The belgian social security number is on the SIS card of all belgian.
+    *
+    * A check digit is the last one, computed the standard
+    * _get_control_number function.
+    *
+    * @static
+    * @access   public
+    * @param    string  ssn to validate
+    * @return   bool    true on success
+    */
     function ssn($ssn)
     {
         // RULE 1 : 11 digit.
