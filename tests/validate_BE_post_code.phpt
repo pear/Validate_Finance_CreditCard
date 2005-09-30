@@ -8,22 +8,22 @@ require_once 'Validate/BE.php';
 echo "Test Post Code Validate_BE\n";
 echo "**************************\n";
 
-$postalCodeList = array('b-1234' => 'OK', // OK
-                        'B-1234' => 'OK', // OK
-                        'b1234'  => 'OK', // OK
-                        'B1234'  => 'OK', // OK
-                        '1234'   => 'OK', // OK
-                        'b-3840' => 'OK', // OK
-                        'B-3840' => 'OK', // OK
-                        'b3840'  => 'OK', // OK
-                        'B3840'  => 'OK', // OK
-                        '3840'   => 'OK', // OK
-                        '012345' => 'KO', // NOK
-                        '123'    => 'KO', // NOK
-                        '0234'   => 'KO', // NOK
-                        '7234'   => 'OK', // OK
-                        '2A34'   => 'KO', // NOK
-                        '023X'   => 'KO'); // NOK
+$postalCodeList = array('b-1234' => 'OK',
+                        'B-1234' => 'OK',
+                        'b1234'  => 'OK',
+                        'B1234'  => 'OK',
+                        '1234'   => 'OK',
+                        'b-3840' => 'OK',
+                        'B-3840' => 'OK',
+                        'b3840'  => 'OK',
+                        'B3840'  => 'OK',
+                        '3840'   => 'OK',
+                        '012345' => 'KO',
+                        '123'    => 'KO',
+                        '0234'   => 'KO',
+                        '7234'   => 'OK',
+                        '2A34'   => 'KO',
+                        '023X'   => 'KO');
 
 echo (test_func('postalCode', $postalCodeList )) ? '... FAILED' : '... SUCCESS';
 ?>
