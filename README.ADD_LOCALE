@@ -1,0 +1,18 @@
+If you like to add Validate subpackages for a country or 
+some specific (like Finance) needs, please send a mail 
+to the pear-dev Mailing list to discuss it.
+
+There is no need to create a proposal. There is no vote 
+or other community requests to add a locale to validate.
+
+We do not have many requirements, but the following must
+be fullfilled:
+
+- Validate API compliant
+- No conflict with existing sub packages
+- If possible more than one maintainer (asking other 
+  validate_xx maintainers help)
+- PEAR CS
+
+Only the current active leads of Validate can agree or
+not to publish a subpackage (actually pajoye, dufuz).
