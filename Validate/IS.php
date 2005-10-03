@@ -14,7 +14,7 @@
  *
  * @category   Validate
  * @package    Validate_IS
- * @author     Hannes Magnusson <bjori@php.net>
+ * @author     Hannes Magnússon <bjori@php.net>
  * @copyright  2005 The PHP Group
  * @license    http://www.php.net/license/3_0.txt  PHP License 3.0
  * @version    CVS: $Id$
@@ -30,7 +30,7 @@
  *
  * @category   Validate
  * @package    Validate_IS
- * @author     Hannes Magnusson <bjori@php.net>
+ * @author     Hannes Magnússon <bjori@php.net>
  * @copyright  2005 The PHP Group
  * @license    http://www.php.net/license/3_0.txt  PHP License 3.0
  */
@@ -55,14 +55,14 @@ class Validate_IS
     {
         /* Sanity checks, Icelandic ssn are 10 numbers */
         if (!is_numeric($ssn)) {
-            $ssn = str_replace(array(" ", "-"), "", $ssn);
+            $ssn = str_replace(array(' ', '-'), '', $ssn);
         }
         if (strlen($ssn) != 10 || !is_numeric($ssn)) {
             return false;
         }
-        
+
         $tmp = array();
-        preg_match_all("([0-9]{2})", $ssn, $tmp);
+        preg_match_all('([0-9]{2})', $ssn, $tmp);
         $kt = $tmp[0];
         /*
          * $kt[0] = date
@@ -85,11 +85,11 @@ class Validate_IS
             default:
                 return false;
         }
-        
+
         if (!checkdate($kt[1], $kt[0], $kt[2])) {
             return false;
         }
-        
+
         /* Calculate the nineth number (Icelandic: vartala) */
         $sum  = $ssn{7}*2;
         $sum += $ssn{6}*3;
@@ -99,19 +99,19 @@ class Validate_IS
         $sum += $ssn{2}*7;
         $sum += $ssn{1}*2;
         $sum += $ssn{0}*3;
-        
+
         $varTala = 11 - ($sum % 11);
         if ($varTala == 11) {
             $varTala = 0;
         }
-        
+
         if ($ssn{8} != $varTala) {
             return false;
         }
-        
+
         return true;
     }
-    
+
     /**
      * validates a postcode
      *
@@ -130,19 +130,19 @@ class Validate_IS
         if ($postcode > 100 && $postcode < 950 && !$strong) {
             return true;
         }
-        
+
         if ($strong) {
-            
-            $file = "@DATADIR@/Validate_IS/IS_postcodes.txt";
+
+            $file = '@DATADIR@/Validate_IS/IS_postcodes.txt';
 
             if (file_exists($file)) {
                 if (is_writable($file) && filemtime($file) < time()-2592000) {
-                    $url = "http://www.postur.is/Gogn/Gotuskra/postnumer.txt";
+                    $url = 'http://www.postur.is/Gogn/Gotuskra/postnumer.txt';
 
-                    $fpCsv = fopen($url, "r");
-                    $fp = fopen($file, "w");
+                    $fpCsv = fopen($url, 'r');
+                    $fp = fopen($file, 'w');
 
-                    while (false !== ($data = fgetcsv($fpCsv, 128, ";"))) {
+                    while (false !== ($data = fgetcsv($fpCsv, 128, ';'))) {
                         fputs($fp, $data[0]. "\n");
                     }
                     fclose($fp);
@@ -150,25 +150,25 @@ class Validate_IS
                 }
                 $postCodes = file($file);
             }
-            
+
             if (is_array($postCodes) && in_array($postcode, $postCodes)) {
                 return true;
             }
         }
-        
+
         return false;
     }
-    
+
     /**
      * Checks that the telephone number is 7digits and legal
      * home/office/gsm number (not information/emergency service etc.)
-     * 
+     *
      * NOTE: Number prefixed with 00354 or +354 are allowed
      *
      * Note: Icelandic telephone numbers are on the form xxx-xxxx.
      *       Here we strip the "-" char from the string (if present) and/or
      *       spaces in our match.
-     * 
+     *
      * @access    public
      * @param     string $tel the telephone number
      * @return    bool
@@ -176,25 +176,24 @@ class Validate_IS
      */
     function tel($tel)
     {
-        $tel = str_replace(array("+", " ", "-"), array("00", "", ""), $tel);
-        
+        $tel = str_replace(array('+', ' ', '-'), array('00', '', ''), $tel);
+
         $telLength = strlen($tel);
         if ($telLength !=7) {
             if ($telLength != 12) {
                 return false;
             }
-            if (substr($tel, 0, 5) != "00354") {
+            if (substr($tel, 0, 5) != '00354') {
                 return false;
             }
         }
-        
+
         $firstDigit = substr($tel, -7, 1); // Gets the first digit in the tel.
         if (in_array($firstDigit, array(0, 1, 2, 3))) {
             return false;
         }
-        
+
         return true;
     }
 }
 ?>
-
