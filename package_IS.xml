@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<package version="1.0">
+  <name>Validate_IS</name>
+  <summary>Validation class for IS</summary>
+  <description>
+Package containes locale validation for IS (Iceland) such as:
+ * SSN
+ * Postal Code
+ * Telephone
+  </description>
+  <license>PHP</license>
+  <maintainers>
+    <maintainer>
+      <user>bjori</user>
+      <role>lead</role>
+      <name>Hannes Magn&#250;sson</name>
+      <email>bjori@php.net</email>
+    </maintainer>
+    <maintainer>
+      <user>dufuz</user>
+      <role>lead</role>
+      <name>Helgi &#222;ormar</name>
+      <email>dufuz@php.net</email>
+    </maintainer>
+   </maintainers>
+  <release>
+
+    <version>0.1.0</version>
+    <state>alpha</state>
+    <date>2005-?-?</date>
+    <notes>
+Initial release
+    </notes>
+    <filelist>
+    <dir name="/">
+      <dir name="Validate">
+        <file role="php" name="IS.php">
+          <replace type="pear-config" from="@DATADIR@" to="data_dir" />
+        </file>
+      </dir>
+      <dir name="tests" role="test">
+        <file>validate_IS.phpt</file>
+      </dir>
+      <file role="data" name="data/IS_postcodes.txt" install-as="IS_postcodes.txt" />
+    </dir>
+    </filelist>
+    <deps>
+      <dep type="php" rel="ge" version="4.1.0" />
+    </deps>
+  </release>
+  <changelog>
+  </changelog>
+</package>
