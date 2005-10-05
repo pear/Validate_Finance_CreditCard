@@ -1,0 +1,97 @@
+001- Test Validate_AT
+001+ Test Validate_AU
+015- 5251: YES
+015+ 
+016- 5000: YES
+016+ Warning: file(@DATADIR@/Validate_AU/AU_postcodes.txt): failed to open stream: No such file or directory in C:\work\Validate\Validate\AU.php on line 61
+017- 4664: NO
+017+ 
+018- 2491: NO
+018+ Warning: array_map(): Argument #2 should be an array in C:\work\Validate\Validate\AU.php on line 61
+019- 1000: NO
+019+ 
+020- 9999: NO
+020+ Warning: in_array(): Wrong datatype for second argument in C:\work\Validate\Validate\AU.php on line 64
+021- abc: NO
+021+ 7033: NO
+022- a7000: NO
+022+ 
+023- 
+023+ Warning: file(@DATADIR@/Validate_AU/AU_postcodes.txt): failed to open stream: No such file or directory in C:\work\Validate\Validate\AU.php on line 61
+024- Test abn
+024+ 
+025- 28 043 145 470: YES
+025+ Warning: array_map(): Argument #2 should be an array in C:\work\Validate\Validate\AU.php on line 61
+026- 65 497 794 289: YES
+026+ 
+027- 46 527 394 509: YES
+027+ Warning: in_array(): Wrong datatype for second argument in C:\work\Validate\Validate\AU.php on line 64
+028- 99 070 045 359: YES
+028+ 7000: NO
+029- 98 860 905 153: YES
+029+ 
+030- 53 106 288 699: YES
+030+ Warning: file(@DATADIR@/Validate_AU/AU_postcodes.txt): failed to open stream: No such file or directory in C:\work\Validate\Validate\AU.php on line 61
+031- 51 008 129 511: YES
+031+ 
+032- 43 500 713 236: YES
+032+ Warning: array_map(): Argument #2 should be an array in C:\work\Validate\Validate\AU.php on line 61
+033- 72 342 387 170: YES
+033+ 
+034- 21 188 299 895: YES
+034+ Warning: in_array(): Wrong datatype for second argument in C:\work\Validate\Validate\AU.php on line 64
+035- 55 914 901 347: YES
+035+ 4664: NO
+036- 92 638 328 368: YES
+036+ 
+037+ Warning: file(@DATADIR@/Validate_AU/AU_postcodes.txt): failed to open stream: No such file or directory in C:\work\Validate\Validate\AU.php on line 61
+038+ 
+039+ Warning: array_map(): Argument #2 should be an array in C:\work\Validate\Validate\AU.php on line 61
+040+ 
+041+ Warning: in_array(): Wrong datatype for second argument in C:\work\Validate\Validate\AU.php on line 64
+042+ 2491: NO
+043+ 
+044+ Warning: file(@DATADIR@/Validate_AU/AU_postcodes.txt): failed to open stream: No such file or directory in C:\work\Validate\Validate\AU.php on line 61
+045+ 
+046+ Warning: array_map(): Argument #2 should be an array in C:\work\Validate\Validate\AU.php on line 61
+047+ 
+048+ Warning: in_array(): Wrong datatype for second argument in C:\work\Validate\Validate\AU.php on line 64
+049+ 1000: NO
+050+ 
+051+ Warning: file(@DATADIR@/Validate_AU/AU_postcodes.txt): failed to open stream: No such file or directory in C:\work\Validate\Validate\AU.php on line 61
+052+ 
+053+ Warning: array_map(): Argument #2 should be an array in C:\work\Validate\Validate\AU.php on line 61
+054+ 
+055+ Warning: in_array(): Wrong datatype for second argument in C:\work\Validate\Validate\AU.php on line 64
+056+ 9999: NO
+057+ 
+058+ Warning: file(@DATADIR@/Validate_AU/AU_postcodes.txt): failed to open stream: No such file or directory in C:\work\Validate\Validate\AU.php on line 61
+059+ 
+060+ Warning: array_map(): Argument #2 should be an array in C:\work\Validate\Validate\AU.php on line 61
+061+ 
+062+ Warning: in_array(): Wrong datatype for second argument in C:\work\Validate\Validate\AU.php on line 64
+063+ abc: NO
+064+ 
+065+ Warning: file(@DATADIR@/Validate_AU/AU_postcodes.txt): failed to open stream: No such file or directory in C:\work\Validate\Validate\AU.php on line 61
+066+ 
+067+ Warning: array_map(): Argument #2 should be an array in C:\work\Validate\Validate\AU.php on line 61
+068+ 
+069+ Warning: in_array(): Wrong datatype for second argument in C:\work\Validate\Validate\AU.php on line 64
+070+ a7000: NO
+071+ 
+072+ Test abn
+073+ 28 043 145 470: NO
+074+ 65 497 794 289: NO
+075+ 46 527 394 509: NO
+076+ 99 070 045 359: NO
+077+ 98 860 905 153: NO
+078+ 53 106 288 699: NO
+079+ 51 008 129 511: NO
+080+ 43 500 713 236: NO
+081+ 72 342 387 170: NO
+082+ 21 188 299 895: NO
+083+ 55 914 901 347: NO
+084+ 92 638 328 368: NO
+085+ 
+086+ Test acn
+087+ 39 585 372 949: NO

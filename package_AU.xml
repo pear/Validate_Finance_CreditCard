@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<package version="1.0">
+  <name>Validate_AU</name>
+  <summary>Validation class for AU</summary>
+  <description>
+Package containes locale validation for AU such as:
+ * Phone Number
+ * Postal Code
+ * Tax File Number
+ * Australian Business Number
+ * Australian Company Number
+  </description>
+  <license>PHP</license>
+  <maintainers>
+    <maintainer>
+      <user>doconnor</user>
+      <role>lead</role>
+      <name>Daniel O'Connor</name>
+      <email>daniel.oconnor@gmail.com</email>
+    </maintainer>
+   </maintainers>
+  <release>
+
+    <version>0.1.1</version>
+    <state>alpha</state>
+    <date>2005-10-05</date>
+    <notes>Minor CS corrections, added Tax File Number validation. Fixed ACN validation.</notes>
+    <filelist>
+    <dir name="/">
+      <dir name="Validate">
+        <file role="php" name="AU.php">
+          <replace type="pear-config" from="@DATADIR@" to="data_dir" />
+        </file>
+      </dir>
+      <dir name="tests" role="test">
+        <file>validate_AU.phpt</file>
+      </dir>
+      <file role="data" name="data/AU_postcodes.txt" install-as="AU_postcodes.txt" />
+    </dir>
+    </filelist>
+    <deps>
+      <dep type="php" rel="ge" version="4.2.0" />
+    </deps>
+  </release>
+  <changelog>
+  </changelog>
+</package>
