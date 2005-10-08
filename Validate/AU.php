@@ -69,7 +69,7 @@ class Validate_AU
             static $postcodes;
     
             if (!isset($postcodes)) {
-                $file = $_ENV['PHP_PEAR_DATA_DIR'].'/Validate_AU/AU_postcodes.txt';
+                $file = '@DATADIR@/Validate_AU/AU_postcodes.txt';
                 $postcodes = array_map('trim', file($file));
             }
     
