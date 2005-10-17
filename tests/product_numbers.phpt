@@ -1,5 +1,5 @@
 --TEST--
-product_numbers.phpt: Unit tests for 
+product_numbers.phpt: Unit tests for
 --FILE--
 <?php
 // $Id$
@@ -16,67 +16,99 @@ $ucc12s = array(
         '614141210221'); // NOK
 
 $ean8s = array(
-        '43210121', // OK
-        '43210128'); // NOK
+    '43210121', // OK
+    '43210128', // NOK
+);
 
 $ean13s = array(
-        '1014541210223', // OK
-        '1014541210228'); // NOK
+    '1014541210223', // OK
+    '1014541210228', // NOK
+);
 
 $ean14s = array(
-        '91014541210226', // OK
-        '91014541210221'); // NOK
+    '91014541210226', // OK
+    '91014541210221', // NOK
+);
 
 $ssccs = array(
-        '106141411928374657', // OK
-        '106141411928374651'); // NOK
+    '106141411928374657', // OK
+    '106141411928374651', // NOK
+);
 
 $issns = array(
-        '0366-3590', // OK
-        '03663590', // OK
-        '0004-6620', // OK
-        '0394-6320', // OK
-        '0395-7500', // OK
-        '8675-4548', // OK
-        '4342-7677', // OK
-        '4545-6569', // OK
-        '3434-6872', // OK
-        
-        '9685-5656', // NOK
-        '8768-4564', // NOK
-        '4564-7786', // NOK
-        '2317-8472', // NOK
-        '8675-4543', // NOK
-        '4342-7675'); // NOK
+    '0366-3590', // OK
+    '03663590', // OK
+    '0004-6620', // OK
+    '0394-6320', // OK
+    '0395-7500', // OK
+    '8675-4548', // OK
+    '4342-7677', // OK
+    '4545-6569', // OK
+    '3434-6872', // OK
 
-echo "\nTest UCC12\n"; 
+    '9685-5656', // NOK
+    '8768-4564', // NOK
+    '4564-7786', // NOK
+    '2317-8472', // NOK
+    '8675-4543', // NOK
+    '4342-7675', // NOK
+);
+
+$isbn10 = array(
+    '0-06-064831-7', // OK
+    '0-440-34319-4', // OK
+    'ISBN 0-8436-1072-7', // OK
+    'ISBN 0-7357-1410-X', // OK
+    'ISBN 0-312-33177-0', // OK
+    '0-312-33177-0', // OK
+    'ISBN 0-201-63361-2', // OK
+    'ISBN 0-201-63361-3', // NOK
+    '1-873671-00-4', // NOK
+    '1873671003',    // NOK
+    '1-56619-909-2', // NOK
+    '1566199091',    // NOK
+);
+
+$isbn13 = array(
+    '978-1-873671-00-9', // OK
+    '9781873671009',     // OK
+    '978-1-56619-909-4', // OK
+    '9781566199094',     // OK
+);
+
+echo "\nTest UCC12\n";
 foreach ($ucc12s as $ucc12) {
     echo "{$ucc12} : ".$noYes[Validate_ISPN::ucc12($ucc12)]."\n";
 }
 
-echo "\nTest EAN8\n"; 
+echo "\nTest EAN8\n";
 foreach ($ean8s as $ean8) {
     echo "{$ean8} : ".$noYes[Validate_ISPN::ean8($ean8)]."\n";
 }
 
-echo "\nTest EAN13\n"; 
+echo "\nTest EAN13\n";
 foreach ($ean13s as $ean13) {
     echo "{$ean13} : ".$noYes[Validate_ISPN::ean13($ean13)]."\n";
 }
 
-echo "\nTest EAN14\n"; 
+echo "\nTest EAN14\n";
 foreach ($ean14s as $ean14) {
     echo "{$ean14} : ".$noYes[Validate_ISPN::ean14($ean14)]."\n";
 }
 
-echo "\nTest SSCC\n"; 
+echo "\nTest SSCC\n";
 foreach ($ssccs as $sscc) {
     echo "{$sscc} : ".$noYes[Validate_ISPN::sscc($sscc)]."\n";
 }
 
-echo "\nTest ISSN\n"; 
+echo "\nTest ISSN\n";
 foreach ($issns as $issn) {
     echo "{$issn} : ".$noYes[Validate_ISPN::issn($issn)]."\n";
+}
+
+echo "\nTest ISBN10\n";
+foreach ($isbn10 as $isbn) {
+    echo "{$isbn} : ".$noYes[Validate_ISPN::isbn10($isbn)]."\n";
 }
 ?>
 --EXPECT--
@@ -119,3 +151,17 @@ Test ISSN
 2317-8472 : NO
 8675-4543 : NO
 4342-7675 : NO
+
+Test ISBN10
+0-06-064831-7 : YES
+0-440-34319-4 : YES
+ISBN 0-8436-1072-7 : YES
+ISBN 0-7357-1410-X : YES
+ISBN 0-312-33177-0 : YES
+0-312-33177-0 : YES
+ISBN 0-201-63361-2 : YES
+ISBN 0-201-63361-3 : NO
+1-873671-00-4 : NO
+1873671003 : NO
+1-56619-909-2 : NO
+1566199091 : NO
