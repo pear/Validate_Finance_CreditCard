@@ -23,11 +23,6 @@
  */
 
 /**
-* Requires base class Validate
-*/
-require_once 'Validate.php';
-
-/**
  * Data validation class for International Standard Product Numbers (ISPN)
  *
  * This class provides methods to validate:
@@ -51,10 +46,32 @@ require_once 'Validate.php';
  */
 class Validate_ISPN
 {
+    function isbn($isbn)
+    {
+
+    }
+
     /**
-     * Validate a ISBN number
-     * The ISBN is a unique machine-readable identification number, 
-     * which marks any book unmistakably. 
+     * Validate a ISBN 13 number
+     * The ISBN is a unique machine-readable identification number,
+     * which marks any book unmistakably.
+     *
+     * This function checks given number according
+     *
+     * @param  string  $isbn number (only numeric chars will be considered)
+     * @return bool    true if number is valid, otherwise false
+     * @access public
+     * @author Helgi Þormar <dufuz@php.net>
+     */
+    function isbn13($isbn)
+    {
+
+    }
+
+    /**
+     * Validate a ISBN 10 number
+     * The ISBN is a unique machine-readable identification number,
+     * which marks any book unmistakably.
      *
      * This function checks given number according
      *
@@ -62,41 +79,29 @@ class Validate_ISPN
      * @return bool    true if number is valid, otherwise false
      * @access public
      * @author Damien Seguy <dams@nexen.net>
+     * @author Helgi Þormar <dufuz@php.net>
      */
-    function isbn($isbn)
+    function isbn10($isbn)
     {
+        static  $weights_isbn = array(10,9,8,7,6,5,4,3,2);
+
         if (preg_match("/[^0-9 IXSBN-]/", $isbn)) {
             return false;
         }
 
-        if (!ereg("^ISBN", $isbn)){
-            return false;
-        }
-
-        $isbn = ereg_replace('-', '', $isbn);
-        $isbn = ereg_replace(' ', '', $isbn);
-        $isbn = eregi_replace('ISBN', '', $isbn);
+        $isbn = strtoupper($isbn);
+        $isbn = str_replace(array('ISBN', '-', ' ', "\t", "\n"), '', $isbn);
         if (strlen($isbn) != 10) {
             return false;
         }
-        if (preg_match("/[^0-9]{9}[^0-9X]/", $isbn)){
+
+        if (preg_match("/[^0-9]{9}[^0-9X]/", $isbn)) {
             return false;
         }
 
-        $t = 0;
-        for ($i = 0; $i < strlen($isbn) - 1; $i++){
-            $t += $isbn[$i]*(10-$i);
-        }
-        $f = $isbn[9];
-        if ($f == 'X') {
-            $t += 10;
-        } else {
-            $t += $f;
-        }
-        if ($t % 11) {
-            return false;
-        }
-        return true;
+        // Requires base class Validate
+        require_once 'Validate.php';
+        return Validate::_checkControlNumber($isbn, $weights_isbn, 11, 11);
     }
 
 
@@ -117,15 +122,16 @@ class Validate_ISPN
         static $weights_issn = array(8,7,6,5,4,3,2);
 
         $issn = strtoupper($issn);
-        $issn = eregi_replace('ISSN', '', $issn);
-        $issn = str_replace(array('-', '/', ' ', "\t", "\n"), '', $issn);
-        $issn_num = eregi_replace('X', '0', $issn);
+        $issn = str_replace(array('ISSN', '-', '/', ' ', "\t", "\n"), '', $issn);
+        $issn_num = str_replace('X', '0', $issn);
 
         // check if this is an 8-digit number
         if (!is_numeric($issn_num) || strlen($issn) != 8) {
             return false;
         }
 
+        // Requires base class Validate
+        require_once 'Validate.php';
         return Validate::_checkControlNumber($issn, $weights_issn, 11, 11);
     }
 
@@ -147,15 +153,18 @@ class Validate_ISPN
     {
         static $weights_ismn = array(3,1,3,1,3,1,3,1,3);
 
-        $ismn = eregi_replace('ISMN', '', $ismn);
-        $ismn = eregi_replace('M', '3', $ismn); // change first M to 3
-        $ismn = str_replace(array('-', '/', ' ', "\t", "\n"), '', $ismn);
+        $ismn = strtoupper($ismn);
+        $ismn = str_replace(array('ISMN', '-', '/', ' ', "\t", "\n"), '', $ismn);
+        ///FIXME probably wrong, this catches them all, have to check
+        $ismn = str_replace('M', '3', $ismn); // change first M to 3
 
         // check if this is a 10-digit number
         if (!is_numeric($ismn) || strlen($ismn) != 10) {
             return false;
         }
 
+        // Requires base class Validate
+        require_once 'Validate.php';
         return Validate::_checkControlNumber($ismn, $weights_ismn, 10, 10);
     }
 
@@ -263,7 +272,7 @@ class Validate_ISPN
     /**
      * Does all the work for EAN8, EAN13, EAN14, UCC12 and SSCC
      * and can be used for as base for similar kind of calculations
-     * 
+     *
      * @param int $data number (only numeric chars will be considered)
      * @param int $lenght required length of number string
      * @param int $modulo (optionsl) number
@@ -272,7 +281,7 @@ class Validate_ISPN
      * @return bool    true if number is valid, otherwise false
      * @access public
      * @see Validate::_checkControlNumber()
-     */     
+     */
     function process($data, $length, &$weights, $modulo = 10, $subtract = 0)
     {
         //$weights = array(3,1,3,1,3,1,3,1,3,1,3,1,3,1,3,1,3);
@@ -280,11 +289,13 @@ class Validate_ISPN
 
         $data = str_replace(array('-', '/', ' ', "\t", "\n"), '', $data);
 
-        // check if this is a 18-digit number
+        // check if this is a digit number and is the right length
         if (!is_numeric($data) || strlen($data) != $length) {
             return false;
         }
 
+        // Requires base class Validate
+        require_once 'Validate.php';
         return Validate::_checkControlNumber($data, $weights, $modulo, $subtract);
     }
 }
