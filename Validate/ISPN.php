@@ -16,6 +16,7 @@
  * @package    Validate_ISPN
  * @author     Piotr Klaban <makler@man.torun.pl>
  * @author     Damien Seguy <dams@nexen.net>
+ * @author     Helgi Þormar Þorbjörnsson <dufuz@php.net>
  * @copyright  2005 The PHP Group
  * @license    http://www.php.net/license/3_0.txt  PHP License 3.0
  * @version    CVS: $Id$
@@ -39,6 +40,7 @@
  * @package    Validate_ISPN
  * @author     Piotr Klaban <makler@man.torun.pl>
  * @author     Damien Seguy <dams@nexen.net>
+ * @author     Helgi Þormar Þorbjörnsson <dufuz@php.net>
  * @copyright  2005 The PHP Group
  * @license    http://www.php.net/license/3_0.txt  PHP License 3.0
  * @version    Release: @package_version@
@@ -58,6 +60,8 @@ class Validate_ISPN
      *
      * This function checks given number according
      *
+     * Manual can be found at http://www.isbn-international.org
+     *
      * @param  string  $isbn number (only numeric chars will be considered)
      * @return bool    true if number is valid, otherwise false
      * @access public
@@ -74,6 +78,8 @@ class Validate_ISPN
      * which marks any book unmistakably.
      *
      * This function checks given number according
+     *
+     * Manual can be found at http://www.isbn-international.org
      *
      * @param  string  $isbn number (only numeric chars will be considered)
      * @return bool    true if number is valid, otherwise false
@@ -141,7 +147,9 @@ class Validate_ISPN
      * This function checks given ISMN number (ISO Standard 10957)
      * ISMN identifies all printed music publications from all over the world
      * whether available for sale, hire or gratis--whether a part, a score,
-     * or an element in a multi-media kit:
+     * or an element in a multi-media kit.
+     *
+     * Manual can be found at:
      * http://www.ismn-international.org/
      *
      * @param  string  $ismn ISMN number
@@ -155,8 +163,13 @@ class Validate_ISPN
 
         $ismn = strtoupper($ismn);
         $ismn = str_replace(array('ISMN', '-', '/', ' ', "\t", "\n"), '', $ismn);
-        ///FIXME probably wrong, this catches them all, have to check
-        $ismn = str_replace('M', '3', $ismn); // change first M to 3
+        // First char has to be M (after ISMN has been stripped if present)
+        if ($ismn{0} != 'M') {
+            return false;
+        }
+
+        // change M to 3
+        $ismn{0} = 3;
 
         // check if this is a 10-digit number
         if (!is_numeric($ismn) || strlen($ismn) != 10) {
