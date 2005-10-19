@@ -76,6 +76,12 @@ $isbn13 = array(
     '9781566199094',     // OK
 );
 
+$ismns = array(
+    'M-345-24680-5', // OK
+    '2-345-24680-5', // NOK
+    'M-345-24680-4', // NOK
+);
+
 echo "\nTest UCC12\n";
 foreach ($ucc12s as $ucc12) {
     echo "{$ucc12} : ".$noYes[Validate_ISPN::ucc12($ucc12)]."\n";
@@ -109,6 +115,11 @@ foreach ($issns as $issn) {
 echo "\nTest ISBN10\n";
 foreach ($isbn10 as $isbn) {
     echo "{$isbn} : ".$noYes[Validate_ISPN::isbn10($isbn)]."\n";
+}
+
+echo "\nTest ISMN\n";
+foreach ($ismns as $ismn) {
+    echo "{$ismn} : ".$noYes[Validate_ISPN::ismn($ismn)]."\n";
 }
 ?>
 --EXPECT--
@@ -165,3 +176,8 @@ ISBN 0-201-63361-3 : NO
 1873671003 : NO
 1-56619-909-2 : NO
 1566199091 : NO
+
+Test ISMN
+M-345-24680-5 : YES
+2-345-24680-5 : NO
+M-345-24680-4 : NO
