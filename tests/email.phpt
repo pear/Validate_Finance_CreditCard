@@ -67,7 +67,17 @@ $emails = array(
         '<hablahha>@example.com', // NOK
         '"<ha la la>blah</ha>"@example.com', // NOK
         '" "@example.com', // NOK
-        '@example.com' // NOK
+        '@example.com', // NOK
+
+        // Minus ' tests (#5804)
+        'minus@example-minus.com', // OK
+        'minus@example.co-m', // OK
+        'mi-nus@example-minus.co-m', // OK
+        'minus@example-.com', // NOK
+        'minus@-example.com', // NOK
+        'minus@-.com', // NOK
+        'minus@example.-com', // NOK
+        'minus@-example.com-' // NOK
     );
 
 foreach ($emails as $email) {
@@ -115,6 +125,14 @@ mark@example.com@home: NO
 ha"ho@example.com: NO
 <ha la la>blah</ha>@example.com: NO
 <hablahha>@example.com: NO
-"<ha la la>blah</ha>"@example.com: YES
-" "@example.com: YES
+"<ha la la>blah</ha>"@example.com: NO
+" "@example.com: NO
 @example.com: NO
+minus@example-minus.com: YES
+minus@example.co-m: YES
+mi-nus@example-minus.co-m: YES
+minus@example-.com: NO
+minus@-example.com: NO
+minus@-.com: NO
+minus@example.-com: NO
+minus@-example.com-: NO
