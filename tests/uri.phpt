@@ -19,6 +19,14 @@ $uris = array(
         'http://user:password@127.0.0.1:8080/pub/ietf/uri;rfc2396?test=ok&end=next#Related' , // OK
         '127.0.0.1', // NOK
         '/tkik-wkik_rss.php?ver=2http://www.hyperlecture.info//http://www.hyperlecture.info/accueil', // NOK
+        // minus serie
+        'example-minus.com', // OK
+        'example.co-m', // OK
+        'example-.com', // NOK
+        '-example.com', // NOK
+        '-.com', // NOK
+        'example.-com', // NOK
+        '-example.com-', // NOK
         // Try dns lookup
         array('//example.org', 'domain_check' => true), // OK
         array('//example.gor', 'domain_check' => true), // NOK
@@ -59,6 +67,13 @@ http://user:password@www.ics.uci.edu:8080/pub/ietf/uri;rfc2396?test=ok&end=next#
 http://user:password@127.0.0.1:8080/pub/ietf/uri;rfc2396?test=ok&end=next#Related: YES
 127.0.0.1: NO
 /tkik-wkik_rss.php?ver=2http://www.hyperlecture.info//http://www.hyperlecture.info/accueil: NO
+example-minus.com: NO
+example.co-m: NO
+example-.com: NO
+-example.com: NO
+-.com: NO
+example.-com: NO
+-example.com-: NO
 //example.org: schemes() with domain check : YES
 //example.gor: schemes() with domain check : NO
 //example.org: schemes(ftp,http) without domain check : NO
