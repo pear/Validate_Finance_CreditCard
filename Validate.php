@@ -115,7 +115,7 @@ class Validate
      * Validate a email
      *
      * @param string    $email          URL to validate
-     * @param boolean   $domain_check   Check or not if the domain exists
+     * @param boolean   $check_domain   Check or not if the domain exists
      *
      * @return boolean true if valid email, false if not
      *
@@ -123,16 +123,15 @@ class Validate
      */
     function email($email, $check_domain = false)
     {
-        // "Borrowed" from PEAR::HTML_QuickForm
-        $regex = '/^((\"[^\"\f\n\r\t\v\b]+\")|([\w\!\#\$\%\&\'\*\+\-\~\/\^\`\|\{\}]+'.
-                 '(\.[\w\!\#\$\%\&\'\*\+\-\~\/\^\`\|\{\}]+)*))@((\[(((25[0-5])|'.
-                 '(2[0-4][0-9])|([0-1]?[0-9]?[0-9]))\.((25[0-5])|(2[0-4][0-9])|'.
-                 '([0-1]?[0-9]?[0-9]))\.((25[0-5])|(2[0-4][0-9])|([0-1]?[0-9]?[0-9]))'.
-                 '\.((25[0-5])|(2[0-4][0-9])|([0-1]?[0-9]?[0-9])))\])|(((25[0-5])|'.
-                 '(2[0-4][0-9])|([0-1]?[0-9]?[0-9]))\.((25[0-5])|(2[0-4][0-9])|'.
-                 '([0-1]?[0-9]?[0-9]))\.((25[0-5])|(2[0-4][0-9])|([0-1]?[0-9]?[0-9]))'.
-                 '\.((25[0-5])|(2[0-4][0-9])|([0-1]?[0-9]?[0-9])))|'.
-                 '((([A-Za-z0-9\-])+\.)+[A-Za-z\-]+))$/';
+        // partially "Borrowed" from PEAR::HTML_QuickForm and refactored
+        $regex = '£^(?:                                             # recipient:
+         ("\s*(?:[^"\f\n\r\t\v\b\s]+\s*)+")|                        #1 quoted name
+         ([-\w!\#\$%&\'*+~/^`|{}]+(?:\.[-\w!\#\$%&\'*+~/^`|{}]+)*)) #2 OR dot-atom
+         @(((\[)?                     #3 domain, 4 as IPv4, 5 optionally bracketed
+         (?:(?:(?:(?:25[0-5])|(?:2[0-4][0-9])|(?:[0-1]?[0-9]?[0-9]))\.){3}
+               (?:(?:25[0-5])|(?:2[0-4][0-9])|(?:[0-1]?[0-9]?[0-9]))))(?(5)\])|
+         ((?:[a-z0-9](?:[-a-z0-9]*[a-z0-9])?\.)*[a-z](?:[-a-z0-9]*[a-z0-9])?))  #6 domain as hostname
+         $£xi';
         if (preg_match($regex, $email)) {
             if ($check_domain && function_exists('checkdnsrr')) {
                 list (, $domain)  = explode('@', $email);
