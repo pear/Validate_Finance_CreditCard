@@ -124,14 +124,14 @@ class Validate
     function email($email, $check_domain = false)
     {
         // partially "Borrowed" from PEAR::HTML_QuickForm and refactored
-        $regex = '£^(?:                                             # recipient:
-         ("\s*(?:[^"\f\n\r\t\v\b\s]+\s*)+")|                        #1 quoted name
-         ([-\w!\#\$%&\'*+~/^`|{}]+(?:\.[-\w!\#\$%&\'*+~/^`|{}]+)*)) #2 OR dot-atom
+        $regex = '&^(?:                                               # recipient:
+         ("\s*(?:[^"\f\n\r\t\v\b\s]+\s*)+")|                          #1 quoted name
+         ([-\w!\#\$%\&\'*+~/^`|{}]+(?:\.[-\w!\#\$%\&\'*+~/^`|{}]+)*)) #2 OR dot-atom
          @(((\[)?                     #3 domain, 4 as IPv4, 5 optionally bracketed
          (?:(?:(?:(?:25[0-5])|(?:2[0-4][0-9])|(?:[0-1]?[0-9]?[0-9]))\.){3}
                (?:(?:25[0-5])|(?:2[0-4][0-9])|(?:[0-1]?[0-9]?[0-9]))))(?(5)\])|
          ((?:[a-z0-9](?:[-a-z0-9]*[a-z0-9])?\.)*[a-z](?:[-a-z0-9]*[a-z0-9])?))  #6 domain as hostname
-         $£xi';
+         $&xi';
         if (preg_match($regex, $email)) {
             if ($check_domain && function_exists('checkdnsrr')) {
                 list (, $domain)  = explode('@', $email);
@@ -210,16 +210,16 @@ class Validate
             extract($options);
         }
         if (preg_match(
-             '£^(?:([a-z][-+.a-z0-9]*):)?                             # 1. scheme
+             '&^(?:([a-z][-+.a-z0-9]*):)?                             # 1. scheme
               (?://                                                   # authority start
-              (?:((?:%[0-9a-f]{2}|[-a-z0-9_.!~*\'();:&=+$,])*)@)?     # 2. authority-userinfo
+              (?:((?:%[0-9a-f]{2}|[-a-z0-9_.!~*\'();:\&=+$,])*)@)?    # 2. authority-userinfo
               (?:((?:[a-z0-9](?:[-a-z0-9]*[a-z0-9])?\.)*[a-z](?:[-a-z0-9]*[a-z0-9])?\.?)  # 3. authority-hostname OR
               |([0-9]{1,3}(?:\.[0-9]{1,3}){3}))                       # 4. authority-ipv4
               (?::([0-9]*))?)?                                        # 5. authority-port
-              ((?:/(?:%[0-9a-f]{2}|[-a-z0-9_.!~*\'():@&=+$,;])+)+/?)? # 6. path
+              ((?:/(?:%[0-9a-f]{2}|[-a-z0-9_.!~*\'():@\&=+$,;])+)+/?)? # 6. path
               (?:\?([^#]*))?                                          # 7. query
-              (?:\#((?:%[0-9a-f]{2}|[-a-z0-9_.!~*\'();/?:@&=+$,])*))? # 8. fragment
-              $£xi', $url, $matches)) {
+              (?:\#((?:%[0-9a-f]{2}|[-a-z0-9_.!~*\'();/?:@\&=+$,])*))? # 8. fragment
+              $&xi', $url, $matches)) {
             $scheme = isset($matches[1]) ? $matches[1] : '';
             $authority = isset($matches[3]) ? $matches[3] : '' ;
             if (is_array($allowed_schemes) &&
