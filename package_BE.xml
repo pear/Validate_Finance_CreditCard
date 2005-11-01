@@ -38,6 +38,7 @@ Package containes locale validation for Belgium such as:
   </notes>
   <filelist>
    <dir name="/">
+    <file role="doc" name="LICENCE" />
     <dir name="Validate">
      <file role="php" name="BE.php">
       <replace type="pear-config" from="@DATADIR@" to="data_dir" />

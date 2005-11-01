@@ -5,7 +5,7 @@
   <description>
    Package to validate Credit Card numbers and types.
   </description>
-  <license>PHP</license>
+  <license>New BSD</license>
   <maintainers>
     <maintainer>
       <user>jausions</user>
@@ -30,6 +30,7 @@
     </notes>
     <filelist>
     <dir name="/">
+      <file role="doc" name="LICENCE" />
       <dir name="Validate">
        <dir name="Finance">
         <file role="php">CreditCard.php</file>

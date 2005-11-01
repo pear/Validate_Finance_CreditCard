@@ -6,7 +6,7 @@
 Package to validate Finance data. It includes :
  * IBAN
   </description>
-  <license>PHP</license>
+  <license>New BSD</license>
   <maintainers>
     <maintainer>
       <user>neufeind</user>
@@ -22,17 +22,16 @@ Package to validate Finance data. It includes :
     </maintainer>
    </maintainers>
   <release>
-
-    <version>0.5.0</version>
+    <version>0.5.1</version>
     <state>alpha</state>
-    <date>2005-05-20</date>
+    <date>2005-10-01</date>
     <notes>
-- Split from Validate into independent package
-- removed apiVersion function from IBAN
-- make it depends on Validate >= 0.5.0
+- Switch to the new BSD License
+(see http://www.opensource.org/licenses/bsd-license.php)
     </notes>
     <filelist>
     <dir name="/">
+      <file role="doc" name="LICENCE" />
       <dir name="Validate">
         <file role="php">Finance.php</file>
         <dir name="Finance">
@@ -50,5 +49,15 @@ Package to validate Finance data. It includes :
     </deps>
   </release>
   <changelog>
+  <release>
+    <version>0.5.0</version>
+    <state>alpha</state>
+    <date>2005-05-20</date>
+    <notes>
+- Split from Validate into independent package
+- removed apiVersion function from IBAN
+- make it depends on Validate >= 0.5.0
+    </notes>
+    </release>
   </changelog>
 </package>

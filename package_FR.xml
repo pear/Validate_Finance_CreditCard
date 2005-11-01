@@ -11,7 +11,7 @@ Package containes locale validation for FR such as:
  * SIRET
  * Region (Departements)
   </description>
-  <license>PHP</license>
+  <license>New BSD</license>
   <maintainers>
     <maintainer>
       <user>pajoye</user>
@@ -27,21 +27,16 @@ Package containes locale validation for FR such as:
     </maintainer>
    </maintainers>
   <release>
-
-    <version>0.5.0</version>
+    <version>0.5.1</version>
     <state>alpha</state>
-    <date>2005-05-20</date>
+    <date>2005-10-01</date>
     <notes>
-- Split from Validate into independent package
-- CS fixes
-- BC break!
-postalCode unified between countries (name wise), now all postcode validation funcs are named postalCode
-- added region() (departments) and postalCode
-- fixed rib calculation
-- bertrand Gugger added as lead/maintainer
+- Switch to the new BSD License
+(see http://www.opensource.org/licenses/bsd-license.php)
     </notes>
     <filelist>
     <dir name="/">
+      <file role="doc" name="LICENCE" />
       <dir name="Validate">
         <file role="php">FR.php</file>
       </dir>
@@ -56,5 +51,19 @@ postalCode unified between countries (name wise), now all postcode validation fu
     </deps>
   </release>
   <changelog>
+  <release>
+    <version>0.5.0</version>
+    <state>alpha</state>
+    <date>2005-05-20</date>
+    <notes>
+- Split from Validate into independent package
+- CS fixes
+- BC break!
+postalCode unified between countries (name wise), now all postcode validation funcs are named postalCode
+- added region() (departments) and postalCode
+- fixed rib calculation
+- bertrand Gugger added as lead/maintainer
+    </notes>
+    </release>
   </changelog>
 </package>

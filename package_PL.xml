@@ -9,7 +9,7 @@ Package containes locale validation for PL such as:
  * PESEL
  * REGON
   </description>
-  <license>PHP</license>
+  <license>New BSD</license>
   <maintainers>
     <maintainer>
       <user>makler</user>
@@ -25,17 +25,16 @@ Package containes locale validation for PL such as:
     </maintainer>
    </maintainers>
   <release>
-
-    <version>0.5.0</version>
+    <version>0.5.1</version>
     <state>alpha</state>
-    <date>2005-05-20</date>
+    <date>2005-10-01</date>
     <notes>
-- Split from Validate into independent package
-- CS fixes
-- renamed bank_branch to bankBranch
+- Switch to the new BSD License
+(see http://www.opensource.org/licenses/bsd-license.php)
     </notes>
     <filelist>
     <dir name="/">
+      <file role="doc" name="LICENCE" />
       <dir name="Validate">
         <file role="php">PL.php</file>
       </dir>
@@ -47,5 +46,14 @@ Package containes locale validation for PL such as:
     </deps>
   </release>
   <changelog>
+  <release>
+    <version>0.5.0</version>
+    <state>alpha</state>
+    <date>2005-05-20</date>
+    <notes>
+- Split from Validate into independent package
+- CS fixes
+- renamed bank_branch to bankBranch
+    </notes>
   </changelog>
 </package>

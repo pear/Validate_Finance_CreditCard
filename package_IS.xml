@@ -24,14 +24,16 @@ Package containes locale validation for IS (Iceland) such as:
     </maintainer>
    </maintainers>
   <release>
-    <version>0.1.0</version>
+    <version>0.1.1</version>
     <state>alpha</state>
     <date>2005-10-01</date>
     <notes>
-Initial release
+- Switch to the new BSD License
+(see http://www.opensource.org/licenses/bsd-license.php)
     </notes>
     <filelist>
     <dir name="/">
+      <file role="doc" name="LICENCE" />
       <dir name="Validate">
         <file role="php" name="IS.php">
           <replace type="pear-config" from="@DATADIR@" to="data_dir" />
@@ -48,5 +50,13 @@ Initial release
     </deps>
   </release>
   <changelog>
+  <release>
+    <version>0.1.0</version>
+    <state>alpha</state>
+    <date>2005-10-01</date>
+    <notes>
+Initial release
+    </notes>
+  </release>
   </changelog>
 </package>

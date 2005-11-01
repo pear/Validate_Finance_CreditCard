@@ -28,6 +28,7 @@ Package containes locale validation for Denmark such as:
   </notes>
   <filelist>
    <dir name="/">
+    <file role="doc" name="LICENCE" />
     <dir name="Validate">
      <file role="php" name="DK.php"></file>
     </dir>

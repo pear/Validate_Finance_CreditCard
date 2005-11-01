@@ -30,6 +30,7 @@ Package containes locale validation for AU such as:
     <filelist>
     <dir name="/">
       <dir name="Validate">
+        <file role="doc" name="LICENCE" />
         <file role="php" name="AU.php">
           <replace type="pear-config" from="@DATADIR@" to="data_dir" />
         </file>

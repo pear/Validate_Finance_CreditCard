@@ -13,7 +13,7 @@ Package containes ISPN (International Standard Product Numbers) validations such
  * UCC12
  * SSCC
   </description>
-  <license>PHP</license>
+  <license>New BSD</license>
   <maintainers>
     <maintainer>
       <user>dufuz</user>
@@ -23,17 +23,16 @@ Package containes ISPN (International Standard Product Numbers) validations such
     </maintainer>
    </maintainers>
   <release>
-
-    <version>0.5.0</version>
+    <version>0.5.1</version>
     <state>alpha</state>
-    <date>2005-05-20</date>
+    <date>2005-10-01</date>
     <notes>
-- Split from Validate into independent package
-- CS fixes
-- Added product_numbers test (tests for ISSN, EAN8, EAN13, EAN14, UCC12 and SSCC)
+- Switch to the new BSD License
+(see http://www.opensource.org/licenses/bsd-license.php)
     </notes>
     <filelist>
     <dir name="/">
+      <file role="doc" name="LICENCE" />
       <dir name="Validate">
         <file role="php">ISPN.php</file>
       </dir>
@@ -48,5 +47,15 @@ Package containes ISPN (International Standard Product Numbers) validations such
     </deps>
   </release>
   <changelog>
+  <release>
+    <version>0.5.0</version>
+    <state>alpha</state>
+    <date>2005-05-20</date>
+    <notes>
+- Split from Validate into independent package
+- CS fixes
+- Added product_numbers test (tests for ISSN, EAN8, EAN13, EAN14, UCC12 and SSCC)
+    </notes>
+    </release>
   </changelog>
 </package>

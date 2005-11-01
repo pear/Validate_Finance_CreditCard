@@ -32,6 +32,7 @@ Package containes locale validation for DE such as:
     </notes>
     <filelist>
     <dir name="/">
+      <file role="doc" name="LICENCE" />
       <dir name="Validate">
         <file role="php">DE.php</file>
       </dir>

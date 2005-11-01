@@ -9,7 +9,7 @@ Package containes locale validation for US such as:
  * Regions (States)
  * Phone Numbers
   </description>
-  <license>PHP</license>
+  <license>new BSD</license>
   <maintainers>
     <maintainer>
       <user>busterb</user>
@@ -37,7 +37,30 @@ Package containes locale validation for US such as:
     </maintainer>
    </maintainers>
   <release>
-
+    <version>0.5.1</version>
+    <state>beta</state>
+    <date>2005-10-01</date>
+    <notes>
+- Switch to the new BSD License
+(see http://www.opensource.org/licenses/bsd-license.php)
+    </notes>
+    <filelist>
+    <dir name="/">
+      <file role="doc" name="LICENCE" />
+      <dir name="Validate">
+        <file role="php">US.php</file>
+      </dir>
+      <dir name="tests" role="test">
+        <file>validate_US.phpt</file>
+      </dir>
+    </dir>
+    </filelist>
+    <deps>
+      <dep type="php" rel="ge" version="4.2.0" />
+    </deps>
+  </release>
+  <changelog>
+  <release>
     <version>0.5.0</version>
     <state>beta</state>
     <date>2005-05-20</date>
@@ -58,20 +81,6 @@ in a row.
 Note, I'm releasing this because I just realized that I'm the maintainer and it
 hasn't had a release in too long. We really should stabilize it.
     </notes>
-    <filelist>
-    <dir name="/">
-      <dir name="Validate">
-        <file role="php">US.php</file>
-      </dir>
-      <dir name="tests" role="test">
-        <file>validate_US.phpt</file>
-      </dir>
-    </dir>
-    </filelist>
-    <deps>
-      <dep type="php" rel="ge" version="4.2.0" />
-    </deps>
   </release>
-  <changelog>
   </changelog>
 </package>
