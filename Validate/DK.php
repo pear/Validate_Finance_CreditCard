@@ -1,48 +1,48 @@
 <?php
 
 /* vim: set expandtab tabstop=4 shiftwidth=4 softtabstop=4: */
-
+// +----------------------------------------------------------------------+
+// | Copyright (c) 1997-2005 Jesper Veggerby Hansen                       |
+// +----------------------------------------------------------------------+
+// | This source file is subject to the New BSD license, That is bundled  |
+// | with this package in the file LICENSE, and is available through      |
+// | the world-wide-web at                                                |
+// | http://www.opensource.org/licenses/bsd-license.php                   |
+// | If you did not receive a copy of the new BSDlicense and are unable   |
+// | to obtain it through the world-wide-web, please send a note to       |
+// | pajoye@php.net so we can mail you a copy immediately.                |
+// +----------------------------------------------------------------------+
+// | Author:  Jesper Veggerby <pear.nosey@veggerby.dk>                    |
+// +----------------------------------------------------------------------+
+//
 /**
  * Specific validation methods for data used in DK
- * 
- * PHP versions 4 and 5
- *
- * LICENSE: This library is free software; you can redistribute it and/or modify
- * it under the terms of the GNU Lesser General Public License as published by
- * the Free Software Foundation; either version 2.1 of the License, or (at your
- * option) any later version. This library is distributed in the hope that it
- * will be useful, but WITHOUT ANY WARRANTY; without even the implied warranty
- * of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the GNU Lesser
- * General Public License for more details. You should have received a copy of
- * the GNU Lesser General Public License along with this library; if not, write
- * to the Free Software Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA
- * 02111-1307 USA
  *
  * @category   Validate
  * @package    Validate_DK
  * @author     Jesper Veggerby <pear.nosey@veggerby.dk>
- * @copyright  Copyright (C) 2003, 2004 Jesper Veggerby Hansen
- * @license    http://www.php.net/license/3_0.txt  PHP License 3.0
+ * @copyright  Copyright (C) 2003, 2004, 2005 Jesper Veggerby Hansen
+ * @license    http://www.opensource.org/licenses/bsd-license.php  New BSD License
  * @version    CVS: $Id$
  * @link       http://pear.php.net/package/Validate_DK
  */
 
 /**
- * Data validation class for Denmark 
- * 
- * This class provides methods to validate: 
- * 
+ * Data validation class for Denmark
+ *
+ * This class provides methods to validate:
+ *
  * - Postal code
  * - Social Security Number (CPR Nummer)
  * - German bank code
  * - Car registration number
- * 
+ *
  * @category   Validate
  * @package    Validate_DK
  * @author     Jesper Veggerby <pear.nosey@veggerby.dk>
- * @copyright  Copyright (C) 2003, 2004 Jesper Veggerby Hansen
- * @license    http://www.php.net/license/3_0.txt  PHP License 3.0
- * @version    Release: @package_version@ 
+ * @copyright  Copyright (C) 2003, 2004, 2005 Jesper Veggerby Hansen
+ * @license    http://www.opensource.org/licenses/bsd-license.php  New BSD License
+ * @version    Release: @package_version@
  * @link       http://pear.php. net/package/Validate_DK
  */
 class Validate_DK
@@ -67,13 +67,13 @@ class Validate_DK
 
     /**
      * validates a CPR Number (ssn equiv)
-     * 
-     * The danish CPR number is a 8 digit number with the birthdate as 
+     *
+     * The danish CPR number is a 8 digit number with the birthdate as
      * ddmmyy-xxxy where xxxy is a four digit control number.
-     * 
+     *
      * The 10 digits are summarized with coefficients 4, 3, 2, 7, 6, 5, 4, 3, 2
      * and 1. If the sum is divisible by 11 the control is correct.
-     * 
+     *
      * The last digit of the control number (y) is also dependend on gender, if
      * y is odd it's a male cpr number and if even a female.
      *
@@ -85,7 +85,7 @@ class Validate_DK
      */
     function ssn($cpr, $gender = false){
         static $control = array(4, 3, 2, 7, 6, 5, 4, 3, 2, 1);
-                
+
         // remove spaces and uppercase it
         $preg = "/^[0-9]{6}\-?[0-9]{4}$/";
         if (preg_match($preg, $cpr)) {
@@ -96,8 +96,8 @@ class Validate_DK
             }
             $y = substr($cpr, -1);
             switch ($gender) {
-            case 'M': 
-                $genderOK = (($y % 2) == 1); 
+            case 'M':
+                $genderOK = (($y % 2) == 1);
                 break;
             case 'F':
                 $genderOK = (($y % 2) == 0);
@@ -114,7 +114,7 @@ class Validate_DK
 
     /**
      * Validate danish telephone number
-     * 
+     *
      * Simple check: 8 digits when removing (, ), -, +, ., ' '
      *
      * @access    public
@@ -135,7 +135,7 @@ class Validate_DK
      * Validates a car registration number
      *
      * Format: AA XX YYY
-     * 
+     *
      * Where AA are 2 letter UPPERCASE A-Z
      *
      * @access    public
@@ -149,7 +149,7 @@ class Validate_DK
             return true;
         } else {
             return false;
-        }           
+        }
     }
 }
 
