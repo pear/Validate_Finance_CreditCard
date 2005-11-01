@@ -59,6 +59,7 @@
     </notes>
     <filelist>
     <dir name="/">
+      <file role="doc" name="LICENCE" />
       <file role="php">Validate.php</file>
       <dir name="tests" role="test">
         <file>number.phpt</file>
