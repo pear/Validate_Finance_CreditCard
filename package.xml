@@ -46,12 +46,14 @@
   </maintainers>
   <release>
 
-    <version>0.6.1</version>
-    <state>beta</state>
-    <date>2005-09-13</date>
+    <version>0.6.1?</version>
+    <state>beta?</state>
+    <date>2005-09-13?</date>
     <notes>
-- Bug #5390 XML Package Error
-- uri was enchanced to fully comply with RFC2396 (Bertrand) (forgotten in last release changelog)
+- The path in uri cannot contain two slash characters.
+- Refactored email() regexp, hardened hostname check (taken from uri()) (bug #5804)
+- Use & as delimiter as £ is problematic if the script is saved utf8
+- Enhanced uri and email tests
     </notes>
     <filelist>
     <dir name="/">
@@ -75,6 +77,15 @@
     </deps>
   </release>
   <changelog>
+      <release>
+       <version>0.6.1</version>
+       <state>beta</state>
+       <date>2005-09-13</date>
+       <notes>
+       - Bug #5390 XML Package Error
+       - uri was enchanced to fully comply with RFC2396 (Bertrand) (forgotten in last release changelog)
+       </notes>
+      </release>
       <release>
        <version>0.6.0</version>
        <state>beta</state>
