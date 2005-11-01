@@ -9,7 +9,7 @@ Package contains locale validation for Canada such as:
  * Regions (Provinces)
  * Phone Numbers
   </description>
-  <license>PHP</license>
+  <license>New BSD</license>
   <maintainers>
     <maintainer>
       <user>jausions</user>
@@ -25,14 +25,12 @@ Package contains locale validation for Canada such as:
     </maintainer>
    </maintainers>
   <release>
-
-    <version>0.1.1</version>
+    <version>0.1.2</version>
     <state>alpha</state>
-    <date>2005-09-27</date>
+    <date>2005-10-01</date>
     <notes>
-        - No more dependant of Validate/US.php
-        - We now have a strong, quicker phone validator
-        - validate_ca::phone checks for open brackets before accepting closing one.
+- Switch to the new BSD License
+(see http://www.opensource.org/licenses/bsd-license.php)
     </notes>
     <filelist>
     <dir name="/">
@@ -50,5 +48,15 @@ Package contains locale validation for Canada such as:
     </deps>
   </release>
   <changelog>
+  <release>
+    <version>0.1.1</version>
+    <state>alpha</state>
+    <date>2005-09-27</date>
+    <notes>
+        - No more dependant of Validate/US.php
+        - We now have a strong, quicker phone validator
+        - validate_ca::phone checks for open brackets before accepting closing one.
+    </notes>
+  </release>
   </changelog>
 </package>

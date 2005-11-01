@@ -8,7 +8,7 @@ Package containes locale validation for CH such as:
  * Postal Code
  * Student ID
   </description>
-  <license>PHP</license>
+  <license>New BSD</license>
   <maintainers>
     <maintainer>
       <user>pajoye</user>
@@ -24,18 +24,12 @@ Package containes locale validation for CH such as:
     </maintainer>
    </maintainers>
   <release>
-
-    <version>0.5.0</version>
+    <version>0.5.1</version>
     <state>alpha</state>
-    <date>2005-05-20</date>
+    <date>2005-10-01</date>
     <notes>
-We're looking for someone to maintain this package for us!
-Drop us a note or email to pear-dev@lists.php.net if you're interested.
-
-- Split from Validate into independent package
-- CS fixes
-- BC break!
-postalCode unified between countries (name wise), now all postcode validation funcs are named postalCode
+- Switch to the new BSD License
+(see http://www.opensource.org/licenses/bsd-license.php)
     </notes>
     <filelist>
     <dir name="/">
@@ -56,5 +50,19 @@ postalCode unified between countries (name wise), now all postcode validation fu
     </deps>
   </release>
   <changelog>
+  <release>
+    <version>0.5.0</version>
+    <state>alpha</state>
+    <date>2005-05-20</date>
+    <notes>
+We're looking for someone to maintain this package for us!
+Drop us a note or email to pear-dev@lists.php.net if you're interested.
+
+- Split from Validate into independent package
+- CS fixes
+- BC break!
+postalCode unified between countries (name wise), now all postcode validation funcs are named postalCode
+    </notes>
+  </release>
   </changelog>
 </package>

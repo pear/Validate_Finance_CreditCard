@@ -8,7 +8,7 @@ Package containes locale validation for IS (Iceland) such as:
  * Postal Code
  * Telephone
   </description>
-  <license>PHP</license>
+  <license>New BSD</license>
   <maintainers>
     <maintainer>
       <user>bjori</user>
@@ -24,10 +24,9 @@ Package containes locale validation for IS (Iceland) such as:
     </maintainer>
    </maintainers>
   <release>
-
     <version>0.1.0</version>
     <state>alpha</state>
-    <date>2005-?-?</date>
+    <date>2005-10-01</date>
     <notes>
 Initial release
     </notes>

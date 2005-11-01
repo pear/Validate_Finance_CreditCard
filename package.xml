@@ -11,7 +11,7 @@
     - uri (RFC2396)
     - possibility valid multiple data with a single method call (::multiple)
   </description>
-  <license>PHP</license>
+  <license>New BSD</license>
   <maintainers>
     <maintainer>
       <user>cox</user>
@@ -46,13 +46,15 @@
   </maintainers>
   <release>
 
-    <version>0.6.1?</version>
-    <state>beta?</state>
-    <date>2005-09-13?</date>
+    <version>0.6.1</version>
+    <state>beta</state>
+    <date>2005-09-13</date>
     <notes>
+- Change licence to the new BSD License
+  (see http://www.opensource.org/licenses/bsd-license.php)
 - The path in uri cannot contain two slash characters.
 - Refactored email() regexp, hardened hostname check (taken from uri()) (bug #5804)
-- Use & as delimiter as £ is problematic if the script is saved utf8
+- Use &amp; as delimiter as £ is problematic if the script is saved utf8
 - Enhanced uri and email tests
     </notes>
     <filelist>

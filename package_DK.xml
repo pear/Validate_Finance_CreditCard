@@ -9,7 +9,7 @@ Package containes locale validation for Denmark such as:
  * Phone number
  * Car Registration number
  </description>
- <license>PHP</license>
+ <license>New BSD</license>
  <maintainers>
   <maintainer>
     <user>nosey</user>
@@ -19,11 +19,12 @@ Package containes locale validation for Denmark such as:
   </maintainer>
  </maintainers>
  <release>
-  <version>0.1.0</version>
+  <version>0.1.1</version>
   <state>alpha</state>
-  <date>2005-10-05</date>
+  <date>2005-11-01</date>
   <notes>
-   Initial release
+- Switch to the new BSD License
+(see http://www.opensource.org/licenses/bsd-license.php)
   </notes>
   <filelist>
    <dir name="/">
@@ -41,5 +42,13 @@ Package containes locale validation for Denmark such as:
   </deps>
  </release>
  <changelog>
+ <release>
+  <version>0.1.0</version>
+  <state>alpha</state>
+  <date>2005-10-05</date>
+  <notes>
+   Initial release
+  </notes>
+  </release>
  </changelog>
 </package>

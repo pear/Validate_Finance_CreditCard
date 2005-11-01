@@ -10,7 +10,7 @@ Package containes locale validation for AU such as:
  * Australian Business Number
  * Australian Company Number
   </description>
-  <license>PHP</license>
+  <license>New BSD</license>
   <maintainers>
     <maintainer>
       <user>doconnor</user>
@@ -20,11 +20,13 @@ Package containes locale validation for AU such as:
     </maintainer>
    </maintainers>
   <release>
-
-    <version>0.1.1</version>
+    <version>0.1.2</version>
     <state>alpha</state>
     <date>2005-10-05</date>
-    <notes>Minor CS corrections, added Tax File Number validation. Fixed ACN validation.</notes>
+    <notes>
+- Switch to the new BSD License
+(see http://www.opensource.org/licenses/bsd-license.php)
+    </notes>
     <filelist>
     <dir name="/">
       <dir name="Validate">
@@ -43,5 +45,11 @@ Package containes locale validation for AU such as:
     </deps>
   </release>
   <changelog>
+  <release>
+    <version>0.1.1</version>
+    <state>alpha</state>
+    <date>2005-10-05</date>
+    <notes>Minor CS corrections, added Tax File Number validation. Fixed ACN validation.</notes>
+  </release>
   </changelog>
 </package>

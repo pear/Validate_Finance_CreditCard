@@ -21,12 +21,12 @@
     </maintainer>
    </maintainers>
   <release>
-
-    <version>0.5.1</version>
+    <version>0.5.2</version>
     <state>alpha</state>
-    <date>2005-07-20</date>
+    <date>2005-10-01</date>
     <notes>
-- Added support for Eurocard/Mastercard. Can be referenced by "EuroCard" or "EuroCard/MasterCard" (case-insensitive)
+- Switch to the new BSD License
+(see http://www.opensource.org/licenses/bsd-license.php)
     </notes>
     <filelist>
     <dir name="/">

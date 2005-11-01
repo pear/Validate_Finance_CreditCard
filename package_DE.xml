@@ -7,7 +7,7 @@ Package containes locale validation for DE such as:
  * Postal Code
  * Bank Code
   </description>
-  <license>PHP</license>
+  <license>New BSD</license>
   <maintainers>
     <maintainer>
       <user>neufeind</user>
@@ -23,15 +23,12 @@ Package containes locale validation for DE such as:
     </maintainer>
    </maintainers>
   <release>
-
-    <version>0.5.0</version>
+    <version>0.5.1</version>
     <state>alpha</state>
-    <date>2005-05-20</date>
+    <date>2005-10-01</date>
     <notes>
-- Split from Validate into independent package
-- CS fixes
-- BC break!
-postalCode unified between countries (name wise), now all postcode validation funcs are named postalCode
+- Switch to the new BSD License
+(see http://www.opensource.org/licenses/bsd-license.php)
     </notes>
     <filelist>
     <dir name="/">
@@ -48,5 +45,16 @@ postalCode unified between countries (name wise), now all postcode validation fu
     </deps>
   </release>
   <changelog>
+  <release>
+    <version>0.5.0</version>
+    <state>alpha</state>
+    <date>2005-05-20</date>
+    <notes>
+- Split from Validate into independent package
+- CS fixes
+- BC break!
+postalCode unified between countries (name wise), now all postcode validation funcs are named postalCode
+    </notes>
+  </release>
   </changelog>
 </package>

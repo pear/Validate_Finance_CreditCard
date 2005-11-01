@@ -13,7 +13,7 @@ Package containes locale validation for Belgium such as:
  * Identity Card Number (not ready)
  * SIS CARD ID (belgian "s&#233;curit&#233; sociale" ID)
  </description>
- <license>PHP</license>
+ <license>New BSD</license>
  <maintainers>
   <maintainer>
     <user>moosh</user>
@@ -29,16 +29,12 @@ Package containes locale validation for Belgium such as:
   </maintainer>
  </maintainers>
  <release>
-  <version>0.1.1</version>
+  <version>0.1.2</version>
   <state>alpha</state>
-  <date>2005-09-30</date>
+  <date>2005-10-01</date>
   <notes>
-  * Add new method to validate structured Bank Transfert Messages
-  * Add new method to validate nationalId
-  * Fixed CS
-  * Fixed check phone was bug for mobil begining with 04
-  * split test files on per method
-  * toggg and moosh now co-leads
+- Switch to the new BSD License
+(see http://www.opensource.org/licenses/bsd-license.php)
   </notes>
   <filelist>
    <dir name="/">
@@ -70,6 +66,24 @@ Package containes locale validation for Belgium such as:
   </deps>
  </release>
  <changelog>
+ <release>
+  <version>0.1.1</version>
+  <state>alpha</state>
+  <date>2005-09-30</date>
+  <notes>
+  * Add new method to validate structured Bank Transfert Messages
+  * Add new method to validate nationalId
+  * Fixed CS
+  * Fixed check phone was bug for mobil begining with 04
+  * split test files on per method
+  * toggg and moosh now co-leads
+  </notes>
+  </release>
+ <release>
+  <version>0.1.0</version>
+  <state>alpha</state>
+  <date>2005-01-30</date>
+  <notes>
   * first release 0.1.0
     -Done- Post Code
     -Done- Bank Account Number
@@ -78,5 +92,7 @@ Package containes locale validation for Belgium such as:
     -Done- Natitonal ID
     -Todo- Identity Card Number
     -Done- SIS CARD ID (belgian "s&#233;curit&#233; sociale" ID)
+  </notes>
+ </release>
  </changelog>
 </package>
