@@ -1,6 +1,19 @@
 <?php
 /* vim: set expandtab tabstop=4 shiftwidth=4: */
-
+// +----------------------------------------------------------------------+
+// | Copyright (c) 1997-2005 Daniel O'Connor                              |
+// +----------------------------------------------------------------------+
+// | This source file is subject to the New BSD license, That is bundled  |
+// | with this package in the file LICENSE, and is available through      |
+// | the world-wide-web at                                                |
+// | http://www.opensource.org/licenses/bsd-license.php                   |
+// | If you did not receive a copy of the new BSDlicense and are unable   |
+// | to obtain it through the world-wide-web, please send a note to       |
+// | pajoye@php.net so we can mail you a copy immediately.                |
+// +----------------------------------------------------------------------+
+// | Author: Daniel O'Connor <daniel.oconnor@gmail.com>                   |
+// +----------------------------------------------------------------------+
+//
 /**
  * Specific validation methods for data used in Australia
  *
@@ -18,10 +31,10 @@
  * @package    Validate_AU
  * @author     Daniel O'Connor <daniel.oconnor@gmail.com>
  * @author     Tho Nguyen <tho.nguyen@itexperts.com.au>
- * @copyright  2005 The PHP Group
+ * @copyright  1997-2005 Daniel O'Connor
  * @date       $Date$
  * @version    $Id$
- * @license    http://www.php.net/license/3_0.txt  PHP License 3.0
+ * @license    http://www.opensource.org/licenses/bsd-license.php  New BSD License
  * @link       http://www.getfridged.com/validate/
  */
 
@@ -46,13 +59,13 @@ require_once 'Validate.php';
  * @package    Validate_AU
  * @author     Daniel O'Connor <daniel.oconnor@gmail.com>
  * @author     Tho Nguyen <tho.nguyen@itexperts.com.au>
- * @copyright  2005 The PHP Group
- * @license    http://www.php.net/license/3_0.txt  PHP License 3.0
+ * @copyright  1997-2005 Daniel O'Connor
+ * @license    http://www.opensource.org/licenses/bsd-license.php  New BSD License
  * @version    Release: @package_version@
  * @link       http://www.getfridged.com/validate/
  */
 class Validate_AU
-{ 
+{
 
     /**
      * Validate postcode
@@ -67,12 +80,12 @@ class Validate_AU
     {
         if ($strong) {
             static $postcodes;
-    
+
             if (!isset($postcodes)) {
                 $file = '@DATADIR@/Validate_AU/AU_postcodes.txt';
                 $postcodes = array_map('trim', file($file));
             }
-    
+
             return in_array((int)$postcode, $postcodes);
         }
         return (bool)ereg('^[0-9]{4}$', $postcode);
@@ -110,36 +123,36 @@ class Validate_AU
      */
     function acn( $acn )
     {
-        
+
         $digits = array();
-        
+
         //Strip blanks
         $acn = str_replace(array('(', ')', '-', '+', '.', ' '), '', $acn);
-        
+
         //Check if contains only digits
         if ( !is_numeric($acn) ) {
             return false;
         }
-        
+
         //ABN has 9 digits in length
         if ( strlen($acn) != 9 ) {
             return false;
         }
-        
+
         //Put each digit to an array
         for ( $i = 0; $i < strlen($acn); $i++ ) {
             $digits[] = $acn[$i];
         }
-        
+
         $sum = 0;
         //Apply weighting to digits 1 to 8
         for ( $i = 0; $i < 8; $i++) {
             $sum += $digits[$i]*(8-$i);
         }
-        
+
         //Divide by 10 to obtain remainder
         $remainder = $sum%10;
-        
+
 
         if ($remainder == 0) {
             $complement = 0 - $remainder;
@@ -149,12 +162,12 @@ class Validate_AU
         }
         //$complement == last digit?
         if ( $digits[8] == $complement ) {
-            return true;    
+            return true;
         }
-        
+
         return false;
     }
-    
+
     /**
      * Social Security Number.
      *
@@ -184,9 +197,9 @@ class Validate_AU
      * @return  bool
      */
     function tfn($tfn)
-    {   
+    {
         $digits = array();
-        $weights = array(1, 4, 3, 7, 5, 8, 6, 9, 10);		
+        $weights = array(1, 4, 3, 7, 5, 8, 6, 9, 10);
 
         $tfn = str_replace(array('(', ')', '-', '+', '.', ' '), '', $tfn);
 
@@ -213,7 +226,7 @@ class Validate_AU
         }
 
         $remainder = $sum%11;
-        
+
         return !( $remainder > 0 );
     }
 
@@ -237,39 +250,39 @@ class Validate_AU
 
         $digits = array();
         $weights = array(10, 1, 3, 5, 7, 9, 11, 13, 15, 17, 19);
-        
+
         //Strip blanks
         $abn = str_replace(array('(', ')', '-', '+', '.', ' '), '', $abn);
-        
+
         //Check if contains only digits
         if ( !is_numeric($abn) ) {
             settype($abn, "int");
             //return false;
         }
-        
+
         //ABN has 11 digits in length
         if ( strlen($abn) != 11 ) {
             return false;
         }
-        
+
         //Put each digit to an array
         for ( $i = 0; $i < strlen($abn); $i++ ) {
             $digits[] = $abn[$i];
         }
-        
+
         //Subtract 1 from the first left digit
         $digits[0]--;
-        
+
         $sum = 0;
         //Apply weighting factor
         //11 Digits
         for ( $i = 0; $i < count($digits); $i++ ) {
             $sum += $digits[$i]*$weights[$i];
         }
-        
+
         //Divide the total by 89 and get remainder
         $remainder = $sum%89;
-        
+
         if ( $remainder > 0 ) {
             return false;
         } else {
@@ -290,7 +303,7 @@ class Validate_AU
 
             return true;
         }
-        
+
     }
 }
 ?>
