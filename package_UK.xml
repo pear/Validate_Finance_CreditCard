@@ -44,7 +44,7 @@ Package containes locale validation for UK such as:
     </notes>
     <filelist>
     <dir name="/">
-      <file role="doc" name="LICENCE" />
+      <file role="doc" name="LICENSE" />
       <dir name="Validate">
         <file role="php">UK.php</file>
       </dir>

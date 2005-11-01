@@ -31,7 +31,7 @@ Package containes locale validation for ES such as:
     </notes>
     <filelist>
     <dir name="/">
-      <file role="doc" name="LICENCE" />
+      <file role="doc" name="LICENSE" />
       <dir name="Validate">
         <file role="php">ES.php</file>
       </dir>

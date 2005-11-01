@@ -34,7 +34,7 @@ Package contains locale validation for Canada such as:
     </notes>
     <filelist>
     <dir name="/">
-      <file role="doc" name="LICENCE" />
+      <file role="doc" name="LICENSE" />
       <dir name="Validate">
         <file role="php">CA.php</file>
       </dir>

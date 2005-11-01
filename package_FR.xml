@@ -36,7 +36,7 @@ Package containes locale validation for FR such as:
     </notes>
     <filelist>
     <dir name="/">
-      <file role="doc" name="LICENCE" />
+      <file role="doc" name="LICENSE" />
       <dir name="Validate">
         <file role="php">FR.php</file>
       </dir>

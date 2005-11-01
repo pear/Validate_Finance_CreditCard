@@ -30,7 +30,7 @@
     </notes>
     <filelist>
     <dir name="/">
-      <file role="doc" name="LICENCE" />
+      <file role="doc" name="LICENSE" />
       <dir name="Validate">
        <dir name="Finance">
         <file role="php">CreditCard.php</file>

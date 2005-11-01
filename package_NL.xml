@@ -35,7 +35,7 @@ Package containes locale validation for NL such as:
     </notes>
     <filelist>
     <dir name="/">
-      <file role="doc" name="LICENCE" />
+      <file role="doc" name="LICENSE" />
       <dir name="Validate">
         <file role="php">NL.php</file>
       </dir>

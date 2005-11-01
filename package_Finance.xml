@@ -31,7 +31,7 @@ Package to validate Finance data. It includes :
     </notes>
     <filelist>
     <dir name="/">
-      <file role="doc" name="LICENCE" />
+      <file role="doc" name="LICENSE" />
       <dir name="Validate">
         <file role="php">Finance.php</file>
         <dir name="Finance">
