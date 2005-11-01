@@ -65,7 +65,7 @@ $emails = array(
         'ha"ho@example.com', // NOK
         '<ha la la>blah</ha>@example.com', // NOK
         '<hablahha>@example.com', // NOK
-        '"<ha la la>blah</ha>"@example.com', // NOK
+        '"<ha la la>blah</ha>"@example.com', // OK
         '" "@example.com', // NOK
         '@example.com', // NOK
 
@@ -77,7 +77,15 @@ $emails = array(
         'minus@-example.com', // NOK
         'minus@-.com', // NOK
         'minus@example.-com', // NOK
-        'minus@-example.com-' // NOK
+        'minus@-example.com-', // NOK
+
+        // IP domain
+        'ip@127.0.0.1', // OK
+        '"the ip"@[127.0.0.1]', // OK
+        'ip@127.0.333.1', // NOK
+        'ip@[277.0.0.1]', // NOK
+        'ip@[127.0.0.1', // NOK
+        'ip@127.0.0.1]' // NOK
     );
 
 foreach ($emails as $email) {
@@ -125,7 +133,7 @@ mark@example.com@home: NO
 ha"ho@example.com: NO
 <ha la la>blah</ha>@example.com: NO
 <hablahha>@example.com: NO
-"<ha la la>blah</ha>"@example.com: NO
+"<ha la la>blah</ha>"@example.com: YES
 " "@example.com: NO
 @example.com: NO
 minus@example-minus.com: YES
@@ -136,3 +144,9 @@ minus@-example.com: NO
 minus@-.com: NO
 minus@example.-com: NO
 minus@-example.com-: NO
+ip@127.0.0.1: YES
+"the ip"@[127.0.0.1]: YES
+ip@127.0.333.1: NO
+ip@[277.0.0.1]: NO
+ip@[127.0.0.1: NO
+ip@127.0.0.1]: NO
