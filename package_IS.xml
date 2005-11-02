@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="ISO-8859-1" ?>
 <package version="1.0">
   <name>Validate_IS</name>
-  <summary>Validation class for IS</summary>
+  <summary>Validation class for Iceland</summary>
   <description>
 Package containes locale validation for IS (Iceland) such as:
  * SSN
@@ -24,12 +24,11 @@ Package containes locale validation for IS (Iceland) such as:
     </maintainer>
    </maintainers>
   <release>
-    <version>0.1.1</version>
+    <version>0.1.0</version>
     <state>alpha</state>
     <date>2005-10-01</date>
     <notes>
-- Switch to the new BSD License
-(see http://www.opensource.org/licenses/bsd-license.php)
+        Initial release
     </notes>
     <filelist>
     <dir name="/">
@@ -50,13 +49,5 @@ Package containes locale validation for IS (Iceland) such as:
     </deps>
   </release>
   <changelog>
-  <release>
-    <version>0.1.0</version>
-    <state>alpha</state>
-    <date>2005-10-01</date>
-    <notes>
-Initial release
-    </notes>
-  </release>
   </changelog>
 </package>
