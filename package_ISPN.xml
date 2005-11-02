@@ -21,6 +21,12 @@ Package containes ISPN (International Standard Product Numbers) validations such
       <name>Helgi &#222;ormar</name>
       <email>dufuz@php.net</email>
     </maintainer>
+    <maintainer>
+      <user>makler</user>
+      <role>lead</role>
+      <name>Piotr Klaban</name>
+      <email>makler@man.torun.pl</email>
+    </maintainer>
    </maintainers>
   <release>
     <version>0.5.1</version>
