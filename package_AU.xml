@@ -20,12 +20,13 @@ Package containes locale validation for AU such as:
     </maintainer>
    </maintainers>
   <release>
-    <version>0.1.2</version>
+    <version>0.1.1</version>
     <state>alpha</state>
     <date>2005-10-05</date>
     <notes>
 - Switch to the new BSD License
 (see http://www.opensource.org/licenses/bsd-license.php)
+- Minor CS corrections, added Tax File Number validation. Fixed ACN validation.
     </notes>
     <filelist>
     <dir name="/">
@@ -46,11 +47,5 @@ Package containes locale validation for AU such as:
     </deps>
   </release>
   <changelog>
-  <release>
-    <version>0.1.1</version>
-    <state>alpha</state>
-    <date>2005-10-05</date>
-    <notes>Minor CS corrections, added Tax File Number validation. Fixed ACN validation.</notes>
-  </release>
   </changelog>
 </package>

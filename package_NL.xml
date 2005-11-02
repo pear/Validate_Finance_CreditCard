@@ -17,12 +17,6 @@ Package containes locale validation for NL such as:
       <name>Dave Mertens</name>
       <email>zyprexia@php.net</email>
     </maintainer>
-    <maintainer>
-      <user>dufuz</user>
-      <role>lead</role>
-      <name>Helgi &#222;ormar</name>
-      <email>dufuz@php.net</email>
-    </maintainer>
    </maintainers>
   <release>
 

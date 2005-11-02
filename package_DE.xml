@@ -15,12 +15,6 @@ Package containes locale validation for DE such as:
       <name>Stefan Neufeind</name>
       <email>pear.neufeind@speedpartner.de</email>
     </maintainer>
-    <maintainer>
-      <user>dufuz</user>
-      <role>lead</role>
-      <name>Helgi &#222;ormar</name>
-      <email>dufuz@php.net</email>
-    </maintainer>
    </maintainers>
   <release>
     <version>0.5.1</version>
