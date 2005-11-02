@@ -4,7 +4,7 @@
   <summary>Validation class for UK</summary>
   <description>
 Package containes locale validation for UK such as:
- * SSN (NI)
+ * SSN (National Insurance/IN)
  * Postal Code
  * Sort Code
  * Bank AC

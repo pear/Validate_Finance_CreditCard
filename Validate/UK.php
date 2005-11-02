@@ -32,7 +32,7 @@
  * Data validation class for the UK
  *
  * This class provides methods to validate:
- *  - SSN (National Insurance Number)
+ *  - SSN (National Insurance/NI Number)
  *  - Sort code
  *  - Bank account number
  *  - Postal code
@@ -142,7 +142,9 @@ class Validate_UK
     function bankAC($ac)
     {
         // just checking to see if it is 6-8 digits
-        // *THIS IS PROBABLY WRONG!!! RESEARCH*
+        // FIXME *THIS IS PROBABLY WRONG!!! RESEARCH*
+        // There is a modulus 10/11 system that could be implmeneted here, but it's potentially quite
+        // complex - http://en.wikipedia.org/wiki/Luhn_formula - Ian
         $preg = "/[0-9]{6,8}/";
         $match = (preg_match($preg, $ac)) ? true : false;
         return $match;
@@ -161,6 +163,7 @@ class Validate_UK
     {
         // just checks to see if it is numeric and starts with a 0
         // remove any wierd characters like (,),-,. etc
+        // FIXME this could be improved.
         $tel = str_replace(array('(', ')', '-', '+', '.', ' '), '', $tel);
         $preg = "/^0[125789][0-9]{9,10}$/";
         $match = (preg_match($preg, $tel)) ? true : false;
