@@ -11,7 +11,7 @@ echo "Test Validate_Email\n";
 
 $emails = array(
         // Try dns lookup
-        array('example@example.org', true), // OK
+        array('pear-general@lists.php.net', true), // OK
         array('example@fluffffffrefrffrfrfrfrfrfr.is', true), // NOK
         array('example@fluffffffrefrffrfrfrfrfrfr.is', false), // OK
         // with out the dns lookup
@@ -100,7 +100,7 @@ foreach ($emails as $email) {
 ?>
 --EXPECT--
 Test Validate_Email
-example@example.org: with domain check : YES
+pear-general@lists.php.net: with domain check : YES
 example@fluffffffrefrffrfrfrfrfrfr.is: with domain check : NO
 example@fluffffffrefrffrfrfrfrfrfr.is: without domain check : YES
 example@fluffffffrefrffrfrfrfrfrfr.is: YES
