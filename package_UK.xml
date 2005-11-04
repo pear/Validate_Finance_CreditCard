@@ -22,12 +22,6 @@ Package containes locale validation for UK such as:
       <email>pajoye@php.net</email>
     </maintainer>
     <maintainer>
-      <user>dufuz</user>
-      <role>lead</role>
-      <name>Helgi &#222;ormar</name>
-      <email>dufuz@php.net</email>
-    </maintainer>
-    <maintainer>
       <user>pookey</user>
       <role>lead</role>
       <name>Ian P. Christian</name>

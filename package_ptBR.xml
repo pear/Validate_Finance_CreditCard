@@ -16,12 +16,6 @@ Package containes locale validation for ptBR such as:
       <name>Silvano Girardi Jr.</name>
       <email>silvano@php.net</email>
     </maintainer>
-    <maintainer>
-      <user>dufuz</user>
-      <role>lead</role>
-      <name>Helgi &#222;ormar</name>
-      <email>dufuz@php.net</email>
-    </maintainer>
    </maintainers>
   <release>
     <version>0.5.1</version>

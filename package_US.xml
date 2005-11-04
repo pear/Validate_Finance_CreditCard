@@ -24,12 +24,6 @@ Package containes locale validation for US such as:
       <email>timg@sunflowerroad.com</email>
     </maintainer>
     <maintainer>
-      <user>dufuz</user>
-      <role>lead</role>
-      <name>Helgi &#222;ormar</name>
-      <email>dufuz@php.net</email>
-    </maintainer>
-    <maintainer>
       <user>davidc</user>
       <role>lead</role>
       <name>David Coallier</name>
