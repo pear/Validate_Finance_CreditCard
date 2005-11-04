@@ -24,12 +24,13 @@ Package containes locale validation for IS (Iceland) such as:
     </maintainer>
    </maintainers>
   <release>
-    <version>0.1.0</version>
-    <state>alpha</state>
-    <date>2005-10-01</date>
-    <notes>
-        Initial release
-    </notes>
+     <version>0.1.1</version>
+     <state>alpha</state>
+     <date>2005-11-04</date>
+     <notes>
+- Switch to the new BSD License
+  (see http://www.opensource.org/licenses/bsd-license.php)
+     </notes>
     <filelist>
     <dir name="/">
       <file role="doc" name="LICENSE" />
@@ -49,5 +50,13 @@ Package containes locale validation for IS (Iceland) such as:
     </deps>
   </release>
   <changelog>
+    <release>
+      <version>0.1.0</version>
+      <state>alpha</state>
+      <date>2005-10-01</date>
+      <notes>
+Initial release
+      </notes>
+    </release>
   </changelog>
 </package>
