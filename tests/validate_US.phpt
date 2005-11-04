@@ -73,9 +73,9 @@ $phonenumbers = array(
                 array('(467) 8750987', false), // OK
                 array('(467)-8750987', false), // OK
                 array('(467)8750987', false), // OK
-                array('467-875-0987', false); // OK
-                array('4678750987', false); // OK
-                array('467 875 0987', false); // OK
+                array('467-875-0987', false), // OK
+                array('4678750987', false), // OK
+                array('467 875 0987', false), // OK
                 array('267 471-0967', false), // OK
                 array('267-471-0967', false), // OK
                 array('267471-0967', false), // OK
