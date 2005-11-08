@@ -59,7 +59,23 @@ class Validate_ISPN
 {
     function isbn($isbn)
     {
+        if (preg_match("/[^0-9 IXSBN-]/", $isbn)) {
+            return false;
+        }
 
+        $isbn = strtoupper($isbn);
+        $isbn = str_replace(array('ISBN', '-', ' ', "\t", "\n"), '', $isbn);
+        if (strlen($isbn) != 10) {
+            return false;
+        }
+
+        if (strlen($isbn) == 13) {
+            return Validate_ISPN::isbn13($isbn);
+        } elseif (strlen($isbn) == 10) {
+            return Validate_ISPN::isbn10($isbn);
+        } else {
+            return false;
+        }
     }
 
     /**
@@ -75,10 +91,21 @@ class Validate_ISPN
      * @return bool    true if number is valid, otherwise false
      * @access public
      * @author Helgi Þormar <dufuz@php.net>
+     * @author Piotr Klaban <makler@man.torun.pl>
      */
     function isbn13($isbn)
     {
+        if (preg_match("/[^0-9 ISBN-]/", $isbn)) {
+            return false;
+        }
 
+        $isbn = strtoupper($isbn);
+        $isbn = str_replace(array('ISBN', '-', ' ', "\t", "\n"), '', $isbn);
+        if (!preg_match('/^[0-9]{13}$/', $isbn)) {
+            return false;
+        }
+
+        return Validate_ISPN::ean13($isbn);
     }
 
     /**
@@ -110,7 +137,7 @@ class Validate_ISPN
             return false;
         }
 
-        if (preg_match("/[^0-9]{9}[^0-9X]/", $isbn)) {
+        if (!preg_match('/^[0-9]{9}[0-9X]$/', $isbn)) {
             return false;
         }
 
