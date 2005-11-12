@@ -49,7 +49,7 @@
  * @package    Validate_ISPN
  * @author     Piotr Klaban <makler@man.torun.pl>
  * @author     Damien Seguy <dams@nexen.net>
- * @author     Helgi Þormar Þorbjönsson <dufuz@php.net>
+ * @author     Helgi Þormar Þorbjörnsson <dufuz@php.net>
  * @copyright   1997-2005 Piotr Klaban, Damien Seguy, Helgi Þormar Þorbjörnsson,
  *                        Pierre-Alain Joye
  * @license    http://www.opensource.org/licenses/bsd-license.php  new BSD
