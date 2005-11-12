@@ -82,6 +82,18 @@ $ismns = array(
     'M-345-24680-4', // NOK
 );
 
+$isrcs = array(
+    'FR-Z03-98-00212', // OK
+    'ISRC FR-Z03-98-00212', // OK
+    'ISRC FR - Z03 - 98 - 00212', // OK
+    'FR-Z03-91-01231', // OK
+    'FR-Z03-91-01232', // OK
+    'US-G34-04-25384', // OK
+    'US-MR1-63-10018', // OK
+    '34-234-34-12312', // NOK
+    'US-MR1-HE-ASDFG', // NOK
+);
+
 echo "\nTest UCC12\n";
 foreach ($ucc12s as $ucc12) {
     echo "{$ucc12} : ".$noYes[Validate_ISPN::ucc12($ucc12)]."\n";
@@ -120,6 +132,11 @@ foreach ($isbn10 as $isbn) {
 echo "\nTest ISMN\n";
 foreach ($ismns as $ismn) {
     echo "{$ismn} : ".$noYes[Validate_ISPN::ismn($ismn)]."\n";
+}
+
+echo "\nTest ISRC\n";
+foreach ($isrcs as $isrc) {
+    echo "{$isrc} : ".$noYes[Validate_ISPN::isrc($isrc)]."\n";
 }
 ?>
 --EXPECT--
@@ -181,3 +198,14 @@ Test ISMN
 M-345-24680-5 : YES
 2-345-24680-5 : NO
 M-345-24680-4 : NO
+
+Test ISRC
+FR-Z03-98-00212 : YES
+ISRC FR-Z03-98-00212 : YES
+ISRC FR - Z03 - 98 - 00212 : YES
+FR-Z03-91-01231 : YES
+FR-Z03-91-01232 : YES
+US-G34-04-25384 : YES
+US-MR1-63-10018 : YES
+34-234-34-12312 : NO
+US-MR1-HE-ASDFG : NO

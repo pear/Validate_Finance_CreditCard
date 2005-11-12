@@ -38,6 +38,7 @@
  *  - ISBN (International Standard Book Number)
  *  - ISSN (International Standard Serial Number)
  *  - ISMN (International Standard Music Number)
+ *  - ISRC (International Standard Recording Code)
  *  - EAN/UCC-8 number
  *  - EAN/UCC-13 number
  *  - EAN/UCC-14 number
@@ -48,7 +49,7 @@
  * @package    Validate_ISPN
  * @author     Piotr Klaban <makler@man.torun.pl>
  * @author     Damien Seguy <dams@nexen.net>
- * @author     Helgi Þormar Þorbjörnsson <dufuz@php.net>
+ * @author     Helgi Þormar Þorbjönsson <dufuz@php.net>
  * @copyright   1997-2005 Piotr Klaban, Damien Seguy, Helgi Þormar Þorbjörnsson,
  *                        Pierre-Alain Joye
  * @license    http://www.opensource.org/licenses/bsd-license.php  new BSD
@@ -217,6 +218,28 @@ class Validate_ISPN
         return Validate::_checkControlNumber($ismn, $weights_ismn, 10, 10);
     }
 
+    /**
+     * Validate a ISRC (International Standard Recording Code)
+     *
+     * This function validates an International Standard Recording Code
+     * which is the international identification system for sound recordings
+     * and music videorecordings.
+     *
+     * @param  string  $isrc ISRC number
+     * @return bool    true if number is valid, otherwise false
+     * @see    http://www.ifpi.org/isrc/isrc_handbook.html
+     * @access public
+     * @author David Grant <david@grant.org.uk>
+     */
+    function isrc($isrc)
+    {
+        $isrc = str_replace(array('ISRC', '-', ' '), '', strtoupper($isrc));
+        if (!preg_match("/[A-Z]{2}[A-Z0-9]{3}[0-9]{7}/", $isrc)) {
+            return false;
+        }
+
+        return true;
+    }
 
     /**
      * Validate a EAN/UCC-8 number
