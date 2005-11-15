@@ -143,7 +143,7 @@ class Validate_IS
 
             if (file_exists($file)) {
                 if (is_writable($file) && filemtime($file) < time()-2592000) {
-                    $url = 'http://www.postur.is/Gogn/Gotuskra/postnumer.txt';
+                    $url = 'http://www.postur.is/gogn/Gotuskra/postnumer.txt';
 
                     $fpCsv = fopen($url, 'r');
                     $fp = fopen($file, 'w');
