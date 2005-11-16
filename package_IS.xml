@@ -42,7 +42,6 @@ Package containes locale validation for IS (Iceland) such as:
 - Validate_IS::address()
   - Initial commit
 - Fixed testcases when run under E_STRICT
-- Added ext/ctype as dependency
 - Bump the dep to PHP 4.2+
 - Ctype is now a required dep.
      </notes>

@@ -143,7 +143,7 @@ class Validate_IS
             return false;
         }
 
-        if(!$dataDir) {
+        if (!$dataDir) {
             $dataDir = '@DATADIR@/Validate_IS';
         }
         
@@ -153,7 +153,7 @@ class Validate_IS
         
         $postCodes = array();
         if ($strong) {
-            if(!$url) {
+            if (!$url) {
                 $url = "http://www.postur.is/gogn/Gotuskra/postnumer.txt";
             }
             
@@ -203,7 +203,7 @@ class Validate_IS
     function address($address, $postcode = null, $strong = false,
                      $dataDir = '', $url = '')
     {
-        if(!$dataDir) {
+        if (!$dataDir) {
             $dataDir = '@DATADIR@/Validate_IS';
         }
         if (!is_null($postcode)) {
