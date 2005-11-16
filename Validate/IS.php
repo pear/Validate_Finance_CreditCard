@@ -60,10 +60,10 @@ class Validate_IS
     function ssn($ssn)
     {
         /* Sanity checks, Icelandic ssn are 10 numbers */
-        if (!is_numeric($ssn)) {
+        if (!ctype_digit($ssn)) {
             $ssn = str_replace(array(' ', '-'), '', $ssn);
         }
-        if (strlen($ssn) != 10 || !is_numeric($ssn)) {
+        if (strlen($ssn) != 10 || !ctype_digit($ssn)) {
             return false;
         }
 
@@ -107,8 +107,11 @@ class Validate_IS
         $sum += $ssn{0}*3;
 
         $varTala = 11 - ($sum % 11);
-        if ($varTala == 11) {
-            $varTala = 0;
+        switch($varTala) {
+            case 10:
+            case 11:
+                $varTala = 0;
+                break;
         }
 
         if ($ssn{8} != $varTala) {
@@ -127,39 +130,45 @@ class Validate_IS
      *
      * @access    public
      * @param     int     the postcode to be validated
-     * @param     bool    optional; strong checks (default)
+     * @param     bool    optional; check against the official list (default off)
      * @return    bool
      */
-    function postalCode($postcode, $strong = true)
+    function postalCode($postcode, $strong = false)
     {
         /* Sanity check, all Icelandic postalcodes are between 101 and 950 */
-        if ($postcode > 100 && $postcode < 950 && !$strong) {
-            return true;
+        if ($postcode <= 100 || $postcode > 950) {
+            return false;
         }
 
+        $file = '@DATADIR@/Validate_IS/IS_postcodes.txt';
+
+        $postCodes = array();
         if ($strong) {
+            $url = 'http://www.postur.is/gogn/Gotuskra/postnumer.txt';
 
-            $file = '@DATADIR@/Validate_IS/IS_postcodes.txt';
-
-            if (file_exists($file)) {
-                if (is_writable($file) && filemtime($file) < time()-2592000) {
-                    $url = 'http://www.postur.is/gogn/Gotuskra/postnumer.txt';
-
-                    $fpCsv = fopen($url, 'r');
-                    $fp = fopen($file, 'w');
-
-                    while (false !== ($data = fgetcsv($fpCsv, 128, ';'))) {
-                        fputs($fp, $data[0]. "\n");
-                    }
-                    fclose($fp);
-                    fclose($fpCsv);
+            $fp = fopen($url, 'r');
+            if($fp) {
+                while (false !== ($data = fgetcsv($fp, 128, ';'))) {
+                    $postCodes[] = $data[0];
                 }
-                $postCodes = file($file);
+                unset($postCodes[0]); // Fake entry
+                fclose($fp);
+                
+                if(is_writable($file)) {
+                    $fp = fopen($file, 'w');
+                    if($fp) {
+                        fwrite($fp, implode("\n", $postCodes));
+                        fclose($fp);
+                    }
+                }
             }
+        }
 
-            if (is_array($postCodes) && in_array($postcode, $postCodes)) {
-                return true;
-            }
+        if(!count($postCodes) && file_exists($file)) {
+            $postCodes = file($file);
+        }
+        if (is_array($postCodes) && in_array($postcode, $postCodes)) {
+            return true;
         }
 
         return false;
