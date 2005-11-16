@@ -133,23 +133,30 @@ class Validate_IS
      * @param     int     the postcode to be validated
      * @param     bool    optional; check against the official list (default off)
      * @param     string  optional; /path/to/data/dir/
+     * @param     string  optional; http://domain.tld/path/to/live/data/file.txt
      * @return    bool
      */
-    function postalCode($postcode, $strong = false, $dataDir = '@DATADIR@/Validate_IS')
+    function postalCode($postcode, $strong = false, $dataDir = '', $url = '')
     {
         /* Sanity check, all Icelandic postalcodes are between 101 and 950 */
         if ($postcode <= 100 || $postcode > 950) {
             return false;
         }
 
+        if(!$dataDir) {
+            $dataDir = '@DATADIR@/Validate_IS';
+        }
+        
         $file = is_readable($dataDir.'/IS_postcodes.txt') ?
             $dataDir.'/IS_postcodes.txt' :
             '@DATADIR@/Validate_IS/IS_postcodes.txt';
         
         $postCodes = array();
         if ($strong) {
-            $url = 'http://www.postur.is/gogn/Gotuskra/postnumer.txt';
-
+            if(!$url) {
+                $url = "http://www.postur.is/gogn/Gotuskra/postnumer.txt";
+            }
+            
             $fp = fopen($url, 'r');
             if ($fp) {
                 while (false !== ($data = fgetcsv($fp, 128, ';'))) {
@@ -184,14 +191,21 @@ class Validate_IS
      * If postcode is provided, check if address exists in that area.
      *
      * NOTE: does *NOT* work completly, yet.
+     * NOTE: $strong is *NOT* implimented, yet.
      * 
-     * @param string $address 
-     * @param int    $postcode Optional; check if address exists in that area
-     * @param string $dataDir  Optional; /path/to/data/dir/
+     * @param string $address   Address to validate
+     * @param int    $postcode  Optional; check if address exists in that area
+     * @param bool   $strong    Optional; Live check
+     * @param string $dataDir   Optional; /path/to/data/dir/
+     * @param string $url       Optional; http://domain.tld/path/to/data/file.txt
      * @return bool
      */
-    function address($address, $postcode = null, $dataDir = '@DATADIR@/Validate_IS')
+    function address($address, $postcode = null, $strong = false,
+                     $dataDir = '', $url = '')
     {
+        if(!$dataDir) {
+            $dataDir = '@DATADIR@/Validate_IS';
+        }
         if (!is_null($postcode)) {
             /* Shall we dare to call postalCode staticly? */
             if (isset($this)) {

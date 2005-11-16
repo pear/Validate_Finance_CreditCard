@@ -28,6 +28,21 @@ Package containes locale validation for IS (Iceland) such as:
      <state>alpha</state>
      <date>2005-11-04</date>
      <notes>
+- Validate_IS::ssn()
+  - Now uses ctype_digit() to check for all numbers
+  - Fixed bug in "var tala" calculation
+- Validate_IS::postalCode()
+  - Allow user defined data dir for Validate_IS::postalCode()
+  - $strong mode is now default false - BC BREAK!
+  - Now use retrived data even when data file is read-only (in $strong mode)
+  - Writes retrived data no matter when data file was last changed (in $strong mode)
+  - Deleted bogus entrys in the data file
+  - Fixed live data file (thanks to antab, arnar@8.is)
+  - Added extra parameter, $url, which allows user defined data file
+- Validate_IS::address()
+  - Initial commit
+- Fixed testcases when run under E_STRICT
+- Added ext/ctype as dependency
 - Bump the dep to PHP 4.2+
 - Ctype is now a required dep.
      </notes>
