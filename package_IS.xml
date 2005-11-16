@@ -24,12 +24,12 @@ Package containes locale validation for IS (Iceland) such as:
     </maintainer>
    </maintainers>
   <release>
-     <version>0.1.1</version>
+     <version>0.2.0</version>
      <state>alpha</state>
      <date>2005-11-04</date>
      <notes>
-- Switch to the new BSD License
-  (see http://www.opensource.org/licenses/bsd-license.php)
+- Bump the dep to PHP 4.2+
+- Ctype is now a required dep.
      </notes>
     <filelist>
     <dir name="/">
@@ -46,10 +46,20 @@ Package containes locale validation for IS (Iceland) such as:
     </dir>
     </filelist>
     <deps>
-      <dep type="php" rel="ge" version="4.1.0" />
+      <dep type="php" rel="ge" version="4.2.0" />
+      <dep type="ext" rel="has" optional="no">ctype</dep>
     </deps>
   </release>
   <changelog>
+  <release>
+     <version>0.1.1</version>
+     <state>alpha</state>
+     <date>2005-11-04</date>
+     <notes>
+- Switch to the new BSD License
+  (see http://www.opensource.org/licenses/bsd-license.php)
+     </notes>
+    </release>
     <release>
       <version>0.1.0</version>
       <state>alpha</state>
