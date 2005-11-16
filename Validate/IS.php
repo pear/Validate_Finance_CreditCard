@@ -30,7 +30,7 @@
  * Data validation class for IS
  *
  * This class provides methods to validate:
- *  - SSN (Social Security Number (Icelanidc: kennitala))
+ *  - SSN (Social Security Number (Icelandic: kennitala))
  *  - Postal code
  *  - Telephone number
  *
@@ -108,7 +108,8 @@ class Validate_IS
 
         $varTala = 11 - ($sum % 11);
         switch($varTala) {
-            case 10:
+            case 10: // "Hagstofan" has nothing to say what should happen here
+                     // it looks like "vartalan" should be set to 0
             case 11:
                 $varTala = 0;
                 break;
@@ -131,32 +132,35 @@ class Validate_IS
      * @access    public
      * @param     int     the postcode to be validated
      * @param     bool    optional; check against the official list (default off)
+     * @param     string  optional; /path/to/data/dir/
      * @return    bool
      */
-    function postalCode($postcode, $strong = false)
+    function postalCode($postcode, $strong = false, $dataDir = '@DATADIR@/Validate_IS')
     {
         /* Sanity check, all Icelandic postalcodes are between 101 and 950 */
         if ($postcode <= 100 || $postcode > 950) {
             return false;
         }
 
-        $file = '@DATADIR@/Validate_IS/IS_postcodes.txt';
-
+        $file = is_readable($dataDir.'/IS_postcodes.txt') ?
+            $dataDir.'/IS_postcodes.txt' :
+            '@DATADIR@/Validate_IS/IS_postcodes.txt';
+        
         $postCodes = array();
         if ($strong) {
             $url = 'http://www.postur.is/gogn/Gotuskra/postnumer.txt';
 
             $fp = fopen($url, 'r');
-            if($fp) {
+            if ($fp) {
                 while (false !== ($data = fgetcsv($fp, 128, ';'))) {
                     $postCodes[] = $data[0];
                 }
                 unset($postCodes[0]); // Fake entry
                 fclose($fp);
                 
-                if(is_writable($file)) {
+                if (is_writable($file)) {
                     $fp = fopen($file, 'w');
-                    if($fp) {
+                    if ($fp) {
                         fwrite($fp, implode("\n", $postCodes));
                         fclose($fp);
                     }
@@ -164,7 +168,7 @@ class Validate_IS
             }
         }
 
-        if(!count($postCodes) && file_exists($file)) {
+        if (!count($postCodes) && file_exists($file)) {
             $postCodes = file($file);
         }
         if (is_array($postCodes) && in_array($postcode, $postCodes)) {
@@ -174,6 +178,62 @@ class Validate_IS
         return false;
     }
 
+    
+    /**
+     * Checks if given address exists
+     * If postcode is provided, check if address exists in that area.
+     *
+     * NOTE: does *NOT* work completly, yet.
+     * 
+     * @param string $address 
+     * @param int    $postcode Optional; check if address exists in that area
+     * @param string $dataDir  Optional; /path/to/data/dir/
+     * @return bool
+     */
+    function address($address, $postcode = null, $dataDir = '@DATADIR@/Validate_IS')
+    {
+        if (!is_null($postcode)) {
+            /* Shall we dare to call postalCode staticly? */
+            if (isset($this)) {
+                $rsl = $this->postalCode($postcode, $dataDir);
+            } else {
+                $rsl = self::postalCode($postcode, $dataDir);
+            }
+            if (!$rsl) {
+                return false;
+            }
+        }
+        $file = is_readable($dataDir.'/IS_gotuskra.txt') ?
+            $dataDir. '/IS_gotuskra.txt' :
+            '@DATADIR@/Validate_IS/IS_gotuskra.txt';
+        
+        $fp = fopen($file, 'r');
+        if (!$fp) {
+            return false;
+        }
+        
+        $address = ucwords($address);
+        while (false !== ($data = fgetcsv($fp, 128, ';'))) {
+            /*
+            * TODO:
+            *   case-insensitive compare
+            */
+            if ($address == $data[2] || $address == $data[3]) {
+                if (!$postcode) {
+                    fclose($fp);
+                    return true;
+                }
+                if ($postcode == $data[1]) {
+                    fclose($fp);
+                    return true;
+                }
+            }
+        }
+        fclose($fp);
+
+        return false;
+    }
+    
     /**
      * Checks that the telephone number is 7digits and legal
      * home/office/gsm number (not information/emergency service etc.)
