@@ -161,6 +161,7 @@ class Validate_IS
             
             $fp = fopen($url, 'r');
             if ($fp) {
+                $postCodes = array();
                 while (false !== ($data = fgetcsv($fp, 128, ';'))) {
                     $postCodes[] = $data[0];
                 }
