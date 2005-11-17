@@ -153,7 +153,7 @@ class Validate_IS
         
         static $postCodes = array();
         static $lastUrl   = '';
-        if ($strongi && $lastUrl != $url) {
+        if ($strong && $lastUrl != $url) {
             $lastUrl = $url;
             if (!$url) {
                 $url = "http://www.postur.is/gogn/Gotuskra/postnumer.txt";
