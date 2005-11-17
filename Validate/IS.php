@@ -151,8 +151,10 @@ class Validate_IS
             $dataDir.'/IS_postcodes.txt' :
             '@DATADIR@/Validate_IS/IS_postcodes.txt';
         
-        $postCodes = array();
-        if ($strong) {
+        static $postCodes = array();
+        static $lastUrl   = '';
+        if ($strongi && $lastUrl != $url) {
+            $lastUrl = $url;
             if (!$url) {
                 $url = "http://www.postur.is/gogn/Gotuskra/postnumer.txt";
             }
