@@ -59,6 +59,10 @@ foreach ($postalCodes as $postalCode) {
     echo "{$postalCode}: ".$noYes[$validate->postalCode($postalCode)]."\n";
 }
 
+echo "\nTest postalCode strong\n";
+foreach($postalCodes as $postalCode) {
+    printf("%s: %s\n", $postalCode, $noYes[$validate->postalCode($postalCode, true)]);
+}
 echo "\nTest telNumbers\n";
 foreach ($telNumbers as $tel) {
     echo "{$tel}: ".$noYes[$validate->tel($tel)]."\n";
@@ -68,6 +72,32 @@ foreach ($telNumbers as $tel) {
 Test Validate_IS
 ****************
 Test postalCode
+101: YES
+170: YES
+200: YES
+210: YES
+220: YES
+230: YES
+300: YES
+400: YES
+500: YES
+600: YES
+700: YES
+800: YES
+900: YES
+100: NO
+120: NO
+140: NO
+205: NO
+305: NO
+472: NO
+903: NO
+99: NO
+1000: NO
+1OO: NO
+abc: NO
+
+Test postalCode strong
 101: YES
 170: YES
 200: YES

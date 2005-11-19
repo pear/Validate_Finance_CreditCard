@@ -125,40 +125,47 @@ class Validate_IS
     /**
      * validates a postcode
      *
-     * Validates Icelandic postalcodes. By defaults checks against (prefetched)
-     * csv list containing all Icelanidc postalcodes. If the list is one month
-     * old, trys to update it.
+     * Validates Icelandic postalcodes. By default checks against (prefetched)
+     * list containing all Icelandic postalcodes.
+     * Live check (against, by default, the official list) is available by
+     * switching $strong (2nd parameter) to true.
+     * $dataFile will be rewritten with the data retrived from $url in $strong mode
+     * 
+     * User can provide his own datafile if he wishes and/or own "official" list.
+     *
      *
      * @access    public
      * @param     int     the postcode to be validated
      * @param     bool    optional; check against the official list (default off)
-     * @param     string  optional; /path/to/data/dir/
+     * @param     string  optional; /path/to/data/file.txt
      * @param     string  optional; http://domain.tld/path/to/live/data/file.txt
      * @return    bool
      */
-    function postalCode($postcode, $strong = false, $dataDir = '', $url = '')
+    function postalCode($postCode, $strong = false,
+                        $dataFile = '@DATADIR@/Validate_IS/IS_postcodes.txt',
+                        $url = 'http://www.postur.is/gogn/Gotuskra/postnumer.txt')
     {
-        /* Sanity check, all Icelandic postalcodes are between 101 and 950 */
-        if ($postcode <= 100 || $postcode > 950) {
-            return false;
-        }
-
-        if (!$dataDir) {
-            $dataDir = '@DATADIR@/Validate_IS';
-        }
-        
-        $file = is_readable($dataDir.'/IS_postcodes.txt') ?
-            $dataDir.'/IS_postcodes.txt' :
-            '@DATADIR@/Validate_IS/IS_postcodes.txt';
-        
         static $postCodes = array();
         static $lastUrl   = '';
-        if ($strong && $lastUrl != $url) {
-            $lastUrl = $url;
-            if (!$url) {
-                $url = "http://www.postur.is/gogn/Gotuskra/postnumer.txt";
-            }
-            
+        static $lastFile  = '';
+
+        /* Sanity check, all Icelandic postalcodes are between 101 and 950 */
+        $postCode = (int)$postCode;
+        if ($postCode <= 100 || $postCode > 950) {
+            return false;
+        }
+        /* Same configuration as last time? No need to go further then */
+        if (count($postCodes) && $dataFile == $lastFile &&
+           (($strong && $lastUrl == $url) || !$strong)) {
+            return in_array($postCode, $postCodes);
+        }
+        /* Sanity check the data file */
+        if (!is_readable($dataFile)) {
+            return false;
+        }
+        
+        /* Live check */
+        if ($strong) {
             $fp = fopen($url, 'r');
             if ($fp) {
                 $postCodes = array();
@@ -168,8 +175,8 @@ class Validate_IS
                 unset($postCodes[0]); // Fake entry
                 fclose($fp);
                 
-                if (is_writable($file)) {
-                    $fp = fopen($file, 'w');
+                if (is_writable($dataFile)) {
+                    $fp = fopen($dataFile, 'w');
                     if ($fp) {
                         fwrite($fp, implode("\n", $postCodes));
                         fclose($fp);
@@ -178,10 +185,11 @@ class Validate_IS
             }
         }
 
-        if (!count($postCodes) && file_exists($file)) {
-            $postCodes = file($file);
+        if (!count($postCodes) && file_exists($dataFile)) {
+            $postCodes = file($dataFile);
+            $lastFile = $dataFile;
         }
-        if (is_array($postCodes) && in_array($postcode, $postCodes)) {
+        if (count($postCodes) && in_array($postCode, $postCodes)) {
             return true;
         }
 
