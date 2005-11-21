@@ -156,12 +156,8 @@ class Validate_IS
         }
         /* Same configuration as last time? No need to go further then */
         if (count($postCodes) && $dataFile == $lastFile &&
-           (($strong && $lastUrl == $url) || !$strong)) {
+           (!$strong || $lastUrl == $url)) {
             return in_array($postCode, $postCodes);
-        }
-        /* Sanity check the data file */
-        if (!is_readable($dataFile)) {
-            return false;
         }
         
         /* Live check */
@@ -185,7 +181,7 @@ class Validate_IS
             }
         }
 
-        if (!count($postCodes) && file_exists($dataFile)) {
+        if (!count($postCodes) && is_readable($dataFile)) {
             $postCodes = file($dataFile);
             $lastFile = $dataFile;
         }
