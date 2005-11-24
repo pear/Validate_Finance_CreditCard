@@ -125,7 +125,7 @@ class Validate_UK
         // must be in format nn-nn-nn (must contain dashes)
         // need to research the range of values - i have assumed 00-00-00 to 99-99-99
         // but it might be something like 01-01-01 to 50-99-99
-        $preg = "/[0-9]{2}\-[0-9]{2}\-[0-9]{2}/";
+        $preg = "/^[0-9]{2}\-[0-9]{2}\-[0-9]{2}$/";
         $match = (preg_match($preg, $sc)) ? true : false;
         return $match;
     }
@@ -145,7 +145,7 @@ class Validate_UK
         // FIXME *THIS IS PROBABLY WRONG!!! RESEARCH*
         // There is a modulus 10/11 system that could be implmeneted here, but it's potentially quite
         // complex - http://en.wikipedia.org/wiki/Luhn_formula - Ian
-        $preg = "/[0-9]{6,8}/";
+        $preg = "/^[0-9]{6,8}$/";
         $match = (preg_match($preg, $ac)) ? true : false;
         return $match;
     }
@@ -203,7 +203,7 @@ class Validate_UK
     /**
      *
      * Validates a UK passport number, EU might be the same
-     * just checks for 9 digits mine starts 00 and i have included that - might cause problems
+     * just checks for 9 digits
      *
      * @access    public
      * @author    Michael Dransfield <mikeNO@SPAMblueroot.net>
@@ -214,9 +214,7 @@ class Validate_UK
     function passport($pp)
     {
         // just checks for 9 digit number
-        $preg = "/[0-9]{9}/";
-        $match = (preg_match($preg, $pp)) ? true : false ;
-        return $match;
+        return (ctype_digit($pp) && strlen($pp) == 9);
     }
 
     /**
@@ -230,7 +228,8 @@ class Validate_UK
      */
     function drive($dl)
     {
-        $preg = "[A-Z]{5}[0-9]{6}[A-Z0-9]{5}";
+        $dl = strtoupper(str_replace(' ', '', $dl));
+        $preg = "/^[A-Z]{5}[0-9]{6}[A-Z0-9]{5}$/";
         $match = (preg_match($preg, $dl)) ? true : false;
         return $match;
     }
