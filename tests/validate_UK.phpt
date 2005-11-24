@@ -67,7 +67,34 @@ $sortCodes = array(
                 '345676', // NOK
                 '0-78-56', // NOK
                 '21-68-78', // OK
+                'foo21-68-78', // NOK
+                '21-68-78bar', // NOK
                 '34-234-56'); // NOK
+
+$telNumbers = array(
+    '02012345678', // OK
+    '020-1234-5678', // OK
+    '020 1234 5678', // OK
+    '000 1234 5678', // NOK
+    '020 1234 56789', // OK
+    '020 1234 567', // NOK
+    'foo020 1234 5678', // NOK
+    '020 1234 5678bar', // NOK
+);
+
+$accountNumbers = array(
+    '01234567', // OK
+    '012345678', // NOK
+    'foo01234567', // NOK
+    '01234567bar', // NOK
+    'foobar'); // NOK
+
+$drivingLicences = array(
+    'ABCDE012345ABCDE', // OK
+    'ABCDEE012345ABCDE', // NOK
+    'ABCDE012345ABCD', // NOK
+    'fooABCDE012345ABCDE', // NOK
+    'ABCDE012345ABCDEbar'); // NOK
 
 echo "Test postalCode\n";
 foreach ($postalCodes as $postalCode) {
@@ -82,6 +109,21 @@ foreach ($ssns as $ssn) {
 echo "\nTest sortCode\n";
 foreach ($sortCodes as $sortCode) {
     echo "{$sortCode}: ".$noYes[Validate_UK::sortCode($sortCode)]."\n";
+}
+
+echo "\nTest tel\n";
+foreach ($telNumbers as $v) {
+    echo "{$v}: ".$noYes[Validate_UK::tel($v)]."\n";
+}
+
+echo "\nTest bankAC\n";
+foreach ($accountNumbers as $v) {
+    echo "{$v}: ".$noYes[Validate_UK::bankAC($v)]."\n";
+}
+
+echo "\nTest drive\n";
+foreach ($drivingLicences as $v) {
+    echo "{$v}: ".$noYes[Validate_UK::drive($v)]."\n";
 }
 ?>
 --EXPECT--
@@ -134,4 +176,30 @@ Test sortCode
 345676: NO
 0-78-56: NO
 21-68-78: YES
+foo21-68-78: NO
+21-68-78bar: NO
 34-234-56: NO
+
+Test tel
+02012345678: YES
+020-1234-5678: YES
+020 1234 5678: YES
+000 1234 5678: NO
+020 1234 56789: YES
+020 1234 567: NO
+foo020 1234 5678: NO
+020 1234 5678bar: NO
+
+Test bankAC
+01234567: YES
+012345678: NO
+foo01234567: NO
+01234567bar: NO
+foobar: NO
+
+Test drive
+ABCDE012345ABCDE: YES
+ABCDEE012345ABCDE: NO
+ABCDE012345ABCD: NO
+fooABCDE012345ABCDE: NO
+ABCDE012345ABCDEbar: NO
