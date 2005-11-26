@@ -44,6 +44,8 @@ Package containes locale validation for IS (Iceland) such as:
 - Fixed testcases when run under E_STRICT
 - Bump the dep to PHP 4.2+
 - Ctype is now a required dep.
+BC break:
+- tel renamed to phoneNumber to confirm to the Validate standard
      </notes>
     <filelist>
     <dir name="/">

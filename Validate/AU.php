@@ -92,16 +92,15 @@ class Validate_AU
      *
      * @static
      * @access    public
-     * @param     string    $tel the tel number
+     * @param     string    $number the tel number
      * @return    bool
      */
-    function tel($tel)
+    function phoneNumber($number)
     {
-        $tel = str_replace(array('(', ')', '-', '+', '.', ' '), '', $tel);
-
+        $number = str_replace(array('(', ')', '-', '+', '.', ' '), '', $number);
         $preg = "/^0[23478][0-9]{8}$/";
 
-        return (preg_match($preg, $tel)) ? true : false;
+        return (preg_match($preg, $number)) ? true : false;
     }
 
 

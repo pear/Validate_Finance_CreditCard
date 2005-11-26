@@ -155,18 +155,18 @@ class Validate_UK
      *
      * @access    public
      * @author    Michael Dransfield <mikeNO@SPAMblueroot.net>
-     * @param     string $tel the tel number
+     * @param     string $number the tel number
      * @return    bool
      * @see
      */
-    function tel($tel)
+    function phoneNumber($number)
     {
         // just checks to see if it is numeric and starts with a 0
         // remove any wierd characters like (,),-,. etc
         // FIXME this could be improved.
-        $tel = str_replace(array('(', ')', '-', '+', '.', ' '), '', $tel);
+        $number = str_replace(array('(', ')', '-', '+', '.', ' '), '', $number);
         $preg = "/^0[125789][0-9]{9,10}$/";
-        $match = (preg_match($preg, $tel)) ? true : false;
+        $match = (preg_match($preg, $number)) ? true : false;
         return $match;
     }
 

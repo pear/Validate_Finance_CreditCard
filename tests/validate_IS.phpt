@@ -1,5 +1,5 @@
 --TEST--
-validate_IS.phpt: Unit tests for 'Validate/IS.php' 
+validate_IS.phpt: Unit tests for 'Validate/IS.php'
 --FILE--
 <?php
 // $Id$
@@ -63,9 +63,10 @@ echo "\nTest postalCode strong\n";
 foreach($postalCodes as $postalCode) {
     printf("%s: %s\n", $postalCode, $noYes[$validate->postalCode($postalCode, true)]);
 }
-echo "\nTest telNumbers\n";
+
+echo "\nTest phoneNumbers\n";
 foreach ($telNumbers as $tel) {
-    echo "{$tel}: ".$noYes[$validate->tel($tel)]."\n";
+    echo "{$tel}: ".$noYes[$validate->phoneNumber($tel)]."\n";
 }
 ?>
 --EXPECT--

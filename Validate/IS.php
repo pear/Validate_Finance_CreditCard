@@ -1,7 +1,7 @@
 <?php
 /* vim: set expandtab tabstop=4 shiftwidth=4: */
 // +----------------------------------------------------------------------+
-// | Copyright (c) 1997-2005  Hannes Magnússon                            |
+// | Copyright (c) 1997-2005  Hannes Magnsson                             |
 // +----------------------------------------------------------------------+
 // | This source file is subject to the New BSD license, That is bundled  |
 // | with this package in the file LICENSE, and is available through      |
@@ -20,8 +20,8 @@
  *
  * @category   Validate
  * @package    Validate_IS
- * @author     Hannes Magnússon <bjori@php.net>
- * @copyright  1997-2005  Hannes Magnússon
+ * @author     Hannes Magnsson <bjori@php.net>
+ * @copyright  1997-2005  Hannes Magnsson
  * @license    http://www.opensource.org/licenses/bsd-license.php  new BSD
  * @version    CVS: $Id$
  */
@@ -36,14 +36,14 @@
  *
  * @category   Validate
  * @package    Validate_IS
- * @author     Hannes Magnússon <bjori@php.net>
- * @copyright  1997-2005  Hannes Magnússon
+ * @author     Hannes Magnsson <bjori@php.net>
+ * @copyright  1997-2005  Hannes Magnsson
  * @license    http://www.opensource.org/licenses/bsd-license.php  new BSD
  */
 class Validate_IS
 {
     /**
-     * Validates a social security number (kennitölu)
+     * Validates a social security number (kennitï¿½u)
      *
      * Validation according to http://www.hagstofa.is/?PageID=1474
      *
@@ -130,7 +130,7 @@ class Validate_IS
      * Live check (against, by default, the official list) is available by
      * switching $strong (2nd parameter) to true.
      * $dataFile will be rewritten with the data retrived from $url in $strong mode
-     * 
+     *
      * User can provide his own datafile if he wishes and/or own "official" list.
      *
      *
@@ -154,12 +154,13 @@ class Validate_IS
         if ($postCode <= 100 || $postCode > 950) {
             return false;
         }
+
         /* Same configuration as last time? No need to go further then */
         if (count($postCodes) && $dataFile == $lastFile &&
            (!$strong || $lastUrl == $url)) {
             return in_array($postCode, $postCodes);
         }
-        
+
         /* Live check */
         if ($strong) {
             $fp = fopen($url, 'r');
@@ -170,7 +171,7 @@ class Validate_IS
                 }
                 unset($postCodes[0]); // Fake entry
                 fclose($fp);
-                
+
                 if (is_writable($dataFile)) {
                     $fp = fopen($dataFile, 'w');
                     if ($fp) {
@@ -192,14 +193,14 @@ class Validate_IS
         return false;
     }
 
-    
+
     /**
      * Checks if given address exists
      * If postcode is provided, check if address exists in that area.
      *
      * NOTE: does *NOT* work completly, yet.
      * NOTE: $strong is *NOT* implimented, yet.
-     * 
+     *
      * @param string $address   Address to validate
      * @param int    $postcode  Optional; check if address exists in that area
      * @param bool   $strong    Optional; Live check
@@ -227,12 +228,12 @@ class Validate_IS
         $file = is_readable($dataDir.'/IS_gotuskra.txt') ?
             $dataDir. '/IS_gotuskra.txt' :
             '@DATADIR@/Validate_IS/IS_gotuskra.txt';
-        
+
         $fp = fopen($file, 'r');
         if (!$fp) {
             return false;
         }
-        
+
         $address = ucwords($address);
         while (false !== ($data = fgetcsv($fp, 128, ';'))) {
             /*
@@ -254,7 +255,7 @@ class Validate_IS
 
         return false;
     }
-    
+
     /**
      * Checks that the telephone number is 7digits and legal
      * home/office/gsm number (not information/emergency service etc.)
@@ -266,16 +267,16 @@ class Validate_IS
      *       spaces in our match.
      *
      * @access    public
-     * @param     string $tel the telephone number
+     * @param     string $number the telephone number
      * @return    bool
      * @see
      */
-    function tel($tel)
+    function phoneNumber($number)
     {
-        $tel = str_replace(array('+', ' ', '-'), array('00', '', ''), $tel);
+        $number = str_replace(array('+', ' ', '-'), array('00', '', ''), $number);
 
-        $telLength = strlen($tel);
-        if ($telLength !=7) {
+        $telLength = strlen($number);
+        if ($telLength != 7) {
             if ($telLength != 12) {
                 return false;
             }
@@ -284,7 +285,7 @@ class Validate_IS
             }
         }
 
-        $firstDigit = substr($tel, -7, 1); // Gets the first digit in the tel.
+        $firstDigit = substr($number, -7, 1); // Gets the first digit in the tel.
         if (in_array($firstDigit, array(0, 1, 2, 3))) {
             return false;
         }
