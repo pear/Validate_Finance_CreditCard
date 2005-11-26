@@ -180,24 +180,26 @@ class Validate_UK
      */
     function carReg($reg)
     {
-        // checks for valid car licence plate
-        // need to extend to include v old plates (without year prefix/suffix)
-        // extend to reject invalid year letters (eg Z)
-        // remove any spaces
-        $reg = strtoupper(str_replace(' ', '', $reg));
-        // suffixed year letter
-        $suffpreg = "/[A-Z]{3}[0-9]{1,3}[A-Z]/";
-        $suffres = preg_match($suffpreg, $reg);
-        // prefixed year letter
-        $prepreg = "/[A-Z][0-9]{1,3}[A-Z]{3}/";
-        $suffres = preg_match($prepreg, $reg);
-        // new ones
-        $newpreg = "/[A-Z][0-9][05][A-Z]{3}/";
-        $suffres = preg_match($newpreg, $reg);
-        if (!$suffres || !$preres && !$newres){
-            return false;
+        require_once 'Validate/UK/carReg.php';
+        $reg = strtoupper(str_replace(array('-', ' '), '', $reg));
+        // functions to check, in order
+        $regFuncs = array(
+            '2001',
+            '1982',
+            '1963',
+            '1950',
+            '1932',
+            'Pre1932'
+        );
+        foreach ($regFuncs as $func) {
+            $cfunc = 'validateVehicle' . $func;
+            $ret = $cfunc($reg);
+            if ($ret !== false) {
+                // maybe return something useful here when possible?
+                return true;
+            }
         }
-        return true;
+        return false;
     }
 
     /**

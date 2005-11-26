@@ -96,6 +96,17 @@ $drivingLicences = array(
     'fooABCDE012345ABCDE', // NOK
     'ABCDE012345ABCDEbar'); // NOK
 
+$carRegistrations = array(
+    'A 123 ABC', // OK
+    'S7 VEN', // OK
+    'ABC 123 A', // OK
+    'A1', // OK
+    '123 ABC', // NOK
+    '11', // NOK
+    'AA', // NOK
+    'AA 51 ABCDE', // NOK
+    '');  // NOK
+
 echo "Test postalCode\n";
 foreach ($postalCodes as $postalCode) {
     echo "{$postalCode}: ".$noYes[Validate_UK::postalCode($postalCode)]."\n";
@@ -124,6 +135,12 @@ foreach ($accountNumbers as $v) {
 echo "\nTest drive\n";
 foreach ($drivingLicences as $v) {
     echo "{$v}: ".$noYes[Validate_UK::drive($v)]."\n";
+}
+
+
+echo "\nCar registrations\n";
+foreach ($carRegistrations as $v) {
+    echo "{$v}: ".$noYes[Validate_UK::carReg($v)]."\n";
 }
 ?>
 --EXPECT--
@@ -203,3 +220,14 @@ ABCDEE012345ABCDE: NO
 ABCDE012345ABCD: NO
 fooABCDE012345ABCDE: NO
 ABCDE012345ABCDEbar: NO
+
+Car registrations
+A 123 ABC: YES
+S7 VEN: YES
+ABC 123 A: YES
+A1: YES
+123 ABC: NO
+11: NO
+AA: NO
+AA 51 ABCDE: NO
+: NO
