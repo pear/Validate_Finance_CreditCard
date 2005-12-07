@@ -12,6 +12,8 @@ echo "Test Validate::uri()\n";
 $uris = array(
         // with no options (no domain_check and no allowed_schemes
         'not @ goodurl123' , // NOK
+        'http://www.example.com//', // NOK
+        'http://www.example.com/', // OK
         'http://www.ics.uci.edu/pub/ietf/uri/#Related' , // OK
         'http://user:password@www.ics.uci.edu:8080/pub/ietf/uri;rfc2396?test=ok&end=next#Related' , // OK
         '//127.0.0.1', // OK
@@ -60,6 +62,8 @@ foreach ($uris as $uri) {
 --EXPECT--
 Test Validate::uri()
 not @ goodurl123: NO
+http://www.example.com//: NO
+http://www.example.com/: YES
 http://www.ics.uci.edu/pub/ietf/uri/#Related: YES
 http://user:password@www.ics.uci.edu:8080/pub/ietf/uri;rfc2396?test=ok&end=next#Related: YES
 //127.0.0.1: YES

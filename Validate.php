@@ -222,7 +222,7 @@ class Validate
               (?:((?:[a-z0-9](?:[-a-z0-9]*[a-z0-9])?\.)*[a-z](?:[-a-z0-9]*[a-z0-9])?\.?)  # 3. authority-hostname OR
               |([0-9]{1,3}(?:\.[0-9]{1,3}){3}))                       # 4. authority-ipv4
               (?::([0-9]*))?)?                                        # 5. authority-port
-              ((?:/(?:%[0-9a-f]{2}|[-a-z0-9_.!~*\'():@\&=+$,;])+)+/?)? # 6. path
+              ((?:/(?:%[0-9a-f]{2}|[-a-z0-9_.!~*\'():@\&=+$,;])+)*/?)? # 6. path
               (?:\?([^#]*))?                                          # 7. query
               (?:\#((?:%[0-9a-f]{2}|[-a-z0-9_.!~*\'();/?:@\&=+$,])*))? # 8. fragment
               $&xi', $url, $matches)) {
@@ -233,7 +233,7 @@ class Validate
             ) {
                 return false;
             }
-            if (isset($matches[4])) {
+            if (!empty($matches[4])) {
                 $parts = explode('.', $matches[4]);
                 foreach ($parts as $part) {
                     if ($part > 255) {
@@ -247,8 +247,8 @@ class Validate
             }
             if ($strict) {
                 $strict = '#[' . preg_quote($strict, '#') . ']#';
-                if ((isset($matches[7]) && preg_match($strict, $matches[7]))
-                 || (isset($matches[8]) && preg_match($strict, $matches[8]))) {
+                if ((!empty($matches[7]) && preg_match($strict, $matches[7]))
+                 || (!empty($matches[8]) && preg_match($strict, $matches[8]))) {
                     return false;
                 }
             }
