@@ -20,6 +20,7 @@
  * @category   Validate
  * @package    Validate_ptBR
  * @author     Silvano Girardi Jr. <silvano@php.net>
+ * @author     Marcelo Santos Araujo <msaraujo@php.net>
  * @copyright  1997-2005  Silvano Girardi Jr.
  * @license    http://www.opensource.org/licenses/bsd-license.php  new BSD
  * @version    CVS: $Id$
@@ -33,10 +34,13 @@
  *  - Postal code CEP (Código de Endereçamento Postal)
  *  - CPF (Cadastro de Pessoa Física)
  *  - CNPJ (Cadastro Nacional de Pessoa Jurídica)
- *
+ *  - Regions - brazilian states (Estados brasileiros)
+ *  - Phone Numbers - brazilian phone numbers
+ *  
  * @category   Validate
  * @package    Validate_ptBR
  * @author     Silvano Girardi Jr. <silvano@php.net>
+ * @author     Marcelo Santos Araujo <msaraujo@php.net>
  * @copyright  1997-2005  Silvano Girardi Jr.
  * @license    http://www.opensource.org/licenses/bsd-license.php  new BSD
  * @version    Release: @package_version@
@@ -47,7 +51,7 @@ class Validate_ptBR
     /**
      * Validate CEP (Código de Endereçamento Postal, like postcode in US
      * and other languages)
-     * format: xxxxx-xxx
+     * format: xxxxx-xxx,xxxxx xxx,xxxxxxxx
      *
      * @param   string  $postalCode   pt_BR CEP/postalCode to validate
      * @param    bool    optional; strong checks (e.g. against a list of postcodes) (not implanted)
@@ -55,7 +59,7 @@ class Validate_ptBR
      */
     function postalCode($postalCode, $strong = false)
     {
-        return (bool)ereg('(^[0-9]{5})-([0-9]{3})$', $postalCode);
+        return (bool)ereg('(^[0-9]{5})[- ]?([0-9]{3})$', $postalCode);
     }
 
     /**
@@ -197,5 +201,75 @@ class Validate_ptBR
             }
         }
     }
+
+    
+    /**
+     * Validates a "region" (i.e. state) code
+     *
+     * @param string $region 2-letter state code
+     * @return bool  true if $region is ok, false otherwise
+     * @static
+     */
+    function region($region)
+    {
+        switch (strtoupper($region)) {
+            case 'AC':
+            case 'AP':
+            case 'AL':
+            case 'AM':
+            case 'BA':
+            case 'CE':
+            case 'DF':
+            case 'ES':
+            case 'GO':
+            case 'MA':
+            case 'MT':
+            case 'MS':
+            case 'MG':
+            case 'PA':
+            case 'PB':
+            case 'PR':
+            case 'PE':
+            case 'PI':
+            case 'RJ':
+            case 'RN':
+            case 'RS':
+            case 'RO':
+            case 'RR':
+            case 'SC':
+            case 'SP':
+            case 'SE':
+            case 'TO':
+                return true;
+        }
+        return false;
+    }
+
+
+    /**
+     * Validates a brazilian (ptBR) phone number.
+     * Also allows the formats
+     * If $requiredAreaCode is true:
+     * (XX)-XXXX-XXXX,(XX) XXXX XXXX, (XX)-XXXX XXXX, (XX) XXXX-XXXX, 
+     * XX-XXXX-XXXX,XX XXXX XXXX,XX-XXXX XXXX,XX XXXX-XXXX,XX XXXXXXXX,(XX)XXXXXXXX 
+     * If $requiredAreaCode is false:  XXXX-XXXX,XXXX XXXX, XXXXXXXX
+     * @param  string    $number             phone to validate
+     * @param  bool      $requireAreaCode    require the area code? (default: true)
+     * @return bool                          The valid or invalid phone number
+     */
+    function phoneNumber($number, $requireAreaCode = true)
+    {
+        if (!$requireAreaCode) {
+            if (preg_match("/^(\d{4})[- ]?(\d{4})$/", $number)) {
+                return  true;
+            }
+        } else {
+            if (preg_match("/^(\()?[1-9]{2}(?(1)\))[- ]?(\d{4})[- ]?(\d{4})$/",$number)) {
+            	return true;
+            }
+        }
+        return false;
+    }
+
 }
 ?>
