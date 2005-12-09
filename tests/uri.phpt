@@ -41,10 +41,10 @@ $uris = array(
         '/tkik-wkik_rss.php?ver=2http://www.hyperlecture.info//http://www.hyperlecture.info/accueil',
             'strict' => ''), // OK
 /* the bjori's sequence */
-        'http://domain.tld//', // OK
+        'http://domain.tld//', // NOK
         'http://domain.tld/.', // OK
-        'http://domain.tld/./folder/.././/.folder/subfolder/../../', // OK
-        'http://domain.tld//./' // OK
+        'http://domain.tld/./folder/.././/.folder/subfolder/../../', // NOK
+        'http://domain.tld//./' // NOK
     );
 
 foreach ($uris as $uri) {
