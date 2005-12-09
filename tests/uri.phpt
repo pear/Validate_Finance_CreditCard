@@ -39,7 +39,12 @@ $uris = array(
                                     'domain_check' => true), // OK
         array(
         '/tkik-wkik_rss.php?ver=2http://www.hyperlecture.info//http://www.hyperlecture.info/accueil',
-            'strict' => '') // OK
+            'strict' => ''), // OK
+/* the bjori's sequence */
+        'http://domain.tld//', // OK
+        'http://domain.tld/.', // OK
+        'http://domain.tld/./folder/.././/.folder/subfolder/../../', // OK
+        'http://domain.tld//./' // OK
     );
 
 foreach ($uris as $uri) {
@@ -84,3 +89,7 @@ http://user:password@127.0.0.1:8080/pub/ietf/uri;rfc2396?test=ok&end=next#Relate
 http://example.org: schemes(ftp,http) without domain check : YES
 http://php.net: schemes(ftp,http) with domain check : YES
 /tkik-wkik_rss.php?ver=2http://www.hyperlecture.info//http://www.hyperlecture.info/accueil: schemes() without domain check : (strict : ) YES
+http://domain.tld//: NO
+http://domain.tld/.: YES
+http://domain.tld/./folder/.././/.folder/subfolder/../../: NO
+http://domain.tld//./: NO
