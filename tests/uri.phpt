@@ -12,7 +12,7 @@ echo "Test Validate::uri()\n";
 $uris = array(
         // with no options (no domain_check and no allowed_schemes
         'not @ goodurl123' , // NOK
-        'http://www.example.com//', // NOK
+        'http://www.example.com//', // OK
         'http://www.example.com/', // OK
         'http://www.ics.uci.edu/pub/ietf/uri/#Related' , // OK
         'http://user:password@www.ics.uci.edu:8080/pub/ietf/uri;rfc2396?test=ok&end=next#Related' , // OK
@@ -20,10 +20,10 @@ $uris = array(
         '//127.0.333.1', // NOK
         'http://user:password@127.0.0.1:8080/pub/ietf/uri;rfc2396?test=ok&end=next#Related' , // OK
         '127.0.0.1', // NOK
-        '/tkik-wkik_rss.php?ver=2http://www.hyperlecture.info//http://www.hyperlecture.info/accueil', // NOK
+        '//example.org/tkik-wkik_rss.php?ver=2http://www.hyperlecture.info//http://www.hyperlecture.info/accueil', // NOK default strict
         // minus serie
         '//example-minus.com', // OK
-        '//example.co-m', // OK
+        '//example.co-m', // NOK (allowed by the rfc2396 but absent from TLDs)
         '//example-.com', // NOK
         '//-example.com', // NOK
         '//-.com', // NOK
@@ -38,13 +38,13 @@ $uris = array(
         array('http://php.net', 'allowed_schemes' => array('ftp', 'http'),
                                     'domain_check' => true), // OK
         array(
-        '/tkik-wkik_rss.php?ver=2http://www.hyperlecture.info//http://www.hyperlecture.info/accueil',
+        '//example.org/tkik-wkik_rss.php?ver=2http://www.hyperlecture.info//http://www.hyperlecture.info/accueil',
             'strict' => ''), // OK
 /* the bjori's sequence */
-        'http://domain.tld//', // NOK
+        'http://domain.tld//', // OK
         'http://domain.tld/.', // OK
-        'http://domain.tld/./folder/.././/.folder/subfolder/../../', // NOK
-        'http://domain.tld//./' // NOK
+        'http://domain.tld/./folder/.././/.folder/subfolder/../../', // OK
+        'http://domain.tld//./' // OK
     );
 
 foreach ($uris as $uri) {
@@ -67,7 +67,7 @@ foreach ($uris as $uri) {
 --EXPECT--
 Test Validate::uri()
 not @ goodurl123: NO
-http://www.example.com//: NO
+http://www.example.com//: YES
 http://www.example.com/: YES
 http://www.ics.uci.edu/pub/ietf/uri/#Related: YES
 http://user:password@www.ics.uci.edu:8080/pub/ietf/uri;rfc2396?test=ok&end=next#Related: YES
@@ -75,9 +75,9 @@ http://user:password@www.ics.uci.edu:8080/pub/ietf/uri;rfc2396?test=ok&end=next#
 //127.0.333.1: NO
 http://user:password@127.0.0.1:8080/pub/ietf/uri;rfc2396?test=ok&end=next#Related: YES
 127.0.0.1: NO
-/tkik-wkik_rss.php?ver=2http://www.hyperlecture.info//http://www.hyperlecture.info/accueil: NO
+//example.org/tkik-wkik_rss.php?ver=2http://www.hyperlecture.info//http://www.hyperlecture.info/accueil: NO
 //example-minus.com: YES
-//example.co-m: YES
+//example.co-m: NO
 //example-.com: NO
 //-example.com: NO
 //-.com: NO
@@ -88,8 +88,8 @@ http://user:password@127.0.0.1:8080/pub/ietf/uri;rfc2396?test=ok&end=next#Relate
 //example.org: schemes(ftp,http) without domain check : NO
 http://example.org: schemes(ftp,http) without domain check : YES
 http://php.net: schemes(ftp,http) with domain check : YES
-/tkik-wkik_rss.php?ver=2http://www.hyperlecture.info//http://www.hyperlecture.info/accueil: schemes() without domain check : (strict : ) YES
-http://domain.tld//: NO
+//example.org/tkik-wkik_rss.php?ver=2http://www.hyperlecture.info//http://www.hyperlecture.info/accueil: schemes() without domain check : (strict : ) YES
+http://domain.tld//: YES
 http://domain.tld/.: YES
-http://domain.tld/./folder/.././/.folder/subfolder/../../: NO
-http://domain.tld//./: NO
+http://domain.tld/./folder/.././/.folder/subfolder/../../: YES
+http://domain.tld//./: YES

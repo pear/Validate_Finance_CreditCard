@@ -194,6 +194,13 @@ class Validate
      * var_dump(Validate::uri('http://www.example.org'), $options);
      * </code>
      *
+     * NOTE 1: The rfc2396 normally allows middle '-' in the top domain
+     *         e.g. http://example.co-m should be valid
+     *         However, as '-' is not used in any known TLD, it is invalid
+     * NOTE 2: As double shlashes // are allowed in the path part, only full URIs
+     *         including an authority can be valid, no relative URIs
+     *         the // are mandatory (optionally preceeded by the 'sheme:' )
+     *
      * @param string    $url        URI to validate
      * @param array     $options    Options used by the validation method.
      *                              key => type
@@ -202,6 +209,10 @@ class Validate
      *                              'allowed_schemes' => array, list of protocols
      *                                  List of allowed schemes ('http',
      *                                  'ssh+svn', 'mms')
+     *                              'strict' => string the refused chars
+     *                                   in query and fragment parts
+     *                                   default: ';/?:@$,'
+     *                                   empty: accept all rfc2396 foreseen chars
      *
      * @return boolean true if valid uri, false if not
      *
@@ -219,10 +230,10 @@ class Validate
              '&^(?:([a-z][-+.a-z0-9]*):)?                             # 1. scheme
               (?://                                                   # authority start
               (?:((?:%[0-9a-f]{2}|[-a-z0-9_.!~*\'();:\&=+$,])*)@)?    # 2. authority-userinfo
-              (?:((?:[a-z0-9](?:[-a-z0-9]*[a-z0-9])?\.)*[a-z](?:[-a-z0-9]*[a-z0-9])?\.?)  # 3. authority-hostname OR
+              (?:((?:[a-z0-9](?:[-a-z0-9]*[a-z0-9])?\.)*[a-z](?:[a-z0-9]+)?\.?)  # 3. authority-hostname OR
               |([0-9]{1,3}(?:\.[0-9]{1,3}){3}))                       # 4. authority-ipv4
-              (?::([0-9]*))?)?                                        # 5. authority-port
-              ((?:/(?:%[0-9a-f]{2}|[-a-z0-9_.!~*\'():@\&=+$,;])+)*/?)? # 6. path
+              (?::([0-9]*))?)                                        # 5. authority-port
+              ((?:/(?:%[0-9a-f]{2}|[-a-z0-9_.!~*\'():@\&=+$,;])*)*/?)? # 6. path
               (?:\?([^#]*))?                                          # 7. query
               (?:\#((?:%[0-9a-f]{2}|[-a-z0-9_.!~*\'();/?:@\&=+$,])*))? # 8. fragment
               $&xi', $url, $matches)) {
