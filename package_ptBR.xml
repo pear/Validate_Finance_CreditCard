@@ -18,7 +18,7 @@ Package containes locale validation for ptBR such as:
     </maintainer>
     <maintainer>
       <user>msaraujo</user>
-      <role>developer</role>
+      <role>lead</role>
       <name>Marcelo Santos Araujo</name>
       <email>msaraujo@php.net</email>
     </maintainer>
