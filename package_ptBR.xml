@@ -7,6 +7,9 @@ Package containes locale validation for ptBR such as:
  * Postal Code
  * CNPJ
  * CPF
+ * Region (brazilian states)
+ * Phone Number
+ * Vehicle's plate 
   </description>
   <license>New BSD</license>
   <maintainers>
@@ -26,7 +29,7 @@ Package containes locale validation for ptBR such as:
   <release>
     <version>0.5.1</version>
     <state>alpha</state>
-    <date>2005-11-04</date>
+    <date>2005-12-29</date>
     <notes>
 - Switch to the new BSD License
 (see http://www.opensource.org/licenses/bsd-license.php)
@@ -36,6 +39,7 @@ Package containes locale validation for ptBR such as:
       <file role="doc" name="LICENSE" />
       <dir name="Validate">
         <file role="php">ptBR.php</file>
+	<file role="test">ptBR.phpt</file>
       </dir>
     </dir>
     </filelist>
