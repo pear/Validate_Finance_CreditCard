@@ -36,7 +36,8 @@
  *  - CNPJ (Cadastro Nacional de Pessoa Jurídica)
  *  - Regions - brazilian states (Estados brasileiros)
  *  - Phone Numbers - brazilian phone numbers
- *  
+ *  - Vehicle Plates - brazilian vehicle's plate
+ * 
  * @category   Validate
  * @package    Validate_ptBR
  * @author     Silvano Girardi Jr. <silvano@php.net>
@@ -271,5 +272,18 @@ class Validate_ptBR
         return false;
     }
 
+    /**
+     * Validates a brazilian (ptBR) vehicle's plate
+     * Also allows the following formats
+     * XXX-XXXX,XXX XXXX,XXXXXXX
+     * The first three chars are [A-Z]
+     * The last four chars are [0-9]
+     * @param string $reg vehicle's plate
+     * @return bool
+     */
+    function carReg($reg)
+    {
+      return ereg('^[A-Z]{3}[- ]?[0-9]{4}$', $reg);
+    }
 }
 ?>
