@@ -27,19 +27,21 @@ Package contains locale validation for ptBR such as:
     </maintainer>
    </maintainers>
   <release>
-    <version>0.5.1</version>
+    <version>0.5.2</version>
     <state>alpha</state>
     <date>2005-12-29</date>
     <notes>
-- Switch to the new BSD License
-(see http://www.opensource.org/licenses/bsd-license.php)
+    New methods:
+     - Regions (brazilian states)
+     - Phone Number
+     - Vehicle's plate
     </notes>
     <filelist>
     <dir name="/">
       <file role="doc" name="LICENSE" />
       <dir name="Validate">
         <file role="php">ptBR.php</file>
-	<file role="test">ptBR.phpt</file>
+        <file role="test">ptBR.phpt</file>
       </dir>
     </dir>
     </filelist>
@@ -48,6 +50,15 @@ Package contains locale validation for ptBR such as:
     </deps>
   </release>
   <changelog>
+   <release>
+    <version>0.5.1</version>
+    <state>alpha</state>
+    <date>2005-11-04</date>
+    <notes>
+- Switch to the new BSD License
+(see http://www.opensource.org/licenses/bsd-license.php)
+    </notes>
+    </release>
   <release>
     <version>0.5.0</version>
     <state>alpha</state>
@@ -62,3 +73,4 @@ postalCode unified between countries (name wise), now all postcode validation fu
     </release>
   </changelog>
 </package>
+
