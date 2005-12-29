@@ -3,7 +3,7 @@
   <name>Validate_ptBR</name>
   <summary>Validation class for ptBR</summary>
   <description>
-Package containes locale validation for ptBR such as:
+Package contains locale validation for ptBR such as:
  * Postal Code
  * CNPJ
  * CPF
