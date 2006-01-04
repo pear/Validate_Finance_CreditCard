@@ -49,9 +49,9 @@ class Validate_esMX
      *
      * @access  public
      * @param   int     $postalCode  Postal code to validate
-     * @param   boolean $strongCheck True  = It uses a file and checks that the postal code exists (Default) 
+     * @param   bool    $strongCheck True  = It uses a file and checks that the postal code exists (Default) 
      *                               False = It uses a regexp to do the validation.
-     * @return  boolean Passed / Not passed
+     * @return  bool    Passed / Not passed
      */
     function postalCode($postalCode, $strongCheck = false) 
     {
@@ -76,7 +76,7 @@ class Validate_esMX
      *
      * @access  public
      * @param   string  $dni The CURP code
-     * @return  boolean Passed / Not passed
+     * @return  bool    Passed / Not passed
      */
     function dni($dni)
     {
@@ -87,7 +87,81 @@ class Validate_esMX
         if (strlen($dni) !== 18) {
             return false;
         }
-        //MISSING: Continue..
+        $regexp = '/^([A-Z][AEIOU][A-Z]{2})([0-9]{2})(0?[1-9]|1[0-2])(0[1-9]|[1-2][0-9]|3[0-1])(H|M)([A-Z]{2})'.
+            '([B-DF-HJ-NP-TV-Z]{3})([0-9]|[A-Z])([0-9]|[A-Z])/i';
+        if (preg_match($regexp, $dni, $matches) === 1) {        
+            //Check the region.
+            if (isset($matches[6])) {
+                //Not a state or NE (foreign)
+                if ($matches[6] != 'NE' && !Validate_esMX::region($matches[6])) {
+                    return false;
+                }
+            } else {
+                return false;
+            }
+
+            //Unique key
+            if (isset($matches[8]) && isset($matches[2])) {
+                if ((int)$matches[2]{0} == 0) { //On 2000
+                    if (!preg_match('/^[A-Z]/i', $matches[8])) {
+                        return false; //If born in 2000 the unique key should be a letter.
+                    }
+                } else {
+                    if (!preg_match('/^[0-9]/i', $matches[8])) {
+                        return false;
+                    }
+                }
+            } else {
+                return false;
+            }
+            
+            if (isset($matches[9])) {
+                //CURP algorithm to get the digitVerifier.
+                $algChar = '';
+                $curpVerifier = '';
+                $counterDigit = '';
+                $l_digito = '';
+                $l_posicion= '';
+                $digitModule= '';
+                $digitVerifier= '';
+                $combinations = '0123456789ABCDEFGHIJKLMN-OPQRSTUVWXYZ*';
+                $combinationsValues = split(',', '00,01,02,03,04,05,06,07,08,09,10,11,12,13,14,15,16,17,18,19,20,21,22,23,'.
+                                            '24,25,26,27,28,29,30,31,32,33,34,35,36,37');
+                for($i=0; $i<strlen($dni); $i++) {
+                    $algChar = $dni{$i};
+                    if ($algChar == '') {
+                        $algChar = '*';
+                    }
+                    
+                    $combinationPos = strpos($combinations, $algChar);
+                    if ($combinationPos > -1) {
+                        $curpVerifier = $curpVerifier . $combinationsValues[$combinationPos];
+                    } else {
+                        $curpVerifier = $curpVerifier . '00';
+                    }
+                }
+                
+                for($i=0; $i<strlen($dni); $i++) {
+                    $counterDigit += $curpVerifier{($i*2-1)} * (19 - $i);
+                }
+                $digitModule = $counterDigit % 10;                
+                if ($digitModule == 0) {
+                    $digitVerifier = '0';
+                } else {
+                    $digitVerifier = 10 - $digitModule;
+                }
+
+                if (strlen($digitVerifier) > 1) {
+                    $digitVerifier = substr($digitVerifier, -1);
+                }
+                
+                if ($digitVerifier != $matches[9]) {
+                    return false;
+                }
+            } else {
+                return false;
+            }
+        }
         return true;
     }
 
@@ -95,8 +169,8 @@ class Validate_esMX
      * Validates a "region" (aka state) code
      *
      * @access  public
-     * @param   string $region Region/State code
-     * @return  boolean Passed / Not passed
+     * @param   string  $region Region/State code
+     * @return  bool    Passed / Not passed
      */
     function region($region)
     {
@@ -136,5 +210,34 @@ class Validate_esMX
             return true;
         }
         return false;
+    }
+
+    /**
+     * Check that the given telephone number is valid.
+     *
+     * According to COFETEL (Comision Federal de Telecomunicaciones) the telephone
+     * numbers can be of 7 or 8 digits. Only 3 states can have 8 digit numbers, which are:
+     * Distrito Federal, Guadalajara and Monterrey. Others need to have 7 digits.
+     *
+     * In the case of a required area code the required length should be 12 (including
+     * the 01)
+     * 
+     * @access  public
+     * @param   string  $phone Phone number
+     * @param   bool    $requireAreaCode    require the area code? (default: true)
+     * @return  bool    Passed / Not passed
+     */
+    function phone($phone, $requireAreaCode = true)
+    {
+        $phone = str_replace(array('(', ')', '-', '+', '.', ' '), '', $phone);
+        if ($requiredAreaCode) {
+            $regexp = '/^[01][0-9]{10}$/';
+            $match  = (preg_match($regexp, $phone)) ? true : false;
+            return $match;
+        } else {
+            $regexp = '/^[0-9]{7,8}$/';
+            $match  = (preg_match($regexp, $phone)) ? true : false;
+            return $match;
+        }
     }
 }
