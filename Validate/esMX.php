@@ -15,7 +15,7 @@
  * @category   Validate
  * @package    Validate_esMX
  * @author     Pablo Fischer <pfischer@php.net>
- * @copyright  2005 The PHP Group
+ * @copyright  2006 The PHP Group
  * @license    http://www.gnu.org/copyleft/lesser.html  LGPL License 2.1
  * @version    CVS: $Id$
  * @link       http://pear.php.net/package/Validate_esMX
@@ -27,11 +27,13 @@
  * This class provides methods to validate:
  *  - DNI - Nacional Identity document (aka CURP)
  *  - Postal code
+ *  - Region (states)
+ *  - Phone numbers
  *
  * @category   Validate
  * @package    Validate_esMX
  * @author     Pablo Fischer <pfischer@php.net>
- * @copyright  2005 The PHP Group
+ * @copyright  2006 The PHP Group
  * @license    http://www.gnu.org/copyleft/lesser.html  LGPL License 2.1
  * @version    Release: @package_version@
  * @link       http://pear.php.net/package/Validate_esMX
@@ -60,7 +62,13 @@ class Validate_esMX
 
             if (!isset($postalCodes)) {
                 $file = '@DATADIR@/Validate_esMX/esMX_postcodes.txt';
+                if (!file_exists($file)) {
+                    return false;
+                }
                 $postalCodes = file($file);
+            }
+            if (!is_array($postalCodes)) {
+                return false;
             }
             return in_array((int)$postalCode, $postalCodes);
         } 
@@ -161,6 +169,8 @@ class Validate_esMX
             } else {
                 return false;
             }
+        } else {
+            return false;
         }
         return true;
     }
@@ -216,11 +226,11 @@ class Validate_esMX
      * Check that the given telephone number is valid.
      *
      * According to COFETEL (Comision Federal de Telecomunicaciones) the telephone
-     * numbers can be of 7 or 8 digits. Only 3 states can have 8 digit numbers, which are:
+     * numbers can have 7 or 8 digits. Only 3 states can have 8 digit numbers, which are:
      * Distrito Federal, Guadalajara and Monterrey. Others need to have 7 digits.
      *
      * In the case of a required area code the required length should be 12 (including
-     * the 01)
+     * the 01). This is for all states.
      * 
      * @access  public
      * @param   string  $phone Phone number
@@ -230,8 +240,8 @@ class Validate_esMX
     function phone($phone, $requireAreaCode = true)
     {
         $phone = str_replace(array('(', ')', '-', '+', '.', ' '), '', $phone);
-        if ($requiredAreaCode) {
-            $regexp = '/^[01][0-9]{10}$/';
+        if ($requireAreaCode) {
+            $regexp = '/^01[0-9]{10}$/';
             $match  = (preg_match($regexp, $phone)) ? true : false;
             return $match;
         } else {

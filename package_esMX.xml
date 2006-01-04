@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<package version="1.0">
+  <name>Validate_esMX</name>
+  <summary>Validation class for esMX</summary>
+  <description>
+    Package contains locale validation for esMX such as:
+    * Postal Code
+    * DNI (aka CURP)
+    * Region (states)
+    * Phone numbers
+  </description>
+  <license>LGPL</license>
+  <maintainers>
+    <maintainer>
+      <user>pfischer</user>
+      <role>lead</role>
+      <name>Pablo Fischer</name>
+      <email>pfischer@php.net</email>
+    </maintainer> 
+  </maintainers>
+  <release>
+    <version>0.1.0</version>
+    <state>alpha</state>
+    <date>2006-01-02</date>
+    <notes>
+      New support for esMX. 
+      Supported methods:
+      - Postal Codes: strong and fast check (regexp)
+      - Regions (states)
+      - DNI (aka CURP)
+      - Phone numbers
+    </notes>
+    <filelist>
+      <dir name="/">
+        <file role="doc" name="LICENSE" />
+        <dir name="Validate">
+          <file role="php" name="esMX.php">
+            <replace type="pear-config" from="@DATADIR@" to="data_dir" />
+          </file>
+        </dir>
+        <dir name="tests" role="test">
+          <file>validate_esMX.phpt</file>
+        </dir>
+        <file role="data" name="data/esMX_postcodes.txt" install-as="esMX_postcodes.txt" />
+      </dir>
+    </filelist>
+    <deps>
+      <dep type="php" rel="ge" version="4.2.0" />
+    </deps>
+  </release>
+  <changelog>
+    <release>
+      <version>0.1.0</version>
+      <state>alpha</state>
+      <date>2006-01-02</date>
+      <notes>
+        Initial release
+      </notes>
+    </release>
+  </changelog>
+</package>
