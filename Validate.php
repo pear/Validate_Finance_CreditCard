@@ -200,6 +200,9 @@ class Validate
      * NOTE 2: As double shlashes // are allowed in the path part, only full URIs
      *         including an authority can be valid, no relative URIs
      *         the // are mandatory (optionally preceeded by the 'sheme:' )
+     * NOTE 3: the full complience to rfc2396 is not achieved by default
+     *         the characters ';/?:@$,' will not be accepted in the query part
+     *         if not urlencoded, refer to the option "strict'"
      *
      * @param string    $url        URI to validate
      * @param array     $options    Options used by the validation method.
