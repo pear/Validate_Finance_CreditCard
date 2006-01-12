@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<package version="1.0">
+  <name>Validate_AR</name>
+  <summary>Validation class for Argentina</summary>
+  <description>
+Package contains locale validation for Argentina such as:
+ * Postal Code
+ * Region (provinces)
+  </description>
+  <license>New BSD</license>
+  <maintainers>
+    <maintainer>
+      <user>msaraujo</user>
+      <role>lead</role>
+      <name>Marcelo Santos Araujo</name>
+      <email>msaraujo@php.net</email>
+    </maintainer>
+    <maintainer>
+      <user>davidc</user>
+      <role>lead</role>
+      <name>David Coallier</name>
+      <email>davidc@php.net</email>
+    </maintainer>
+   </maintainers>
+  <release>
+    <version>0.0.1</version>
+    <state>alpha</state>
+    <date>2006-01-12</date>
+    <notes>
+    Validation class for Argentina
+     - Regions (provinces)
+     - Postal Code
+    </notes>
+    <filelist>
+    <dir name="/">
+      <file role="doc" name="LICENSE" />
+      <dir name="Validate">
+        <file role="php">AR.php</file>
+      </dir>
+    </dir>
+    </filelist>
+    <deps>
+      <dep type="php" rel="ge" version="4.2.0" />
+    </deps>
+  </release>
+  <changelog>
+  </changelog>
+</package>
+
