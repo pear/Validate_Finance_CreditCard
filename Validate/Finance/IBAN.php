@@ -82,28 +82,42 @@ class Validate_Finance_IBAN
                 array(
                     'AD' => 'Andorra',
                     'AT' => 'Austria',
+                    'BA' => 'Bosnia and Herzegovina',
                     'BE' => 'Belgium',
                     'CH' => 'Swiss',
+                    'CS' => 'Serbia and Montenegro',
+                    'CY' => 'Cyprus',
                     'CZ' => 'Czech Republic',
                     'DE' => 'Germany',
                     'DK' => 'Denmark',
+                    'EE' => 'Estonia',
                     'ES' => 'Spain',
-                    'FI' => 'Finland',
                     'FR' => 'France',
+                    'FI' => 'Finland',
                     'GB' => 'Great Britain',
                     'GI' => 'Gibraltar',
                     'GR' => 'Greece',
+                    'HR' => 'Croatia',
                     'HU' => 'Hungary',
                     'IE' => 'Ireland',
                     'IS' => 'Iceland',
                     'IT' => 'Italy',
+                    'LI' => 'Liechtenstein',
+                    'LT' => 'Lithuania',
                     'LU' => 'Luxembourg',
+                    'LV' => 'Latvia',
+                    'MK' => 'Macedonia',
+                    'MT' => 'Malta',
                     'NL' => 'The Netherlands',
                     'NO' => 'Norwegian',
                     'PL' => 'Poland',
                     'PT' => 'Portugal',
+                    'RO' => 'Romania',
                     'SE' => 'Sweden',
-                    'SI' => 'Slovenia'
+                    'SI' => 'Slovenia',
+                    'SK' => 'Slovak Republic',
+                    'TN' => 'Tunisia',
+                    'TR' => 'Turkey',
                 );
         }
         return $_iban_countrycode_countryname;
@@ -122,28 +136,42 @@ class Validate_Finance_IBAN
                 array(
                     'AD' => 24,
                     'AT' => 20,
+                    'BA' => 20,
                     'BE' => 16,
                     'CH' => 21,
+                    'CS' => 22,
+                    'CY' => 28,
                     'CZ' => 24,
                     'DE' => 22,
                     'DK' => 18,
+                    'EE' => 20,
                     'ES' => 24,
-                    'FI' => 18,
                     'FR' => 27,
+                    'FI' => 18,
                     'GB' => 22,
                     'GI' => 23,
                     'GR' => 27,
+                    'HR' => 21,
                     'HU' => 28,
                     'IE' => 22,
                     'IS' => 26,
                     'IT' => 27,
+                    'LI' => 21,
+                    'LT' => 20,
                     'LU' => 20,
+                    'LV' => 21,
+                    'MK' => 19,
+                    'MT' => 31,
                     'NL' => 18,
                     'NO' => 15,
                     'PL' => 28,
                     'PT' => 25,
+                    'RO' => 24,
                     'SE' => 24,
-                    'SI' => 19
+                    'SI' => 19,
+                    'SK' => 24,
+                    'TN' => 24,
+                    'TR' => 26,
                 );
         }
         return $_iban_countrycode_length;
@@ -160,30 +188,44 @@ class Validate_Finance_IBAN
         if (!isset($_iban_countrycode_bankcode)) {
             $_iban_countrycode_bankcode =
                 array(
-                    'AD' => array('start' =>  4, 'length' =>  8), // first 4 chars are bankcode, last 4 chars are the branch
+                    'AD' => array('start' =>  4, 'length' =>  8), // first 4 chars bankcode, last 4 chars branch
                     'AT' => array('start' =>  4, 'length' =>  5),
+                    'BA' => array('start' =>  4, 'length' =>  6), // first 3 chars bankcode, last 3 chars branch
                     'BE' => array('start' =>  4, 'length' =>  3),
                     'CH' => array('start' =>  4, 'length' =>  5),
+                    'CS' => array('start' =>  4, 'length' =>  3),
+                    'CY' => array('start' =>  4, 'length' =>  8), // first 3 chars bankcode, last 5 chars branch
                     'CZ' => array('start' =>  4, 'length' =>  4),
                     'DE' => array('start' =>  4, 'length' =>  8),
                     'DK' => array('start' =>  4, 'length' =>  4),
-                    'ES' => array('start' =>  4, 'length' =>  8),
-                    'FI' => array('start' =>  4, 'length' =>  6),
+                    'EE' => array('start' =>  4, 'length' =>  4), // first 2 chars bankidentifier, last 2 chars bankcode
+                    'ES' => array('start' =>  4, 'length' =>  8), // followed by 2 chars (checksum)
                     'FR' => array('start' =>  4, 'length' => 10),
-                    'GB' => array('start' =>  4, 'length' =>  4),
+                    'FI' => array('start' =>  4, 'length' =>  6),
+                    'GB' => array('start' =>  4, 'length' => 10), // first 4 chars bankidentifier, last 6 chars bank-branchcode
                     'GI' => array('start' =>  4, 'length' =>  4),
                     'GR' => array('start' =>  4, 'length' =>  7), // first 3 chars bankcode, last 4 chars branch
+                    'HR' => array('start' =>  4, 'length' =>  7),
                     'HU' => array('start' =>  4, 'length' =>  7), // first 3 chars bankcode, last 4 chars branch, followed by 1 char (checksum)
                     'IE' => array('start' =>  4, 'length' => 10), // first 4 chars bankcode, last 6 chars branch
                     'IS' => array('start' =>  4, 'length' =>  4),
                     'IT' => array('start' =>  4, 'length' => 11),
+                    'LI' => array('start' =>  4, 'length' =>  5), // bankcode and branch
+                    'LT' => array('start' =>  4, 'length' =>  5),
                     'LU' => array('start' =>  4, 'length' =>  3),
+                    'LV' => array('start' =>  4, 'length' =>  4),
+                    'MK' => array('start' =>  4, 'length' =>  3),
+                    'MT' => array('start' =>  4, 'length' =>  9), // first 4 chars bankidentifier, last 5 chars bank sort code
                     'NL' => array('start' =>  4, 'length' =>  4),
                     'NO' => array('start' =>  4, 'length' =>  4),
                     'PL' => array('start' =>  4, 'length' =>  8),
                     'PT' => array('start' =>  4, 'length' =>  8),
-                    'SE' => array('start' =>  4, 'length' =>  3),
-                    'SI' => array('start' =>  4, 'length' =>  5)
+                    'RO' => array('start' =>  4, 'length' =>  4),
+                    'SE' => array('start' =>  4, 'length' =>  3), // bankcode and branch
+                    'SI' => array('start' =>  4, 'length' =>  5),
+                    'SK' => array('start' =>  4, 'length' =>  4),
+                    'TN' => array('start' =>  4, 'length' =>  5), // first 2 chars bankcode, last 3 chars branch
+                    'TR' => array('start' =>  4, 'length' =>  5), // followed by 1 char (reserved field)
                 );
         }
         return $_iban_countrycode_bankcode;
@@ -202,28 +244,42 @@ class Validate_Finance_IBAN
                 array(
                     'AD' => array('start' => 12, 'length' => 12),
                     'AT' => array('start' =>  9, 'length' => 11),
-                    'BE' => array('start' =>  7, 'length' =>  9),
+                    'BA' => array('start' => 10, 'length' =>  8), // followed by 2 chars (checksum)
+                    'BE' => array('start' =>  7, 'length' =>  7), // followed by 2 chars (checksum)
                     'CH' => array('start' =>  9, 'length' => 12),
+                    'CS' => array('start' =>  7, 'length' => 13), // followed by 2 chars (checksum)
+                    'CY' => array('start' => 12, 'length' => 16),
                     'CZ' => array('start' =>  8, 'length' => 16),
                     'DE' => array('start' => 12, 'length' => 10),
-                    'DK' => array('start' =>  8, 'length' => 10),
-                    'ES' => array('start' => 12, 'length' => 12),
-                    'FI' => array('start' => 10, 'length' =>  8),
-                    'FR' => array('start' => 14, 'length' => 13),
-                    'GB' => array('start' =>  8, 'length' => 14),
+                    'DK' => array('start' =>  8, 'length' =>  9), // followed by 1 char (checksum)
+                    'EE' => array('start' =>  8, 'length' => 11), // followed by 1 char (checksum)
+                    'ES' => array('start' => 14, 'length' => 10),
+                    'FR' => array('start' => 14, 'length' => 11), // followed by 2 chars (checksum)
+                    'FI' => array('start' => 10, 'length' =>  7), // followed by 1 char (checksum)
+                    'GB' => array('start' => 14, 'length' =>  8),
                     'GI' => array('start' =>  8, 'length' => 15),
                     'GR' => array('start' => 11, 'length' => 16),
+                    'HR' => array('start' => 11, 'length' => 10),
                     'HU' => array('start' => 12, 'length' => 15), // followed by 1 char (checksum)
                     'IE' => array('start' => 14, 'length' =>  8),
-                    'IS' => array('start' =>  8, 'length' => 18),
+                    'IS' => array('start' =>  8, 'length' => 18), // 2 accounttype, 6 account number, 10 identification number
                     'IT' => array('start' => 15, 'length' => 12),
-                    'LU' => array('start' =>  8, 'length' => 13),
+                    'LI' => array('start' =>  9, 'length' => 12),
+                    'LT' => array('start' =>  9, 'length' => 11),
+                    'LU' => array('start' =>  7, 'length' => 13),
+                    'LV' => array('start' =>  8, 'length' => 13),
+                    'MK' => array('start' =>  7, 'length' => 10), // followed by 2 chars (checksum)
+                    'MT' => array('start' => 13, 'length' => 18),
                     'NL' => array('start' =>  8, 'length' => 10),
-                    'NO' => array('start' =>  8, 'length' =>  7),
+                    'NO' => array('start' =>  8, 'length' =>  6), // followed by 1 char (checksum)
                     'PL' => array('start' => 12, 'length' => 16),
-                    'PT' => array('start' => 12, 'length' => 13),
-                    'SE' => array('start' =>  7, 'length' => 17),
-                    'SE' => array('start' =>  7, 'length' =>  8) // followed by 1 char (checksum)
+                    'PT' => array('start' => 12, 'length' => 11), // followed by 2 chars (checksum)
+                    'RO' => array('start' =>  8, 'length' => 16), // branch and client account identifier
+                    'SE' => array('start' =>  7, 'length' => 16), // followed by 1 char (checksum)
+                    'SI' => array('start' =>  9, 'length' =>  8), // followed by 2 chars (checksum)
+                    'SK' => array('start' =>  8, 'length' => 16),
+                    'TN' => array('start' =>  9, 'length' => 13), // followed by 2 chars (checksum)
+                    'TR' => array('start' => 10, 'length' => 16),
                 );
         }
         return $_iban_countrycode_bankaccount;
@@ -242,28 +298,42 @@ class Validate_Finance_IBAN
                 array(
                     'AD' => '/^AD[0-9]{2}[0-9]{8}[A-Z0-9]{12}$/',
                     'AT' => '/^AT[0-9]{2}[0-9]{5}[0-9]{11}$/',
+                    'BA' => '/^BA[0-9]{2}[0-9]{6}[0-9]{10}$/',
                     'BE' => '/^BE[0-9]{2}[0-9]{3}[0-9]{9}$/',
                     'CH' => '/^CH[0-9]{2}[0-9]{5}[A-Z0-9]{12}$/',
-                    'CZ' => '/^CH[0-9]{2}[0-9]{4}[0-9]{16}$/',
+                    'CS' => '/^CS[0-9]{2}[0-9]{3}[0-9]{15}$/',
+                    'CY' => '/^CY[0-9]{2}[0-9]{8}[A-Z0-9]{16}$/',
+                    'CZ' => '/^CZ[0-9]{2}[0-9]{4}[0-9]{16}$/',
                     'DE' => '/^DE[0-9]{2}[0-9]{8}[0-9]{10}$/',
                     'DK' => '/^DK[0-9]{2}[0-9]{4}[0-9]{10}$/',
+                    'EE' => '/^EE[0-9]{2}[0-9]{4}[0-9]{12}$/',
                     'ES' => '/^ES[0-9]{2}[0-9]{8}[0-9]{12}$/',
-                    'FI' => '/^FI[0-9]{2}[0-9]{6}[0-9]{8}$/',
                     'FR' => '/^FR[0-9]{2}[0-9]{10}[A-Z0-9]{13}$/',
+                    'FI' => '/^FI[0-9]{2}[0-9]{6}[0-9]{8}$/',
                     'GB' => '/^GB[0-9]{2}[A-Z]{4}[0-9]{14}$/',
-                    'GI' => '/^GB[0-9]{2}[A-Z]{4}[A-Z0-9]{15}$/',
-                    'GR' => '/^GB[0-9]{2}[0-9]{7}[A-Z0-9]{16}$/',
-                    'HU' => '/^GB[0-9]{2}[0-9]{7}[0-9]{1}[0-9]{15}[0-9]{1}$/',
+                    'GI' => '/^GI[0-9]{2}[A-Z]{4}[A-Z0-9]{15}$/',
+                    'GR' => '/^GR[0-9]{2}[0-9]{7}[A-Z0-9]{16}$/',
+                    'HR' => '/^HR[0-9]{2}[0-9]{7}[0-9]{10}$/',
+                    'HU' => '/^HU[0-9]{2}[0-9]{7}[0-9]{1}[0-9]{15}[0-9]{1}$/',
                     'IE' => '/^IE[0-9]{2}[A-Z0-9]{4}[0-9]{6}[0-9]{8}$/',
                     'IS' => '/^IS[0-9]{2}[0-9]{4}[0-9]{18}$/',
                     'IT' => '/^IT[0-9]{2}[A-Z]{1}[0-9]{10}[A-Z0-9]{12}$/',
+                    'LI' => '/^LI[0-9]{2}[0-9]{5}[A-Z0-9]{12}$/',
                     'LU' => '/^LU[0-9]{2}[0-9]{3}[A-Z0-9]{13}$/',
+                    'LT' => '/^LT[0-9]{2}[0-9]{5}[0-9]{11}$/',
+                    'LV' => '/^LV[0-9]{2}[A-Z]{4}[A-Z0-9]{13}$/',
+                    'MK' => '/^MK[0-9]{2}[A-Z]{3}[A-Z0-9]{10}[0-9]{2}$/',
+                    'MT' => '/^MT[0-9]{2}[A-Z]{4}[0-9]{5}[A-Z0-9]{18}$/',
                     'NL' => '/^NL[0-9]{2}[A-Z]{4}[0-9]{10}$/',
                     'NO' => '/^NO[0-9]{2}[0-9]{4}[0-9]{7}$/',
                     'PL' => '/^PL[0-9]{2}[0-9]{8}[0-9]{16}$/',
                     'PT' => '/^PT[0-9]{2}[0-9]{8}[0-9]{13}$/',
+                    'RO' => '/^RO[0-9]{2}[A-Z]{4}[A-Z0-9]{16}$/',
                     'SE' => '/^SE[0-9]{2}[0-9]{3}[0-9]{17}$/',
-                    'SI' => '/^SE[0-9]{2}[0-9]{5}[0-9]{8}[0-9]{2}$/'
+                    'SI' => '/^SI[0-9]{2}[0-9]{5}[0-9]{8}[0-9]{2}$/',
+                    'SK' => '/^SK[0-9]{2}[0-9]{4}[0-9]{16}$/',
+                    'TN' => '/^TN[0-9]{2}[0-9]{5}[0-9]{15}$/',
+                    'TR' => '/^TR[0-9]{2}[0-9]{5}[A-Z0-9]{17}$/',
                 );
         }
         return $_iban_countrycode_regex;
