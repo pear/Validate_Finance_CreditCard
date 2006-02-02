@@ -287,12 +287,22 @@ class Validate_US
 
     /**
      * Validate a US phone number.
+     * 
+     * 
+     * Allowed formats
+     * <ul>
+     *  <li>xxxxxxx <-> 7 digits format</li>
+     *  <li>(xxx) xxx-xxxx  <-> area code with brackets around it (or not) + 
+     *                          phone number with dash or not </li>
+     *  <li>xxx xxx-xxxx  <-> area code + number +- dash/space + 4 digits</li> 
+     *  <li>(1|0) xxx xxx-xxxx  <-> 1 or 0 + area code + 3 digits +- dash/space + 4 digits</li>
+     *  <li>xxxxxxxxxx  <-> 10 digits</li> 
+     * </ul>
      *
-     * Can allow only seven digit numbers.
-     * Also allows the formats, (xxx) xxx-xxxx, xxx xxx-xxxx and now 0-1 x xxx xxx-xxxx.,
      * or various combination without spaces or dashes.
      * THIS SHOULD EVENTUALLY take a FORMAT in the options, instead
      *
+     * @access public
      * @param  string    $number             phone to validate
      * @param  bool      $requireAreaCode    require the area code? (default: true)
      * @return bool                          The valid or invalid phone number
