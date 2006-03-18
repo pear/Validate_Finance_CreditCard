@@ -24,15 +24,15 @@ http://pear.php.net/dtd/package-2.0.xsd">
  </lead>
  <date>2006-03-18</date>
  <version>
-  <release>0.1.2</release>
-  <api>0.1.2</api>
+  <release>0.1.0</release>
+  <api>0.1.0</api>
  </version>
  <stability>
   <release>alpha</release>
   <api>alpha</api>
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL Version 2.1</license>
- <notes>Added a utility function getStateName and small fixes.</notes>
+ <notes>Initial release of package.</notes>
  <contents>
   <dir baseinstalldir="Validate" name="/">
     <file baseinstalldir="Validate" name="IN.php" role="php" />
@@ -53,20 +53,6 @@ http://pear.php.net/dtd/package-2.0.xsd">
  <phprelease />
  
  <changelog>
-  <release>
-   <version>
-    <release>0.1.2</release>
-    <api>0.1.2</api>
-   </version>
-   <stability>
-     <release>alpha</release>
-     <api>alpha</api>
-   </stability>
-   <date>2006-03-18</date>
-   <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL Version 2.1</license>
-   <notes>Added a utility function getStateName and small fixes.</notes>
-  </release>
-
   <release>
    <version>
     <release>0.1.0</release>
