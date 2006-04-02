@@ -309,8 +309,8 @@ class Validate_US
      */
     function phoneNumber($number, $requireAreaCode = true)
     {
-        if ($number == '') {
-            return true;
+        if (strlen(trim($number)) <= 6) {
+            return false;
         }
 
         if (!$requireAreaCode) {
