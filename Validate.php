@@ -81,7 +81,7 @@ class Validate
      *                              'decimal'   is the decimal char or false when decimal not allowed
      *                                          i.e. ',.' to allow both ',' and '.'
      *                              'dec_prec'  Number of allowed decimals
-     *                              'min'       minimun value
+     *                              'min'       minimum value
      *                              'max'       maximum value
      *
      * @return boolean true if valid number, false if not
