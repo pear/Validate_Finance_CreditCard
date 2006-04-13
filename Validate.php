@@ -39,7 +39,7 @@
 /**
  * Methods for common data validations
  */
-define('VALIDATE_NUM',          '0-9');
+efine('VALIDATE_NUM',          '0-9');
 define('VALIDATE_SPACE',        '\s');
 define('VALIDATE_ALPHA_LOWER',  'a-z');
 define('VALIDATE_ALPHA_UPPER',  'A-Z');
@@ -583,21 +583,23 @@ class Validate
                 $method       = array_pop($validateType);
                 $class        = implode('_', $validateType);
                 $classPath    = str_replace('_', DIRECTORY_SEPARATOR, $class);
+                $class        = 'Validate_' . $class;
                 if (!@include_once "Validate/$classPath.php") {
-                    trigger_error("Validate_$class isn't installed or you may have some permissoin issues", E_USER_ERROR);
+                    trigger_error("$class isn't installed or you may have some permissoin issues", E_USER_ERROR);
                 }
 
-                if (!class_exists('Validate_' . $class, false) ||
-                    !in_array($method, get_class_methods("Validate_$class")))
+                $ce = substr(phpversion(), 0, 1) > 4 ? class_exists($class, false) : class_exists($class);
+                if (!$ce ||
+                    !in_array($method, get_class_methods($class)))
                 {
-                    trigger_error("Invalid validation type Validate_$class::$method", E_USER_WARNING);
+                    trigger_error("Invalid validation type $class::$method", E_USER_WARNING);
                     continue;
                 }
                 unset($opt['type']);
                 if (sizeof($opt) == 1) {
                     $opt = array_pop($opt);
                 }
-                $valid[$var_name] = call_user_func(array("Validate_$class", $method), $data[$var_name], $opt);
+                $valid[$var_name] = call_user_func(array($class, $method), $data[$var_name], $opt);
             } else {
                 trigger_error("Invalid validation type {$opt['type']}", E_USER_WARNING);
             }
