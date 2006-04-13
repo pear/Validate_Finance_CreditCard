@@ -587,7 +587,7 @@ class Validate
                     trigger_error("Validate_$class isn't installed or you may have some permissoin issues", E_USER_ERROR);
                 }
 
-                if (!class_exists("Validate_$class") ||
+                if (!class_exists('Validate_' . $class, false) ||
                     !in_array($method, get_class_methods("Validate_$class")))
                 {
                     trigger_error("Invalid validation type Validate_$class::$method", E_USER_WARNING);
