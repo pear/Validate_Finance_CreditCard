@@ -18,6 +18,7 @@
       <role>lead</role>
       <name>Tomas V.V.Cox</name>
       <email>cox@php.net</email>
+      <active>no</active>
     </maintainer>
     <maintainer>
       <user>pajoye</user>
@@ -45,17 +46,11 @@
     </maintainer>
   </maintainers>
   <release>
-    <version>0.6.2</version>
+    <version>0.6.3</version>
     <state>beta</state>
-    <date>2005-11-04</date>
+    <date>2006-11-04</date>
     <notes>
-- Change licence to the new BSD License
-  (see http://www.opensource.org/licenses/bsd-license.php)
-- The path part in uri cannot contain two slash characters.
-- Refactored email() regexp, hardened hostname check (taken from uri()) (bug #5804)
-- Empty quoted email recipient is not valid, must at least contain a non blank char
-- Use &amp; as delimiter as &#163; is problematic if the script is saved utf8
-- Enhanced uri.phpt and email.phpt tests
+- class_exists call in mulitple() now passes false to the autoload param
     </notes>
     <filelist>
     <dir name="/">
@@ -80,6 +75,20 @@
     </deps>
   </release>
   <changelog>
+      <release>
+       <version>0.6.2</version>
+       <state>beta</state>
+       <date>2005-11-04</date>
+       <notes>
+       - Change licence to the new BSD License
+         (see http://www.opensource.org/licenses/bsd-license.php)
+       - The path part in uri cannot contain two slash characters.
+       - Refactored email() regexp, hardened hostname check (taken from uri()) (bug #5804)
+       - Empty quoted email recipient is not valid, must at least contain a non blank char
+       - Use &amp; as delimiter as &#163; is problematic if the script is saved utf8
+       - Enhanced uri.phpt and email.phpt tests
+       </notes>
+      </release>
       <release>
        <version>0.6.1</version>
        <state>beta</state>
