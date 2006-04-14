@@ -39,7 +39,7 @@
 /**
  * Methods for common data validations
  */
-efine('VALIDATE_NUM',          '0-9');
+define('VALIDATE_NUM',          '0-9');
 define('VALIDATE_SPACE',        '\s');
 define('VALIDATE_ALPHA_LOWER',  'a-z');
 define('VALIDATE_ALPHA_UPPER',  'A-Z');
