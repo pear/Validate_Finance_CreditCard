@@ -51,6 +51,14 @@
     <date>2006-11-04</date>
     <notes>
 - class_exists call in mulitple() now passes false to the autoload param
+- uri():
+ * Accept URI terminating with a / (bug #6181)
+ * use !empty() instead of isset()
+ * minus in the top domain as http://example.co-m is invalid
+ * Double slashes are accepted in the path part (requested by bjori)
+   As a consequence, only URIs with full authority can be valid, no relative URI
+ * documentation header completed : usage notes , options and "strict" parameter
+ * unit tests completed and updated , use php.net instead of unavailable example.org
     </notes>
     <filelist>
     <dir name="/">
