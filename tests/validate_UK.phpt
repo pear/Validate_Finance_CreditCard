@@ -124,7 +124,7 @@ foreach ($sortCodes as $sortCode) {
 
 echo "\nTest tel\n";
 foreach ($telNumbers as $v) {
-    echo "{$v}: ".$noYes[Validate_UK::tel($v)]."\n";
+    echo "{$v}: ".$noYes[Validate_UK::phoneNumber($v)]."\n";
 }
 
 echo "\nTest bankAC\n";
