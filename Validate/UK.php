@@ -1,7 +1,8 @@
 <?php
 /* vim: set expandtab tabstop=4 shiftwidth=4: */
 // +----------------------------------------------------------------------+
-// | Copyright (c) 1997-2005 Michael Dransfield, Ian P. Christian         |
+// | Copyright (c) 1997-2005 Michael Dransfield, Pierre-Alain Joye,       |
+// |                         Ian P. Christian                             |
 // +----------------------------------------------------------------------+
 // | This source file is subject to the New BSD license, That is bundled  |
 // | with this package in the file LICENSE, and is available through      |
