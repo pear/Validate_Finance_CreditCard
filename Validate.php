@@ -49,7 +49,7 @@ define('VALIDATE_EALPHA_UPPER', VALIDATE_ALPHA_UPPER . 'аимсзюхлрыдкожэбйнтшягчф
 define('VALIDATE_EALPHA',       VALIDATE_EALPHA_LOWER . VALIDATE_EALPHA_UPPER);
 define('VALIDATE_PUNCTUATION',  VALIDATE_SPACE . '\.,;\:&"\'\?\!\(\)');
 define('VALIDATE_NAME',         VALIDATE_EALPHA . VALIDATE_SPACE . "'");
-define('VALIDATE_STREET',       VALIDATE_NAME . "/\\╨╙");
+define('VALIDATE_STREET',       VALIDATE_NAME . "/\\╨╙\.");
 
 /**
  * Validation class
