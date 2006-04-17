@@ -7,3 +7,5 @@ Mail on peardev if you are interested to add validations for your area
 
 Update banks SWIFT or IBANN validation for each country (when possible)
 
+Check that for the postal codes:
+http://www.magma.ca/~djcl/postcd.txt
