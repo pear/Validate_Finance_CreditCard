@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="ISO-8859-1" ?>
+<?xml version="1.0" encoding="ISO-8859-1"?>
 <package version="1.0">
   <name>Validate_UK</name>
   <summary>Validation class for UK</summary>
@@ -31,41 +31,42 @@ Package containes locale validation for UK such as:
   <release>
     <version>0.5.2</version>
     <state>alpha</state>
-    <date>2005-10-01</date>
+    <date>2005-04-17</date>
     <notes>
-BC break:
+Attention, this release has a BC break:
 - tel renamed to phoneNumber to confirm to the Validate standard
+- faster regexp for the postal code
     </notes>
     <filelist>
-    <dir name="/">
-      <file role="doc" name="LICENSE" />
-      <dir name="Validate">
-        <file role="php">UK.php</file>
+      <dir name="/">
+        <file role="doc" name="LICENSE"/>
+        <dir name="Validate">
+          <file role="php">UK.php</file>
+        </dir>
+        <dir name="tests" role="test">
+          <file>validate_UK.phpt</file>
+        </dir>
       </dir>
-      <dir name="tests" role="test">
-        <file>validate_UK.phpt</file>
-      </dir>
-    </dir>
     </filelist>
     <deps>
-      <dep type="php" rel="ge" version="4.2.0" />
+      <dep type="php" rel="ge" version="4.2.0"/>
     </deps>
   </release>
   <changelog>
-  <release>
-    <version>0.5.1</version>
-    <state>alpha</state>
-    <date>2005-10-01</date>
-    <notes>
+    <release>
+      <version>0.5.1</version>
+      <state>alpha</state>
+      <date>2005-10-01</date>
+      <notes>
 - Switch to the new BSD License
 (see http://www.opensource.org/licenses/bsd-license.php)
     </notes>
-  </release>
-  <release>
-    <version>0.5.0</version>
-    <state>alpha</state>
-    <date>2005-05-20</date>
-    <notes>
+    </release>
+    <release>
+      <version>0.5.0</version>
+      <state>alpha</state>
+      <date>2005-05-20</date>
+      <notes>
 - Split from Validate into independent package
 - CS fixes
 - BC break!
@@ -73,6 +74,6 @@ postalCode unified between countries (name wise), now all postcode validation fu
 ni was renamed to ssn to keep it the same in all classes
 - getZipValFunc removed
     </notes>
-  </release>
+    </release>
   </changelog>
 </package>
