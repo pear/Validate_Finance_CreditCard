@@ -129,6 +129,10 @@ class Validate
      */
     function email($email, $check_domain = false)
     {
+        if (is_array($check_domain) && isset($check_domain['check_domain'])) {
+            $check_domain = (bool)$check_domain['check_domain'];
+        }
+
         // partially "Borrowed" from PEAR::HTML_QuickForm and refactored
         $regex = '&^(?:                                               # recipient:
          ("\s*(?:[^"\f\n\r\t\v\b\s]+\s*)+")|                          #1 quoted name
