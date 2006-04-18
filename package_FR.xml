@@ -42,6 +42,7 @@ Package containes locale validation for FR such as:
       </dir>
       <dir name="tests" role="test">
         <file>validate_FR.phpt</file>
+        <file>bug7389.phpt</file>
       </dir>
     </dir>
     </filelist>
