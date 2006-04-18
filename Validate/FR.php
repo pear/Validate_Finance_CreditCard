@@ -273,7 +273,8 @@ class Validate_FR
                     }
                     break;
                 case 3:
-                    if ($region >= 971 && $region <= 975) {
+                    /* DOM/TOM et collectivitees OM  */
+                    if (($region >= 971 && $region <= 975) || ($regiion >= 984 && $region <= 988)) {
                         return true;
                     }
                     break;
@@ -287,4 +288,3 @@ class Validate_FR
         return false;
     }
 }
-?>
