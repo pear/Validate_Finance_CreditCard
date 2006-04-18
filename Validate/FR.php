@@ -274,7 +274,7 @@ class Validate_FR
                     break;
                 case 3:
                     /* DOM/TOM et collectivitees OM  */
-                    if (($region >= 971 && $region <= 975) || ($regiion >= 984 && $region <= 988)) {
+                    if (($region >= 971 && $region <= 975) || ($region >= 984 && $region <= 988)) {
                         return true;
                     }
                     break;
