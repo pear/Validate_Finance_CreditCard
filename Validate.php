@@ -131,7 +131,7 @@ class Validate
     {
         $check_domain = false;
         $use_rfc822 = false;
-        if (is_array($options) {
+        if (is_array($options)) {
             extract($options);
         }
 
