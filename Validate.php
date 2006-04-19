@@ -129,8 +129,10 @@ class Validate
      */
     function email($email, $options = false)
     {
-        if (is_array($options) && isset($options['check_domain'])) {
-            $check_domain = (bool)$options['check_domain'];
+        $check_domain = false;
+        $use_rfc822 = false;
+        if (is_array($options) {
+            extract($options);
         }
 
         // partially "Borrowed" from PEAR::HTML_QuickForm and refactored
