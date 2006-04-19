@@ -127,11 +127,13 @@ class Validate
      *
      * @access public
      */
-    function email($email, $options = false)
+    function email($email, $options = null)
     {
         $check_domain = false;
         $use_rfc822 = false;
-        if (is_array($options)) {
+        if (is_bool($options)) {
+            $check_domain = $options;
+        } elseif (is_array($options)) {
             extract($options);
         }
 
