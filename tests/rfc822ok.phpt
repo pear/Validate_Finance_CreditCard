@@ -1,5 +1,5 @@
 --TEST--
-Test for rfc822 good emails
+Tests for rfc822 emails (well-formed)
 --ARGS--
 2>&1 <<VALIDS
 abigail@example.com
@@ -55,7 +55,7 @@ $stdin = fopen('php://stdin', 'r');
 while (!feof($stdin)) {
     $email = rtrim(fgets($stdin, 4096));
     if ($email && !validate::email($email, array('use_rfc822' => true))) {
-    	echo $email . " bad\n";
+    	echo $email . " failed\n";
     }
 }
 ?>
