@@ -127,10 +127,10 @@ class Validate
      *
      * @access public
      */
-    function email($email, $check_domain = false)
+    function email($email, $options = false)
     {
-        if (is_array($check_domain) && isset($check_domain['check_domain'])) {
-            $check_domain = (bool)$check_domain['check_domain'];
+        if (is_array($options) && isset($options['check_domain'])) {
+            $check_domain = (bool)$options['check_domain'];
         }
 
         // partially "Borrowed" from PEAR::HTML_QuickForm and refactored
