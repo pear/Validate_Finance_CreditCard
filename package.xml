@@ -50,6 +50,12 @@
     <state>beta</state>
     <date>2006-11-04</date>
     <notes>
+- email():
+ * accepts options as an array to confirm to the Validate standard (#6930)
+   previous boolean $check_domain still accepted for backwards compatibility
+ * introduces an experimental option "use_rfc822"
+   which switch to a full RFC822 new checker (#7176)
+ * unit test enhanced and completed
 - class_exists call in mulitple() now passes false to the autoload param
 - uri():
  * Accept URI terminating with a / (bug #6181)
