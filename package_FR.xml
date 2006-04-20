@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="ISO-8859-1" ?>
+<?xml version="1.0" encoding="ISO-8859-1"?>
 <package version="1.0">
   <name>Validate_FR</name>
   <summary>Validation class for FR</summary>
@@ -25,38 +25,45 @@ Package containes locale validation for FR such as:
       <name>bertrand Gugger</name>
       <email>bertrand@toggg.com</email>
     </maintainer>
-   </maintainers>
+  </maintainers>
   <release>
-    <version>0.5.1</version>
+    <version>0.5.2</version>
     <state>alpha</state>
-    <date>2005-11-04</date>
+    <date>2006-04-18</date>
     <notes>
-- Switch to the new BSD License
-(see http://www.opensource.org/licenses/bsd-license.php)
-    </notes>
+- bug #7389, DOM/TOM and some regions are not recognized</notes>
     <filelist>
-    <dir name="/">
-      <file role="doc" name="LICENSE" />
-      <dir name="Validate">
-        <file role="php">FR.php</file>
+      <dir name="/">
+        <file role="doc" name="LICENSE"/>
+        <dir name="Validate">
+          <file role="php">FR.php</file>
+        </dir>
+        <dir name="tests" role="test">
+          <file>validate_FR.phpt</file>
+          <file>bug7389.phpt</file>
+        </dir>
       </dir>
-      <dir name="tests" role="test">
-        <file>validate_FR.phpt</file>
-        <file>bug7389.phpt</file>
-      </dir>
-    </dir>
     </filelist>
     <deps>
-      <dep type="php" rel="ge" version="4.2.0" />
-      <dep type="pkg" rel="ge" version="0.5.0">Validate</dep>
+      <dep type="php" rel="ge" version="4.2.0"/>
+      <dep type="pkg" rel="ge" version="0.6.2">Validate</dep>
     </deps>
   </release>
   <changelog>
-  <release>
-    <version>0.5.0</version>
-    <state>alpha</state>
-    <date>2005-05-20</date>
-    <notes>
+    <release>
+      <version>0.5.1</version>
+      <state>alpha</state>
+      <date>2005-11-04</date>
+      <notes>
+- Switch to the new BSD License
+(see http://www.opensource.org/licenses/bsd-license.php)
+    </notes>
+    </release>
+    <release>
+      <version>0.5.0</version>
+      <state>alpha</state>
+      <date>2005-05-20</date>
+      <notes>
 - Split from Validate into independent package
 - CS fixes
 - BC break!
