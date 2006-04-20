@@ -44,7 +44,7 @@ Neuman@BBN-TENEXA
 "George, Ted" <Shared@Group.Arpanet>
 Wilt . (the  Stilt) Chamberlain@NBA.US
 Cruisers:  Port@Portugal, Jones@SEA;
-$@[]
+\$@[]
 *()@[]
 "quoted ( brackets" ( a comment )@example.com
 VALIDS
@@ -53,7 +53,7 @@ VALIDS
 require 'Validate.php';
 $stdin = fopen('php://stdin', 'r');
 while (!feof($stdin)) {
-    $email = rtrim(fgets($stdin, 4096));
+    $email = trim(fgets($stdin, 4096));
     if ($email && !validate::email($email, array('use_rfc822' => true))) {
     	echo $email . " failed\n";
     }
