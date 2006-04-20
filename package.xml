@@ -1,11 +1,11 @@
-<?xml version="1.0" encoding="ISO-8859-1" ?>
+<?xml version="1.0" encoding="ISO-8859-1"?>
 <package version="1.0">
   <name>Validate</name>
   <summary>Validation class</summary>
   <description>
    Package to validate various datas. It includes :
     - numbers (min/max, decimal or not)
-    - email (syntax, domain check)
+    - email (syntax, domain check, rfc822)
     - string (predifined type alpha upper and/or lowercase, numeric,...)
     - date (min, max)
     - uri (RFC2396)
@@ -35,7 +35,7 @@
     <maintainer>
       <user>dufuz</user>
       <role>lead</role>
-      <name>Helgi &#222;ormar</name>
+      <name>Helgi Þormar</name>
       <email>dufuz@php.net</email>
     </maintainer>
     <maintainer>
@@ -48,17 +48,17 @@
   <release>
     <version>0.6.3</version>
     <state>beta</state>
-    <date>2006-11-04</date>
+    <date>2006-04-20</date>
     <notes>
 - email():
- * accepts options as an array to confirm to the Validate standard (#6930)
+ * #6930, accepts options as an array to confirm to the Validate standard
    previous boolean $check_domain still accepted for backwards compatibility
- * introduces an experimental option "use_rfc822"
-   which switch to a full RFC822 new checker (#7176)
+ * #7176, introduces an experimental option "use_rfc822"
+   which switch to a full RFC822 new checker
  * unit test enhanced and completed
 - class_exists call in mulitple() now passes false to the autoload param
 - uri():
- * Accept URI terminating with a / (bug #6181)
+ * #6181, Accept URI terminating with a /
  * use !empty() instead of isset()
  * minus in the top domain as http://example.co-m is invalid
  * Double slashes are accepted in the path part (requested by bjori)
@@ -67,72 +67,72 @@
  * unit tests completed and updated , use php.net instead of unavailable example.org
     </notes>
     <filelist>
-    <dir name="/">
-      <file role="doc" name="LICENSE" />
-      <file role="php">Validate.php</file>
-      <dir name="tests" role="test">
-        <file>number.phpt</file>
-        <file>testdate.phpt</file>
-        <file>email.phpt</file>
-        <file>multiple.phpt</file>
-        <file>multicard.phpt</file>
-        <file>uri.phpt</file>
+      <dir name="/">
+        <file role="doc" name="LICENSE"/>
+        <file role="php">Validate.php</file>
+        <dir name="tests" role="test">
+          <file>number.phpt</file>
+          <file>testdate.phpt</file>
+          <file>email.phpt</file>
+          <file>multiple.phpt</file>
+          <file>multicard.phpt</file>
+          <file>uri.phpt</file>
+        </dir>
+        <dir name="docs" role="doc">
+          <file>sample_multiple.php</file>
+        </dir>
       </dir>
-      <dir name="docs" role="doc">
-        <file>sample_multiple.php</file>
-      </dir>
-    </dir>
     </filelist>
     <deps>
-      <dep type="php" rel="ge" version="4.2.0" />
+      <dep type="php" rel="ge" version="4.2.0"/>
       <dep type="pkg" rel="has" optional="yes">Date</dep>
     </deps>
   </release>
   <changelog>
-      <release>
-       <version>0.6.2</version>
-       <state>beta</state>
-       <date>2005-11-04</date>
-       <notes>
+    <release>
+      <version>0.6.2</version>
+      <state>beta</state>
+      <date>2005-11-04</date>
+      <notes>
        - Change licence to the new BSD License
          (see http://www.opensource.org/licenses/bsd-license.php)
        - The path part in uri cannot contain two slash characters.
        - Refactored email() regexp, hardened hostname check (taken from uri()) (bug #5804)
        - Empty quoted email recipient is not valid, must at least contain a non blank char
-       - Use &amp; as delimiter as &#163; is problematic if the script is saved utf8
+       - Use &amp; as delimiter as £ is problematic if the script is saved utf8
        - Enhanced uri.phpt and email.phpt tests
        </notes>
-      </release>
-      <release>
-       <version>0.6.1</version>
-       <state>beta</state>
-       <date>2005-09-13</date>
-       <notes>
+    </release>
+    <release>
+      <version>0.6.1</version>
+      <state>beta</state>
+      <date>2005-09-13</date>
+      <notes>
        - Bug #5390 XML Package Error
        - uri was enchanced to fully comply with RFC2396 (Bertrand) (forgotten in last release changelog)
        </notes>
-      </release>
-      <release>
-       <version>0.6.0</version>
-       <state>beta</state>
-       <date>2005-09-13</date>
-       <notes>
+    </release>
+    <release>
+      <version>0.6.0</version>
+      <state>beta</state>
+      <date>2005-09-13</date>
+      <notes>
         - Move to Beta state
         - Enhance again email validation and unit test it
         - modulus methods fix if bcmath is not present
        </notes>
-      </release>
-      <release>
-       <version>0.5.0</version>
-       <state>alpha</state>
-       <date>2005-05-20</date>
-       <notes>- Bug #2936, typo
+    </release>
+    <release>
+      <version>0.5.0</version>
+      <state>alpha</state>
+      <date>2005-05-20</date>
+      <notes>- Bug #2936, typo
 - Bug #2879, Issn wrong validation
 - Better email validation
 - Request #997 validate:date minium and maximum accept Date objects (By Torsten Roehr)
 - Request #4055 Making multiple() cope with new dir structure (By Torsten Roehr)
-  To use with Validate_Finance_CreditCard then do 'type' => 'Finance_CreditCard_number'
-  For Validate_US it would be 'type' => 'US_ssn'
+  To use with Validate_Finance_CreditCard then do 'type' =&gt; 'Finance_CreditCard_number'
+  For Validate_US it would be 'type' =&gt; 'US_ssn'
   This applies to all packages like that under Validate.
 - unit testing for multiple (By Torsten Roehr)
 - CS fixes
@@ -153,34 +153,32 @@
  * UCC12
  * SSCC
 - splited multiple() test in with (skipif not installed) or without card,</notes>
-      </release>
-      <release>
-       <version>0.4.1</version>
-       <state>alpha</state>
-       <date>2004-03-17</date>
-       <notes>- fixed issue when validating IBANs via a static call
+    </release>
+    <release>
+      <version>0.4.1</version>
+      <state>alpha</state>
+      <date>2004-03-17</date>
+      <notes>- fixed issue when validating IBANs via a static call
  - added missing test validate_UK.php to package.xml
        </notes>
-      </release>
-
-      <release>
-        <version>0.4.0</version>
-        <state>alpha</state>
-        <date>2004-03-16</date>
-        <notes>- pt_BR moved to ptBR required for multiple support(BC break)
+    </release>
+    <release>
+      <version>0.4.0</version>
+      <state>alpha</state>
+      <date>2004-03-16</date>
+      <notes>- pt_BR moved to ptBR required for multiple support(BC break)
 - Add CH validation (Switzerland)
 - added Euro banknotes IDs
 - Improved UK postcodes validation
 - Fixed allowed_scheme options in Validate::uri() (Torsten Roehr)
 - Fixed optional arguments in Validate::number() (Torsten Roehr)
         </notes>
-      </release>
-
-      <release>
-        <version>0.3.0</version>
-        <state>alpha</state>
-        <date>2003-12-05</date>
-        <notes>- Added Finance Validations for Financial related datas
+    </release>
+    <release>
+      <version>0.3.0</version>
+      <state>alpha</state>
+      <date>2003-12-05</date>
+      <notes>- Added Finance Validations for Financial related datas
   (S. Neufeind, Piotr Klaban)
 - Add polish validation (Piotr Klaban)
 - Add German validation (Stefan Neufeind)
@@ -191,20 +189,18 @@
   RFC2396 compliant
 - Move to PHP 3.0 license
         </notes>
-      </release>
-
-      <release>
-        <version>0.2.0</version>
-        <state>alpha</state>
-        <date>2003-06-15</date>
-        <notes>- Add some dutch validations</notes>
-      </release>
-
-      <release>
-        <version>0.1.1</version>
-        <state>alpha</state>
-        <date>2003-03-12</date>
-        <notes>Validate::date(); argument parsing fixed</notes>
-      </release>
+    </release>
+    <release>
+      <version>0.2.0</version>
+      <state>alpha</state>
+      <date>2003-06-15</date>
+      <notes>- Add some dutch validations</notes>
+    </release>
+    <release>
+      <version>0.1.1</version>
+      <state>alpha</state>
+      <date>2003-03-12</date>
+      <notes>Validate::date(); argument parsing fixed</notes>
+    </release>
   </changelog>
 </package>
