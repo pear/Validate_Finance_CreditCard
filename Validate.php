@@ -134,7 +134,7 @@ class Validate
         static $uncomment = null;
         if (!$address) {
             // atom        =  1*<any CHAR except specials, SPACE and CTLs>
-            $atom = '[^][()<>@,;:\\".\s\000-\037\177]+\s*';
+            $atom = '[^][()<>@,;:\\".\s\000-\037\177-\377]+\s*';
             // qtext       =  <any CHAR excepting <">,     ; => may be folded
             //         "\" & CR, and including linear-white-space>
             $qtext = '[^"\\\\\r]';
