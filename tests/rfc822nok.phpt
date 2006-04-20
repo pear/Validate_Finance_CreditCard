@@ -9,7 +9,11 @@ string
 fred(&)barny@example.com
 fred\ barny@example.com
 Abigail <abi gail @ example.com>
+
+# left over as for 0.6.3, this "(fo(o)" is considered ok in our parser
+# but should certainly not according to rfc822 well formed comments (missing closing)
 Abigail <abigail(fo(o)@example.com>
+
 Abigail <abigail(fo)o)@example.com>
 "Abi"gail" <abigail@example.com>
 abigail@[exa]ple.com]
