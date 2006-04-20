@@ -53,7 +53,7 @@ VALIDS
 require 'Validate.php';
 $stdin = fopen('php://stdin', 'r');
 while (!feof($stdin)) {
-    $email = trim(fgets($stdin, 4096));
+    $email = rtrim(fgets($stdin, 4096));
     if ($email && !validate::email($email, array('use_rfc822' => true))) {
     	echo $email . " failed\n";
     }
