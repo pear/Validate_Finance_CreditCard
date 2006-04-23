@@ -16,12 +16,6 @@ Package containes locale validation for IS (Iceland) such as:
       <name>Hannes Magn&#250;sson</name>
       <email>bjori@php.net</email>
     </maintainer>
-    <maintainer>
-      <user>dufuz</user>
-      <role>lead</role>
-      <name>Helgi &#222;ormar</name>
-      <email>dufuz@php.net</email>
-    </maintainer>
    </maintainers>
   <release>
      <version>0.2.0</version>
