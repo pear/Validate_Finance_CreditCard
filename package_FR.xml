@@ -19,12 +19,6 @@ Package containes locale validation for FR such as:
       <name>Pierre-Alain Joye</name>
       <email>pajoye@php.net</email>
     </maintainer>
-    <maintainer>
-      <user>toggg</user>
-      <role>lead</role>
-      <name>bertrand Gugger</name>
-      <email>bertrand@toggg.com</email>
-    </maintainer>
   </maintainers>
   <release>
     <version>0.5.2</version>
