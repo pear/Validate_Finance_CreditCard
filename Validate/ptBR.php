@@ -12,6 +12,7 @@
 // | pajoye@php.net so we can mail you a copy immediately.                |
 // +----------------------------------------------------------------------+
 // | Author: Silvano Girardi Jr. <silvano@php.net>                        |
+// |         Marcelo Santos Araujo <msaraujo@php.net>                     |
 // +----------------------------------------------------------------------+
 //
 /**
@@ -60,7 +61,7 @@ class Validate_ptBR
      */
     function postalCode($postalCode, $strong = false)
     {
-        return (bool)ereg('(^[0-9]{5})[- ]?([0-9]{3})$', $postalCode);
+        return (bool)ereg('^([0-9]{2}\.?[0-9]{3})[- ]?([0-9]{3})$', $postalCode);
     }
 
     /**
@@ -82,8 +83,12 @@ class Validate_ptBR
 
         if (strlen($cpf) != 11) {
             return false;
-        } elseif ($cpf == '00000000000') {
-            return false;
+        } elseif (in_array($cpf,array("00000000000","11111111111",
+                                      "22222222222","33333333333",
+                                      "44444444444","55555555555",
+                                      "66666666666","77777777777",
+                                      "88888888888","99999999999"))) {
+                  return false;
         } else {
             $number[0]  = intval(substr($cpf, 0, 1));
             $number[1]  = intval(substr($cpf, 1, 1));
