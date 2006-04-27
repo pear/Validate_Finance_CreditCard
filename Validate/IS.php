@@ -1,7 +1,7 @@
 <?php
 /* vim: set expandtab tabstop=4 shiftwidth=4: */
 // +----------------------------------------------------------------------+
-// | Copyright (c) 1997-2005  Hannes Magnsson                             |
+// | Copyright (c) 2005-2006  Hannes Magnusson                            |
 // +----------------------------------------------------------------------+
 // | This source file is subject to the New BSD license, That is bundled  |
 // | with this package in the file LICENSE, and is available through      |
@@ -11,19 +11,20 @@
 // | to obtain it through the world-wide-web, please send a note to       |
 // | pajoye@php.net so we can mail you a copy immediately.                |
 // +----------------------------------------------------------------------+
-// | Author: Tomas V.V.Cox  <cox@idecnet.com>                             |
-// |         Pierre-Alain Joye <pajoye@php.net>                           |
+// | Author: Hannes Magnusson  <bjori@php.net>                            |
 // +----------------------------------------------------------------------+
 //
 /**
- * Specific validation methods for data used in the IS
+ * Specific validation methods for data used in Iceland
  *
  * @category   Validate
- * @package    Validate_IS
- * @author     Hannes Magnsson <bjori@php.net>
- * @copyright  1997-2005  Hannes Magnsson
+ * @package    Validate
+ * @subpackage Validate_IS
+ * @author     Hannes Magnusson <bjori@php.net>
+ * @copyright  2005-2006  Hannes Magnusson
  * @license    http://www.opensource.org/licenses/bsd-license.php  new BSD
  * @version    CVS: $Id$
+ * @link       http://pear.php.net/package/Validate_IS
  */
 
 /**
@@ -31,19 +32,14 @@
  *
  * This class provides methods to validate:
  *  - SSN (Social Security Number (Icelandic: kennitala))
- *  - Postal code
- *  - Telephone number
+ *  - Postal code (Icelandic: post numer)
+ *  - Telephone number (Icelandic: simanumer)
  *
- * @category   Validate
- * @package    Validate_IS
- * @author     Hannes Magnsson <bjori@php.net>
- * @copyright  1997-2005  Hannes Magnsson
- * @license    http://www.opensource.org/licenses/bsd-license.php  new BSD
  */
 class Validate_IS
 {
     /**
-     * Validates a social security number (kennit�u)
+     * Validate Icelandic SSN (kennitolu)
      *
      * Validation according to http://www.hagstofa.is/?PageID=1474
      *
@@ -123,7 +119,7 @@ class Validate_IS
     }
 
     /**
-     * validates a postcode
+     * Validates Icelandic postal codes (postnumer)
      *
      * Validates Icelandic postalcodes. By default checks against (prefetched)
      * list containing all Icelandic postalcodes.
@@ -132,7 +128,6 @@ class Validate_IS
      * $dataFile will be rewritten with the data retrived from $url in $strong mode
      *
      * User can provide his own datafile if he wishes and/or own "official" list.
-     *
      *
      * @access    public
      * @param     int     the postcode to be validated
@@ -204,7 +199,7 @@ class Validate_IS
      * @param string $address   Address to validate
      * @param int    $postcode  Optional; check if address exists in that area
      * @param bool   $strong    Optional; Live check
-     * @param string $dataDir   Optional; /path/to/data/dir/
+     * @param string $dataDir   Optional; /path/to/data/dir
      * @param string $url       Optional; http://domain.tld/path/to/data/file.txt
      * @return bool
      */
@@ -257,6 +252,8 @@ class Validate_IS
     }
 
     /**
+     * Validates Icelandic telephone numbers (simanumer)
+     * 
      * Checks that the telephone number is 7digits and legal
      * home/office/gsm number (not information/emergency service etc.)
      *
@@ -269,7 +266,6 @@ class Validate_IS
      * @access    public
      * @param     string $number the telephone number
      * @return    bool
-     * @see
      */
     function phoneNumber($number)
     {
