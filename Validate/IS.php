@@ -269,19 +269,28 @@ class Validate_IS
      */
     function phoneNumber($number)
     {
+        /* Replace "+" with "00" and delete spaces/hyphens */
         $number = str_replace(array('+', ' ', '-'), array('00', '', ''), $number);
 
+        /* Sanity check */
+        if (!ctype_digit($number)) {
+            return false;
+        }
+        
+        /* Checks if the number is 7digits or 12 (prefixed with 00354) */
         $telLength = strlen($number);
         if ($telLength != 7) {
-            if ($telLength != 12) {
-                return false;
-            }
-            if (substr($tel, 0, 5) != '00354') {
+            if ($telLength == 12) {
+                if (substr($number, 0, 5) != '00354') {
+                    return false;
+                }
+            } else {
                 return false;
             }
         }
 
-        $firstDigit = substr($number, -7, 1); // Gets the first digit in the tel.
+        /* Get the first real telephone number digit and check if its valid */
+        $firstDigit = substr($number, -7, 1);
         if (in_array($firstDigit, array(0, 1, 2, 3))) {
             return false;
         }
