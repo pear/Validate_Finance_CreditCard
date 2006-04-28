@@ -225,7 +225,7 @@ class Validate_IS
         }
         
         if (ctype_digit($postcode)) {
-            $rsl = self::postalCode($postcode, false, $dataDir. "/IS_postcodes.txt");
+            $rsl = Validate_IS::postalCode($postcode, false, $dataDir. "/IS_postcodes.txt");
             if (!$rsl) {
                 return false;
             }
