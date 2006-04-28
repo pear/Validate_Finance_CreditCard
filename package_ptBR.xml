@@ -1,76 +1,85 @@
 <?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE package SYSTEM "http://pear.php.net/dtd/package-1.0">
 <package version="1.0">
   <name>Validate_ptBR</name>
   <summary>Validation class for ptBR</summary>
-  <description>
-Package contains locale validation for ptBR such as:
+  <description>Package contains locale validation for ptBR such as:
  * Postal Code
  * CNPJ
  * CPF
  * Region (brazilian states)
  * Phone Number
- * Vehicle's plate 
-  </description>
-  <license>New BSD</license>
+ * Vehicle's plate</description>
   <maintainers>
     <maintainer>
       <user>silvano</user>
-      <role>lead</role>
       <name>Silvano Girardi Jr.</name>
       <email>silvano@php.net</email>
+      <role>lead</role>
     </maintainer>
     <maintainer>
       <user>msaraujo</user>
-      <role>lead</role>
       <name>Marcelo Santos Araujo</name>
       <email>msaraujo@php.net</email>
+      <role>lead</role>
     </maintainer>
-   </maintainers>
+  </maintainers>
   <release>
-    <version>0.5.2</version>
+    <version>0.5.3</version>
+    <date>2006-04-28</date>
+    <license>New BSD</license>
     <state>alpha</state>
-    <date>2005-12-29</date>
-    <notes>
-    New methods:
-     - Regions (brazilian states)
-     - Phone Number
-     - Vehicle's plate
-    </notes>
-    <filelist>
-    <dir name="/">
-      <file role="doc" name="LICENSE" />
-      <dir name="Validate">
-        <file role="php">ptBR.php</file>
-        <file role="test">ptBR.phpt</file>
-      </dir>
-    </dir>
-    </filelist>
+    <notes>- Fix bug #7474, related to cpf method
+- postalCode with better regexp</notes>
     <deps>
-      <dep type="php" rel="ge" version="4.2.0" />
+      <dep type="php" rel="ge" version="4.2.0"/>
     </deps>
+    <provides type="class" name="Validate_ptBR" />
+    <provides type="function" name="Validate_ptBR::postalCode" />
+    <provides type="function" name="Validate_ptBR::cpf" />
+    <provides type="function" name="Validate_ptBR::cnpj" />
+    <provides type="function" name="Validate_ptBR::region" />
+    <provides type="function" name="Validate_ptBR::phoneNumber" />
+    <provides type="function" name="Validate_ptBR::carReg" />
+    <filelist>
+      <file role="doc" md5sum="f8790e48b597dff12a643e08e9be3fab" name="LICENSE"/>
+      <file role="php" md5sum="8bf66b306352a6a414f1a07b01a126e6" name="Validate/ptBR.php"/>
+      <file role="test" md5sum="a0bf1bd6734089d5de2b851530fea1a2" name="Validate/ptBR.phpt"/>
+    </filelist>
   </release>
   <changelog>
-   <release>
-    <version>0.5.1</version>
-    <state>alpha</state>
-    <date>2005-11-04</date>
-    <notes>
-- Switch to the new BSD License
-(see http://www.opensource.org/licenses/bsd-license.php)
-    </notes>
+    <release>
+      <version>0.5.2</version>
+      <date>2005-12-29</date>
+      <license>New BSD</license>
+      <state>alpha</state>
+      <notes>New methods:
+- Regions (brazilian states)
+- Phone Number
+- Vehicle's plate
+    
+</notes>
     </release>
-  <release>
-    <version>0.5.0</version>
-    <state>alpha</state>
-    <date>2005-05-20</date>
-    <notes>
-- Split from Validate into independent package
+    <release>
+      <version>0.5.1</version>
+      <date>2005-11-04</date>
+      <state>alpha</state>
+      <notes>- Switch to the new BSD License
+(see http://www.opensource.org/licenses/bsd-license.php)
+    
+</notes>
+    </release>
+    <release>
+      <version>0.5.0</version>
+      <date>2005-05-20</date>
+      <state>alpha</state>
+      <notes>- Split from Validate into independent package
 - CS fixes
 - Fix Bug #3668, usage of $$foo were it should have been $foo
 - BC break!
 postalCode unified between countries (name wise), now all postcode validation funcs are named postalCode
-    </notes>
+    
+</notes>
     </release>
   </changelog>
 </package>
-
