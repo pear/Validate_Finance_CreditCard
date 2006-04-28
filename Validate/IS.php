@@ -201,53 +201,79 @@ class Validate_IS
      * @param bool   $strong    Optional; Live check
      * @param string $dataDir   Optional; /path/to/data/dir
      * @param string $url       Optional; http://domain.tld/path/to/data/file.txt
-     * @return bool
+     * @return array            array(array("nf" => $nf, "thgf" => $thgf, "pnr" => $postnumer))
      */
     function address($address, $postcode = null, $strong = false,
                      $dataDir = '', $url = '')
     {
-        if (!$dataDir) {
-            $dataDir = '@DATADIR@/Validate_IS';
+        static $lastFile;
+        static $lastPos = -1;
+        static $lastData = array();
+        
+        /* Sanity checks */
+        if (!is_string($address)) {
+            return false;
         }
-        if (!is_null($postcode)) {
-            /* Shall we dare to call postalCode staticly? */
-            if (isset($this)) {
-                $rsl = $this->postalCode($postcode, $dataDir);
-            } else {
-                $rsl = self::postalCode($postcode, $dataDir);
-            }
+        if (!empty($postcode)) {
+            $postcode = (string)$postcode;
+        }
+        if (!empty($dataDir) && !is_readable($dataDir. "/IS_gotuskra.txt")) {
+            return false;
+        }
+        if (!is_string($url)) {
+            return false;
+        }
+        
+        if (ctype_digit($postcode)) {
+            $rsl = self::postalCode($postcode, false, $dataDir. "/IS_postcodes.txt");
             if (!$rsl) {
                 return false;
             }
         }
-        $file = is_readable($dataDir.'/IS_gotuskra.txt') ?
-            $dataDir. '/IS_gotuskra.txt' :
-            '@DATADIR@/Validate_IS/IS_gotuskra.txt';
-
+        
+        $file = $dataDir ? $dataDir. '/IS_gotuskra.txt' : '@DATADIR@/Validate_IS/IS_gotuskra.txt';
+        
+        if ($file != $lastFile) {
+            /* Reset cache */
+            $lastData = array();
+            $lastPos = -1;
+            $lastFile = "";
+        }
+        $lastFile = $file;
+        
         $fp = fopen($file, 'r');
         if (!$fp) {
             return false;
         }
+        if ($lastPos>0) {
+            fseek($fp, $lastPos);
+        }
 
-        $address = ucwords($address);
-        while (false !== ($data = fgetcsv($fp, 128, ';'))) {
-            /*
-            * TODO:
-            *   case-insensitive compare
-            */
-            if ($address == $data[2] || $address == $data[3]) {
-                if (!$postcode) {
-                    fclose($fp);
-                    return true;
-                }
-                if ($postcode == $data[1]) {
-                    fclose($fp);
-                    return true;
+        $lastCount = count($lastData);
+        $i = 0;
+        $return = array();
+        reset($lastData);
+        while (false !== ($data = ($lastPos == 0 || $lastCount>$i) ? next($lastData) : fgetcsv($fp, 128, ';'))) {
+            if ($i >= $lastCount) {
+                $lastData[$i] = $data;
+            }
+            /* $data = array(0=>key, 1=>pnr 2=>nf 3=>thgf */
+            if (strcasecmp($address, $data[2]) === 0 || strcasecmp($address, $data[3]) === 0) {
+                $return[] = array("nf" => $data[2], "thgf" => $data[3], "pnr" => $data[1]);
+                if ($postcode && $postcode == $data[1]) {
+                    $lastPos = ftell($fp);
+                    /* In case we found matching address which didnt match the postcode we'll return the last found */
+                    return array(current($return));
                 }
             }
+            $i++;
         }
+        $lastPos = 0;
         fclose($fp);
 
+        if(!$postcode && count($return)) {
+            return $return;
+        }
         return false;
     }
 
