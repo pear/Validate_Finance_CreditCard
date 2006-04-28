@@ -124,7 +124,7 @@ Test postalCode strong
 1OO: NO
 abc: NO
 
-Test telNumbers
+Test phoneNumbers
 5642240: YES
 +354 664 22 40: YES
 00354 464 22 40: YES
