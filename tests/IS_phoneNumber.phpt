@@ -2,7 +2,7 @@
 Validate_IS::phoneNumber
 --FILE--
 <?php
-    error_reporting(E_ALL);
+    error_reporting(E_ALL & ~E_STRICT);
     require_once "Validate/IS.php";
 
     $phoneNumbers = array(

@@ -28,16 +28,18 @@
  */
 
 /**
- * Data validation class for IS
+ * Data validation class for Iceland
  *
  * This class provides methods to validate:
  *  - SSN (Social Security Number (Icelandic: kennitala))
  *  - Postal code (Icelandic: post numer)
+ *  - Address (Icelandic: heimilisfang)
  *  - Telephone number (Icelandic: simanumer)
  *
  */
 class Validate_IS
 {
+// {{{ bool Validate_IS::ssn(string $ssn)
     /**
      * Validate Icelandic SSN (kennitolu)
      *
@@ -47,7 +49,7 @@ class Validate_IS
      *       Here we strip the "-" char from the string (if present) and/or
      *       spaces in our match.
      * Note: PASS IN STRING, NO EXCEPTIONS! SSN with leading zero
-     *       (passed as integer) will NOT get vallidated!
+     *       (passed as integer) will NOT get validated!
      *
      * @access    public
      * @param     string $ssn SSN
@@ -117,7 +119,9 @@ class Validate_IS
 
         return true;
     }
+// }}} 
 
+// {{{ bool Validate_IS::postalCode(int $postCode [, bool $strong = false [, string $dataDir = DATADIR [, string $url = postur.is]]])
     /**
      * Validates Icelandic postal codes (postnumer)
      *
@@ -132,12 +136,12 @@ class Validate_IS
      * @access    public
      * @param     int     the postcode to be validated
      * @param     bool    optional; check against the official list (default off)
-     * @param     string  optional; /path/to/data/file.txt
+     * @param     string  optional; /path/to/data/dir
      * @param     string  optional; http://domain.tld/path/to/live/data/file.txt
      * @return    bool
      */
     function postalCode($postCode, $strong = false,
-                        $dataFile = '@DATADIR@/Validate_IS/IS_postcodes.txt',
+                        $dataDir = null,
                         $url = 'http://www.postur.is/gogn/Gotuskra/postnumer.txt')
     {
         static $postCodes = array();
@@ -150,6 +154,8 @@ class Validate_IS
             return false;
         }
 
+        $dataDir = !empty($dataDir) ? $dataDir : '@DATADIR@/Validate_IS';
+        $dataFile = $dataDir . "/IS_postcodes.txt";
         /* Same configuration as last time? No need to go further then */
         if (count($postCodes) && $dataFile == $lastFile &&
            (!$strong || $lastUrl == $url)) {
@@ -187,24 +193,21 @@ class Validate_IS
 
         return false;
     }
+// }}}
 
-
+// {{{ mixed Validate_IS::address(string $address [, int $postcode = null [, $dataDir = @DATADIR@/Validate_IS/]]
     /**
      * Checks if given address exists
      * If postcode is provided, check if address exists in that area.
      *
-     * NOTE: does *NOT* work completly, yet.
-     * NOTE: $strong is *NOT* implimented, yet.
-     *
      * @param string $address   Address to validate
      * @param int    $postcode  Optional; check if address exists in that area
-     * @param bool   $strong    Optional; Live check
      * @param string $dataDir   Optional; /path/to/data/dir
-     * @param string $url       Optional; http://domain.tld/path/to/data/file.txt
-     * @return array            array(array("nf" => $nf, "thgf" => $thgf, "pnr" => $postnumer))
+     * @return mixed            false on failure
+     *                          array on in the form of: array(array("nf" => $nf, "thgf" => $thgf, "pnr" => $postnumer))
+     *                          on success.
      */
-    function address($address, $postcode = null, $strong = false,
-                     $dataDir = '', $url = '')
+    function address($address, $postcode = null, $dataDir = '')
     {
         static $lastFile;
         static $lastPos = -1;
@@ -220,12 +223,9 @@ class Validate_IS
         if (!empty($dataDir) && !is_readable($dataDir. "/IS_gotuskra.txt")) {
             return false;
         }
-        if (!is_string($url)) {
-            return false;
-        }
         
         if (ctype_digit($postcode)) {
-            $rsl = Validate_IS::postalCode($postcode, false, $dataDir. "/IS_postcodes.txt");
+            $rsl = Validate_IS::postalCode($postcode, false, $dataDir);
             if (!$rsl) {
                 return false;
             }
@@ -276,7 +276,9 @@ class Validate_IS
         }
         return false;
     }
+// }}}
 
+// {{{ bool Validate_IS::phoneNumber(string $number)
     /**
      * Validates Icelandic telephone numbers (simanumer)
      * 
@@ -323,5 +325,6 @@ class Validate_IS
 
         return true;
     }
+// }}}
 }
 ?>

@@ -2,7 +2,7 @@
 Validate_IS::address()
 --FILE--
 <?php
-    error_reporting(E_ALL);
+    error_reporting(E_ALL & ~E_STRICT);
     require_once "Validate/IS.php";
 
     $addresses = array(
@@ -15,13 +15,15 @@ Validate_IS::address()
     );
 
     foreach($addresses as $address => $count) {
-        $result = Validate_IS::address($address, null, false, "/usr/home/bjori/");
+        $result = Validate_IS::address($address);
         printf("%-20s: %d (%d)\n", $address, is_array($result) ? count($result) : 0, $count);
     }
 
+    print "\n";
+    
     foreach($addresses as $address => $count) {
-        $result = Validate_IS::address($address, 200, false, "/usr/home/bjori");
-        printf("%-20s: %d (%d)\n", $address, is_array($result) ? count($result) : 0, $count);
+        $result = Validate_IS::address($address, 200);
+        printf("%-20s: %d\n", $address, is_array($result) ? count($result) : 0);
     }
 ?>
 --EXPECT--
@@ -31,9 +33,10 @@ Aðalstræti          : 6 (6)
 Sæbólsbraut         : 1 (1)
 Bógus               : 0 (0)
 Vestmannabraut      : 1 (1)
-Reglubraut          : 0 (1)
-Mánagata            : 0 (7)
-Aðalstræti          : 0 (6)
-Sæbólsbraut         : 1 (1)
-Bógus               : 0 (0)
-Vestmannabraut      : 0 (1)
+
+Reglubraut          : 0
+Mánagata            : 0
+Aðalstræti          : 0
+Sæbólsbraut         : 1
+Bógus               : 0
+Vestmannabraut      : 0

@@ -20,22 +20,21 @@ Package containes locale validation for IS (Iceland) such as:
   <release>
      <version>0.2.0</version>
      <state>alpha</state>
-     <date>2005-11-04</date>
+     <date>2006-16-04</date>
      <notes>
 - Validate_IS::ssn()
   - Now uses ctype_digit() to check for all numbers
   - Fixed bug in "var tala" calculation
 - Validate_IS::postalCode()
-  - Allow user defined data dir for Validate_IS::postalCode()
+  - Allow user defined data directory 
   - $strong mode is now default false - BC BREAK!
   - Now use retrived data even when data file is read-only (in $strong mode)
   - Writes retrived data no matter when data file was last changed (in $strong mode)
   - Deleted bogus entrys in the data file
   - Fixed live data file (thanks to antab, arnar@8.is)
-  - Added extra parameter, $url, which allows user defined data file
+  - Added extra parameter, $url, which allows user defined live data file
 - Validate_IS::address()
   - Initial commit
-- Fixed testcases when run under E_STRICT
 - Bump the dep to PHP 4.2+
 - Ctype is now a required dep.
 BC break:
@@ -50,9 +49,12 @@ BC break:
         </file>
       </dir>
       <dir name="tests" role="test">
-        <file>validate_IS.phpt</file>
+          <file>validate_IS.phpt</file>
+          <file>IS_address.phpt</file>
+          <file>IS_phoneNumber.phpt</file>
       </dir>
       <file role="data" name="data/IS_postcodes.txt" install-as="IS_postcodes.txt" />
+      <file role="data" name="data/IS_gotuskra.txt"  install-as="IS_gotuskra.txt" />
     </dir>
     </filelist>
     <deps>
