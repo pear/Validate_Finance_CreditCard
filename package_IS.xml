@@ -23,7 +23,7 @@ Package containes locale validation for IS (Iceland) such as:
     <release>
         <version>0.3.0</version>
         <state>alpha</state>
-        <date>2006-MM-DD</date>
+        <date>2006-05-16</date>
         <notes></notes>
         <filelist>
             <dir name="/">
