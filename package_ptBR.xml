@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="ISO-8859-1" ?>
+<?xml version="1.0" encoding="ISO-8859-1"?>
 <!DOCTYPE package SYSTEM "http://pear.php.net/dtd/package-1.0">
 <package version="1.0">
   <name>Validate_ptBR</name>
@@ -29,8 +29,7 @@
     <date>2006-05-16</date>
     <license>New BSD</license>
     <state>alpha</state>
-    <notes>- fix md5sum in the package 
-</notes>
+    <notes>- fix md5sum in the package</notes>
     <deps>
       <dep type="php" rel="ge" version="4.2.0"/>
     </deps>
@@ -38,19 +37,19 @@
       <file role="doc" name="LICENSE"/>
       <file role="php" name="Validate/ptBR.php"/>
       <dir name="tests">
-      <file role="test" name="ptBR.phpt"/>
+        <file role="test" name="ptBR.phpt"/>
       </dir>
     </filelist>
   </release>
   <changelog>
-  <release>
-    <version>0.5.3</version>
-    <date>2006-04-28</date>
-    <license>New BSD</license>
-    <state>alpha</state>
-    <notes>- Fix bug #7474, related to cpf method
+    <release>
+      <version>0.5.3</version>
+      <date>2006-04-28</date>
+      <license>New BSD</license>
+      <state>alpha</state>
+      <notes>- Fix bug #7474, related to cpf method
 - postalCode with better regexp</notes>
-</release>
+    </release>
     <release>
       <version>0.5.2</version>
       <date>2005-12-29</date>
@@ -59,18 +58,14 @@
       <notes>New methods:
 - Regions (brazilian states)
 - Phone Number
-- Vehicle's plate
-    
-</notes>
+- Vehicle's plate</notes>
     </release>
     <release>
       <version>0.5.1</version>
       <date>2005-11-04</date>
       <state>alpha</state>
       <notes>- Switch to the new BSD License
-(see http://www.opensource.org/licenses/bsd-license.php)
-    
-</notes>
+(see http://www.opensource.org/licenses/bsd-license.php)</notes>
     </release>
     <release>
       <version>0.5.0</version>
@@ -80,9 +75,7 @@
 - CS fixes
 - Fix Bug #3668, usage of $$foo were it should have been $foo
 - BC break!
-postalCode unified between countries (name wise), now all postcode validation funcs are named postalCode
-    
-</notes>
+postalCode unified between countries (name wise), now all postcode validation funcs are named postalCode</notes>
     </release>
   </changelog>
 </package>
