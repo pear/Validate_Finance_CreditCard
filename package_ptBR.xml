@@ -25,29 +25,32 @@
     </maintainer>
   </maintainers>
   <release>
+    <version>0.5.4</version>
+    <date>2006-05-16</date>
+    <license>New BSD</license>
+    <state>alpha</state>
+    <notes>- fix md5sum in the package 
+</notes>
+    <deps>
+      <dep type="php" rel="ge" version="4.2.0"/>
+    </deps>
+    <filelist>
+      <file role="doc" name="LICENSE"/>
+      <file role="php" name="Validate/ptBR.php"/>
+      <dir name="tests">
+      <file role="test" name="ptBR.phpt"/>
+      </dir>
+    </filelist>
+  </release>
+  <changelog>
+  <release>
     <version>0.5.3</version>
     <date>2006-04-28</date>
     <license>New BSD</license>
     <state>alpha</state>
     <notes>- Fix bug #7474, related to cpf method
 - postalCode with better regexp</notes>
-    <deps>
-      <dep type="php" rel="ge" version="4.2.0"/>
-    </deps>
-    <provides type="class" name="Validate_ptBR" />
-    <provides type="function" name="Validate_ptBR::postalCode" />
-    <provides type="function" name="Validate_ptBR::cpf" />
-    <provides type="function" name="Validate_ptBR::cnpj" />
-    <provides type="function" name="Validate_ptBR::region" />
-    <provides type="function" name="Validate_ptBR::phoneNumber" />
-    <provides type="function" name="Validate_ptBR::carReg" />
-    <filelist>
-      <file role="doc" md5sum="f8790e48b597dff12a643e08e9be3fab" name="LICENSE"/>
-      <file role="php" md5sum="8bf66b306352a6a414f1a07b01a126e6" name="Validate/ptBR.php"/>
-      <file role="test" md5sum="a0bf1bd6734089d5de2b851530fea1a2" name="Validate/ptBR.phpt"/>
-    </filelist>
-  </release>
-  <changelog>
+</release>
     <release>
       <version>0.5.2</version>
       <date>2005-12-29</date>
