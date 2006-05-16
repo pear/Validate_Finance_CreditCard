@@ -1,27 +1,59 @@
 <?xml version="1.0" encoding="ISO-8859-1" ?>
 <package version="1.0">
-  <name>Validate_IS</name>
-  <summary>Validation class for Iceland</summary>
-  <description>
+    <name>Validate_IS</name>
+    <summary>Validation class for Iceland</summary>
+    <description>
 Package containes locale validation for IS (Iceland) such as:
  * SSN
  * Postal Code
+ * Address
  * Telephone
-  </description>
-  <license>New BSD</license>
-  <maintainers>
-    <maintainer>
-      <user>bjori</user>
-      <role>lead</role>
-      <name>Hannes Magn&#250;sson</name>
-      <email>bjori@php.net</email>
-    </maintainer>
-   </maintainers>
-  <release>
-     <version>0.2.0</version>
-     <state>alpha</state>
-     <date>2006-05-16</date>
-     <notes>
+    </description>
+    <license>New BSD</license>
+    
+    <maintainers>
+        <maintainer>
+            <user>bjori</user>
+            <role>lead</role>
+            <name>Hannes Magn&#250;sson</name>
+            <email>bjori@php.net</email>
+        </maintainer>
+    </maintainers>
+    
+    <release>
+        <version>0.3.0</version>
+        <state>alpha</state>
+        <date>2006-MM-DD</date>
+        <notes></notes>
+        <filelist>
+            <dir name="/">
+                <file role="doc" name="LICENSE" />
+                <dir name="Validate">
+                    <file role="php" name="IS.php">
+                        <replace type="pear-config" from="@DATADIR@" to="data_dir" />
+                    </file>
+                </dir>
+                <dir name="tests" role="test">
+                    <file>validate_IS.phpt</file>
+                    <file>IS_address.phpt</file>
+                    <file>IS_phoneNumber.phpt</file>
+                </dir>
+                <file role="data" name="data/IS_postcodes.txt" install-as="IS_postcodes.txt" />
+                <file role="data" name="data/IS_gotuskra.txt"  install-as="IS_gotuskra.txt" />
+            </dir>
+        </filelist>
+        <deps>
+            <dep type="php" rel="ge" version="4.2.0" />
+            <dep type="ext" rel="has" optional="no">ctype</dep>
+        </deps>
+    </release>
+    
+    <changelog>
+        <release>
+            <version>0.2.0</version>
+            <state>alpha</state>
+            <date>2006-05-16</date>
+            <notes>
 - Validate_IS::ssn()
   - Now uses ctype_digit() to check for all numbers
   - Fixed bug in "var tala" calculation
@@ -39,46 +71,26 @@ Package containes locale validation for IS (Iceland) such as:
 - Ctype is now a required dep.
 BC break:
 - tel renamed to phoneNumber to confirm to the Validate standard
-     </notes>
-    <filelist>
-    <dir name="/">
-      <file role="doc" name="LICENSE" />
-      <dir name="Validate">
-        <file role="php" name="IS.php">
-          <replace type="pear-config" from="@DATADIR@" to="data_dir" />
-        </file>
-      </dir>
-      <dir name="tests" role="test">
-          <file>validate_IS.phpt</file>
-          <file>IS_address.phpt</file>
-          <file>IS_phoneNumber.phpt</file>
-      </dir>
-      <file role="data" name="data/IS_postcodes.txt" install-as="IS_postcodes.txt" />
-      <file role="data" name="data/IS_gotuskra.txt"  install-as="IS_gotuskra.txt" />
-    </dir>
-    </filelist>
-    <deps>
-      <dep type="php" rel="ge" version="4.2.0" />
-      <dep type="ext" rel="has" optional="no">ctype</dep>
-    </deps>
-  </release>
-  <changelog>
-  <release>
-     <version>0.1.1</version>
-     <state>alpha</state>
-     <date>2005-11-04</date>
-     <notes>
+            </notes>
+        </release>
+        
+        <release>
+            <version>0.1.1</version>
+            <state>alpha</state>
+            <date>2005-11-04</date>
+            <notes>
 - Switch to the new BSD License
   (see http://www.opensource.org/licenses/bsd-license.php)
-     </notes>
-    </release>
-    <release>
-      <version>0.1.0</version>
-      <state>alpha</state>
-      <date>2005-10-01</date>
-      <notes>
+            </notes>
+        </release>
+        
+        <release>
+            <version>0.1.0</version>
+            <state>alpha</state>
+            <date>2005-10-01</date>
+            <notes>
 Initial release
-      </notes>
-    </release>
-  </changelog>
+            </notes>
+        </release>
+    </changelog>
 </package>
