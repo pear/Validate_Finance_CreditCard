@@ -18,7 +18,7 @@ Package to validate Finance data. It includes :
   <release>
     <version>0.5.3</version>
     <state>alpha</state>
-    <date>2006-06-06</date>
+    <date>2006-06-09</date>
     <notes>
 - added IBAN-check for Bulgaria
 - extended and corrected tests
