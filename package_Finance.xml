@@ -16,13 +16,12 @@ Package to validate Finance data. It includes :
     </maintainer>
    </maintainers>
   <release>
-    <version>0.5.2</version>
+    <version>0.5.3</version>
     <state>alpha</state>
-    <date>2006-05-01</date>
+    <date>2006-06-06</date>
     <notes>
-- added missing countries (which were added later to IBAN-system)
-- added more IBANs for checks
-- several corrections (typos, ...)
+- added IBAN-check for Bulgaria
+- extended and corrected tests
     </notes>
     <filelist>
     <dir name="/">
@@ -44,28 +43,34 @@ Package to validate Finance data. It includes :
     </deps>
   </release>
   <changelog>
-   <release>
-    <version>0.5.1</version>
-    <state>alpha</state>
-    <date>2005-11-04</date>
-    <notes>
+    <release>
+      <version>0.5.2</version>
+      <state>alpha</state>
+      <date>2006-05-01</date>
+      <notes>
+- added missing countries (which were added later to IBAN-system)
+- added more IBANs for checks
+- several corrections (typos, ...)
+      </notes>
+    </release>
+    <release>
+      <version>0.5.1</version>
+      <state>alpha</state>
+      <date>2005-11-04</date>
+      <notes>
 - Switch to the new BSD License
 (see http://www.opensource.org/licenses/bsd-license.php)
-    </notes>
-    <deps>
-      <dep type="php" rel="ge" version="4.2.0" />
-      <dep type="pkg" rel="ge" version="0.5.0">Validate</dep>
-    </deps>
-   </release>
-   <release>
-    <version>0.5.0</version>
-    <state>alpha</state>
-    <date>2005-05-20</date>
-    <notes>
+      </notes>
+    </release>
+    <release>
+      <version>0.5.0</version>
+      <state>alpha</state>
+      <date>2005-05-20</date>
+      <notes>
 - Split from Validate into independent package
 - removed apiVersion function from IBAN
 - make it depends on Validate >= 0.5.0
-    </notes>
+      </notes>
     </release>
   </changelog>
 </package>

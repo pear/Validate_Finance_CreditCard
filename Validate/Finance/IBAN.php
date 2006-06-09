@@ -84,6 +84,7 @@ class Validate_Finance_IBAN
                     'AT' => 'Austria',
                     'BA' => 'Bosnia and Herzegovina',
                     'BE' => 'Belgium',
+                    'BG' => 'Bulgaria',
                     'CH' => 'Swiss',
                     'CS' => 'Serbia and Montenegro',
                     'CY' => 'Cyprus',
@@ -138,6 +139,7 @@ class Validate_Finance_IBAN
                     'AT' => 20,
                     'BA' => 20,
                     'BE' => 16,
+                    'BG' => 22,
                     'CH' => 21,
                     'CS' => 22,
                     'CY' => 28,
@@ -192,6 +194,7 @@ class Validate_Finance_IBAN
                     'AT' => array('start' =>  4, 'length' =>  5),
                     'BA' => array('start' =>  4, 'length' =>  6), // first 3 chars bankcode, last 3 chars branch
                     'BE' => array('start' =>  4, 'length' =>  3),
+                    'BG' => array('start' =>  4, 'length' =>  8),
                     'CH' => array('start' =>  4, 'length' =>  5),
                     'CS' => array('start' =>  4, 'length' =>  3),
                     'CY' => array('start' =>  4, 'length' =>  8), // first 3 chars bankcode, last 5 chars branch
@@ -246,6 +249,7 @@ class Validate_Finance_IBAN
                     'AT' => array('start' =>  9, 'length' => 11),
                     'BA' => array('start' => 10, 'length' =>  8), // followed by 2 chars (checksum)
                     'BE' => array('start' =>  7, 'length' =>  7), // followed by 2 chars (checksum)
+                    'BG' => array('start' => 12, 'length' => 10),
                     'CH' => array('start' =>  9, 'length' => 12),
                     'CS' => array('start' =>  7, 'length' => 13), // followed by 2 chars (checksum)
                     'CY' => array('start' => 12, 'length' => 16),
@@ -300,6 +304,7 @@ class Validate_Finance_IBAN
                     'AT' => '/^AT[0-9]{2}[0-9]{5}[0-9]{11}$/',
                     'BA' => '/^BA[0-9]{2}[0-9]{6}[0-9]{10}$/',
                     'BE' => '/^BE[0-9]{2}[0-9]{3}[0-9]{9}$/',
+                    'BG' => '/^BG[0-9]{2}[A-Z]{4}[0-9]{4}[0-9]{2}[A-Z0-9]{8}$/',
                     'CH' => '/^CH[0-9]{2}[0-9]{5}[A-Z0-9]{12}$/',
                     'CS' => '/^CS[0-9]{2}[0-9]{3}[0-9]{15}$/',
                     'CY' => '/^CY[0-9]{2}[0-9]{8}[A-Z0-9]{16}$/',
