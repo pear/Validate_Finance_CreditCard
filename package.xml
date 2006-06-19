@@ -74,6 +74,7 @@
         </dir>
         <dir name="docs" role="doc">
           <file>sample_multiple.php</file>
+          <file>Example_Locale.php</file>
         </dir>
       </dir>
     </filelist>
