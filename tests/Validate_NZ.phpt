@@ -113,7 +113,12 @@ $bankAccounts = array(
 					  "06-088902625060");	//NOk
 					  
 
-$irdNumbers = array();
+$IrdNumbers = array(
+					"087 784 215",
+					"071-321-321",
+					"97 654 456",
+					"83-366-3215",
+					"987 784 215",);
 
 
 echo "----Test postalCode----\n";
@@ -134,7 +139,12 @@ foreach ($regions as $region) {
 						
 echo "----Test BankAccount----\n";
 foreach ($bankAccounts as $bankAccount) {
-    echo "{$bankAccount}: ".$noYes[Validate_NZ::bankAccount($bankAccount)]."\n";
+    echo "{$bankAccount}: ".$noYes[Validate_NZ::bankCode($bankAccount)]."\n";
+}
+
+echo "----Test IRD Numbers (SSN)----\n";
+foreach ($IrdNumbers as $ird) {
+    echo "{$ird}: ".$noYes[Validate_NZ::ssn($ird)]."\n";
 }
 ?>
 
@@ -210,3 +220,9 @@ CAN: YES
 060889026250600: YES
 00889026250600: NO
 06-088902625060: NO
+----Test IRD Numbers (SSN)----
+087 784 215: YES
+071-321-321: YES
+97 654 456: YES
+83-366-3215: NO
+987 784 215: NO
