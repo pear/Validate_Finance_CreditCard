@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+
+<package version="1.0">
+
+  <name>Validate_NZ</name>
+
+  <summary>Validation class for NZ</summary>
+
+  <description>
+
+Package containes locale validation for NZ such as:
+
+ *  - IRD numbers
+ *  - Regional codes 
+ *  - Telephone number 
+ *  - Postal code 
+ *  - Bank AC  
+
+  </description>
+
+  <license>New BSD</license>
+
+  <maintainers>
+
+    <maintainer>
+
+      <user>badams</user>
+
+      <role>lead</role>
+
+      <name>Byron Adams</name>
+
+      <email>byron.adams54@gmail.com</email>
+
+    </maintainer>
+
+   </maintainers>
+
+  <release>
+
+    <version>0.1.2</version>
+
+    <state>alpha</state>
+
+    <date>2006-07-04</date>
+
+    <notes>
+    </notes>
+
+    <filelist>
+
+    <dir name="/">
+
+      <file role="doc" name="LICENSE" />
+
+      <dir name="Validate">
+
+        <file role="php" name="NZ.php">
+
+          <replace type="pear-config" from="@DATADIR@" to="data_dir" />
+
+        </file>
+
+      </dir>
+
+      <dir name="tests" role="test">
+
+        <file>validate_NZ.phpt</file>
+
+      </dir>
+
+      
+
+    </dir>
+
+    </filelist>
+
+    <deps>
+
+      <dep type="php" rel="ge" version="4.2.0" />
+
+    </deps>
+
+  </release>
+
+  <changelog>
+
+  </changelog>
+
+</package>
+
