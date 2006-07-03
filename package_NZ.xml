@@ -38,7 +38,7 @@ Package containes locale validation for NZ such as:
 
   <release>
 
-    <version>0.1.2</version>
+    <version>0.1.0</version>
 
     <state>alpha</state>
 
@@ -57,7 +57,6 @@ Package containes locale validation for NZ such as:
 
         <file role="php" name="NZ.php">
 
-          <replace type="pear-config" from="@DATADIR@" to="data_dir" />
 
         </file>
 
