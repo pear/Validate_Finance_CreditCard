@@ -62,9 +62,13 @@ $phoneNumbers = array(
                       "08-684-5018",    //NOk                    
                       "(02) 631-7658",    //NOk
                       
-                      /* Currently No Support for Country code */
+                      /* Now Support for Country code */
                       
-                      "64 03 684-5018", //NOk
+                      "+64 03 684-5018", //Ok
+                      "64-03-684-5018", //Ok
+                      "64036845018", //Ok
+                      "64 03 684 5018", //Ok
+                      
                       
                       /*    Mobile Phones    */
                       
