@@ -122,18 +122,24 @@ class Validate_NZ
      */
     function phoneNumber($number, $requireAreaCode = true)
     {
-        $number = str_replace(array("-"," ","(",")"),'',trim($number));
-
-
-
-        // Is land line with area code
-        if($requireAreaCode && preg_match("(^0(3|4|6|7|9)[0-9]{7}$)",$number)) {
+        
+       $number = str_replace(array("-"," ","(",")","+"),'',trim($number));
+       
+       // Is landline with country and area codes.
+       if (preg_match("(^640(3|4|6|7|9)[0-9]{7})",$number)) {
+           return true;
+       }
+       
+		// Is land line with area code
+        if ($requireAreaCode && preg_match("(^0(3|4|6|7|9)[0-9]{7}$)",$number)) {
             return true;
         }
+        
         // Is Landline without area code.
-        if(!$requireAreaCode && preg_match("(^[0-9]{7}$)",$number)) {
+        if (!$requireAreaCode && preg_match("(^[0-9]{7}$)",$number)) {
             return true;
         }
+        
         // Is Mobile number (021,025 or 027)
         if (preg_match("(^02(1|5|7)[0-9]{3}[0-9]{4}$)",$number)) {
             return true;
