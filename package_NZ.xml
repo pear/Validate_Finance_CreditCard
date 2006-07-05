@@ -31,7 +31,7 @@
                    <file role="php" name="NZ.php"></file>
                </dir>
                <dir name="tests" role="test">
-                   <file>validate_NZ.phpt</file>
+                   <file>Validate_NZ.phpt</file>
                </dir>
            </dir>
        </filelist>
