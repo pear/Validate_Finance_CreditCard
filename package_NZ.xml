@@ -23,6 +23,7 @@
        <version>0.1.0</version>
        <state>alpha</state>
        <date>2006-07-05</date>
+       <notes>- Initial release</notes>
 	   <filelist>
            <dir name="/">
                <file role="doc" name="LICENSE" />
