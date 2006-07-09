@@ -40,10 +40,32 @@
     </maintainer>
   </maintainers>
   <release>
-    <version>0.6.3</version>
+    <version>0.6.4</version>
     <state>beta</state>
-    <date>2006-04-20</date>
+    <date>2006-07-09</date>
     <notes>
+- string():
+ * #7648, Adding a new character to VALIDATE_EALPHA
+    </notes>
+    <filelist>
+      <dir name="/">
+        <file role="php">Validate.php</file>
+        <dir name="tests" role="test">
+          <file>bug7648.phpt</file>
+        </dir>
+      </dir>
+    </filelist>
+    <deps>
+      <dep type="php" rel="ge" version="4.2.0"/>
+      <dep type="pkg" rel="has" optional="yes">Date</dep>
+    </deps>
+  </release>
+  <changelog>
+    <release>
+      <version>0.6.3</version>
+      <state>beta</state>
+      <date>2006-04-20</date>
+      <notes>
 - email():
  * #6930, accepts options as an array to confirm to the Validate standard
    previous boolean $check_domain still accepted for backwards compatibility
@@ -59,31 +81,8 @@
    As a consequence, only URIs with full authority can be valid, no relative URI
  * documentation header completed : usage notes , options and "strict" parameter
  * unit tests completed and updated , use php.net instead of unavailable example.org
-    </notes>
-    <filelist>
-      <dir name="/">
-        <file role="doc" name="LICENSE"/>
-        <file role="php">Validate.php</file>
-        <dir name="tests" role="test">
-          <file>number.phpt</file>
-          <file>testdate.phpt</file>
-          <file>email.phpt</file>
-          <file>multiple.phpt</file>
-          <file>multicard.phpt</file>
-          <file>uri.phpt</file>
-        </dir>
-        <dir name="docs" role="doc">
-          <file>sample_multiple.php</file>
-          <file>Example_Locale.php</file>
-        </dir>
-      </dir>
-    </filelist>
-    <deps>
-      <dep type="php" rel="ge" version="4.2.0"/>
-      <dep type="pkg" rel="has" optional="yes">Date</dep>
-    </deps>
-  </release>
-  <changelog>
+      </notes>
+    </release>
     <release>
       <version>0.6.2</version>
       <state>beta</state>
