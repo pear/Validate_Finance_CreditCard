@@ -93,11 +93,11 @@ $phoneNumbers = array(
                       "0300-603232",    //NOk
                       "1800 321 321",    //NOk
                       
-                      /* TODO: fix Problem with allowing 0508 which will allow illegal numbers such as: */
                       
-                      "0500 123123",    //Ok
-                      "0808 505050",    //Ok
-                      "0908123456");    //Ok
+                      
+                      "0500 123123",    //NOk
+                      "0808 505050",    //NOk
+                      "0908123456");    //NOk
                       
 $regions = array(
                         "AUK",    //Ok
@@ -106,7 +106,14 @@ $regions = array(
                         "FIS",    //NOk
                         "SC",    //NOk
                         "CAB",    //NOk
-                        "CAN");    //Ok
+                        "CAN",    //OK
+                        "South Canterbury",//OK
+                        "West Auckland",  //OK
+                        "Central-Otago",  //OK
+                        "west coast",     //OK
+                        
+                        /*this ones causing trouble... its on the todo list */
+                        "west-coast");    //NOk
                         
                         
 $bankAccounts = array(
@@ -192,7 +199,10 @@ O1lO: NO
 056845018: NO
 08-684-5018: NO
 (02) 631-7658: NO
-64 03 684-5018: NO
++64 03 684-5018: YES
+64-03-684-5018: YES
+64036845018: YES
+64 03 684 5018: YES
 0272913164: YES
 021 234 5678: YES
 027-123-4567: YES
@@ -207,9 +217,9 @@ O1lO: NO
 0508304050: YES
 0300-603232: NO
 1800 321 321: NO
-0500 123123: YES
-0808 505050: YES
-0908123456: YES
+0500 123123: NO
+0808 505050: NO
+0908123456: NO
 ----Test region----
 AUK: YES
 WTC: YES
@@ -218,6 +228,11 @@ FIS: NO
 SC: NO
 CAB: NO
 CAN: YES
+South Canterbury: YES
+West Auckland: YES
+Central-Otago: YES
+west coast: YES
+west-coast: NO
 ----Test BankAccount----
 06-0889-0262506-00: YES
 06 0889 0262506 00: YES
@@ -225,8 +240,8 @@ CAN: YES
 00889026250600: NO
 06-088902625060: NO
 ----Test IRD Numbers (SSN)----
-087 784 215: YES
-071-321-321: YES
-97 654 456: YES
+087 784 215: NO
+071-321-321: NO
+97 654 456: NO
 83-366-3215: NO
 987 784 215: NO
