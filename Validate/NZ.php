@@ -38,8 +38,8 @@ class Validate_NZ
      *
      * @static
      * @access   public
-     * @param    string  $postcode,  postcode to validate
-     * @param    bool    $strong,    optional; strong checks against a list of postcodes
+     * @param    string    $postcode,   postcode to validate
+     * @param    bool      $strong,     optional; strong checks against a list of postcodes
      * @return   bool
      * @link      http://www.nzpost.co.nz/nzpost/images/addressing.nzpost/pdfs/postcodedirectory_nomaps.pdf
      */
@@ -48,26 +48,26 @@ class Validate_NZ
         if ($strong) {
             static $postcodes;
 
-            $postcodes = array(
-                                  "0110","0420","0310","1010","0610","0600","2012","2105",
-                                  "0505","1081","1022","2102","2010","2022","2013","0630",
-                                  "0614","0612","2014","1025","0931","3210","3214","3204",
-                                  "3200","3410","3118","3112","3015","4130","4122","4110",
-                                  "4312","4501","4500","4310","4825","4820","5032","5024",
-                                  "5510","4410","5036","5018","6022","5010","6011","6037",
-                                  "5028","5034","7281","7173","7196","7073","7183","7005",
-                                  "7007","7022","7025","7071","7072","7077","7081","7091",
-                                  "7095","7096","7220","7110","7120","7282","7284","7175",
-                                  "7182","7194","7192","7193","7195","7197","7198","7204",
-                                  "7210","7100","7271","7272","7273","7274","7275","7276",
-                                  "7285","7178","7201","7010","7011","7020","8013","8041",
-                                  "7334","8011","7402","8022","8083","8062","7999","8024",
-                                  "8053","8051","7832","7300","7802","8042","8025","8081",
-                                  "7610","7825","8014","9810","9016","9010","9822","9400",
-                                  "9012","9014","9022","9013","9023","9401","9812");
+            $postcodes = array("0110","0420","0310","1010","0610","0600","2012","2105",
+                               "0505","1081","1022","2102","2010","2022","2013","0630",
+                               "0614","0612","2014","1025","0931","3210","3214","3204",
+                               "3200","3410","3118","3112","3015","4130","4122","4110",
+                               "4312","4501","4500","4310","4825","4820","5032","5024",
+                               "5510","4410","5036","5018","6022","5010","6011","6037",
+                               "5028","5034","7281","7173","7196","7073","7183","7005",
+                               "7007","7022","7025","7071","7072","7077","7081","7091",
+                               "7095","7096","7220","7110","7120","7282","7284","7175",
+                               "7182","7194","7192","7193","7195","7197","7198","7204",
+                               "7210","7100","7271","7272","7273","7274","7275","7276",
+                               "7285","7178","7201","7010","7011","7020","8013","8041",
+                               "7334","8011","7402","8022","8083","8062","7999","8024",
+                               "8053","8051","7832","7300","7802","8042","8025","8081",
+                               "7610","7825","8014","9810","9016","9010","9822","9400",
+                               "9012","9014","9022","9013","9023","9401","9812");
 
-               return in_array((int)$postcode, $postcodes);
+            return in_array((int)$postcode, $postcodes);
         }
+        
         return (bool)ereg('^[0-9]{4}$', $postcode);
     }
 
@@ -77,36 +77,70 @@ class Validate_NZ
      * recently the format has changed to having a
      * prefix of 0, this will work with both new and old IRD numbers.
      *
-     * @param string     $ssn;  IRD number to validate
-     * @returns bool
+     * @param   string     $ssn;  IRD number to validate
+     * @return  bool
      */
     function ssn($ssn)
     {
-        $ssn = str_replace(array("-"," "),'',trim($ssn));
+        $ssn = str_replace(array("-"," ","."),'',trim($ssn));
 
-        //if its a new IRD chop the first character off.
-        if ($ssn{0} =="0" && strlen($ssn)==9) {
-            $ssn = substr($ssn,1,strlen($ssn));
+        if (!ctype_digit($ssn)) {
+            return false;
         }
-
-        if (preg_match("(^[0-9]{8}$)",$ssn)) {
-            return true;
+        
+        switch ($ssn) {
+            case 8:
+                return true;
+            break;
+            case 9:
+                if ($ssn{0} == "0") {
+                    return true;
+                }
+            break;
         }
-
+        
         return false;
+        
     }
 
     /**
      * Validates a New Zealand Regional Code
      *
-     * @param       string     $region, regional code to validate
+     * @param     string     $region, regional code to validate
      * @returns   bool
-     * @link        http://www.google.com/apis/adwords/developer/adwords_api_regions.html
+     * @link      http://www.google.com/apis/adwords/developer/adwords_api_regions.html
      */
     function region($region)
     {
-        $regions = array("AUK","BOP","CAN","GIS","HKB","MBH","MWT","NSN","NTL","OTA","STL","TAS","TKI","WGN","WKO","WTC");
-        return in_array(strtoupper($region),$regions);
+       $region = strtoupper($region);    
+       
+       
+       $regions = array("AUK", "AUCKLAND",
+                        "BOP", "BAY OF PLENTY",
+                        "CAN", "CANTERBURY",
+                        "GIS", "GISBORNE",
+                        "HKB", "HAWKES BAY",
+                        "MBH", "MARLBOROUGH",
+                        "MWT", "MANAWATU WANGANUI",
+                        "NSN", "NELSON",
+                        "NTL", "NORTHLAND",
+                        "OTA", "OTAGO",
+                        "STL", "SOUTHLAND",
+                        "TAS", "TASMAN",
+                        "TKI", "TARANAKI",
+                        "WGN", "WELLINGTON",
+                        "WKO", "WAIKATO",
+                        "WTC", "WEST COAST");
+       
+       if (in_array($region,$regions)) {
+           return true;    
+       } else {
+           $region = str_replace(array("NORTH","SOUTH","EAST","WEST","CENTRAL","'","-"," "),array("","","","","",""," ",""),trim($region));
+          
+           return in_array($region,$regions);
+       }
+       
+       return false;
     }
 
     /**
@@ -116,8 +150,8 @@ class Validate_NZ
      * checks for landline,0800,0900,0508,021,027 and 025 numbers
      * allows for various combinations with spaces dashes and parentheses.
      *
-     * @param string     $number, the number to validate
-     * @returns bool
+     * @param     string     $number, the number to validate
+     * @returns   bool
      * @link
      */
     function phoneNumber($number, $requireAreaCode = true)
@@ -132,24 +166,29 @@ class Validate_NZ
            $numlength = strlen($number);
            
            switch ($numlength) {
-       	       case 9:
-       	           $regexp = "(^0(3|4|6|7|9)[0-9]{7}$)";
+       	       case 7:
+       	           if (!$requireAreaCode) {
+       	               $regexp = "(^[0-9]{7}$)"; // Is land line w/o area code
+       	           }
+       	       break;
+               case 9:
+       	           $regexp = "(^0(3|4|6|7|9)[0-9]{7}$)";   // Is land line with area code
        	       break; 
        	       case 10:
        	           if (in_array(substr($number,0,4),array("0800","0900","0508"))) { 
-       	               $regexp = "(^0(8|9|5)0(0|8)[0-9]{6}$)";
+       	               $regexp = "(^0(8|9|5)0(0|8)[0-9]{6}$)"; // Is 0800,0900 or 0508 number
        	           } elseif (in_array(substr($number,0,3),array("021","025","027"))) {
-       	               $regexp = "(^02(1|5|7)[0-9]{3}[0-9]{4}$)";
+       	               $regexp = "(^02(1|5|7)[0-9]{3}[0-9]{4}$)"; //Is Mobile number
        	           }
        	       break;
        	       case 11:
        	           if (substr($number,0,3) == "640") {
-       	               $regexp = "(^640(3|4|6|7|9)[0-9]{7})";    
+       	               $regexp = "(^640(3|4|6|7|9)[0-9]{7})";   // Is land line with country code
        	           }
        	       break;
        	       case 13:
        	           if (substr($number,0,4) == "0064") {
-       	               $regexp = "(^00640(3|4|6|7|9)[0-9]{7})";    
+       	               $regexp = "(^00640(3|4|6|7|9)[0-9]{7})";     // Is land line with country code and 00
        	           }
        	       break;
        	   }
@@ -168,18 +207,20 @@ class Validate_NZ
      *
      * This function checks wheather the given value
      * is a valid New Zealand bank account number.
-     * allows several formats including;
+     * allows several formats.
      *
-     *   xx-xxxx-xxxxxxx-xx
-     *   xx xxxx xxxxxxx xx
-     *   xxxxxxxxxxxxxxx
      *
-     * @param string     $Value number to validate
-     * @returns bool
+     * @param     string     $Value number to validate
+     * @returns   bool
      */
     function bankCode($bankcode)
     {
-        $bankcode = str_replace(array("-"," "),'',trim($bankcode));
-        return preg_match("(^[0-9]{15}$)",$bankcode);
+        $bankcode = str_replace(array("-"," ","."),'',trim($bankcode));
+        
+        if (ctype_digit($bankcode) && strlen($bankcode) == 15) {
+            return true;
+        }
+        
+        return false;
     }
 }
