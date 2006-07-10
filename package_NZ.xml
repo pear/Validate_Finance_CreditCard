@@ -20,10 +20,17 @@
        </maintainer>
    </maintainers>
     <release>
-       <version>0.1.0</version>
+       <version>0.1.1</version>
        <state>alpha</state>
-       <date>2006-07-05</date>
-       <notes>- Initial release</notes>
+       <date>2006-07-11</date>
+       <notes>- ssn :
+                  - doesnt use PCRE any more.
+              - region : 
+                  - now support region names aswell as codes
+                  - now support for north,south,east,west and central sectors of regions ie : Central Otago
+             - bankcode :
+                 - doesnt use PCRE anymore
+       </notes>
 	   <filelist>
            <dir name="/">
                <file role="doc" name="LICENSE" />
