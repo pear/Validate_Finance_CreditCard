@@ -306,15 +306,11 @@ class Validate_ptBR
     {
       static $sum = 0;
 
-      if (strlen($pis) === 0) {
+      if (strlen($pis) < 11) {
           return false;
       }
 
       $pis = str_replace(array("-","."), "", $pis);
-    
-      if (strlen($pis) !== 11) {
-          return false;
-      }
  
       $multiplier = array(3,2,9,8,7,6,5,4,3,2);
       
