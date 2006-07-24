@@ -290,5 +290,51 @@ class Validate_ptBR
     {
       return ereg('^[A-Z]{3}[- ]?[0-9]{4}$', $reg);
     }
+
+
+
+
+    /**
+     * Validate PIS (Programa de Integracao Social)
+     * Allows the following formats
+     * XXX.XXX.XXX-XX, XXXXXXXXXXX or 
+     * any combination with dots and/or hyphens 
+     * @param string $pis pis code
+     * @return bool
+     */
+    function pis($pis)
+    {
+      static $sum = 0;
+
+      if (strlen($pis) === 0) {
+          return false;
+      }
+
+      $pis = str_replace(array("-","."), "", $pis);
+    
+      if (strlen($pis) !== 11) {
+          return false;
+      }
+ 
+      $multiplier = array(3,2,9,8,7,6,5,4,3,2);
+      
+      for($i = 0; $i < 10; $i++)    
+      {   
+          $sum += (int) $pis[$i] * $multiplier[$i];
+      }
+ 
+      $mod = $sum % 11;
+ 
+      $mod = ($mod < 2)  ? 0 : 11 - $mod;  
+      
+      return ( (int) $pis[10] === $mod);
+
+    }
+
+
+
+
+
+
 }
 ?>
