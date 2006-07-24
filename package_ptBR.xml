@@ -9,7 +9,9 @@
  * CPF
  * Region (brazilian states)
  * Phone Number
- * Vehicle's plate</description>
+ * Vehicle's plate
+ * PIS
+ </description>
   <maintainers>
     <maintainer>
       <user>silvano</user>
@@ -25,11 +27,11 @@
     </maintainer>
   </maintainers>
   <release>
-    <version>0.5.4</version>
-    <date>2006-05-16</date>
+    <version>0.5.5</version>
+    <date>2006-07-01</date>
     <license>New BSD</license>
     <state>alpha</state>
-    <notes>- fix md5sum in the package</notes>
+    <notes>- add new method pis()</notes>
     <deps>
       <dep type="php" rel="ge" version="4.2.0"/>
     </deps>
@@ -42,6 +44,13 @@
     </filelist>
   </release>
   <changelog>
+    <release>
+    <version>0.5.4</version>
+    <date>2006-05-16</date>
+    <license>New BSD</license>
+    <state>alpha</state>
+    <notes>- fix md5sum in the package</notes>
+    </release>
     <release>
       <version>0.5.3</version>
       <date>2006-04-28</date>
