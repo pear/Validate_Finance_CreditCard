@@ -143,10 +143,12 @@ class Validate
                 $char = substr($string, $i, 1);
                 if ($state == 0) {
                     if ((ord($char) >= 0x7F) || (ord($char) <= 0x1F)) {
-                        $return .= '&';
+                        if ($char) {
+                            $return .= '&';
+                        }
                         $state = 1;
                     } elseif ($char == '&') {
-                        $return .= $char.'-';
+                        $return .= '&-';
                     } else {
                         $return .= $char;
                     }
