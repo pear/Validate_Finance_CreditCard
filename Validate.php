@@ -142,7 +142,7 @@ class Validate
             while ($i <= strlen($string)) {
                 $char = substr($string, $i, 1);
                 if ($state == 0) {
-                    if (ord($char) >= 0x7F) {
+                    if ((ord($char) >= 0x7F) || (ord($char) <= 0x1F)) {
                         $return .= '&';
                         $state = 1;
                     } elseif ($char == '&') {
@@ -150,7 +150,8 @@ class Validate
                     } else {
                         $return .= $char;
                     }
-                } elseif (($i == strlen($string)) || !(ord($char) >= 0x7F)) {
+                } elseif (($i == strlen($string) || 
+                            !((ord($char) >= 0x7F)) || (ord($char) <= 0x1F))) {
                     if ($state != 1) {
                         $return .= $utf7[ord($char)];
                     }
