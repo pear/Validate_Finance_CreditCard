@@ -38,6 +38,12 @@
       <name>Helgi Þormar</name>
       <email>dufuz@php.net</email>
     </maintainer>
+    <maintainer>
+      <user>amir</user>
+      <role>lead</role>
+      <name>Amir Mohammad Saied</name>
+      <email>amir@php.net</email>
+    </maintainer>
   </maintainers>
   <release>
     <version>0.6.4</version>
@@ -48,6 +54,10 @@
  * #7648, Adding a new character to VALIDATE_EALPHA
 - email():
  * #8073, a@a is a valid email address just in RFC restricted mode
+- email():
+ * #7531, utf-7 encoding
+- __stringToUtf7():
+ * new method added to do care about utf-7
     </notes>
     <filelist>
       <dir name="/">
@@ -55,6 +65,7 @@
         <dir name="tests" role="test">
           <file>bug7648.phpt</file>
           <file>bug8073.phpt</file>
+          <file>bug7531.phpt</file>
         </dir>
       </dir>
     </filelist>

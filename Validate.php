@@ -116,6 +116,73 @@ class Validate
         }
         return true;
     }
+    
+    /**
+     * Converting a string to UTF-7 (RFC 2152)
+     *
+     * @param   $string     string to be converted
+     *
+     * @return  string  converted string
+     *
+     * @access  private
+     */
+    function __stringToUtf7($string) {
+        $utf7 = array(
+                        'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K',
+                        'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V',
+                        'W', 'X', 'Y', 'Z', 'a', 'b', 'c', 'd', 'e', 'f', 'g',
+                        'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r',
+                        's', 't', 'u', 'v', 'w', 'x', 'y', 'z', '0', '1', '2',
+                        '3', '4', '5', '6', '7', '8', '9', '+', ','
+                    );
+
+        $state = 0;
+        if (!empty($string)) {
+            $i = 0;
+            while ($i <= strlen($string)) {
+                $char = substr($string, $i, 1);
+                if ($state == 0) {
+                    if (ord($char) >= 0x7F) {
+                        $return .= '&';
+                        $state = 1;
+                    } elseif ($char == '&') {
+                        $return .= $char.'-';
+                    } else {
+                        $return .= $char;
+                    }
+                } elseif (($i == strlen($string)) || !(ord($char) >= 0x7F)) {
+                    if ($state != 1) {
+                        $return .= $utf7[ord($char)];
+                    }
+                    $return .= '-';
+                    $state = 0;
+                } else {
+                    switch($state) {
+                        case 1:
+                            $return .= $utf7[ord($char) >> 2];
+                            $residue = (ord($char) & 0x03) << 4;
+                            $state = 2;
+                            break;
+                        case 2:
+                            $return .= $utf7[$residue | (ord($char) >> 4)];
+                            $residue = (ord($char) & 0x0F) << 2;
+                            $state = 3;
+                            break;
+                        case 3:
+                            $return .= $utf7[$residue | (ord($char) >> 6)];
+                            $return .= $utf7[ord($char) & 0x3F];
+                            $state = 1;
+                            break;
+                        case 0:
+                            break;
+                    }
+                }
+                $i++;
+            }
+            return $return;
+        }
+        return '';
+    }
 
     /**
      * Validate an email according to full RFC822 (inclusive human readable part)
@@ -130,6 +197,9 @@ class Validate
      */
     function __emailRFC822(&$email, &$options)
     {
+        if (Validate::__stringToUtf7($email) != $email) {
+            return false;
+        }
         static $address = null;
         static $uncomment = null;
         if (!$address) {
