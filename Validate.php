@@ -176,8 +176,6 @@ class Validate
                             $return .= $utf7[ord($char) & 0x3F];
                             $state = 1;
                             break;
-                        case 0:
-                            break;
                     }
                 }
                 $i++;
@@ -286,8 +284,8 @@ class Validate
          @(((\[)?                     #3 domain, 4 as IPv4, 5 optionally bracketed
          (?:(?:(?:(?:25[0-5])|(?:2[0-4][0-9])|(?:[0-1]?[0-9]?[0-9]))\.){3}
                (?:(?:25[0-5])|(?:2[0-4][0-9])|(?:[0-1]?[0-9]?[0-9]))))(?(5)\])|
-         ((?:[a-z0-9](?:[-a-z0-9]*[a-z0-9])?\.)*[a-z](?:[-a-z0-9]*[a-z0-9])?))  #6 domain as hostname
-         \.((?:[a-z]*[a-z])?) #7 ICANN domain names 
+         ((?:[a-z0-9](?:[-a-z0-9]*[a-z0-9])?\.)*[a-z](?:[-a-z0-9]*[a-z0-9])?)  #6 domain as hostname
+         \.((?:([^-])[-a-z]*[-a-z])?)) #7 ICANN domain names 
          $&xi';
 
         if ($use_rfc822? Validate::__emailRFC822($email, $options) :
