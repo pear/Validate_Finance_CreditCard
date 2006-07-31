@@ -48,7 +48,7 @@
   <release>
     <version>0.6.4</version>
     <state>beta</state>
-    <date>2006-07-09</date>
+    <date>2006-07-31</date>
     <notes>
 - string():
  * #7648, Adding a new character to VALIDATE_EALPHA
@@ -61,11 +61,19 @@
     </notes>
     <filelist>
       <dir name="/">
+        <file role="doc" name="LICENSE"/>
         <file role="php">Validate.php</file>
         <dir name="tests" role="test">
-          <file>bug7648.phpt</file>
-          <file>bug8073.phpt</file>
-          <file>bug7531.phpt</file>
+          <file>number.phpt</file>
+          <file>testdate.phpt</file>
+          <file>email.phpt</file>
+          <file>multiple.phpt</file>
+          <file>multicard.phpt</file>
+          <file>uri.phpt</file>
+        </dir>
+        <dir name="docs" role="doc">
+          <file>sample_multiple.php</file>
+          <file>Example_Locale.php</file>
         </dir>
       </dir>
     </filelist>
