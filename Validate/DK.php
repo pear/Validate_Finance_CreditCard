@@ -34,7 +34,7 @@
  *
  * - Postal code
  * - Social Security Number (CPR Nummer)
- * - German bank code
+ * - Danish telephone number
  * - Car registration number
  *
  * @category   Validate
