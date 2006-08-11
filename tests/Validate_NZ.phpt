@@ -131,16 +131,20 @@ $IrdNumbers = array(
                     "83-366-3215",
                     "987 784 215",);
 
+$CarReg = array("AE12Y3", //Ok
+                "000000", //NOk
+                "NY3Z14", //Ok
+                "ABCDEF", //NOk
+                "AI14W"); //OK
 
 echo "----Test postalCode----\n";
 foreach ($postalCodes as $postalCode) {
     echo "{$postalCode}: ".$noYes[Validate_NZ::postalCode($postalCode,true)]."\n";
 }
                         
-
 echo "----Test phonenumber----\n";
 foreach ($phoneNumbers as $phonenumber) {
-    echo "{$phonenumber}: ".$noYes[Validate_NZ::phoneNumber($phonenumber)]."\n";
+    echo "{$phonenumber}: ".$noYes[Validate_NZ::phoneNumber($phonenumber,true)]."\n";
 }
 
 echo "----Test region----\n";
@@ -156,6 +160,11 @@ foreach ($bankAccounts as $bankAccount) {
 echo "----Test IRD Numbers (SSN)----\n";
 foreach ($IrdNumbers as $ird) {
     echo "{$ird}: ".$noYes[Validate_NZ::ssn($ird)]."\n";
+}
+
+echo "----Test Vehicle License plates ----\n";
+foreach ($CarReg as $car) {
+    echo "{$Car}: ".$noYes[Validate_NZ::carReg($Car)]."\n";
 }
 ?>
 
