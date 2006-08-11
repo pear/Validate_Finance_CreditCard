@@ -36,12 +36,11 @@ class Validate_NZ
     /**
      * Validate  New Zealand postal codes
      *
-     * @static
      * @access   public
-     * @param    string    $postcode,   postcode to validate
-     * @param    bool      $strong,     optional; strong checks against a list of postcodes
-     * @return   bool
-     * @link      http://www.nzpost.co.nz/nzpost/images/addressing.nzpost/pdfs/postcodedirectory_nomaps.pdf
+     * @param    string    $postcode, postcode to validate
+     * @param    bool      $strong, optional; strong checks against a list of postcodes
+     * @return   bool      The valid or invalid postal code 
+     * @link     http://www.nzpost.co.nz/nzpost/images/addressing.nzpost/pdfs/postcodedirectory_nomaps.pdf
      */
     function postalCode($postcode,$strong = false)
     {	
@@ -80,8 +79,9 @@ class Validate_NZ
      * recently the format has changed to having a
      * prefix of 0, this will work with both new and old IRD numbers.
      *
-     * @param   string     $ssn;  IRD number to validate
-     * @return  bool
+     * @access  public
+     * @param   string     $ssn,  IRD number to validate
+     * @return  bool       The valid or invalid ird number
      */
     function ssn($ssn)
     {
@@ -109,8 +109,9 @@ class Validate_NZ
     /**
      * Validates a New Zealand Regional Code
      *
+     * @access    public
      * @param     string     $region, regional code to validate
-     * @returns   bool
+     * @return    bool       The valid or invalid regional code
      * @link      http://www.google.com/apis/adwords/developer/adwords_api_regions.html
      */
     function region($region)
@@ -126,8 +127,10 @@ class Validate_NZ
      * checks for landline,0800,0900,0508,021,027 and 025 numbers
      * allows for various combinations with spaces dashes and parentheses.
      *
+     * @access    public
      * @param     string     $number, the number to validate
-     * @returns   bool
+     * @param     bool       $requireAreaCode, require the area code? (default: true)
+     * @return    bool       The valid or invalid phone number
      */
     function phoneNumber($number, $requireAreaCode = true)
     {
@@ -184,8 +187,9 @@ class Validate_NZ
      * is a valid New Zealand bank account number.
      * allows several formats.
      *
-     * @param     string     $bankcode number to validate
-     * @returns   bool
+     * @access    public
+     * @param     string     $bankcode, number to validate
+     * @return    bool       The valid or invalid Bank Account Number
      */
     function bankCode($bankcode)
     {
@@ -207,11 +211,13 @@ class Validate_NZ
      * 6 characters for cars or trucks and
      * 5 characters for motorbikes and trailors
      *
-     * @param     string     $reg number to validate
-     * @returns   bool
+     * @access    public
+     * @param     string     $reg, string to validate
+     * @return    bool       The valid or invalid license plate number
      */
     function carReg($reg)
     {
-        return (ctype_alnum(trim($reg)) && in_array(strlen($reg),array("6","5")));  
+        $reg = trim($reg);
+        return (ctype_alnum($reg) && in_array(strlen($reg),array("6","5")));  
     }
 }
