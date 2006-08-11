@@ -43,32 +43,35 @@ class Validate_NZ
      * @return   bool
      * @link      http://www.nzpost.co.nz/nzpost/images/addressing.nzpost/pdfs/postcodedirectory_nomaps.pdf
      */
-    function postalCode($postcode,$strong = true)
-    {
-        if ($strong) {
-            static $postcodes;
-
-            $postcodes = array("0110","0420","0310","1010","0610","0600","2012","2105",
-                               "0505","1081","1022","2102","2010","2022","2013","0630",
-                               "0614","0612","2014","1025","0931","3210","3214","3204",
-                               "3200","3410","3118","3112","3015","4130","4122","4110",
-                               "4312","4501","4500","4310","4825","4820","5032","5024",
-                               "5510","4410","5036","5018","6022","5010","6011","6037",
-                               "5028","5034","7281","7173","7196","7073","7183","7005",
-                               "7007","7022","7025","7071","7072","7077","7081","7091",
-                               "7095","7096","7220","7110","7120","7282","7284","7175",
-                               "7182","7194","7192","7193","7195","7197","7198","7204",
-                               "7210","7100","7271","7272","7273","7274","7275","7276",
-                               "7285","7178","7201","7010","7011","7020","8013","8041",
-                               "7334","8011","7402","8022","8083","8062","7999","8024",
-                               "8053","8051","7832","7300","7802","8042","8025","8081",
-                               "7610","7825","8014","9810","9016","9010","9822","9400",
-                               "9012","9014","9022","9013","9023","9401","9812");
-
-            return in_array((int)$postcode, $postcodes);
-        }
+    function postalCode($postcode,$strong = false)
+    {	
+        if (!ctype_digit($postcode) || $postcode > 0110 && $postcode < 9822) {
+            return false;
+        } else {
         
-        return (bool)ereg('^[0-9]{4}$', $postcode);
+            if ($strong ) {
+                
+                $postcodes = array("0110","0420","0310","1010","0610","0600","2012","2105",
+                                   "0505","1081","1022","2102","2010","2022","2013","0630",
+                                   "0614","0612","2014","1025","0931","3210","3214","3204",
+                                   "3200","3410","3118","3112","3015","4130","4122","4110",
+                                   "4312","4501","4500","4310","4825","4820","5032","5024",
+                                   "5510","4410","5036","5018","6022","5010","6011","6037",
+                                   "5028","5034","7281","7173","7196","7073","7183","7005",
+                                   "7007","7022","7025","7071","7072","7077","7081","7091",
+                                   "7095","7096","7220","7110","7120","7282","7284","7175",
+                                   "7182","7194","7192","7193","7195","7197","7198","7204",
+                                   "7210","7100","7271","7272","7273","7274","7275","7276",
+                                   "7285","7178","7201","7010","7011","7020","8013","8041",
+                                   "7334","8011","7402","8022","8083","8062","7999","8024",
+                                   "8053","8051","7832","7300","7802","8042","8025","8081",
+                                   "7610","7825","8014","9810","9016","9010","9822","9400",
+                                   "9012","9014","9022","9013","9023","9401","9812");
+
+                return in_array($postcode, $postcodes);
+            }
+        }
+        return preg_match('^[0-9]{4}$', $postcode);
     }
 
     /**
@@ -112,37 +115,10 @@ class Validate_NZ
      */
     function region($region)
     {
-       $region = strtoupper($region);    
-       
-       
-       $regions = array("AUK", "AUCKLAND",
-                        "BOP", "BAY OF PLENTY",
-                        "CAN", "CANTERBURY",
-                        "GIS", "GISBORNE",
-                        "HKB", "HAWKES BAY",
-                        "MBH", "MARLBOROUGH",
-                        "MWT", "MANAWATU WANGANUI",
-                        "NSN", "NELSON",
-                        "NTL", "NORTHLAND",
-                        "OTA", "OTAGO",
-                        "STL", "SOUTHLAND",
-                        "TAS", "TASMAN",
-                        "TKI", "TARANAKI",
-                        "WGN", "WELLINGTON",
-                        "WKO", "WAIKATO",
-                        "WTC", "WEST COAST");
-       
-       if (in_array($region,$regions)) {
-           return true;    
-       } else {
-           $region = str_replace(array("NORTH","SOUTH","EAST","WEST","CENTRAL","'","-"," "),array("","","","","",""," ",""),trim($region));
-          
-           return in_array($region,$regions);
-       }
-       
-       return false;
+       $regions = array("AUK","BOP","CAN","GIS","HKB","MBH","MWT","NSN","NTL","OTA","STL","TAS","TKI","WGN","WKO","WTC");
+       return in_array(strtoupper($region),$regions);
     }
-
+    
     /**
      * Validates a New Zealand phone number
      *
@@ -152,7 +128,6 @@ class Validate_NZ
      *
      * @param     string     $number, the number to validate
      * @returns   bool
-     * @link
      */
     function phoneNumber($number, $requireAreaCode = true)
     {
@@ -208,7 +183,6 @@ class Validate_NZ
      * This function checks wheather the given value
      * is a valid New Zealand bank account number.
      * allows several formats.
-     *
      *
      * @param     string     $Value number to validate
      * @returns   bool
