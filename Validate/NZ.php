@@ -184,7 +184,7 @@ class Validate_NZ
      * is a valid New Zealand bank account number.
      * allows several formats.
      *
-     * @param     string     $Value number to validate
+     * @param     string     $bankcode number to validate
      * @returns   bool
      */
     function bankCode($bankcode)
@@ -193,6 +193,29 @@ class Validate_NZ
         
         if (ctype_digit($bankcode) && strlen($bankcode) == 15) {
             return true;
+        }
+        
+        return false;
+    }
+    
+    /**
+     * Validates a New Zealand Vehicle license plates
+     *
+     * This function checks wheather the given value
+     * is a valid New Zealand Vehicle license plate
+     * 
+     * 6 characters for cars or trucks and
+     * 5 characters for motorbikes and trailors
+     *
+     * @param     string     $reg number to validate
+     * @returns   bool
+     */
+    function carReg($reg)
+    {
+        $reg = trim($reg);    
+      	        
+      	if (ctype_alnum($reg) && in_array(strlen($reg),array("6","5"))) { 
+        	return true;      
         }
         
         return false;
