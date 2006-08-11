@@ -212,12 +212,6 @@ class Validate_NZ
      */
     function carReg($reg)
     {
-        $reg = trim($reg);    
-      	        
-      	if (ctype_alnum($reg) && in_array(strlen($reg),array("6","5"))) { 
-        	return true;      
-        }
-        
-        return false;
+        return (ctype_alnum(trim($reg)) && in_array(strlen($reg),array("6","5")));  
     }
 }
