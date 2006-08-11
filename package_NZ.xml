@@ -8,7 +8,8 @@
         *  Regional codes 
         *  Telephone number 
         *  Postal code 
-        *  Bank AC  
+        *  Bank AC
+        *  Vehicle License Plates  
    </description>
    <license>New BSD</license>
    <maintainers>
@@ -20,16 +21,10 @@
        </maintainer>
    </maintainers>
     <release>
-       <version>0.1.1</version>
+       <version>0.1.2</version>
        <state>alpha</state>
-       <date>2006-07-11</date>
-       <notes>- ssn :
-                  - doesnt use PCRE any more.
-              - region : 
-                  - now support region names aswell as codes
-                  - now support for north,south,east,west and central sectors of regions ie : Central Otago
-             - bankcode :
-                 - doesnt use PCRE anymore
+       <date>2006-08-11</date>
+       <notes>new method CarReg
        </notes>
 	   <filelist>
            <dir name="/">
