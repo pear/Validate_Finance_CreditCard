@@ -44,11 +44,15 @@ class Validate_NZ
      */
     function postalCode($postcode,$strong = false)
     {	
-        if (!ctype_digit($postcode) || $postcode > 0110 && $postcode < 9822) {
+        if (!ctype_digit($postcode)) {
             return false;
         } else {
         
-            if ($strong ) {
+            if ($strong) {
+                
+                if ($postcode < 0110 || $postcode > 9822) { 
+                	return false;
+                }
                 
                 $postcodes = array("0110","0420","0310","1010","0610","0600","2012","2105",
                                    "0505","1081","1022","2102","2010","2022","2013","0630",
@@ -220,4 +224,5 @@ class Validate_NZ
         $reg = trim($reg);
         return (ctype_alnum($reg) && in_array(strlen($reg),array("6","5")));  
     }
+	    
 }
