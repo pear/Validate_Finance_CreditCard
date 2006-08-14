@@ -138,49 +138,48 @@ class Validate_NZ
      */
     function phoneNumber($number, $requireAreaCode = true)
     {
-        
-       $number = str_replace(array("+"," ","(",")","-"),array("00","","","",""),trim($number));
+        $number = str_replace(array("+"," ","(",")","-"),array("00","","","",""),trim($number));
        
-       if (!ctype_digit($number)) {
-           return false;
-       } else {
+        if (!ctype_digit($number)) {
+            return false;
+        } else {
            
-           $numlength = strlen($number);
+            $numlength = strlen($number);
            
-           switch ($numlength) {
-       	       case 7:
-       	           if (!$requireAreaCode) {
-       	               $regexp = "(^[0-9]{7}$)"; // Is land line w/o area code
-       	           }
-       	       break;
-               case 9:
-       	           $regexp = "(^0(3|4|6|7|9)[0-9]{7}$)";   // Is land line with area code
-       	       break; 
-       	       case 10:
-       	           if (in_array(substr($number,0,4),array("0800","0900","0508"))) { 
-       	               $regexp = "(^0(8|9|5)0(0|8)[0-9]{6}$)"; // Is 0800,0900 or 0508 number
-       	           } elseif (in_array(substr($number,0,3),array("021","025","027"))) {
-       	               $regexp = "(^02(1|5|7)[0-9]{3}[0-9]{4}$)"; //Is Mobile number
-       	           }
-       	       break;
-       	       case 11:
-       	           if (substr($number,0,3) == "640") {
-       	               $regexp = "(^640(3|4|6|7|9)[0-9]{7})";   // Is land line with country code
-       	           }
-       	       break;
-       	       case 13:
-       	           if (substr($number,0,4) == "0064") {
+            switch ($numlength) {
+       	        case 7:
+       	            if (!$requireAreaCode) {
+       	                $regexp = "(^[0-9]{7}$)"; // Is land line w/o area code
+       	            }
+       	        break;
+                case 9:
+       	            $regexp = "(^0(3|4|6|7|9)[0-9]{7}$)";   // Is land line with area code
+       	        break; 
+       	        case 10:
+       	            if (in_array(substr($number,0,4),array("0800","0900","0508"))) { 
+       	                $regexp = "(^0(8|9|5)0(0|8)[0-9]{6}$)"; // Is 0800,0900 or 0508 number
+       	            } elseif (in_array(substr($number,0,3),array("021","025","027"))) {
+       	                $regexp = "(^02(1|5|7)[0-9]{3}[0-9]{4}$)"; //Is Mobile number
+       	            }
+       	        break;
+       	        case 11:
+       	            if (substr($number,0,3) == "640") {
+       	                $regexp = "(^640(3|4|6|7|9)[0-9]{7})";   // Is land line with country code
+       	            }
+       	        break;
+       	        case 13:
+       	            if (substr($number,0,4) == "0064") {
        	               $regexp = "(^00640(3|4|6|7|9)[0-9]{7})";     // Is land line with country code and 00
-       	           }
-       	       break;
-       	   }
-       }
+       	            }
+       	        break;
+       	    }
+        }
        
-       if ($regexp) {
-           return preg_match($regexp,$number);
-       }
+        if ($regexp) {
+            return preg_match($regexp,$number);
+        }
 
-        return false;
+         return false;
     }
 
 
@@ -198,12 +197,7 @@ class Validate_NZ
     function bankCode($bankcode)
     {
         $bankcode = str_replace(array("-"," ","."),'',trim($bankcode));
-        
-        if (ctype_digit($bankcode) && strlen($bankcode) == 15) {
-            return true;
-        }
-        
-        return false;
+        return (ctype_digit($bankcode) && strlen($bankcode) == 15);
     }
     
     /**
