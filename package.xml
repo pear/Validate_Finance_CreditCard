@@ -46,22 +46,16 @@
     </maintainer>
   </maintainers>
   <release>
-    <version>0.6.4</version>
+    <version>0.6.5</version>
     <state>beta</state>
-    <date>2006-07-31</date>
+    <date>2006-08-15</date>
     <notes>
-- string():
- * #7648, Adding a new character to VALIDATE_EALPHA
-- email():
- * #8073, a@a is a valid email address just in RFC restricted mode
-- email():
- * #7531, utf-7 encoding
 - __stringToUtf7():
- * new method added to do care about utf-7
+ * #8442, Preventing a Notice
     </notes>
     <filelist>
       <dir name="/">
-        <file role="doc" name="LICENSE"/>
+        <file role="doc" name="LICENSE" />
         <file role="php">Validate.php</file>
         <dir name="tests" role="test">
           <file>number.phpt</file>
@@ -83,6 +77,21 @@
     </deps>
   </release>
   <changelog>
+    <release>
+      <version>0.6.4</version>
+      <state>beta</state>
+      <date>2006-07-31</date>
+      <notes>
+- string():
+ * #7648, Adding a new character to VALIDATE_EALPHA
+- email():
+ * #8073, a@a is a valid email address just in RFC restricted mode
+- email():
+ * #7531, utf-7 encoding
+- __stringToUtf7():
+ * new method added to do care about utf-7
+      </notes>
+    </release>
     <release>
       <version>0.6.3</version>
       <state>beta</state>
