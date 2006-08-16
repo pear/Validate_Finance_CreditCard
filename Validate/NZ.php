@@ -108,7 +108,7 @@ class Validate_NZ
          return false;
       }
 
-      switch ($ssn) {
+      switch (strlen($ssn)) {
       case 8:
          return true;
          break;
@@ -117,10 +117,9 @@ class Validate_NZ
             return true;
          }
          break;
-      default:
-         return false;
-         break;
       }
+      
+      return false;
    }
 
    /**
