@@ -66,9 +66,6 @@ class Validate_ISPN
 
         $isbn = strtoupper($isbn);
         $isbn = str_replace(array('ISBN', '-', ' ', "\t", "\n"), '', $isbn);
-        if (strlen($isbn) != 10) {
-            return false;
-        }
 
         if (strlen($isbn) == 13) {
             return Validate_ISPN::isbn13($isbn);
