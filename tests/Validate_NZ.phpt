@@ -1,4 +1,4 @@
---TEST--
+<!----TEST--
 Validate_NZ.phpt: Unit tests for
 --FILE--
 <?php
@@ -7,7 +7,7 @@ $noYes = array('NO', 'YES');
 
 require 'Validate/NZ.php';
 
-echo "Test Validate_NZ\n";
+echo " Test Validate_NZ\n";
 echo "****************\n";
 
 $postalCodes = array(
@@ -131,7 +131,7 @@ $IrdNumbers = array(
                     "83-366-3215",
                     "987 784 215",);
 
-$CarReg = array("AE12Y3", //Ok
+$Carreg = array("AE12Y3", //Ok
                 "000000", //NOk
                 "NY3Z14", //Ok
                 "ABCDEF", //NOk
@@ -157,13 +157,15 @@ foreach ($bankAccounts as $bankAccount) {
     echo "{$bankAccount}: ".$noYes[Validate_NZ::bankCode($bankAccount)]."\n";
 }
 
+
+
 echo "----Test IRD Numbers (SSN)----\n";
 foreach ($IrdNumbers as $ird) {
     echo "{$ird}: ".$noYes[Validate_NZ::ssn($ird)]."\n";
 }
 
 echo "----Test Vehicle License plates ----\n";
-foreach ($CarReg as $car) {
+foreach ($Carreg as $Car) {
     echo "{$Car}: ".$noYes[Validate_NZ::carReg($Car)]."\n";
 }
 ?>
@@ -254,3 +256,4 @@ west-coast: NO
 97 654 456: NO
 83-366-3215: NO
 987 784 215: NO
+-->
