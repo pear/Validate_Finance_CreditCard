@@ -241,6 +241,8 @@ class Validate_NZ
    {
       $reg = trim($reg);
       return (ctype_alnum($reg) 
+                    && !ctype_alpha($reg)
+                    && !ctype_digit($reg)                   
 					&& in_array(strlen($reg), array("6","5")));  
    }
 }
