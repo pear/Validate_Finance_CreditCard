@@ -237,12 +237,12 @@ class Validate_NZ
      * @param     string     $reg, string to validate
      * @return    bool       The valid or invalid license plate number
      */
-   function carReg($reg)
+  function carReg($reg)
    {
       $reg = trim($reg);
-      return (ctype_alnum($reg) 
-                    && !ctype_alpha($reg)
-                    && !ctype_digit($reg)                   
-					&& in_array(strlen($reg), array("6","5")));  
+      return (ctype_alnum($reg)
+              && !ctype_alpha($reg)
+              && !ctype_digit($reg)
+              && in_array(strlen($reg), array("6","5")));
    }
 }
