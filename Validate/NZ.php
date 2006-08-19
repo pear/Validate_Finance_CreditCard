@@ -154,8 +154,8 @@ class Validate_NZ
     function phoneNumber($number, $requireAreaCode = true)
     {
         $number = str_replace(array("+", " ", "(", ")", "-"),
-										array("00", "", "", "", ""),
-										trim($number));
+                              array("00", "", "", "", ""),
+                              trim($number));
        
         if (!ctype_digit($number)) {
             return false;
@@ -175,11 +175,11 @@ class Validate_NZ
                break; 
             case 10:
                if (in_array(substr($number,0,4),
-							array("0800","0900","0508"))) { 
+                   array("0800","0900","0508"))) { 
                   // Is 0800,0900 or 0508 number
                   $regexp = "(^0(8|9|5)0(0|8)[0-9]{6}$)";
                } elseif (in_array(substr($number,0,3),
-							array("021","025","027"))) {
+                   array("021","025","027"))) {
                   //Is Mobile number
                   $regexp = "(^02(1|5|7)[0-9]{3}[0-9]{4}$)";
                }
