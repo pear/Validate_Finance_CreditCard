@@ -35,8 +35,9 @@ require_once 'Validate.php';
  * Data validation class for Austria
  *
  * This class provides methods to validate:
- *  - Social insurance number (aka SSN)
- *  - Postal code
+ *  - Social insurance number (Sozialversicherungsnummer)
+ *  - Postal code (Postleitzahl)
+ *  - Regional code (Regionaler Code) 
  *
  * @category   Validate
  * @package    Validate_AT
@@ -51,7 +52,7 @@ class Validate_AT
     /**
     * Validate postcode ("Postleitzahl")
     *
-    * @static
+    * @static   $postcodes
     * @access   public
     * @param    string  postcode to validate
     * @param    bool    optional; strong checks (e.g. against a list of postcodes)
@@ -69,26 +70,22 @@ class Validate_AT
 
             return in_array((int)$postcode, $postcodes);
         }
-        return (bool)ereg('^[0-9]{4}$', $postcode);
+        return preg_match("^[0-9]{4}$", $postcode);
     }
 
     /**
-    * Validate SSN
+    * Validate SSN ("Sozialversicherungsnummer")
     *
-    * "Sozialversicherungsnummer"
-    *
-    * @static
     * @access   public
-    * @param    string  $svn
-    * @return   bool
+    * @param    string  $svn, the SVN number to validate
+    * @return   bool    true if SVN is ok, false otherwise
     */
     function ssn($svn)
     {
-        $matched = preg_match(
-            '/^(\d{3})(\d)\D*(\d{2})\D*(\d{2})\D*(\d{2})$/',
-            $svn,
-            $matches
-        );
+        $svn = trim($svn);
+        $regex = "/^(\d{3})(\d)\D*(\d{2})\D*(\d{2})\D*(\d{2})$/";
+        
+        $matched = preg_match($regex, $svn, $matches);
 
         if (!$matched) {
             return false;
@@ -116,5 +113,28 @@ class Validate_AT
 
         return ($sum == $chk);
     }
+    
+    /**
+    * Validates Austrian Regional Code ("Regionaler Code")
+    *
+    * The validation is based on FIPS 10-4 region codes.
+    * http://en.wikipedia.org/wiki/FIPS_10-4
+    * 
+    * @author    Byron.adams54@gmail.com
+    * @access    public
+    * @param     string     $region, regional code to validate
+    * @return    bool       true if regional code is ok, false otherwise
+    * @link      http://en.wikipedia.org/wiki/List_of_FIPS_region_codes_(A-C)#AU:_Austria
+    */
+   function region($region)
+   {
+       $region = str_replace("AU", "", trim($region));
+      
+       if (!ctype_digit($region)) {
+           return false;
+       }
+       
+       return ($region >= 1 && $region <= 9);
+   }
 }
 ?>
