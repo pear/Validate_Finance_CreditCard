@@ -37,6 +37,7 @@ class Validate_NZ
     * Validate  New Zealand postal codes
     *
     * @access   public
+    * @static   array     $postcodes
     * @param    string    $postcode, postcode to validate
     * @param    bool      $strong, optional; strong checks against a list of postcodes
     * @return   bool      The valid or invalid postal code 
@@ -48,6 +49,7 @@ class Validate_NZ
          return false;
       } else {
          if ($strong) {
+            static $postcodes;
             if ($postcode < 0110 || $postcode > 9822) { 
                return false;
             }
@@ -102,7 +104,7 @@ class Validate_NZ
     */
    function ssn($ssn)
    {
-      $ssn = str_replace(array("-", " ", "."),'',trim($ssn));
+      $ssn = str_replace(array("-", " ", "."),"",trim($ssn));
 
       if (!ctype_digit($ssn)) {
          return false;
@@ -126,15 +128,18 @@ class Validate_NZ
     * Validates a New Zealand Regional Code
     *
     * @access    public
+    * @static    array      $regions
     * @param     string     $region, regional code to validate
     * @return    bool       The valid or invalid regional code
     * @link      http://www.google.com/apis/adwords/developer/adwords_api_regions.html
     */
    function region($region)
    {
-      $regions = array("AUK", "BOP", "CAN", "GIS", "HKB", "MBH", 
-         "MWT", "NSN", "NTL", "OTA", "STL", "TAS", "TKI", "WGN", "WKO",
-         "WTC");
+      static $regions = array("AUK", "BOP", "CAN", "GIS",
+                              "HKB", "MBH", "MWT", "NSN",
+                              "NTL", "OTA", "STL", "TAS",
+                              "TKI", "WGN", "WKO", "WTC");
+      
       return in_array(strtoupper($region),$regions);
    }
     
@@ -146,57 +151,54 @@ class Validate_NZ
      * allows for various combinations with spaces dashes and parentheses.
      *
      * @access    public
+     * @static    array      $servicePrefix, $mobilePrefix
      * @param     string     $number, the number to validate
-     * @param     bool       $requireAreaCode, require the area code? 
-     *                       (default: true)
+     * @param     bool       Optional $requireAreaCode (default: true)
      * @return    bool       The valid or invalid phone number
      */
     function phoneNumber($number, $requireAreaCode = true)
     {
-        $number = str_replace(array("+", " ", "(", ")", "-"),
-                              array("00", "", "", "", ""),
+        static $servicePrefix = array("0800", "0900", "0508");
+        static $mobilePrefix = array("021", "025", "027");
+                                 
+        // Remove non-numeric characters that we still accept
+        $number = str_replace(array("+", " ", "(", ")", "-",),
+                              "",
                               trim($number));
-       
+        // Sanity check
         if (!ctype_digit($number)) {
             return false;
         } else {
+            
             $numlength = strlen($number);
            
             switch ($numlength) {
-            // Is land line w/o area code
             case 7:
-               if (!$requireAreaCode) {
-                  $regexp = "(^[0-9]{7}$)";
-               }
-               break;
-             // Is land line with area code
             case 9:
-                  $regexp = "(^0(3|4|6|7|9)[0-9]{7}$)";
-               break; 
+                if (!$requireAreaCode) {
+                    // Is land line w/o area code
+                    $regexp = "(^[0-9]{7}$)";
+                } else {
+                    // Is land line with area code
+                    $regexp = "(^0(3|4|6|7|9)[0-9]{7}$)";
+                }
+                break;
             case 10:
-               if (in_array(substr($number,0,4),
-                   array("0800","0900","0508"))) { 
-                  // Is 0800,0900 or 0508 number
-                  $regexp = "(^0(8|9|5)0(0|8)[0-9]{6}$)";
-               } elseif (in_array(substr($number,0,3),
-                   array("021","025","027"))) {
-                  //Is Mobile number
-                  $regexp = "(^02(1|5|7)[0-9]{3}[0-9]{4}$)";
+                if (in_array(substr($number, 0, 4), $servicePrefix)) { 
+                    // Is 0800,0900 or 0508 number
+                    $regexp = "(^0(8|9|5)0(0|8)[0-9]{6}$)";
+                } elseif (in_array(substr($number, 0, 3), $mobilePrefix)) {
+                    //Is Mobile number
+                    $regexp = "(^02(1|5|7)[0-9]{3}[0-9]{4}$)";
                }
                break;
             case 11:
-               // Is land line with country code
-               if (substr($number,0,3) == "640") {
-                  $regexp = "(^640(3|4|6|7|9)[0-9]{7})";
-               }
-               break;
-            case 13:
-               if (substr($number,0,4) == "0064") {
-                  // Is land line with country code and 00
-                  $regexp = "(^00640(3|4|6|7|9)[0-9]{7})";
-               }
-               break;
-           }
+                if (substr($number,0,3) == "640") {
+                    // Is land line with country code
+                    $regexp = "(^640(3|4|6|7|9)[0-9]{7})";
+                } 
+                break;
+            }
         }
 
         if ($regexp) {
