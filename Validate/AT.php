@@ -137,4 +137,3 @@ class Validate_AT
        return ($region >= 1 && $region <= 9);
    }
 }
-?>
