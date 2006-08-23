@@ -12,10 +12,31 @@
 // | pajoye@php.net so we can mail you a copy immediately.                |
 // +----------------------------------------------------------------------+
 // | Author: Daniel O'Connor <daniel.oconnor@gmail.com>                   |
-// | Author: Alex Hayes <ahayes@wcg.net.au>                               |
-// | Author: Byron Adams <byron.adams54@gmail.com>                        |
+// |         Alex Hayes <ahayes@wcg.net.au>                               |
+// |         Byron Adams <byron.adams54@gmail.com>                        |
 // +----------------------------------------------------------------------+
 //
+/**
+ * Specific validation methods for data used in Australia
+ *
+ * @category   Validate
+ * @package    Validate_AU
+ * @author     Daniel O'Connor <daniel.oconnor@gmail.com>
+ * @author     Tho Nguyen <tho.nguyen@itexperts.com.au>
+ * @author     Alex Hayes <ahayes@wcg.net.au>
+ * @author     Byron Adams <byron.adams54@gmail.com>
+ * @copyright  1997-2005 Daniel O'Connor
+ * @copyright  (c) 2006 Alex Hayes
+ * @copyright  (c) 2006 Byron Adams
+ * @version    CVS: $Id$
+ * @license    http://www.opensource.org/licenses/bsd-license.php  New BSD License
+ */
+
+define("VALIDATE_AU_PHONE_STRICT",        1);
+define("VALIDATE_AU_PHONE_NATIONAL",      2);
+define("VALIDATE_AU_PHONE_INDIAL",        4);
+define("VALIDATE_AU_PHONE_INTERNATIONAL", 8);
+
 /**
  * Data validation class for Australia
  *
@@ -36,14 +57,11 @@
  * @author     Alex Hayes <ahayes@wcg.net.au>
  * @author     Byron Adams <byron.adams54@gmail.com>
  * @copyright  1997-2005 Daniel O'Connor
+ * @copyright  (c) 2006 Alex Hayes
+ * @copyright  (c) 2006 Byron Adams
  * @license    http://www.opensource.org/licenses/bsd-license.php  New BSD License
- * @version    Release: @PACKAGE-VER@
+ * @version    Release: @package_version@
  */
-
-define("VALIDATE_AU_PHONE_STRICT",        1);
-define("VALIDATE_AU_PHONE_NATIONAL",      2);
-define("VALIDATE_AU_PHONE_INDIAL",        4);
-define("VALIDATE_AU_PHONE_INTERNATIONAL", 8);
 
 class Validate_AU
 {
