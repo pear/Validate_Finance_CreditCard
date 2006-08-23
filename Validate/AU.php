@@ -12,7 +12,8 @@
 // | pajoye@php.net so we can mail you a copy immediately.                |
 // +----------------------------------------------------------------------+
 // | Author: Daniel O'Connor <daniel.oconnor@gmail.com>                   |
-// | Author: Alex Hayes <ahayes@wcg.net.au>
+// | Author: Alex Hayes <ahayes@wcg.net.au>                               |
+// | Author: Byron Adams <byron.adams54@gmail.com>
 // +----------------------------------------------------------------------+
 //
 /**
@@ -25,6 +26,7 @@
  * @author     Daniel O'Connor <daniel.oconnor@gmail.com>
  * @author     Tho Nguyen <tho.nguyen@itexperts.com.au>
  * @author     Alex Hayes <ahayes@wcg.net.au>
+ * @author     Byron Adams <byron.adams54@gmail.com>
  * @copyright  1997-2005 Daniel O'Connor
  * @date       $Date$
  * @version    $Id$
@@ -83,7 +85,22 @@ class Validate_AU
         }
         return (bool)ereg('^[0-9]{4}$', $postcode);
     }
-
+    
+    /**
+    * Validates a Australian Regional Codes
+    *
+    * @author    Byron Adams <byron.adams54@gmail.com>
+    * @access    public
+    * @static    array      $regions
+    * @param     string     $region, regional code to validate
+    * @return    bool       Returns true on success, false otherwise
+    * @link      http://www.google.com/apis/adwords/developer/adwords_api_regions.html#Australia
+    */
+   function region($region)
+   {
+      static $regions = array("ACT", "NSW", "NT", "QLD", "SA", "TAS", "VIC", "WA");
+      return in_array(strtoupper($region),$regions);
+   }
 
     /**
      * Validate a telephone number.
@@ -350,5 +367,4 @@ class Validate_AU
 
     }
 }
-
 ?>
