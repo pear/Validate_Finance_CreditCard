@@ -10,7 +10,7 @@ require_once 'Validate/AU.php';
 echo "Test Validate_AU\n";
 echo "****************\n";
 
-$postalCodes = array( 5251, // OK
+$postalCodes = array(5251, // OK
                      5000, // OK
                      4664, // OK
                      2491, // OK
@@ -87,6 +87,33 @@ $acns = array(
 '010 749 961'
 );//OK
 
+$phoneNumbers = array(
+	'0294599545'     => VALIDATE_AU_PHONE_NATIONAL, // OK
+	'03 8779 7221'   => VALIDATE_AU_PHONE_NATIONAL, // OK
+	'(03) 8779 7221' => VALIDATE_AU_PHONE_NATIONAL, // OK
+	'(03)-8779-7221' => VALIDATE_AU_PHONE_NATIONAL, // OK
+	'03-8779-7221'   => VALIDATE_AU_PHONE_NATIONAL, // OK
+	
+	'13 18 03'      => VALIDATE_AU_PHONE_INDIAL, // OK
+	'13-18-03'      => VALIDATE_AU_PHONE_INDIAL, // OK
+	'1300 000 000'  => VALIDATE_AU_PHONE_INDIAL, // OK
+	'1900 000 000'  => VALIDATE_AU_PHONE_INDIAL, // OK
+	'1800 000 000'  => VALIDATE_AU_PHONE_INDIAL, // OK
+	'131803'        => VALIDATE_AU_PHONE_INDIAL | VALIDATE_AU_PHONE_STRICT, // OK
+	'1300000000'    => VALIDATE_AU_PHONE_INDIAL | VALIDATE_AU_PHONE_STRICT, // OK
+	'1900000000'    => VALIDATE_AU_PHONE_INDIAL | VALIDATE_AU_PHONE_STRICT, // OK
+	'1800000000'    => VALIDATE_AU_PHONE_INDIAL | VALIDATE_AU_PHONE_STRICT, // OK
+	
+	'+61.3 8779 7221' => VALIDATE_AU_PHONE_INTERNATIONAL, // OK
+	'+61.387797222'   => VALIDATE_AU_PHONE_INTERNATIONAL | VALIDATE_AU_PHONE_STRICT, // OK
+
+	'+61.3 8779 7223' => VALIDATE_AU_PHONE_INTERNATIONAL | VALIDATE_AU_PHONE_STRICT, // NOK
+	'03 3877 9100'   => VALIDATE_AU_PHONE_INTERNATIONAL, // NOK
+	'61 387797222'    => VALIDATE_AU_PHONE_INTERNATIONAL, // NOK
+	'+61.0 8779 7222' => VALIDATE_AU_PHONE_INTERNATIONAL, // NOK
+	'61 9 8779 7222'  => VALIDATE_AU_PHONE_INTERNATIONAL, // NOK
+);
+
 echo "\nTest postalCode without check against table\n";
 foreach ($postalCodes as $postalCode) {
     echo "{$postalCode}: ".$noYes[Validate_AU::postalCode($postalCode)]."\n";
@@ -110,6 +137,11 @@ foreach ($acns as $acn) {
 echo "\nTest tfn\n";
 foreach ($tfns as $tfn) {
     echo "{$tfn}: ".$noYes[Validate_AU::tfn($tfn)]."\n";
+}
+
+echo "\nTest phoneNumber\n";
+foreach ($phoneNumbers as $phoneNumber => $flags) {
+    echo "{$phoneNumber}: ".$noYes[Validate_AU::phoneNumber($phoneNumber, $flags)]."\n";
 }
 
 ?>
@@ -199,3 +231,26 @@ Test acn
 
 Test tfn
 123 456 782: YES
+
+Test phoneNumber
+0294599545: YES
+03 8779 7221: YES
+(03) 8779 7221: YES
+(03)-8779-7221: YES
+03-8779-7221: YES
+13 18 03: YES
+13-18-03: YES
+1300 000 000: YES
+1900 000 000: YES
+1800 000 000: YES
+131803: YES
+1300000000: YES
+1900000000: YES
+1800000000: YES
++61.3 8779 7221: YES
++61.387797222: YES
++61.3 8779 7223: NO
+03 3877 9100: NO
+61 387797222: NO
++61.0 8779 7222: NO
+61 9 8779 7222: NO

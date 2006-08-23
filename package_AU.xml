@@ -1,51 +1,98 @@
-<?xml version="1.0" encoding="ISO-8859-1" ?>
-<package version="1.0">
-  <name>Validate_AU</name>
-  <summary>Validation class for AU</summary>
-  <description>
-Package containes locale validation for AU such as:
+<?xml version="1.0"?>
+<package version="2.0" xmlns="http://pear.php.net/dtd/package-2.0"
+    xmlns:tasks="http://pear.php.net/dtd/tasks-1.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0
+    http://pear.php.net/dtd/tasks-1.0.xsd
+    http://pear.php.net/dtd/package-2.0
+    http://pear.php.net/dtd/package-2.0.xsd">
+    <name>Validate_AU</name>
+    <channel>pear.php.net</channel>
+    <summary>Data validation class for Australia.</summary>
+    <description>Package containes locale validation for AU such as:
  * Phone Number
  * Postal Code
  * Tax File Number
  * Australian Business Number
  * Australian Company Number
-  </description>
-  <license>New BSD</license>
-  <maintainers>
-    <maintainer>
-      <user>doconnor</user>
-      <role>lead</role>
-      <name>Daniel O'Connor</name>
-      <email>daniel.oconnor@gmail.com</email>
-    </maintainer>
-   </maintainers>
-  <release>
-    <version>0.1.1</version>
-    <state>alpha</state>
-    <date>2005-11-04</date>
+    </description>
+    <lead>
+        <name>Alex Hayes</name>
+        <user>ahayes</user>
+        <email>ahayes@wcg.net.au</email>
+        <active>yes</active>
+    </lead>
+    <lead>
+        <name>Daniel O'Connor</name>
+        <user>doconnor</user>
+        <email>daniel.oconnor@gmail.com</email>
+        <active>no</active>
+    </lead>
+    <date>2006-08-23</date>
+    <version>
+        <release>0.1.0</release>
+        <api>0.1.0</api>
+    </version>
+    <stability>
+        <release>alpha</release>
+        <api>alpha</api>
+    </stability>
+    <license uri="http://www.opensource.org/licenses/bsd-license.php">BSD License</license>
     <notes>
-- Switch to the new BSD License
-(see http://www.opensource.org/licenses/bsd-license.php)
-- Minor CS corrections, added Tax File Number validation. Fixed ACN validation.
+- Added support for 13,13xx,18xx,19xx and international syntax phone numbers
+- Removed Validate.php package requirement (its not used within this class)
+- Change package.xml to version 2
     </notes>
-    <filelist>
-    <dir name="/">
-      <file role="doc" name="LICENSE" />
-      <dir name="Validate">
-        <file role="php" name="AU.php">
-          <replace type="pear-config" from="@DATADIR@" to="data_dir" />
-        </file>
-      </dir>
-      <dir name="tests" role="test">
-        <file>validate_AU.phpt</file>
-      </dir>
-      <file role="data" name="data/AU_postcodes.txt" install-as="AU_postcodes.txt" />
-    </dir>
-    </filelist>
-    <deps>
-      <dep type="php" rel="ge" version="4.2.0" />
-    </deps>
-  </release>
-  <changelog>
-  </changelog>
+    <contents>
+        <dir name="/">
+	        <dir name="Validate/">
+	            <file name="AU.php" role="php">
+	                <tasks:replace from="@PACKAGE-VER@" to="version" type="package-info"/>
+	                <tasks:replace from="@DATADIR@" to="data_dir" type="pear-config"/>
+	            </file> 
+	        </dir> 
+	        <dir name="tests/">
+	        	<file name="validate_AU.phpt" role="test" />
+	        </dir> 
+	        <dir name="data/">
+	        	<file name="AU_postcodes.txt" role="data" />
+	        </dir> 
+        </dir>
+    </contents>
+    <dependencies>
+        <required>
+            <php>
+                <min>4.2.0</min>
+                <max>6.0.0</max>
+            </php>
+            <pearinstaller>
+                <min>1.4.9</min>
+            </pearinstaller>
+            <package>
+                <name>Validate</name>
+                <channel>pear.php.net</channel>
+                <min>0.5.0</min>
+                <recommended>0.5.0</recommended>
+            </package>
+        </required>
+    </dependencies>
+    <phprelease />
+    <changelog>
+        <release>
+            <version>
+                <release>0.1.0</release>
+                <api>0.1.0</api>
+            </version>
+            <stability>
+                <release>alpha</release>
+                <api>alpha</api>
+            </stability>
+            <date>2006-08-23</date>
+            <license uri="http://www.opensource.org/licenses/bsd-license.php">BSD License</license>
+            <notes>
+- Added support for 13,13xx,18xx,19xx and international syntax phone numbers
+- Change package.xml to version 2
+            </notes>
+        </release>
+    </changelog>
 </package>

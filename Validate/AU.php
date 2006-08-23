@@ -12,6 +12,7 @@
 // | pajoye@php.net so we can mail you a copy immediately.                |
 // +----------------------------------------------------------------------+
 // | Author: Daniel O'Connor <daniel.oconnor@gmail.com>                   |
+// | Author: Alex Hayes <ahayes@wcg.net.au>
 // +----------------------------------------------------------------------+
 //
 /**
@@ -23,17 +24,17 @@
  * @package    Validate_AU
  * @author     Daniel O'Connor <daniel.oconnor@gmail.com>
  * @author     Tho Nguyen <tho.nguyen@itexperts.com.au>
+ * @author     Alex Hayes <ahayes@wcg.net.au>
  * @copyright  1997-2005 Daniel O'Connor
  * @date       $Date$
  * @version    $Id$
  * @license    http://www.opensource.org/licenses/bsd-license.php  New BSD License
- * @link       http://www.getfridged.com/validate/
  */
 
-/**
- * Requires Validate
- */
-require_once 'Validate.php';
+define("VALIDATE_AU_PHONE_STRICT",        1);
+define("VALIDATE_AU_PHONE_NATIONAL",      2);
+define("VALIDATE_AU_PHONE_INDIAL",        4);
+define("VALIDATE_AU_PHONE_INTERNATIONAL", 8);
 
 /**
  * Data validation class for Australia
@@ -51,10 +52,10 @@ require_once 'Validate.php';
  * @package    Validate_AU
  * @author     Daniel O'Connor <daniel.oconnor@gmail.com>
  * @author     Tho Nguyen <tho.nguyen@itexperts.com.au>
+ * @author     Alex Hayes <ahayes@wcg.net.au>
  * @copyright  1997-2005 Daniel O'Connor
  * @license    http://www.opensource.org/licenses/bsd-license.php  New BSD License
- * @version    Release: @package_version@
- * @link       http://www.getfridged.com/validate/
+ * @version    Release: @PACKAGE-VER@
  */
 class Validate_AU
 {
@@ -74,7 +75,7 @@ class Validate_AU
             static $postcodes;
 
             if (!isset($postcodes)) {
-                $file = '@DATADIR@/Validate_AU/AU_postcodes.txt';
+                $file = '@DATADIR@/Validate_AU/data/AU_postcodes.txt';
                 $postcodes = array_map('trim', file($file));
             }
 
@@ -87,20 +88,72 @@ class Validate_AU
     /**
      * Validate a telephone number.
      *
-     * Be aware, 1800 XXX XXX, 190X XXX XXX, 13XXXX numbers
-     * are not catered for at this time.
+     * Note that this function supports the following notations:
+     * 
+     *     - Landline: 03 9999 9999
+     *     - Mobile: 0400 000 000 (as above, but usually notated differently)
+     *     - Indial: 131 812 / 1300 000 000 / 1800 000 000 / 1900 000 000
+     *     - International: +61.3 9999 9999
+     * 
+     * For International numbers, only +61 will be valid, as this is
+     * Australia's dial code, and the format MUST be +61.3, where 3 represents
+     * the state dial code, in this case, Victoria.
+     * 
+     * Note: If the VALIDATE_AU_PHONE_STRICT flag is not supplied, then all spaces, 
+     * dashes and parenthesis are removed before validation. You will have to 
+     * strip these yourself if your data storage does not allow these characters.
      *
      * @static
      * @access    public
-     * @param     string    $number the tel number
+     * @param string $number    The telephone number
+     * @param int $flags        Can be a combination of the following flags:
+     *                              - <b>VALIDATE_AU_PHONE_STRICT</b>: if
+     *                                supplied then no spaces, parenthesis or dashes (-)
+     *                                will be removed.
+     *                              - <b>VALIDATE_AU_PHONE_NATIONAL</b>: when supplied
+     *                                valid national numbers (eg. 03 9999 9999) will return true.
+     *                              - <b>VALIDATE_AU_PHONE_INDIAL</b>: when supplied
+     *                                valid indial numbers (eg. 13/1300/1800/1900) will return true.
+     *                              - <b>VALIDATE_AU_PHONE_INTERNATIONAL</b>: when supplied
+     *                                valid internation notation of Australian numbers 
+     *                                (eg. +61.3 9999 9999) will return true.
      * @return    bool
+     * 
+     * @author Alex Hayes <ahayes@wcg.net.au>
+     * @author Daniel O'Connor <daniel.oconnor@gmail.com>
+     * 
+     * @todo Check that $flags contains a valid flag.
      */
-    function phoneNumber($number)
+    function phoneNumber($number, $flags = VALIDATE_AU_PHONE_NATIONAL)
     {
-        $number = str_replace(array('(', ')', '-', '+', '.', ' '), '', $number);
-        $preg = "/^0[23478][0-9]{8}$/";
 
-        return (preg_match($preg, $number)) ? true : false;
+        if(!($flags & VALIDATE_AU_PHONE_STRICT)) {
+            $number = str_replace(
+                array('(', ')', '-', ' '), 
+                '', 
+                $number
+            );
+        }
+
+        if($flags & VALIDATE_AU_PHONE_NATIONAL) {
+             $preg[] = "(0[23478][0-9]{8})";
+        }
+
+        if($flags & VALIDATE_AU_PHONE_INDIAL) {
+             $preg[] = "(13[0-9]{4}|1[3|8|9]00[0-9]{6})";
+        }
+
+        if($flags & VALIDATE_AU_PHONE_INTERNATIONAL) {
+             $preg[] = "(\+61\.[23478][0-9]{8})";
+        }
+
+        if(is_array($preg)) {
+            $preg = implode("|", $preg);
+            return preg_match("/^" . $preg . "$/", $number) ? true : false;
+        }
+
+        return false;
+
     }
 
 
@@ -297,4 +350,5 @@ class Validate_AU
 
     }
 }
+
 ?>
