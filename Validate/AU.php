@@ -83,7 +83,7 @@ class Validate_AU
 
             return in_array((int)$postcode, $postcodes);
         }
-        return (bool)ereg('^[0-9]{4}$', $postcode);
+        return preg_match('^[0-9]{4}$', $postcode);
     }
     
     /**
@@ -184,28 +184,24 @@ class Validate_AU
      */
     function acn( $acn )
     {
-
         $digits = array();
 
         //Strip blanks
-        $acn = str_replace(array('(', ')', '-', '+', '.', ' '), '', $acn);
-
-        //Check if contains only digits
-        if ( !is_numeric($acn) ) {
+        $acn = str_replace(
+            array('(', ')', '-', '+', '.', ' '),
+            '',
+            $acn);
+        
+        //ACN must be 9 digits long and numeric
+        if (!ctype_digit($acn) || strlen($acn) != 9) {
             return false;
         }
-
-        //ABN has 9 digits in length
-        if ( strlen($acn) != 9 ) {
-            return false;
-        }
-
+        
         //Put each digit to an array
-        for ( $i = 0; $i < strlen($acn); $i++ ) {
-            $digits[] = $acn[$i];
-        }
-
+        $digits = str_split($acn);
+        
         $sum = 0;
+        
         //Apply weighting to digits 1 to 8
         for ( $i = 0; $i < 8; $i++) {
             $sum += $digits[$i]*(8-$i);
