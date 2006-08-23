@@ -12,9 +12,28 @@
 // | pajoye@php.net so we can mail you a copy immediately.                |
 // +----------------------------------------------------------------------+
 // | Author: Michael Wallner <mike@iworks.at>                             | 
-// | Author: Byron Adams <byron.adams54@gmail.com>                        |
+// |         Byron Adams <byron.adams54@gmail.com>                        |
 // +----------------------------------------------------------------------+
 //
+/**
+ * Specific validation methods for data used in Austria
+ *
+ * @category   Validate
+ * @package    Validate_AT
+ * @author     Michael Wallner <mike@php.net>
+ * @author     Byron Adams <byron.adams54@gmail.com> 
+ * @copyright  1997-2005 Michael Wallner
+ * @copyright  (c) 2006 Byron Adams
+ * @license    http://www.opensource.org/licenses/bsd-license.php  New BSD License
+ * @version    CVS: $Id$
+ * @link       http://pear.php.net/package/Validate_AT
+ */
+
+/**
+* Requires Validate
+*/
+require_once 'Validate.php';
+
 /**
  * Data validation class for Austria
  *
@@ -28,15 +47,11 @@
  * @author     Michael Wallner <mike@php.net>
  * @author     Byron Adams <byron.adams54@gmail.com> 
  * @copyright  1997-2005 Michael Wallner
+ * @copyright  (c) 2006 Byron Adams
  * @license    http://www.opensource.org/licenses/bsd-license.php  New BSD License
  * @version    Release: @package_version@
  * @link       http://pear.php.net/package/Validate_AT
  */
-
-/**
-* Requires Validate
-*/
-require_once 'Validate.php';
 
 class Validate_AT
 {
