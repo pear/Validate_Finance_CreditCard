@@ -13,13 +13,21 @@
 // +----------------------------------------------------------------------+
 // | Author: Daniel O'Connor <daniel.oconnor@gmail.com>                   |
 // | Author: Alex Hayes <ahayes@wcg.net.au>                               |
-// | Author: Byron Adams <byron.adams54@gmail.com>
+// | Author: Byron Adams <byron.adams54@gmail.com>                        |
 // +----------------------------------------------------------------------+
 //
 /**
- * Specific validation methods for data used in Australia
+ * Data validation class for Australia
  *
- * Contains code from Validate_AT and Validate_UK
+ * Contains code from Validate_AT, Validate_UK and Validate_NZ
+ *
+ * This class provides methods to validate:
+ *  - Postal code
+ *  - Phone number
+ *  - Australian Business Number
+ *  - Australian Company Number
+ *  - Tax File Number
+ *  - Australian Regional codes
  *
  * @category   Validate
  * @package    Validate_AU
@@ -28,9 +36,8 @@
  * @author     Alex Hayes <ahayes@wcg.net.au>
  * @author     Byron Adams <byron.adams54@gmail.com>
  * @copyright  1997-2005 Daniel O'Connor
- * @date       $Date$
- * @version    $Id$
  * @license    http://www.opensource.org/licenses/bsd-license.php  New BSD License
+ * @version    Release: @PACKAGE-VER@
  */
 
 define("VALIDATE_AU_PHONE_STRICT",        1);
@@ -38,37 +45,16 @@ define("VALIDATE_AU_PHONE_NATIONAL",      2);
 define("VALIDATE_AU_PHONE_INDIAL",        4);
 define("VALIDATE_AU_PHONE_INTERNATIONAL", 8);
 
-/**
- * Data validation class for Australia
- *
- * Contains code from Validate_AT and Validate_UK
- *
- * This class provides methods to validate:
- *  - Postal code
- *  - Phone number
- *  - Australian Business Number
- *  - Australian Company Number
- *  - Tax File Number
- *
- * @category   Validate
- * @package    Validate_AU
- * @author     Daniel O'Connor <daniel.oconnor@gmail.com>
- * @author     Tho Nguyen <tho.nguyen@itexperts.com.au>
- * @author     Alex Hayes <ahayes@wcg.net.au>
- * @copyright  1997-2005 Daniel O'Connor
- * @license    http://www.opensource.org/licenses/bsd-license.php  New BSD License
- * @version    Release: @PACKAGE-VER@
- */
 class Validate_AU
 {
 
     /**
-     * Validate postcode
+     * Validate Austrialian postal codes.
      *
-     * @static
      * @access   public
+     * @static   string  $postcodes
      * @param    string  $postcode  postcode to validate
-     * @param    bool    $strong    optional; strong checks (e.g. against a list of postcodes)
+     * @param    bool    $strong optional; strong checks against a list of postcodes
      * @return   bool    true if postcode is ok, false otherwise
      */
     function postalCode($postcode, $strong = false)
@@ -86,8 +72,8 @@ class Validate_AU
         return preg_match('^[0-9]{4}$', $postcode);
     }
     
-    /**
-    * Validates a Australian Regional Codes
+   /**
+    * Validates Australian Regional Codes
     *
     * @author    Byron Adams <byron.adams54@gmail.com>
     * @access    public
@@ -98,8 +84,8 @@ class Validate_AU
     */
    function region($region)
    {
-      static $regions = array("ACT", "NSW", "NT", "QLD", "SA", "TAS", "VIC", "WA");
-      return in_array(strtoupper($region),$regions);
+       static $regions = array("ACT", "NSW", "NT", "QLD", "SA", "TAS", "VIC", "WA");
+       return in_array(strtoupper($region),$regions);
    }
 
     /**
@@ -177,29 +163,25 @@ class Validate_AU
     /**
      * Validate an Australian Company Number (ACN)
      *
-     * @static
      * @access  public
      * @param   string  $acn    ACN to validate
-     * @return  bool
+     * @return  bool    Returns true on success, false otherwise
      */
-    function acn( $acn )
+    function acn($acn)
     {
         $digits = array();
-
-        //Strip blanks
+        
         $acn = str_replace(
             array('(', ')', '-', '+', '.', ' '),
             '',
-            $acn);
+            trim($acn)
+        );
         
-        //ACN must be 9 digits long and numeric
         if (!ctype_digit($acn) || strlen($acn) != 9) {
             return false;
         }
         
-        //Put each digit to an array
         $digits = str_split($acn);
-        
         $sum = 0;
         
         //Apply weighting to digits 1 to 8
@@ -210,7 +192,6 @@ class Validate_AU
         //Divide by 10 to obtain remainder
         $remainder = $sum%10;
 
-
         if ($remainder == 0) {
             $complement = 0 - $remainder;
         } else {
@@ -218,11 +199,7 @@ class Validate_AU
             $complement = 10 - $remainder;
         }
         //$complement == last digit?
-        if ( $digits[8] == $complement ) {
-            return true;
-        }
-
-        return false;
+        return ($digits[8] == $complement);
     }
 
     /**
@@ -235,7 +212,7 @@ class Validate_AU
      * @access  public
      * @see     Validate_AU::tfn()
      * @param   $input  Input to validate
-     * @return  bool
+     * @return  bool    Returns true on success, false otherwise
      */
     function ssn($input)
     {
@@ -248,42 +225,34 @@ class Validate_AU
      * Australia does not have a social security number system,
      * the closest equivalent is a Tax File Number.
      *
-     * @static
      * @access  public
      * @param   $tfn    Tax File Number
-     * @return  bool
+     * @return  bool    Returns true on success, false otherwise
      */
     function tfn($tfn)
     {
         $digits = array();
         $weights = array(1, 4, 3, 7, 5, 8, 6, 9, 10);
 
-        $tfn = str_replace(array('(', ')', '-', '+', '.', ' '), '', $tfn);
+        $tfn = str_replace(
+            array('(', ')', '-', '+', '.', ' '),
+            '',
+            $tfn
+        );
 
-        //Check if contains only digits
-        if ( !is_numeric($tfn) ) {
-            settype($tfn, "int");
-        }
-
-        //Check length
-        if ( strlen($tfn) < 8 || strlen($tfn) > 9 ) {
+        if (strlen($tfn) < 8 || 
+            strlen($tfn) > 9 || !ctype_digit($tfn)) {
             return false;
         }
 
-        //Put each digit to an array
-        for ( $i = 0; $i < strlen($tfn); $i++ ) {
-            $digits[] = $tfn[$i];
-        }
-
+        $digits = str_split($tfn);
         $sum = 0;
-        //Apply weighting factor
-        //11 Digits
-        for ( $i = 0; $i < count($digits); $i++ ) {
-            $sum += $digits[$i]*$weights[$i];
+        
+        foreach ($digits as $key => $digit) {
+            $sum += $digit*$weights[$key];
         }
-
+        
         $remainder = $sum%11;
-
         return !( $remainder > 0 );
     }
 
@@ -296,45 +265,30 @@ class Validate_AU
      * @static
      * @access  public
      * @param   Services_ABR    $client An instance of a Services_ABR object with an api key set.
-     *
      * @param   string          $abn    ABN to validate
      * @param   bool            $strict Optionally do a strict check with a web service.
-     *                                  If you provide this param, you must provide the third param ($client).
-     * @return  bool|PEAR_Error
+     *                          If you provide this param, you must provide the third param ($client).
+     * @return  bool            true on success, otherwise false or PEAR_Error
      */
     function abn($abn, $strict = false, $client = null)
     {
-
         $digits = array();
         $weights = array(10, 1, 3, 5, 7, 9, 11, 13, 15, 17, 19);
 
         //Strip blanks
         $abn = str_replace(array('(', ')', '-', '+', '.', ' '), '', $abn);
 
-        //Check if contains only digits
-        if ( !is_numeric($abn) ) {
-            settype($abn, "int");
-            //return false;
-        }
-
-        //ABN has 11 digits in length
-        if ( strlen($abn) != 11 ) {
+        if (strlen($abn) != 11 || !ctype_digit($abn)) {
             return false;
         }
 
-        //Put each digit to an array
-        for ( $i = 0; $i < strlen($abn); $i++ ) {
-            $digits[] = $abn[$i];
-        }
-
-        //Subtract 1 from the first left digit
+        $digits = str_split($tfn);
         $digits[0]--;
-
         $sum = 0;
+        
         //Apply weighting factor
-        //11 Digits
-        for ( $i = 0; $i < count($digits); $i++ ) {
-            $sum += $digits[$i]*$weights[$i];
+        foreach ($digits as $key => $digit) {
+            $sum += $digit*$weights[$key];
         }
 
         //Divide the total by 89 and get remainder
