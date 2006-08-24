@@ -87,7 +87,7 @@ class Validate_AU
 
             return in_array((int)$postcode, $postcodes);
         }
-        return preg_match('^[0-9]{4}$', $postcode);
+        return preg_match('(^[0-9]{4}$)', $postcode);
     }
     
    /**
@@ -177,46 +177,47 @@ class Validate_AU
 
     }
 
-
-    /**
+   /**
      * Validate an Australian Company Number (ACN)
+     * 
+     * The ACN is a nine digit number with the last digit
+     * being a check digit calculated using a modified 
+     * modulus 10 calculation.
      *
      * @access  public
-     * @param   string  $acn    ACN to validate
+     * @param   string  $acn; ACN number to validate
      * @return  bool    Returns true on success, false otherwise
+     * @link    http://www.asic.gov.au/asic/asic_infoco.nsf/byheadline/Australian+Company+Number+(ACN)+Check+Digit
+     * @author  Byron Adams <byron.adams54@gmail.com>
+     * @author  Daniel O'Connor <daniel.oconnor@gmail.com>
      */
     function acn($acn)
     {
-        $digits = array();
-        
-        $acn = str_replace(
-            array('(', ')', '-', '+', '.', ' '),
-            '',
-            trim($acn)
-        );
+        $weights = array(8, 7, 6, 5, 4, 3, 2, 1);    
+    
+        $acn = preg_replace("/[^\d]/", "", $acn);
+        $digits = str_split($acn);
+        $sum = 0;
         
         if (!ctype_digit($acn) || strlen($acn) != 9) {
             return false;
         }
         
-        $digits = str_split($acn);
-        $sum = 0;
+        foreach ($digits as $key => $digit) {
+            $sum += $digit * $weights[$key];
+        }
         
-        //Apply weighting to digits 1 to 8
-        for ( $i = 0; $i < 8; $i++) {
-            $sum += $digits[$i]*(8-$i);
+        $remainder = $sum % 10;
+        
+        switch ($remainder) {
+            case 0:
+                $complement = 0 - $remainder;
+                break;
+            default:
+                $complement = 10 - $remainder;
+                break;
         }
-
-        //Divide by 10 to obtain remainder
-        $remainder = $sum%10;
-
-        if ($remainder == 0) {
-            $complement = 0 - $remainder;
-        } else {
-            //Complement the remainder to 10
-            $complement = 10 - $remainder;
-        }
-        //$complement == last digit?
+        
         return ($digits[8] == $complement);
     }
 
@@ -224,17 +225,16 @@ class Validate_AU
      * Social Security Number.
      *
      * Australia does not have a social security number system,
-     * the closest equivalent is a Tax File Number.
+     * the closest equivalent is a Tax File Number 
      *
-     * @static
      * @access  public
      * @see     Validate_AU::tfn()
-     * @param   $input  Input to validate
+     * @param   string  $ssn; ssn number to validate
      * @return  bool    Returns true on success, false otherwise
      */
-    function ssn($input)
+    function ssn($ssn)
     {
-        return Validate_AU::tfn($input);
+        return Validate_AU::tfn($ssn);
     }
 
     /**
@@ -246,93 +246,75 @@ class Validate_AU
      * @access  public
      * @param   $tfn    Tax File Number
      * @return  bool    Returns true on success, false otherwise
+     * @link    http://en.wikipedia.org/wiki/Tax_File_Number
+     * @author  Byron Adams <byron.adams54@gmail.com>
      */
     function tfn($tfn)
     {
-        $digits = array();
         $weights = array(1, 4, 3, 7, 5, 8, 6, 9, 10);
-
-        $tfn = str_replace(
-            array('(', ')', '-', '+', '.', ' '),
-            '',
-            $tfn
-        );
-
-        if (strlen($tfn) < 8 || 
-            strlen($tfn) > 9 || !ctype_digit($tfn)) {
-            return false;
-        }
-
-        $digits = str_split($tfn);
-        $sum = 0;
+        $length = array("8", "9");
         
-        foreach ($digits as $key => $digit) {
-            $sum += $digit*$weights[$key];
-        }
+        $tfn = preg_replace("/[^\d]/", "", $tfn);
+        $tfn = str_split($tfn);
         
-        $remainder = $sum%11;
-        return !( $remainder > 0 );
+        return Validate_AU::checkDigit($tfn, 11, $weights, $length);
     }
 
     /**
-     * Validate an Australian Business Number (ABN).
-     *
-     * You may optionally utilise an instance of Services_ABR to
-     * strictly validate input.
+     * Australian Business Number (ABN).
+     * 
+     * Validates an ABN using a modulus calculation
      *
      * @static
      * @access  public
-     * @param   Services_ABR    $client An instance of a Services_ABR object with an api key set.
-     * @param   string          $abn    ABN to validate
-     * @param   bool            $strict Optionally do a strict check with a web service.
-     *                          If you provide this param, you must provide the third param ($client).
-     * @return  bool            true on success, otherwise false or PEAR_Error
+     * @param   string    $abn    ABN to validate
+     * @return  bool      true on success, otherwise false
+     * @link    http://www.ato.gov.au/businesses/content.asp?doc=/content/13187.htm
+     * @author  Byron Adams <byron.adams54@gmail.com>
      */
-    function abn($abn, $strict = false, $client = null)
+    function abn($abn)
     {
-        $digits = array();
-        $weights = array(10, 1, 3, 5, 7, 9, 11, 13, 15, 17, 19);
-
-        //Strip blanks
-        $abn = str_replace(array('(', ')', '-', '+', '.', ' '), '', $abn);
-
-        if (strlen($abn) != 11 || !ctype_digit($abn)) {
-            return false;
-        }
-
-        $digits = str_split($tfn);
-        $digits[0]--;
-        $sum = 0;
+        $weights = array(10, 1, 3, 5, 7, 9, 11, 13, 15, 17, 19);    
+        $length = array("11");
         
-        //Apply weighting factor
-        foreach ($digits as $key => $digit) {
-            $sum += $digit*$weights[$key];
-        }
+        $abn = preg_replace("/[^\d]/", "", $abn);
+        $abn = str_split($abn);
+        $abn[0]--;
+        
+        return Validate_AU::checkDigit($abn, 89, $weights, $length);
+    }
 
-        //Divide the total by 89 and get remainder
-        $remainder = $sum%89;
-
-        if ( $remainder > 0 ) {
+    /**
+     * Validate number against decimal checksum (check digit)  
+     * 
+     * A check digit is a form of redundancy check used 
+     * for error detection, the decimal equivalent of a 
+     * binary checksum. It consists of a single digit 
+     * computed from the other digits in the message.
+     *
+     * @access  public
+     * @param   array    $digits; Digits to check
+     * @param   int      $modulus;
+     * @param   array    $weights;
+     * @param   array    $length; 
+     * @return  bool     true on success, otherwise false
+     * @link    http://en.wikipedia.org/wiki/Check_digit
+     * @author  Byron Adams <byron.adams54@gmail.com>
+     */
+    function checkDigit($digits, $modulus, $weights, $length)
+    {
+        $sum = 0;
+    
+        if (!in_array(count($digits), $length)) {
             return false;
-        } else {
-
-            if ($strict) {
-                if (is_a($client,'Services_ABR')) {
-                    $result = $client->ABRSearchByABN($abn);
-
-                    if (PEAR::isError($result)) {
-                        return $result;
-                    } else {
-                        return true;
-                    }
-                } else {
-                    return PEAR::raiseError("Missing or invalid param provided");
-                }
-            }
-
-            return true;
         }
-
+    
+        foreach ($digits as $key => $digit) {
+            $sum += $digit * $weights[$key];
+        }
+    
+        return !($sum % $modulus);
+    
     }
 }
 ?>
