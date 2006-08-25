@@ -13,6 +13,7 @@
 // +----------------------------------------------------------------------+
 // | Author: Tomas V.V.Cox  <cox@idecnet.com>                             |
 // |         Pierre-Alain Joye <pajoye@php.net>                           |
+// |         Byron Adams <byron.adams54@gmail.com>
 // +----------------------------------------------------------------------+
 //
 /**
@@ -21,7 +22,9 @@
  * @category   Validate
  * @package    Validate_ES
  * @author     Tomas V.V.Cox <cox@idecnet.com>
+ * @author     Byron Adams <byron.adams54@gmail.com>
  * @copyright  1997-2005 Pierre-Alain Joye,Tomas V.V.Cox
+ * @copyright  (c) 2006 Byron Adams
  * @license    http://www.opensource.org/licenses/bsd-license.php  New BSD License
  * @version    CVS: $Id$
  * @link       http://pear.php.net/package/Validate_ES
@@ -36,12 +39,14 @@ require_once 'Validate.php';
  * Data validation class for Spain
  *
  * This class provides methods to validate:
- *  - El Documento Nacional de Indentidad a chequear
+ *  - Spanish DNI number ("El documento de la identificación nacional")
  *
  * @category   Validate
  * @package    Validate_ES
  * @author     Tomas V.V.Cox <cox@idecnet.com>
- * @copyright  1997-2005 Pierre-Alain Joye,Tomas V.V.Cox
+ * @author     Byron Adams <byron.adams54@gmail.com>
+ * @copyright  1997-2005 Pierre-Alain Joye, Tomas V.V.Cox
+ * @copyright  (c) 2006 Byron Adams
  * @license    http://www.opensource.org/licenses/bsd-license.php  New BSD License
  * @version    Release: @package_version@
  * @link       http://pear.php.net/package/Validate_ES
@@ -49,29 +54,34 @@ require_once 'Validate.php';
 class Validate_ES
 {
     /**
-    * Valida un DNI Español (el dni tiene que ser de la forma 11111111X)
+    * Validate Spanish DNI number ("El documento de la identificación nacional")
     *
-    * @param string $dni El Documento Nacional de Indentidad a chequear
-    * @return bool
+    * In Spain, all Spanish citizens are issued with a DNI 
+    * the numbers are used as identification for almost all purposes.
+    * 
+    * @param     string    $dni El Documento Nacional de Indentidad a chequear
+    * @return    bool      returns true on success false otherwise
+    * @author    Tomas V.V.Cox <cox@idecnet.com>
+    * @author    Byron Adams <byron.adams54@gmail.com>
+    * @link      http://es.wikipedia.org/wiki/Algoritmo_para_obtener_la_letra_del_NIF
+    * @link      http://nationalidentificationnumber.quickseek.com/#Spain
     */
     function dni($dni)
     {
-        $letra  = substr($dni, -1);
-        $number = substr($dni, 0, -1);
-        if (!Validate::string($number, VALIDATE_NUM, 8, 8)) {
-            return false;
+        $dni = str_replace("-","",trim($dni));
+        $letters = 'TRWAGMYFPDXBNJZSQVHLCKET';   
+       
+        $start = (int)(strtoupper($dni{0}) == "X");
+        
+        $number = substr($dni,$start,-1);
+        $letter = strtoupper(substr($dni, -1));
+        
+        if(!ctype_digit($number) ||
+           !ctype_alpha($letter)) {
+           return false;
         }
-        if (!Validate::string($letra, VALIDATE_ALPHA)) {
-            return false;
-        }
-        // El resto entero de la division del numero del dni/23 +1
-        // es la posicion de la letra en la cadena $string
-        $string = 'TRWAGMYFPDXBNJZSQVHLCKET';
-        // ver la letra de un numero
-        if ($letra == $string{$number % 23}) {
-            return true;
-        }
-        return false;
+        
+        return ($letter == $letters{$number % 23});
     }
 }
 ?>
