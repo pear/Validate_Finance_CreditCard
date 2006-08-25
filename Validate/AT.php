@@ -30,11 +30,6 @@
  */
 
 /**
-* Requires Validate
-*/
-require_once 'Validate.php';
-
-/**
  * Data validation class for Austria
  *
  * This class provides methods to validate:
@@ -76,48 +71,33 @@ class Validate_AT
 
             return in_array((int)$postcode, $postcodes);
         }
-        return preg_match("^[0-9]{4}$", $postcode);
+        return preg_match("(^[0-9]{4}$)", $postcode);
     }
 
    /**
     * Validate SSN ("Sozialversicherungsnummer")
     *
+    * Validates a Austrian SVN number.
+    * 
     * @access   public
-    * @param    string  $svn, the SVN number to validate
+    * @param    string  $ssn; the SVN number to validate
     * @return   bool    true if SVN is ok, false otherwise
+    * @author   Byron Adams <byron.adams54@gmail.com>
     */
-    function ssn($svn)
+      function ssn($ssn)
     {
-        $svn = trim($svn);
-        $regex = "/^(\d{3})(\d)\D*(\d{2})\D*(\d{2})\D*(\d{2})$/";
+        $weights = array("3", "7", "9", "0", "5", "8", "4", "2", "1", "6");
         
-        $matched = preg_match($regex, $svn, $matches);
-
-        if (!$matched) {
-            return false;
-        }
-
-        list(, $num, $chk, $d, $m, $y) = $matches;
-
-        if (!Validate::date("$d-$m-$y", array('format' => '%d-%m-%y'))) {
-            return false;
-        }
-
-        $str = (string) $num . $chk . $d . $m . $y;
-        $len = strlen($str);
-        $fkt = '3790584216';
+        $ssn = preg_replace("/[^\d]/", "", trim($ssn));
+        $digits = str_split($ssn);
+        
         $sum = 0;
-
-        for ($i = 0; $i < $len; $i++) {
-            $sum += $str{$i} * $fkt{$i};
+        
+        foreach ($digits as $key => $digit) {
+            $sum += $digit * $weights[$key];
         }
-
-        $sum = $sum % 11;
-        if ($sum == 10) {
-            $sum = 0;
-        }
-
-        return ($sum == $chk);
+        
+        return ($sum % 11 == $ssn{3});
     }
     
    /**
