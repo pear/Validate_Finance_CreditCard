@@ -54,8 +54,6 @@ class Validate_IN
      * Tax deduction and collection Account Number (TAN).
      *
      * @access  public
-     * @see     Validate_IN::ssn()
-     * @author  Byron Adams
      * @author  Anant Narayanan
      * 
      * @param   string    $number the PAN or TAN to be validated.
@@ -63,7 +61,7 @@ class Validate_IN
      */
     function pan($number)
     {
-        return Validate_IN::ssn($number);
+        return preg_match('/^[A-Z]{3}[A-Z0-9]{7}$/', $number);
     }
 
     /**
@@ -87,8 +85,6 @@ class Validate_IN
      * Validates an Indian Vehicle's license plate number.
      *
      * @access  public
-     * @see     Validate_IN::carReg()
-     * @author  Byron Adams
      * @author  Anant Narayanan
      * 
      * @param   string    $number; the license plate number to validate.
@@ -96,7 +92,13 @@ class Validate_IN
      */
     function licensePlate($number)
     {
-        return Validate_IN::carReg($number);    
+        $regex = "/^[A-Z]{2}(\s|\-)?[0-9]{1,2}(\s|\-)?(S|C|R|V)?(\s|\-)?[A-Z]{0,2}(\s|\-)?\d{4}$/";
+        
+        if (Validate_IN::stateCode(substr($number, 0, 2))) {
+            return preg_match($regex, $number);
+        }
+
+        return false; 
     }
     
     /**
@@ -111,8 +113,10 @@ class Validate_IN
      */
     function postalCode($postalCode)
     {
-        return (ctype_digit($postalCode) 
-                && strlen($postalCode) == 6);
+        $postalCode = preg_replace("/[^\d]/", "", $postalCode);
+              
+        return (strlen($postalCode) == 6
+                && $postalCode{0} != "0");
     }
 
     /**
@@ -121,6 +125,7 @@ class Validate_IN
      * 
      * @access  public
      * @author  Byron Adams
+     * @see     Validate_AU::pan()
      * 
      * @param   string    $ssn The PAN or TAN to be validated.
      * @return  bool      true on success false otherwise
@@ -128,35 +133,9 @@ class Validate_IN
      */
     function ssn($ssn)
     {
-        $ssn = trim($rssn);
-        return (ctype_alnum($ssn)
-            && !ctype_alpha($ssn)
-            && !ctype_digit($ssn)
-            && strlen($ssn) == 10);
+        return Validate_IN::pan($ssn);
     }
-    
-    /**
-     * Validates an Indian Vehicle's license plate number.
-     *
-     * @access  public
-     * @author  Byron Adams
-     * 
-     * @param   string    $reg The license plate number to validate.
-     * @return  bool      true on success false otherwise
-     */
-    function carReg($reg)
-    {
-        if (Validate_IN::region(substr($reg, 0, 2))) {
-            
-            return (ctype_alnum($reg)
-                && !ctype_alpha($reg)
-                && !ctype_digit($reg)
-                && strlen($reg) == 6);
-        } 
-
-        return false;
-    }   
-    
+        
     /**
      * Validates a state / union territory code and returns the full name of the
      * state / union territory code passed.
@@ -176,7 +155,7 @@ class Validate_IN
             "LD", "MP", "MH", "MN", "ML", "MZ", "NL", "OR", "PY",
             "PB", "RJ", "SK", "TN", "TR", "UL", "UP", "WB"); 
         
-        return in_array(strtoupper($region),$regions);
+        return in_array(strtoupper($region),$states);
     }
 
     /**
