@@ -1,4 +1,32 @@
 <?php
+/* vim: set expandtab tabstop=4 shiftwidth=4: */
+// +----------------------------------------------------------------------+
+// | Copyright (c) 1997-2005 Anant Narayanan                              |
+// +----------------------------------------------------------------------+
+// | This source file is subject to the New BSD license, That is bundled  |
+// | with this package in the file LICENSE, and is available through      |
+// | the world-wide-web at                                                |
+// | http://www.opensource.org/licenses/bsd-license.php                   |
+// | If you did not receive a copy of the new BSDlicense and are unable   |
+// | to obtain it through the world-wide-web, please send a note to       |
+// | pajoye@php.net so we can mail you a copy immediately.                |
+// +----------------------------------------------------------------------+
+// | Author: Anant Narayanan <anant@php.net>                              |
+// |         Byron Adams <byron.adams54@gmail.com>                        |
+// +----------------------------------------------------------------------+
+//
+/**
+ * Specific validation methods for data used in India
+ *
+ * @category   Validate
+ * @package    Validate_IN
+ * @author     Anant Narayanan <anant@php.net>
+ * @author     Byron Adams <byron.adams54@gmail.com>
+ * @copyright  1997-2005 Anant Narayanan
+ * @copyright  (c) 2006 Byron Adams
+ * @version    CVS: $Id$
+ * @license    http://www.opensource.org/licenses/bsd-license.php  New BSD License
+ */
     
 /**
  * Specific validation for data pertaining to the Republic of India.
@@ -13,236 +41,205 @@
  * @category   Validate
  * @package    Validate_IN
  * @author     Anant Narayanan <anant@php.net>
- * @license    http://www.gnu.org/copyleft/lesser.html  LGPL License 2.1
+ * @author     Byron Adams <byron.adams54@gmail.com> 
+ * @copyright  1997-2005 Anant Narayanan
+ * @copyright  (c) 2006 Byron Adams
+ * @license    http://www.opensource.org/licenses/bsd-license.php  New BSD License
  */
 
 class Validate_IN
 {
-    // {{{ pan()
-    
     /**
      * Validates an Indian Permanent Account Number (PAN) or
      * Tax deduction and collection Account Number (TAN).
      *
-     * @param   string  $number     The PAN or TAN to be validated.
-     *
-     * @return  boolean TRUE if code is valid, FALSE otherwise
-     * 
      * @access  public
-     * @static
+     * @see     Validate_IN::ssn()
+     * @author  Byron Adams
+     * @author  Anant Narayanan
+     * 
+     * @param   string    $number the PAN or TAN to be validated.
+     * @return  bool      true on success false otherwise
      */
     function pan($number)
     {
-        return (bool)preg_match('/^[A-Z]{3}[A-Z0-9]{7}$/', $number);
+        return Validate_IN::ssn($number);
     }
-
-    //}}}
-    //{{{ postalCode()
-    
-    /**
-     * Validates an Indian Postal Code (ZIP code)
-     *
-     * @param   string  $postalCode The ZIP code to validate
-     *
-     * @return  boolean TRUE if code is valid, FALSE otherwise
-     *
-     * @access  public
-     * @static
-     */
-    function postalCode($postalCode)
-    {
-        return (bool)preg_match('/^[1-9]{1}[0-9]{2}(\s|\-)?[0-9]{3}$/', $postalCode);
-    }
-
-    //}}}
-    //{{{ stateCode()
 
     /**
      * Validates a state / union territory code and returns the full name of the
      * state / union territory code passed.
      *
-     * @param   string  $region     2-letter state / union territory code
-     *
-     * @return  bool    True if state code is valid, False otherwise.  
-     * 
      * @access  public
-     * @static
+     * @see     Validate_IN::region()
+     * @author  Byron Adams
+     * @author  Anant Narayanan
+     * 
+     * @param   string    $region 2-letter region code
+     * @return  bool      true on success false otherwise
      */
     function stateCode($stateCode)
     {
-        switch (strtoupper($stateCode)) {
-            case 'AN':  
-            case 'AP': 
-            case 'AR': 
-            case 'AS': 
-            case 'BR':  
-            case 'CH': 
-            case 'CT':  
-            case 'DN': 
-            case 'DD': 
-            case 'DL':  
-            case 'GA':  
-            case 'GJ':  
-            case 'HR':  
-            case 'HP':  
-            case 'JK': 
-            case 'JH':  
-            case 'KA':  
-            case 'KL':  
-            case 'LD':  
-            case 'MP': 
-            case 'MH': 
-            case 'MN': 
-            case 'ML':  
-            case 'MZ':  
-            case 'NL':  
-            case 'OR': 
-            case 'PY':  
-            case 'PB': 
-            case 'RJ':  
-            case 'SK': 
-            case 'TN': 
-            case 'TR':  
-            case 'UL': 
-            case 'UP':  
-            case 'WB':  
-                return true;
-        }
-        return false;
+        return Validate_IN::region($stateCode);   
+    }
+    
+    /**
+     * Validates an Indian Vehicle's license plate number.
+     *
+     * @access  public
+     * @see     Validate_IN::carReg()
+     * @author  Byron Adams
+     * @author  Anant Narayanan
+     * 
+     * @param   string    $number; the license plate number to validate.
+     * @return  bool      true on success false otherwise
+     */
+    function licensePlate($number)
+    {
+        return Validate_IN::carReg($number);    
+    }
+    
+    /**
+     * Validates an Indian Postal Code (ZIP code)
+     *
+     * @access  public
+     * @author  Byron Adams
+     * @author  Anant Narayanan
+     * 
+     * @param   string    $postalCode The ZIP code to validate
+     * @return  bool      true on success false otherwise
+     */
+    function postalCode($postalCode)
+    {
+        return (ctype_digit($postalCode) 
+                && strlen($postalCode) == 6);
     }
 
-    //}}}
-    //{{{ getStateName()
+    /**
+     * Validates an Indian Permanent Account Number (PAN) or
+     * Tax deduction and collection Account Number (TAN).
+     * 
+     * @access  public
+     * @author  Byron Adams
+     * 
+     * @param   string    $ssn The PAN or TAN to be validated.
+     * @return  bool      true on success false otherwise
+     * 
+     */
+    function ssn($ssn)
+    {
+        $ssn = trim($rssn);
+        return (ctype_alnum($ssn)
+            && !ctype_alpha($ssn)
+            && !ctype_digit($ssn)
+            && strlen($ssn) == 10);
+    }
+    
+    /**
+     * Validates an Indian Vehicle's license plate number.
+     *
+     * @access  public
+     * @author  Byron Adams
+     * 
+     * @param   string    $reg The license plate number to validate.
+     * @return  bool      true on success false otherwise
+     */
+    function carReg($reg)
+    {
+        if (Validate_IN::region(substr($reg, 0, 2))) {
+            
+            return (ctype_alnum($reg)
+                && !ctype_alpha($reg)
+                && !ctype_digit($reg)
+                && strlen($reg) == 6);
+        } 
+
+        return false;
+    }   
+    
+    /**
+     * Validates a state / union territory code and returns the full name of the
+     * state / union territory code passed.
+     *
+     * @access  public
+     * @author  Byron Adams
+     * @author  Anant Narayanan
+     * 
+     * @param   string    $region 2-letter region code
+     * @return  bool      true on success false otherwise
+     */
+    function region($region)
+    {
+        static $states = array(
+            "AN", "AP", "AR", "AS", "BR", "CH", "CT", "DN", "DD",
+            "DL", "GA", "GJ", "HR", "HP", "JK", "JH", "KA", "KL",
+            "LD", "MP", "MH", "MN", "ML", "MZ", "NL", "OR", "PY",
+            "PB", "RJ", "SK", "TN", "TR", "UL", "UP", "WB"); 
+        
+        return in_array(strtoupper($region),$regions);
+    }
 
     /**
      * Returns the full name of a state / union territory given a valid state
      * code. If state code is invalid or NULL, an array of all states is
      * returned.
      *
-     * @param   String  $code   2 letter State / U.T. Code.
-     *
-     * @return  String/Array    Full name of state of code is valid, array of
-     *                          all states if not.
-     *
      * @access  public
-     * @static
+     * @author  Byron Adams
+     * @author  Anant Narayanan
+     * 
+     * @param   string    $code 2-letter region code
+     * @return  bool      true on success false otherwise
+     * @return  mixed     Full name of state of code is valid, array of
+     *                    all states if not.
      */
     function getStateName($code = NULL)
     {
-        $states = array("Andaman and Nicobar Islands",
-                        "Andhra Pradesh",
-                        "Arunachal Pradesh",
-                        "Assam",
-                        "Bihar",
-                        "Chandigarh",
-                        "Chattisgarh",
-                        "Dadra and Nagar Haveli",
-                        "Daman and Diu",
-                        "Delhi",
-                        "Goa",
-                        "Gujarat",
-                        "Harayana",
-                        "Himachal Pradesh",
-                        "Jammu and Kashmir",
-                        "Jharkhand",
-                        "Karnataka",
-                        "Kerala",
-                        "Lakshwadeep",
-                        "Madhya Pradesh",
-                        "Maharashtra",
-                        "Manipur",
-                        "Meghalaya",
-                        "Mizoram",
-                        "Nagaland",
-                        "Orissa",
-                        "Pondicherry",
-                        "Punjab",
-                        "Rajasthan",
-                        "Sikkim",
-                        "Tamil Nadu",
-                        "Tripura",
-                        "Uttaranchal",
-                        "Uttar Pradesh",
-                        "West Bengal");
-
-        switch (strtoupper($code)) {
-            case 'AN':  return $states[0];
-                        break;
-            case 'AP':  return $states[1];
-                        break;
-            case 'AR':  return $states[2];
-                        break;
-            case 'AS':  return $states[3];
-                        break;
-            case 'BR':  return $states[4];
-                        break;
-            case 'CH':  return $states[5];
-                        break;
-            case 'CT':  return $states[6];
-                        break;
-            case 'DN':  return $states[7];
-                        break;
-            case 'DD':  return $states[8];
-                        break;
-            case 'DL':  return $states[9];
-                        break;
-            case 'GA':  return $states[10];
-                        break;
-            case 'GJ':  return $states[11];
-                        break;
-            case 'HR':  return $states[12];
-                        break;
-            case 'HP':  return $states[13];
-                        break;
-            case 'JK':  return $states[14];
-                        break;
-            case 'JH':  return $states[15];
-                        break;
-            case 'KA':  return $states[16];
-                        break;
-            case 'KL':  return $states[17];
-                        break;
-            case 'LD':  return $states[18];
-                        break;
-            case 'MP':  return $states[19];
-                        break;
-            case 'MH':  return $states[20];
-                        break;
-            case 'MN':  return $states[21];
-                        break;
-            case 'ML':  return $states[22];
-                        break;
-            case 'MZ':  return $states[23];
-                        break;
-            case 'NL':  return $states[24];
-                        break;
-            case 'OR':  return $states[25];
-                        break;
-            case 'PY':  return $states[26];
-                        break;
-            case 'PB':  return $states[27];
-                        break;
-            case 'RJ':  return $states[28];
-                        break;
-            case 'SK':  return $states[29];
-                        break;
-            case 'TN':  return $states[30];
-                        break;
-            case 'TR':  return $states[31];
-                        break;
-            case 'UL':  return $states[32];
-                        break;
-            case 'UP':  return $states[33];
-                        break;
-            case 'WB':  return $states[34];
-                        break;
-            default:    return $states;
-                        break;
+        $code = strtoupper($code);
+        
+        static $states = array(
+            "AN" => "Andaman and Nicobar Islands",
+            "AP" => "Andhra Pradesh",
+            "AR" => "Arunachal Pradesh",
+            "AS" => "Assam",
+            "BR" => "Bihar",
+            "CH" => "Chandigarh",
+            "CT" => "Chattisgarh",
+            "DN" => "Dadra and Nagar Haveli",
+            "DD" => "Daman and Diu",
+            "DL" => "Delhi",
+            "GA" => "Goa",
+            "GJ" => "Gujarat",
+            "HR" => "Harayana",
+            "HP" => "Himachal Pradesh",
+            "JK" => "Jammu and Kashmir",
+            "JH" => "Jharkhand",
+            "KA" => "Karnataka",
+            "KL" => "Kerala",
+            "LD" => "Lakshwadeep",
+            "MP" => "Madhya Pradesh",
+            "MH" => "Maharashtra",
+            "MN" => "Manipur",
+            "ML" => "Meghalaya",
+            "MZ" => "Mizoram",
+            "NL" => "Nagaland",
+            "OR" => "Orissa",
+            "PY" => "Pondicherry",
+            "PB" => "Punjab",
+            "RJ" => "Rajasthan",
+            "SK" => "Sikkim",
+            "TN" => "Tamil Nadu",
+            "TR" => "Tripura",
+            "UL" => "Uttaranchal",
+            "UP" => "Uttar Pradesh",
+            "WB" => "West Bengal");
+               
+        if (array_key_exists($code, $states)) {  
+            return $states[$code];    
+        } else {
+            return $states;
         }
     }
-
-    //}}}
-    //{{{ phoneNumber()
 
     /**
      * Validate an Indian Phone number.
@@ -290,34 +287,7 @@ class Validate_IN
         return false;
     }
 
-    //}}}
-    //{{{ licensePlate()
-
-    /**
-     * Validates an Indian Vehicle's license plate number.
-     *
-     * @param   string  $license    The license plate number to validate.
-     *
-     * @return  boolean TRUE if code is valid, FALSE otherwise
-     *
-     * @access  public
-     * @static
-     */
-    function licensePlate($number)
-    {
-        if (Validate_IN::stateCode(substr($number, 0, 2))) {
-            // state code is valid
-            return (bool)
-            preg_match('/^[A-Z]{2}(\s|\-)?[0-9]{1,2}(\s|\-)?(S|C|R|V)?(\s|\-)?[A-Z]{0,2}(\s|\-)?\d{4}$/',
-            $number);
-        }
-
-        return false;
-    }
     
-    //}}}
+    
 }
-
-/* END */
-
 ?>
