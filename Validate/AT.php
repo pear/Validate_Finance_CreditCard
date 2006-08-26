@@ -29,6 +29,8 @@
  * @link       http://pear.php.net/package/Validate_AT
  */
 
+
+
 /**
  * Data validation class for Austria
  *
@@ -77,14 +79,11 @@ class Validate_AT
    /**
     * Validate SSN ("Sozialversicherungsnummer")
     *
-    * Validates a Austrian SVN number.
-    * 
     * @access   public
-    * @param    string  $ssn; the SVN number to validate
+    * @param    string  $svn, the SVN number to validate
     * @return   bool    true if SVN is ok, false otherwise
-    * @author   Byron Adams <byron.adams54@gmail.com>
     */
-      function ssn($ssn)
+    function ssn($ssn)
     {
         $weights = array("3", "7", "9", "0", "5", "8", "4", "2", "1", "6");
         
@@ -112,14 +111,10 @@ class Validate_AT
     * @return    bool        true if regional code is ok, false otherwise
     * @link      http://en.wikipedia.org/wiki/List_of_FIPS_region_codes_(A-C)#AU:_Austria
     */
-   function region($region)
-   {
-       $region = str_replace("AU", "", trim($region));
-      
-       if (!ctype_digit($region)) {
-           return false;
-       }
-       
-       return ($region >= 1 && $region <= 9);
+    function region($region)
+    {
+       $region = preg_replace("/[^\d]/", "", $region);
+            
+       return ($region > 0 && $region < 10);
    }
 }
