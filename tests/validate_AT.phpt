@@ -5,7 +5,7 @@ validate_AT.phpt: Unit tests for 'Validate/AT.php'
 // $Id$
 // Validate test script
 $noYes = array('NO', 'YES');
-require_once 'Validate/AT.php';
+require_once '../Validate/AT.php';
 
 echo "Test Validate_AT\n";
 echo "****************\n";
@@ -21,11 +21,19 @@ $postalCodes = array( 7033, // OK
 );
     
 $ssns = array( '4298 02-12-82', // OK
+               '4298001282',    // NOK
+               '1508-10-13-50', //NOK
                '1508101050', // OK
                 1508101051, // NOK
                 4290021282, // NOK
                 '21 34 23 12 74' // NOK
 );
+
+
+$regions = array(
+    "AU-06", // OK
+    "2",     // OK
+    "AU-00"); // NOK
 
 echo "\nTest postalCode without check against table\n";
 foreach ($postalCodes as $postalCode) {
@@ -34,13 +42,19 @@ foreach ($postalCodes as $postalCode) {
 
 echo "\nTest postalCode with check against table (strong)\n";
 foreach ($postalCodes as $postalCode) {
-    echo "{$postalCode}: ".$noYes[Validate_AT::postalCode($postalCode, true)]."\n";
+    echo "{$postalCode}: ".$noYes[Validate_AT::postalCode($postalCode, false)]."\n";
 }
 
 echo "\nTest ssn\n";
 foreach ($ssns as $ssn) {
     echo "{$ssn}: ".$noYes[Validate_AT::ssn($ssn)]."\n";
 }
+
+echo "\nTest Region\n";
+foreach ($regions as $r) {
+    echo "{$r}: ".$noYes[Validate_AT::region($r)]."\n";
+}
+
 ?>
 --EXPECT--
 Test Validate_AT
