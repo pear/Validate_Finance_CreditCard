@@ -113,7 +113,10 @@ class Validate_AT
     */
     function region($region)
     {
-       $region = preg_replace("/[^\d]/", "", $region);
+        $region = str_replace(
+           array("AU","-"," "),
+           "",
+           strtoupper($region));
             
        return ($region > 0 && $region < 10);
    }
