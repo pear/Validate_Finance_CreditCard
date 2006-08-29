@@ -32,10 +32,10 @@
  * @license    http://www.opensource.org/licenses/bsd-license.php  New BSD License
  */
 
-define("VALIDATE_AU_PHONE_STRICT",        1);
-define("VALIDATE_AU_PHONE_NATIONAL",      2);
-define("VALIDATE_AU_PHONE_INDIAL",        4);
-define("VALIDATE_AU_PHONE_INTERNATIONAL", 8);
+define("VALIDATE_AU_PHONENUMBER_STRICT",        1);
+define("VALIDATE_AU_PHONENUMBER_NATIONAL",      2);
+define("VALIDATE_AU_PHONENUMBER_INDIAL",        4);
+define("VALIDATE_AU_PHONENUMBER_INTERNATIONAL", 8);
 
 /**
  * Data validation class for Australia
@@ -90,21 +90,21 @@ class Validate_AU
         return preg_match('(^[0-9]{4}$)', $postcode);
     }
     
-   /**
-    * Validates Australian Regional Codes
-    *
-    * @author    Byron Adams <byron.adams54@gmail.com>
-    * @access    public
-    * @static    array      $regions
-    * @param     string     $region, regional code to validate
-    * @return    bool       Returns true on success, false otherwise
-    * @link      http://www.google.com/apis/adwords/developer/adwords_api_regions.html#Australia
-    */
-   function region($region)
-   {
-       static $regions = array("ACT", "NSW", "NT", "QLD", "SA", "TAS", "VIC", "WA");
-       return in_array(strtoupper($region),$regions);
-   }
+    /**
+     * Validates Australian Regional Codes
+     *
+     * @author    Byron Adams <byron.adams54@gmail.com>
+     * @access    public
+     * @static    array      $regions
+     * @param     string     $region, regional code to validate
+     * @return    bool       Returns true on success, false otherwise
+     * @link      http://www.google.com/apis/adwords/developer/adwords_api_regions.html#Australia
+     */
+    function region($region)
+    {
+        static $regions = array("ACT", "NSW", "NT", "QLD", "SA", "TAS", "VIC", "WA");
+        return in_array(strtoupper($region),$regions);
+    }
 
     /**
      * Validate a telephone number.
@@ -120,7 +120,7 @@ class Validate_AU
      * Australia's dial code, and the format MUST be +61.3, where 3 represents
      * the state dial code, in this case, Victoria.
      * 
-     * Note: If the VALIDATE_AU_PHONE_STRICT flag is not supplied, then all spaces, 
+     * Note: If the VALIDATE_AU_PHONENUMBER_STRICT flag is not supplied, then all spaces, 
      * dashes and parenthesis are removed before validation. You will have to 
      * strip these yourself if your data storage does not allow these characters.
      *
@@ -128,15 +128,15 @@ class Validate_AU
      * @access    public
      * @param string $number    The telephone number
      * @param int $flags        Can be a combination of the following flags:
-     *                              - <b>VALIDATE_AU_PHONE_STRICT</b>: if
+     *                              - <b>VALIDATE_AU_PHONENUMBER_STRICT</b>: if
      *                                supplied then no spaces, parenthesis or dashes (-)
      *                                will be removed.
-     *                              - <b>VALIDATE_AU_PHONE_NATIONAL</b>: when supplied
+     *                              - <b>VALIDATE_AU_PHONENUMBER_NATIONAL</b>: when supplied
      *                                valid national numbers (eg. 03 9999 9999) will return true.
-     *                              - <b>VALIDATE_AU_PHONE_INDIAL</b>: when supplied
+     *                              - <b>VALIDATE_AU_PHONENUMBER_INDIAL</b>: when supplied
      *                                valid indial numbers (eg. 13/1300/1800/1900) will return true.
-     *                              - <b>VALIDATE_AU_PHONE_INTERNATIONAL</b>: when supplied
-     *                                valid internation notation of Australian numbers 
+     *                              - <b>VALIDATE_AU_PHONENUMBER_INTERNATIONAL</b>: when supplied
+     *                                valid international notation of Australian numbers 
      *                                (eg. +61.3 9999 9999) will return true.
      * @return    bool
      * 
@@ -145,10 +145,10 @@ class Validate_AU
      * 
      * @todo Check that $flags contains a valid flag.
      */
-    function phoneNumber($number, $flags = VALIDATE_AU_PHONE_NATIONAL)
+    function phoneNumber($number, $flags = VALIDATE_AU_PHONENUMBER_NATIONAL)
     {
 
-        if(!($flags & VALIDATE_AU_PHONE_STRICT)) {
+        if(!($flags & VALIDATE_AU_PHONENUMBER_STRICT)) {
             $number = str_replace(
                 array('(', ')', '-', ' '), 
                 '', 
@@ -156,15 +156,15 @@ class Validate_AU
             );
         }
 
-        if($flags & VALIDATE_AU_PHONE_NATIONAL) {
+        if($flags & VALIDATE_AU_PHONENUMBER_NATIONAL) {
              $preg[] = "(0[23478][0-9]{8})";
         }
 
-        if($flags & VALIDATE_AU_PHONE_INDIAL) {
+        if($flags & VALIDATE_AU_PHONENUMBER_INDIAL) {
              $preg[] = "(13[0-9]{4}|1[3|8|9]00[0-9]{6})";
         }
 
-        if($flags & VALIDATE_AU_PHONE_INTERNATIONAL) {
+        if($flags & VALIDATE_AU_PHONENUMBER_INTERNATIONAL) {
              $preg[] = "(\+61\.[23478][0-9]{8})";
         }
 
