@@ -113,7 +113,7 @@ class Validate_AT
     */
     function region($region)
     {
-        $region = str_ireplace("AU","",$region);
+        $region = str_ireplace(array("AU", "-", " "), "", $region);
         
         if (!ctype_digit($region)) {
             return false;
