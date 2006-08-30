@@ -113,11 +113,12 @@ class Validate_AT
     */
     function region($region)
     {
-        $region = str_replace(
-           array("AU","-"," "),
-           "",
-           strtoupper($region));
-            
-       return ($region > 0 && $region < 10);
-   }
+        $region = str_ireplace("AU","",$region);
+        
+        if (!ctype_digit($region)) {
+            return false;
+        }
+        
+        return ($region > 0 && $region < 10);
+    }
 }
