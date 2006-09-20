@@ -48,10 +48,12 @@
   <release>
     <version>0.6.5</version>
     <state>beta</state>
-    <date>2006-08-15</date>
+    <date>2006-09-20</date>
     <notes>
 - __stringToUtf7():
  * #8442, Preventing a Notice
+- email():
+ * #8629, hostnames starting with numbers are valid because of their popularity
     </notes>
     <filelist>
       <dir name="/">
