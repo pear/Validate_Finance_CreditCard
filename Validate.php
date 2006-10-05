@@ -496,7 +496,7 @@ class Validate
                         } else {
                             $hour = Validate::_substr($date, 2);
                         }
-                        if ($hour < 0 || $hour > 12) {
+                        if (!is_int($hour) || $hour < 0 || $hour > 12) {
                             return false;
                         }
                         break;
@@ -507,14 +507,14 @@ class Validate
                         } else {
                             $hour = Validate::_substr($date, 2);
                         }
-                        if ($hour < 0 || $hour > 24) {
+                        if (!is_int($hour) || $hour < 0 || $hour > 24) {
                             return false;
                         }
                         break;
                     case 's':
                     case 'i':
                         $t = Validate::_substr($date, 2);
-                        if ($t < 0 || $t > 59) {
+                        if (!is_int($t) || $t < 0 || $t > 59) {
                             return false;
                         }
                         break;
