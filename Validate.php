@@ -156,7 +156,11 @@ class Validate
                 } elseif (($i == strlen($string) || 
                             !((ord($char) >= 0x7F)) || (ord($char) <= 0x1F))) {
                     if ($state != 1) {
-                        $return .= $utf7[ord($char)];
+                        if (ord($char) > 64) {
+                            $return .= '';
+                        } else {
+                            $return .= $utf7[ord($char)];
+                        }
                     }
                     $return .= '-';
                     $state = 0;
@@ -496,7 +500,7 @@ class Validate
                         } else {
                             $hour = Validate::_substr($date, 2);
                         }
-                        if (!is_int($hour) || $hour < 0 || $hour > 12) {
+                        if (!preg_match('/^\d+$/', $hour) || $hour < 0 || $hour > 12) {
                             return false;
                         }
                         break;
@@ -507,14 +511,14 @@ class Validate
                         } else {
                             $hour = Validate::_substr($date, 2);
                         }
-                        if (!is_int($hour) || $hour < 0 || $hour > 24) {
+                        if (!preg_match('/^\d+$/', $hour) || $hour < 0 || $hour > 24) {
                             return false;
                         }
                         break;
                     case 's':
                     case 'i':
                         $t = Validate::_substr($date, 2);
-                        if (!is_int($t) || $t < 0 || $t > 59) {
+                        if (!preg_match('/^\d+$/', $t) || $t < 0 || $t > 59) {
                             return false;
                         }
                         break;
