@@ -14,12 +14,38 @@ Package containes locale validation for FR such as:
   <license>New BSD</license>
   <maintainers>
     <maintainer>
-      <user>pajoye</user>
+      <user>moosh</user>
       <role>lead</role>
-      <name>Pierre-Alain Joye</name>
-      <email>pajoye@php.net</email>
+      <name>Christophe Gesché</name>
+      <email>moosh@php.net</email>
     </maintainer>
   </maintainers>
+  <release>
+    <version>0.6.0</version>
+    <state>beta</state>
+    <date>2006-10-05</date>
+    <notes>
+     - release in beta
+     - Moosh take lead
+    </notes>
+    <filelist>
+      <dir name="/">
+        <file role="doc" name="LICENSE"/>
+        <dir name="Validate">
+          <file role="php">FR.php</file>
+        </dir>
+        <dir name="tests" role="test">
+          <file>validate_FR.phpt</file>
+          <file>bug7389.phpt</file>
+        </dir>
+      </dir>
+    </filelist>
+    <deps>
+      <dep type="php" rel="ge" version="4.2.0"/>
+      <dep type="pkg" rel="ge" version="0.6.2">Validate</dep>
+    </deps>
+  </release>
+  <changelog>
   <release>
     <version>0.5.2</version>
     <state>alpha</state>
@@ -43,7 +69,6 @@ Package containes locale validation for FR such as:
       <dep type="pkg" rel="ge" version="0.6.2">Validate</dep>
     </deps>
   </release>
-  <changelog>
     <release>
       <version>0.5.1</version>
       <state>alpha</state>
