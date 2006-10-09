@@ -15,6 +15,7 @@
  * Tax File Number
  * Australian Business Number
  * Australian Company Number
+ * Australian Regional Codes
     </description>
     <lead>
         <name>Alex Hayes</name>
@@ -23,12 +24,18 @@
         <active>yes</active>
     </lead>
     <lead>
+        <name>Byron Adams</name>
+        <user>badams</user>
+        <email>byron.adams54@gmail.com</email>
+        <active>yes</active>
+    </lead>
+    <lead>
         <name>Daniel O'Connor</name>
         <user>doconnor</user>
         <email>daniel.oconnor@gmail.com</email>
         <active>no</active>
     </lead>
-    <date>2006-08-23</date>
+    <date>2006-10-10</date>
     <version>
         <release>0.1.0</release>
         <api>0.1.0</api>
@@ -45,18 +52,19 @@
     </notes>
     <contents>
         <dir name="/">
-	        <dir name="Validate/">
+	        <dir name="Validate">
 	            <file name="AU.php" role="php">
 	                <tasks:replace from="@PACKAGE-VER@" to="version" type="package-info"/>
 	                <tasks:replace from="@DATADIR@" to="data_dir" type="pear-config"/>
 	            </file> 
 	        </dir> 
-	        <dir name="tests/">
+	        <dir name="tests">
 	        	<file name="validate_AU.phpt" role="test" />
 	        </dir> 
-	        <dir name="data/">
+	        <dir name="data">
 	        	<file name="AU_postcodes.txt" role="data" />
 	        </dir> 
+	        <file name="LICENSE" role="doc" />
         </dir>
     </contents>
     <dependencies>
@@ -87,7 +95,7 @@
                 <release>alpha</release>
                 <api>alpha</api>
             </stability>
-            <date>2006-08-23</date>
+            <date>2006-10-10</date>
             <license uri="http://www.opensource.org/licenses/bsd-license.php">BSD License</license>
             <notes>
 - Added support for 13,13xx,18xx,19xx and international syntax phone numbers
