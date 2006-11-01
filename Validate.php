@@ -44,8 +44,8 @@ define('VALIDATE_SPACE',        '\s');
 define('VALIDATE_ALPHA_LOWER',  'a-z');
 define('VALIDATE_ALPHA_UPPER',  'A-Z');
 define('VALIDATE_ALPHA',        VALIDATE_ALPHA_LOWER . VALIDATE_ALPHA_UPPER);
-define('VALIDATE_EALPHA_LOWER', VALIDATE_ALPHA_LOWER . 'ביםףתאטלעשהכןצüגךמפûסח‏זנו');
-define('VALIDATE_EALPHA_UPPER', VALIDATE_ALPHA_UPPER . 'ֱֹֽ׃ÚְָּׂÙִֻֿײÜֲÊ־װÛַׁÞֶ׀ֵ');
+define('VALIDATE_EALPHA_LOWER', VALIDATE_ALPHA_LOWER . 'ביםףתאטלעשהכןצüגךמפûסח‏זנו‎');
+define('VALIDATE_EALPHA_UPPER', VALIDATE_ALPHA_UPPER . 'ֱֹֽ׃ÚְָּׂÙִֻֿײÜֲÊ־װÛַׁÞֶ׀ֵÝ');
 define('VALIDATE_EALPHA',       VALIDATE_EALPHA_LOWER . VALIDATE_EALPHA_UPPER);
 define('VALIDATE_PUNCTUATION',  VALIDATE_SPACE . '\.,;\:&"\'\?\!\(\)');
 define('VALIDATE_NAME',         VALIDATE_EALPHA . VALIDATE_SPACE . "'");
@@ -66,7 +66,8 @@ define('VALIDATE_STREET',       VALIDATE_NAME . "/\\÷×\.");
  * @package    Validate
  * @author     Tomas V.V.Cox <cox@idecnet.com>
  * @author     Pierre-Alain Joye <pajoye@php.net>
- * @copyright  1997-2005 Pierre-Alain Joye,Tomas V.V.Cox
+ * @author     Amir Mohammad Saied <amir@php.net>
+ * @copyright  1997-2006 Pierre-Alain Joye,Tomas V.V.Cox,Amir Mohammad Saied
  * @license    http://www.opensource.org/licenses/bsd-license.php  New BSD License
  * @version    Release: @package_version@
  * @link       http://pear.php.net/package/Validate

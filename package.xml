@@ -46,17 +46,12 @@
     </maintainer>
   </maintainers>
   <release>
-    <version>0.6.5</version>
+    <version>0.7.0</version>
     <state>beta</state>
-    <date>2006-10-05</date>
+    <date>2006-11-01</date>
     <notes>
-- __stringToUtf7():
- * #8442, Preventing a Notice
-- email():
- * #8629, hostnames starting with numbers are valid because of their popularity
- * #8853, E-Mail validation allows space before TLD.
-- date():
- * #8851, date-validation allows letters in time.
+- string():
+ * New chars in VALIDATE_EALPHA_LOWER and UPPER
     </notes>
     <filelist>
       <dir name="/">
@@ -82,6 +77,20 @@
     </deps>
   </release>
   <changelog>
+    <release>
+      <version>0.6.5</version>
+      <state>beta</state>
+      <date>2006-10-05</date>
+      <notes>
+- __stringToUtf7():
+ * #8442, Preventing a Notice
+- email():
+ * #8629, hostnames starting with numbers are valid because of their popularity
+ * #8853, E-Mail validation allows space before TLD.
+- date():
+ * #8851, date-validation allows letters in time.
+      </notes>
+    </release>
     <release>
       <version>0.6.4</version>
       <state>beta</state>
