@@ -434,6 +434,7 @@ class Validate
      * @param string    $date   Date to validate
      * @param array     $options array options where :
      *                          'format' The format of the date (%d-%m-%Y)
+     *                                   or rfc822_compliant
      *                          'min' The date has to be greater
      *                                than this array($day, $month, $year)
      *                                or PEAR::Date object
@@ -453,84 +454,99 @@ class Validate
             extract($options);
         }
 
-        $date_len = strlen($format);
-        for ($i = 0; $i < $date_len; $i++) {
-            $c = $format{$i};
-            if ($c == '%') {
-                $next = $format{$i + 1};
-                switch ($next) {
-                    case 'j':
-                    case 'd':
-                        if ($next == 'j') {
-                            $day = (int)Validate::_substr($date, 1, 2);
-                        } else {
-                            $day = (int)Validate::_substr($date, 2);
-                        }
-                        if ($day < 1 || $day > 31) {
-                            return false;
-                        }
-                        break;
-                    case 'm':
-                    case 'n':
-                        if ($next == 'm') {
-                            $month = (int)Validate::_substr($date, 2);
-                        } else {
-                            $month = (int)Validate::_substr($date, 1, 2);
-                        }
-                        if ($month < 1 || $month > 12) {
-                            return false;
-                        }
-                        break;
-                    case 'Y':
-                    case 'y':
-                        if ($next == 'Y') {
-                            $year = Validate::_substr($date, 4);
-                            $year = (int)$year?$year:'';
-                        } else {
-                            $year = (int)(substr(date('Y'), 0, 2) .
-                                          Validate::_substr($date, 2));
-                        }
-                        if (strlen($year) != 4 || $year < 0 || $year > 9999) {
-                            return false;
-                        }
-                        break;
-                    case 'g':
-                    case 'h':
-                        if ($next == 'g') {
-                            $hour = Validate::_substr($date, 1, 2);
-                        } else {
-                            $hour = Validate::_substr($date, 2);
-                        }
-                        if (!preg_match('/^\d+$/', $hour) || $hour < 0 || $hour > 12) {
-                            return false;
-                        }
-                        break;
-                    case 'G':
-                    case 'H':
-                        if ($next == 'G') {
-                            $hour = Validate::_substr($date, 1, 2);
-                        } else {
-                            $hour = Validate::_substr($date, 2);
-                        }
-                        if (!preg_match('/^\d+$/', $hour) || $hour < 0 || $hour > 24) {
-                            return false;
-                        }
-                        break;
-                    case 's':
-                    case 'i':
-                        $t = Validate::_substr($date, 2);
-                        if (!preg_match('/^\d+$/', $t) || $t < 0 || $t > 59) {
-                            return false;
-                        }
-                        break;
-                    default:
-                        trigger_error("Not supported char `$next' after % in offset " . ($i+2), E_USER_WARNING);
-                }
-                $i++;
+        if (strtolower($format) == 'rfc822_compliant') {
+            $preg = '&^(?:(Mon|Tue|Wed|Thu|Fri|Sat|Sun),) \s+
+                    (?:\d\d) \s+
+                    (?:Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec) \s+
+                    (?:\d\d(\d\d)?) \s+
+                    (?:\d\d):(?:\d\d)(:(?:\d\d))? \s+
+                    (?:([+-]\d\d\d\d)|UT|GMT|EST|EDT|CST|CDT|MST|MDT|PST|PDT|[A-IK-Za-ik-z])$&xi';
+
+            if (!preg_match($preg, $date)) {
+                return false;
             } else {
-                //literal
-                if (Validate::_substr($date, 1) != $c) {
-                    return false;
+                return true;
+            }
+        } else {
+            $date_len = strlen($format);
+            for ($i = 0; $i < $date_len; $i++) {
+                $c = $format{$i};
+                if ($c == '%') {
+                    $next = $format{$i + 1};
+                    switch ($next) {
+                        case 'j':
+                        case 'd':
+                            if ($next == 'j') {
+                                $day = (int)Validate::_substr($date, 1, 2);
+                            } else {
+                                $day = (int)Validate::_substr($date, 2);
+                            }
+                            if ($day < 1 || $day > 31) {
+                                return false;
+                            }
+                            break;
+                        case 'm':
+                        case 'n':
+                            if ($next == 'm') {
+                                $month = (int)Validate::_substr($date, 2);
+                            } else {
+                                $month = (int)Validate::_substr($date, 1, 2);
+                            }
+                            if ($month < 1 || $month > 12) {
+                                return false;
+                            }
+                            break;
+                        case 'Y':
+                        case 'y':
+                            if ($next == 'Y') {
+                                $year = Validate::_substr($date, 4);
+                                $year = (int)$year?$year:'';
+                            } else {
+                                $year = (int)(substr(date('Y'), 0, 2) .
+                                              Validate::_substr($date, 2));
+                            }   
+                            if (strlen($year) != 4 || $year < 0 || $year > 9999) {
+                                return false;
+                            }
+                            break;
+                        case 'g':
+                        case 'h':
+                            if ($next == 'g') {
+                                $hour = Validate::_substr($date, 1, 2);
+                            } else {
+                                $hour = Validate::_substr($date, 2);
+                            }
+                            if (!preg_match('/^\d+$/', $hour) || $hour < 0 || $hour > 12) {
+                                return false;
+                            }
+                            break;
+                        case 'G':
+                        case 'H':
+                            if ($next == 'G') {
+                                $hour = Validate::_substr($date, 1, 2);
+                            } else {
+                                $hour = Validate::_substr($date, 2);
+                            }
+                            if (!preg_match('/^\d+$/', $hour) || $hour < 0 || $hour > 24) {
+                                return false;
+                            }
+                            break;
+                        case 's':
+                        case 'i':
+                            $t = Validate::_substr($date, 2);
+                            if (!preg_match('/^\d+$/', $t) || $t < 0 || $t > 59) {
+                                return false;
+                            }
+                            break;
+                        default:
+                            trigger_error("Not supported char `$next' after % in offset " . ($i+2), E_USER_WARNING);
+                    }
+                    $i++;
+                } else {
+                    //literal
+                    if (Validate::_substr($date, 1) != $c) {
+                        return false;
+                    }
                 }
             }
         }
