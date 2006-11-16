@@ -1,7 +1,7 @@
 <?php
 /* vim: set expandtab tabstop=4 shiftwidth=4: */
 // +----------------------------------------------------------------------+
-// | Copyright (c) 1997-2005 Pierre-Alain Joye,Tomas V.V.Cox              |
+// | Copyright (c) 1997-2006 Pierre-Alain Joye,Tomas V.V.Cox, Amir Saied  |
 // +----------------------------------------------------------------------+
 // | This source file is subject to the New BSD license, That is bundled  |
 // | with this package in the file LICENSE, and is available through      |
@@ -13,6 +13,7 @@
 // +----------------------------------------------------------------------+
 // | Author: Tomas V.V.Cox  <cox@idecnet.com>                             |
 // |         Pierre-Alain Joye <pajoye@php.net>                           |
+// |         Amir Mohammad Saied <amir@php.net>                           |
 // +----------------------------------------------------------------------+
 //
 /**
@@ -22,7 +23,7 @@
  *   - numbers (min/max, decimal or not)
  *   - email (syntax, domain check)
  *   - string (predifined type alpha upper and/or lowercase, numeric,...)
- *   - date (min, max)
+ *   - date (min, max, rfc822 compliant)
  *   - uri (RFC2396)
  *   - possibility valid multiple data with a single method call (::multiple)
  *
@@ -30,7 +31,8 @@
  * @package    Validate
  * @author     Tomas V.V.Cox <cox@idecnet.com>
  * @author     Pierre-Alain Joye <pajoye@php.net>
- * @copyright  1997-2005 Pierre-Alain Joye,Tomas V.V.Cox
+ * @author     Amir Mohammad Saied <amir@php.net>
+ * @copyright  1997-2006 Pierre-Alain Joye,Tomas V.V.Cox,Amir Mohammad Saied
  * @license    http://www.opensource.org/licenses/bsd-license.php  New BSD License
  * @version    CVS: $Id$
  * @link       http://pear.php.net/package/Validate
