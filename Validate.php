@@ -456,17 +456,23 @@ class Validate
 
         if (strtolower($format) == 'rfc822_compliant') {
             $preg = '&^(?:(Mon|Tue|Wed|Thu|Fri|Sat|Sun),) \s+
-                    (?:\d\d) \s+
-                    (?:Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec) \s+
-                    (?:\d\d(\d\d)?) \s+
-                    (?:\d\d):(?:\d\d)(:(?:\d\d))? \s+
-                    (?:([+-]\d\d\d\d)|UT|GMT|EST|EDT|CST|CDT|MST|MDT|PST|PDT|[A-IK-Za-ik-z])$&xi';
+                    (?:(\d{2})?) \s+
+                    (?:(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)?) \s+
+                    (?:(\d{2}(\d{2})?)?) \s+
+                    (?:\d{2}):(?:\d{2})(:(?:\d{2}))? \s+
+                    (?:[+-]\d{4}|UT|GMT|EST|EDT|CST|CDT|MST|MDT|PST|PDT|[A-IK-Za-ik-z])$&xi';
 
-            if (!preg_match($preg, $date)) {
+            if (!preg_match($preg, $date, $matches)) {
                 return false;
-            } else {
-                return true;
             }
+
+            $year   = $matches[4];
+            $months = array('Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
+                            'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec');
+            $month  = array_keys($months, $matches[3]);
+            $month  = $month[0]+1;
+            $day    = $matches[2];
+            $weekday= $matches[1];
         } else {
             $date_len = strlen($format);
             for ($i = 0; $i < $date_len; $i++) {
@@ -551,13 +557,19 @@ class Validate
             }
         }
         // there is remaing data, we don't want it
-        if (strlen($date)) {
+        if (strlen($date) && (strtolower($format) != 'rfc822_compliant')) {
             return false;
         }
 
         if (isset($day) && isset($month) && isset($year)) {
             if (!checkdate($month, $day, $year)) {
                 return false;
+            }
+
+            if (strtolower($format) == 'rfc822_compliant') {
+                if ($weekday != date("D", mktime(0, 0, 0, $month, $day, $year))) {
+                    return false;
+                }
             }
 
             if ($min) {
