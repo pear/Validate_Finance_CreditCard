@@ -461,20 +461,31 @@ class Validate
                     (?:(\d{2})?) \s+
                     (?:(Jan|Feb|Mar|Apr|May|Jun|Jul|Aug|Sep|Oct|Nov|Dec)?) \s+
                     (?:(\d{2}(\d{2})?)?) \s+
-                    (?:\d{2}):(?:\d{2})(:(?:\d{2}))? \s+
+                    (?:(\d{2}?)):(?:(\d{2}?))(:(?:(\d{2}?)))? \s+
                     (?:[+-]\d{4}|UT|GMT|EST|EDT|CST|CDT|MST|MDT|PST|PDT|[A-IK-Za-ik-z])$&xi';
 
             if (!preg_match($preg, $date, $matches)) {
                 return false;
             }
 
-            $year   = $matches[4];
+            $year   = (int)$matches[4];
             $months = array('Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
                             'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec');
             $month  = array_keys($months, $matches[3]);
-            $month  = $month[0]+1;
-            $day    = $matches[2];
+            $month  = (int)$month[0]+1;
+            $day    = (int)$matches[2];
             $weekday= $matches[1];
+            $hour   = (int)$matches[6];
+            $minute = (int)$matches[7];
+            isset($matches[9]) ? $second = (int)$matches[9] : $second = 0;
+
+            if ((strlen($year) != 4)        ||
+                ($day    > 31   || $day < 1)||
+                ($hour   > 23)  ||
+                ($minute > 59)  ||
+                ($second > 59)) {
+                    return false;
+            }
         } else {
             $date_len = strlen($format);
             for ($i = 0; $i < $date_len; $i++) {
