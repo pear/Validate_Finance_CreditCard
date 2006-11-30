@@ -21,6 +21,18 @@ Package containes locale validation for Belgium such as:
     <name>Christophe Gesch&#233;</name>
     <email>moosh@claroline.net</email>
   </maintainer>
+  <maintainer>
+    <user>zefredz</user>
+    <role>helper</role>
+    <name>Frederic Minne</name>
+    <email>zefredz@php.net</email>
+  </maintainer>
+  <maintainer>
+    <user>toggg</user>
+    <role>lead</role>
+    <name>bertrand Gugger</name>
+    <email>toggg@php.net</email>
+  </maintainer>
  </maintainers>
  <release>
   <version>0.1.3</version>

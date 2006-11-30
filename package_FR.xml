@@ -16,8 +16,14 @@ Package containes locale validation for FR such as:
     <maintainer>
       <user>moosh</user>
       <role>lead</role>
-      <name>Christophe Gesché</name>
+      <name>Christophe Gesch&#233;</name>
       <email>moosh@php.net</email>
+    </maintainer>
+    <maintainer>
+      <user>toggg</user>
+      <role>lead</role>
+      <name>bertrand Gugger</name>
+      <email>toggg@php.net</email>
     </maintainer>
   </maintainers>
   <release>
