@@ -41,6 +41,9 @@ Attention, this release has a BC break:
       <dir name="/">
         <file role="doc" name="LICENSE"/>
         <dir name="Validate">
+          <dir name="UK">
+            <file role="php">carReg.php</file>
+          </dir>
           <file role="php">UK.php</file>
         </dir>
         <dir name="tests" role="test">
