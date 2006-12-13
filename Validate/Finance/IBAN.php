@@ -528,7 +528,7 @@ class Validate_Finance_IBAN
             return PEAR::raiseError($this->errorMessage($this->_errorcode), $this->_errorcode, PEAR_ERROR_TRIGGER, E_USER_WARNING, $this->errorMessage($this->_errorcode)." in VALIDATE_FINANCE_IBAN::getBankaccount()");
         } else {
             $_iban_countrycode_bankaccount = Validate_Finance_IBAN::_getCountrycodeBankaccount();
-            $currCountrycodeBankaccount = $_iban_countrycode_bankaccount[ substr($iban,0,2) ];
+            $currCountrycodeBankaccount = $_iban_countrycode_bankaccount[ substr($this->_iban,0,2) ];
             return substr($this->_iban, $currCountrycodeBankaccount['start'], $currCountrycodeBankaccount['length']);
         }
     } // end func getAccount
