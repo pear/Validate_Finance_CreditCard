@@ -56,7 +56,6 @@ class Validate_PL
      *
      * Sprawdza NIP (Numer Identyfikacji Podatkowej)
      * http://chemeng.p.lodz.pl/zylla/ut/nip-rego.html
-     * http://www.republika.pl/stepa/cyfra2.htm
      *
      * @param string $nip 9-digit number to validate
      * @returns bool
@@ -104,7 +103,7 @@ class Validate_PL
     /**
      * Validates PESEL (Polish human identification number)
      *
-     * Sprawdza PESEL (Powszechny Elektroniczny System Ewidencji Ludno¶ci)
+     * Sprawdza PESEL (Powszechny Elektroniczny System Ewidencji Ludnoci)
      * http://www.mswia.gov.pl/crp_pesel.html
      * NOTE: some people can have the same PESEL, and some can have
      * PESEL with wrong numbers in place of birth date.
