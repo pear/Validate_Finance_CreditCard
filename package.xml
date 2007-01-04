@@ -20,18 +20,6 @@
     - possibility valid multiple data with a single method call (::multiple)
   </description>
   <lead>
-    <name>Amir Mohammad Saied</name>
-    <user>amir</user>
-    <email>amir@php.net</email>
-    <active>yes</active>
-  </lead>
-  <lead>
-    <name>bertrand Gugger</name>
-    <user>toggg</user>
-    <email>toggg@php.net</email>
-    <active>no</active> <!-- so long amir does not validate me back -->
-  </lead>
-  <lead>
     <name>Tomas V.V.Cox</name>
     <user>cox</user>
     <email>cox@php.net</email>
@@ -48,6 +36,12 @@
     <user>dufuz</user>
     <email>dufuz@php.net</email>
     <active>no</active>
+  </lead>
+  <lead>
+    <name>Amir Mohammad Saied</name>
+    <user>amir</user>
+    <email>amir@php.net</email>
+    <active>yes</active>
   </lead>
   <lead>
     <name>David Coallier</name>
