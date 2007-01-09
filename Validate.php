@@ -350,7 +350,7 @@ class Validate
      * option, like this:
      * <code>
      * $options = array('allowed_schemes' => array('http', 'https', 'ftp'))
-     * var_dump(Validate::uri('http://www.example.org'), $options);
+     * var_dump(Validate::uri('http://www.example.org', $options));
      * </code>
      *
      * NOTE 1: The rfc2396 normally allows middle '-' in the top domain
