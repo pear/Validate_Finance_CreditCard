@@ -5,6 +5,7 @@
   <description>
 Package to validate Finance data. It includes :
  * IBAN
+ * ISIN
   </description>
   <license>New BSD</license>
   <maintainers>
@@ -14,14 +15,21 @@ Package to validate Finance data. It includes :
       <name>Stefan Neufeind</name>
       <email>pear.neufeind@speedpartner.de</email>
     </maintainer>
+    <maintainer>
+      <user>wormus</user>
+      <role>lead</role>
+      <name>Aaron Wormus</name>
+      <email>wormus@php.net</email>
+    </maintainer>
    </maintainers>
   <release>
-    <version>0.5.3</version>
+    <version>0.5.4</version>
     <state>alpha</state>
-    <date>2006-06-09</date>
+    <date>2007-01-23</date>
     <notes>
-- added IBAN-check for Bulgaria
-- extended and corrected tests
+
+- added ISIN validation (thanks to Stephan Jakoubek)
+
     </notes>
     <filelist>
     <dir name="/">
@@ -30,9 +38,11 @@ Package to validate Finance data. It includes :
         <file role="php">Finance.php</file>
         <dir name="Finance">
             <file role="php">IBAN.php</file>
+            <file role="php">ISIN.php</file>
         </dir>
       </dir>
       <dir name="tests" role="test">
+        <file>validate_ISIN.phpt</file>
         <file>validate_Finance.phpt</file>
       </dir>
     </dir>
@@ -43,6 +53,25 @@ Package to validate Finance data. It includes :
     </deps>
   </release>
   <changelog>
+    <release>
+      <version>0.5.4</version>
+      <state>alpha</state>
+      <date>2007-01-23</date>
+      <notes>
+
+- added ISIN validation (thanks to Stephan Jakoubek)
+
+      </notes>
+    </release>
+    <release>
+      <version>0.5.3</version>
+      <state>alpha</state>
+      <date>2006-06-09</date>
+      <notes>
+- added IBAN-check for Bulgaria
+- extended and corrected tests
+      </notes>
+    </release>
     <release>
       <version>0.5.2</version>
       <state>alpha</state>
