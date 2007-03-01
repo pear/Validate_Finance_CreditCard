@@ -53,6 +53,11 @@ define('VALIDATE_PUNCTUATION',  VALIDATE_SPACE . '\.,;\:&"\'\?\!\(\)');
 define('VALIDATE_NAME',         VALIDATE_EALPHA . VALIDATE_SPACE . "'" . "-");
 define('VALIDATE_STREET',       VALIDATE_NUM . VALIDATE_NAME . "/\\ºª\.");
 
+define('VALIDATE_ITLD_EMAILS',  1);
+define('VALIDATE_GTLD_EMAILS',  2);
+define('VALIDATE_CCTLD_EMAILS', 4);
+define('VALIDATE_ALL_EMAILS',   8);
+
 /**
  * Validation class
  *
@@ -76,6 +81,131 @@ define('VALIDATE_STREET',       VALIDATE_NUM . VALIDATE_NAME . "/\\ºª\.");
  */
 class Validate
 {
+    /**
+     * International Top-Level Domain
+     *
+     * This is an array of the known international
+     * top-level domain names.
+     *
+     * @access protected
+     * @var    array     $_iTld (International top-level domains)
+     */
+    var $_iTld = array(
+            'arpa',
+            'root',
+            );
+
+    /**
+     * Generic top-level domain
+     *
+     * This is an array of the official 
+     * generic top-level domains.
+     *
+     * @access protected
+     * @var    array     $_gTld (Generic top-level domains)
+     */
+    var $_gTld = array(
+        'aero',
+        'biz',
+        'cat',
+        'com',
+        'coop',
+        'edu',
+        'gov',
+        'info',
+        'int',
+        'jobs',
+        'mil',
+        'mobi',
+        'museum',
+        'name',
+        'net',
+        'org',
+        'pro',
+        'travel',
+        'asia',
+        'post',
+        'tel',
+        'geo',
+    );
+
+    /**
+     * Country code top-level domains
+     *
+     * This is an array of the official country
+     * codes top-level domains
+     *
+     * @access protected
+     * @var    array     $_ccTld (Country Code Top-Level Domain)
+     */
+    var $_ccTld = array(
+        'ac',
+        'ad','ae','af','ag',
+        'ai','al','am','an',
+        'ao','aq','ar','as',
+        'at','au','aw','ax',
+        'az','ba','bb','bd',
+        'be','bf','bg','bh',
+        'bi','bj','bm','bn',
+        'bo','br','bs','bt',
+        'bu','bv','bw','by',
+        'bz','ca','cc','cd',
+        'cf','cg','ch','ci',
+        'ck','cl','cm','cn',
+        'co','cr','cs','cu',
+        'cv','cx','cy','cz',
+        'de','dj','dk','dm',
+        'do','dz','ec','ee',
+        'eg','eh','er','es',
+        'et','eu','fi','fj',
+        'fk','fm','fo','fr',
+        'ga','gb','gd','ge',
+        'gf','gg','gh','gi',
+        'gl','gm','gn','gp',
+        'gq','gr','gs','gt',
+        'gu','gw','gy','hk',
+        'hm','hn','hr','ht',
+        'hu','id','ie','il',
+        'im','in','io','iq',
+        'ir','is','it','je',
+        'jm','jo','jp','ke',
+        'kg','kh','ki','km',
+        'kn','kp','kr','kw',
+        'ky','kz','la','lb',
+        'lc','li','lk','lr',
+        'ls','lt','lu','lv',
+        'ly','ma','mc','md',
+        'me','mg','mh','mk',
+        'ml','mm','mn','mo',
+        'mp','mq','mr','ms',
+        'mt','mu','mv','mw',
+        'mx','my','mz','na',
+        'nc','ne','nf','ng',
+        'ni','nl','no','np',
+        'nr','nu','nz','om',
+        'pa','pe','pf','pg',
+        'ph','pk','pl','pm',
+        'pn','pr','ps','pt',
+        'pw','py','qa','re',
+        'ro','rs','ru','rw',
+        'sa','sb','sc','sd',
+        'se','sg','sh','si',
+        'sj','sk','sl','sm',
+        'sn','so','sr','st',
+        'su','sv','sy','sz',
+        'tc','td','tf','tg',
+        'th','tj','tk','tl',
+        'tm','tn','to','tp',
+        'tr','tt','tv','tw',
+        'tz','ua','ug','uk',
+        'us','uy','uz','va',
+        'vc','ve','vg','vi',
+        'vn','vu','wf','ws',
+        'ye','yt','yu','za',
+        'zm','zw',
+    );
+
+
     /**
      * Validate a number
      *
@@ -263,6 +393,75 @@ class Validate
     }
 
     /**
+     * Full TLD Validation function
+     *
+     * This function is used to make a much more proficient validation
+     * against all types of official domain names. 
+     *
+     * @access protected
+     * @param  string    $email    The email address to check.
+     * @param  array     $options  The options for validation
+     * @return bool      True if validating succeeds
+     */
+    function _fullTLDValidation($email, $options)
+    {
+        if (!is_array($options)) {
+            return false;
+        }
+        
+        $validate = array();
+
+        switch ($options['tld']) {
+            /** 1 */
+            case VALIDATE_ITLD_EMAILS:
+                array_push($validate, 'itld');
+                break;
+
+            /** 2 */
+            case VALIDATE_GTLD_EMAILS:
+                array_push($validate, 'gtld');
+                break;
+
+            /** 3 */
+            case VALIDATE_ITLD_EMAILS | VALIDATE_GTLD_EMAILS:
+                array_push($validate, 'itld');
+                array_push($validate, 'gtld');
+                break;
+
+            /** 4 */
+            case VALIDATE_CCTLD_EMAILS:
+                array_push($validate, 'cctld');
+                break;
+
+            /** 5 */
+            case VALIDATE_CCTLD_EMAILS | VALIDATE_ITLD_EMAILS:
+                array_push($validate, 'cctld');
+                array_push($validate, 'itld');
+                break;
+
+            /** 6 */
+            case VALIDATE_CCTLD_EMAILS ^ VALIDATE_ITLD_EMAILS:
+                array_push($validate, 'cctld');
+                array_push($validate, 'itld');
+                break;
+
+            case VALIDATE_CCTLD_EMAILS | VALIDATE_ITLD_EMAILS | VALIDATE_GTLD_EMAILS:
+            case VALIDATE_ALL_EMAILS:
+                array_push($validate, 'cctld');
+                array_push($validate, 'itld');
+                array_push($validate, 'gtld');
+                break;
+        }
+
+        /**
+         * Debugging still, not implemented but code is somewhat here.
+         */
+        return true;
+
+        
+    }
+
+    /**
      * Validate an email
      *
      * @param string $email email to validate
@@ -284,6 +483,18 @@ class Validate
         } elseif (is_array($options)) {
             extract($options);
         }
+
+        /**
+
+        if (is_array($fullTLDValidation)) {
+            $valid = $this->_fullTLDValidation($email, $fullTLDValidation);
+
+            if (!$valid) {
+                return false;
+            }
+        }
+        
+        */
 
         // the base regexp for address
         $regex = '&^(?:                                               # recipient:
