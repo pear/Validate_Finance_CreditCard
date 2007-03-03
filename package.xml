@@ -49,6 +49,12 @@
     <email>davidc@php.net</email>
     <active>yes</active>
   </lead>
+  <lead>
+    <user>toggg</user>
+    <name>bertrand Gugger</name>
+    <email>toggg at php dot net</email>
+    <active>yes</active>
+  </lead>
   <developer>
     <name>Stefan Neufeind</name>
     <user>neufeind</user>
