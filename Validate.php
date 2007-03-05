@@ -90,10 +90,10 @@ class Validate
      * @access protected
      * @var    array     $_iTld (International top-level domains)
      */
-    var $_iTld = array(
+    var $_itld = array(
             'arpa',
             'root',
-            );
+    );
 
     /**
      * Generic top-level domain
@@ -104,7 +104,7 @@ class Validate
      * @access protected
      * @var    array     $_gTld (Generic top-level domains)
      */
-    var $_gTld = array(
+    var $_gtld = array(
         'aero',
         'biz',
         'cat',
@@ -138,7 +138,7 @@ class Validate
      * @access protected
      * @var    array     $_ccTld (Country Code Top-Level Domain)
      */
-    var $_ccTld = array(
+    var $_cctld = array(
         'ac',
         'ad','ae','af','ag',
         'ai','al','am','an',
@@ -445,6 +445,7 @@ class Validate
                 array_push($validate, 'itld');
                 break;
 
+            /** 7 - 8 */
             case VALIDATE_CCTLD_EMAILS | VALIDATE_ITLD_EMAILS | VALIDATE_GTLD_EMAILS:
             case VALIDATE_ALL_EMAILS:
                 array_push($validate, 'cctld');
@@ -456,10 +457,50 @@ class Validate
         /**
          * Debugging still, not implemented but code is somewhat here.
          */
-        return true;
+        $self =& $this;
 
-        
+        if (!is_a($this, 'Validate')) {
+            $self = new Validate;
+        }
+
+        $toValidate = array();
+
+        foreach ($validate as $valid) {
+            $tmpVar = '_' . (string)$valid;
+            $toValidate[$valid] = $this->{$tmpVar};
+        }
+
+
+        $e = $this->_executeFullEmailValidation($email, $toValidate);
+        return $e;
     }
+
+
+    // {{{ protected function _executeFullEmailValidation
+    /**
+     * Execute the validation
+     *
+     * This function will execute the full email vs tld
+     * validation using an array of tlds passed to it.
+     *
+     * @access public
+     * @param  string $email       The email to validate.
+     * @param  array  $arrayOfTLDs The array of the TLDs to validate
+     * @return true or false (Depending on if it validates or if it does not)
+     */
+    function _executeFullEmailValidation($email, $arrayOfTLDs)
+    {
+        $emailEnding = explode('.', $email);
+        $emailEnding = $emailEnding[count($emailEnding)-1];
+
+        foreach ($arrayOfTLDs as $validator => $keys) {
+            if (in_array($emailEnding, $keys)) {
+                return true;
+            }
+        }
+        return false;
+    }
+    // }}}
 
     /**
      * Validate an email
@@ -484,8 +525,6 @@ class Validate
             extract($options);
         }
 
-        /**
-
         if (is_array($fullTLDValidation)) {
             $valid = $this->_fullTLDValidation($email, $fullTLDValidation);
 
@@ -493,8 +532,6 @@ class Validate
                 return false;
             }
         }
-        
-        */
 
         // the base regexp for address
         $regex = '&^(?:                                               # recipient:
