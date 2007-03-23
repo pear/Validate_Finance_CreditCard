@@ -1,0 +1,117 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<package packagerversion="1.4.11" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0     http://pear.php.net/dtd/tasks-1.0.xsd     http://pear.php.net/dtd/package-2.0     http://pear.php.net/dtd/package-2.0.xsd">
+ <name>Validate_FI</name>
+ <channel>pear.php.net</channel>
+ <summary>Validation class for Finland</summary>
+ <description>Package containes locale validation for Finland such as:
+ * Postal Code
+ * Telephone Number
+ * Car License Plate Number
+ * Motorbike License Plate Number
+ * Personal Identity Number (HETU)
+ * Unique Identification Number (SATU)
+ * Business ID Number (Y-tunnus)
+ * Party Identification Number (OVT-tunnus)
+ * Value Added Tax Number (ALV-numero)
+ * Bank Account Number (tilinumero)
+ * Bank Reference Number (viitenumero)
+ * Credit Card Number
+ </description>
+ <lead>
+  <name>Jani Mikkonen</name>
+  <user>janisto</user> 
+  <email>jani@mikkonen.info</email>
+  <active>yes</active>
+ </lead>
+ <date>2006-11-08</date>
+ <version>
+  <release>0.2.0</release>
+  <api>0.2.0</api>
+ </version>
+ <stability>
+  <release>alpha</release>
+  <api>alpha</api>
+ </stability>
+ <license uri="http://www.opensource.org/licenses/bsd-license.php">New BSD</license>
+ <notes>
+   - BC break: Renamed carReg() to carLicensePlate()
+   - BC break: Renamed bikeReg() to bikeLicensePlate()
+   - BC break: pin() retuns array containing gender and date of birth if optional param is true
+   - Fixed some typos and rewrote parts of the code
+   - Added unit tests for all public methods
+   - Proper API documentation
+   - Change package.xml to version 2
+   - Removed str_pad extension requirement (typo)
+ </notes>
+ <contents>
+  <dir name="/">
+   <file name="Validate/FI.php" role="php">
+    <tasks:replace from="@package_version@" to="version" type="package-info" />
+   </file>
+   <file name="tests/validate_FI_postalCode.phpt" role="test" />
+   <file name="tests/validate_FI_phoneNumber.phpt" role="test" />
+   <file name="tests/validate_FI_carLicensePlate.phpt" role="test" />
+   <file name="tests/validate_FI_bikeLicensePlate.phpt" role="test" />
+   <file name="tests/validate_FI_pin.phpt" role="test" />
+   <file name="tests/validate_FI_finuid.phpt" role="test" />
+   <file name="tests/validate_FI_businessId.phpt" role="test" />
+   <file name="tests/validate_FI_partyId.phpt" role="test" />
+   <file name="tests/validate_FI_vatNumber.phpt" role="test" />
+   <file name="tests/validate_FI_bankAccount.phpt" role="test" />
+   <file name="tests/validate_FI_refNum.phpt" role="test" />
+   <file name="tests/validate_FI_creditCard.phpt" role="test" />
+   <file name="LICENSE" role="doc" />
+  </dir>
+ </contents>
+ <dependencies>
+  <required>
+   <php>
+    <min>4.0.1</min>
+   </php>
+   <pearinstaller>
+    <min>1.4.0</min>
+   </pearinstaller>
+  </required>
+ </dependencies>
+ <phprelease />
+ <changelog>
+  <release>
+   <version>
+    <release>0.2.0</release>
+    <api>0.2.0</api>
+   </version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api>
+   </stability>
+   <date>2006-11-08</date>
+   <license uri="http://www.opensource.org/licenses/bsd-license.php">New BSD</license>
+   <notes>
+   - BC break: Renamed carReg() to carLicensePlate()
+   - BC break: Renamed bikeReg() to bikeLicensePlate()
+   - BC break: pin() retuns array containing gender and date of birth if optional param is true
+   - Fixed some typos and rewrote parts of the code
+   - Added unit tests for all public methods
+   - Proper API documentation
+   - Change package.xml to version 2
+   - Removed str_pad extension requirement (typo)
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>0.1.0</release>
+    <api>0.1.0</api>
+   </version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api>
+   </stability>
+   <date>2006-10-26</date>
+   <license uri="http://www.opensource.org/licenses/bsd-license.php">New BSD</license>
+   <notes>
+   - Initial release
+   </notes>
+  </release>
+
+ </changelog>
+</package>
