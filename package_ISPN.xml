@@ -16,7 +16,7 @@ http://pear.php.net/dtd/package-2.0.xsd">
  * EAN14
  * UCC12
  * SSCC
-  
+
  </description>
  <lead>
   <name>Helgi Þormar</name>
@@ -41,8 +41,8 @@ http://pear.php.net/dtd/package-2.0.xsd">
   <api>alpha</api>
  </stability>
  <license>New BSD</license>
- <notes>- Fixd Bug #7607 - isbn13 now works properly in isbn() function. (Pitor)
-    
+ <notes>- Fixed Bug #7607 - isbn13 now works properly in isbn() function. (Pitor)
+
  </notes>
  <contents>
   <dir name="/">
@@ -86,7 +86,7 @@ http://pear.php.net/dtd/package-2.0.xsd">
    <notes>- ISRC (International Standard Recording Code) added by the courtesy of David Grant [david at grant dot org dot uk]
 - ISBN13 added, the isbn() function is used at all times and will figure out if it should validate against isbn10 or isbn13
 - Piotr Klaban added as lead
-     
+
    </notes>
   </release>
   <release>
@@ -102,7 +102,7 @@ http://pear.php.net/dtd/package-2.0.xsd">
    <license>New BSD</license>
    <notes>- Switch to the new BSD License
 (see http://www.opensource.org/licenses/bsd-license.php)
-      
+
    </notes>
   </release>
   <release>
@@ -119,7 +119,7 @@ http://pear.php.net/dtd/package-2.0.xsd">
    <notes>- Split from Validate into independent package
 - CS fixes
 - Added product_numbers test (tests for ISSN, EAN8, EAN13, EAN14, UCC12 and SSCC)
-      
+
    </notes>
   </release>
  </changelog>
