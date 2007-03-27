@@ -22,6 +22,12 @@ Package containes locale validation for UK such as:
       <email>pajoye@php.net</email>
     </maintainer>
     <maintainer>
+      <user>dufuz</user>
+      <role>lead</role>
+      <name>Helgi Thormar</name>
+      <email>dufuz@php.net</email>
+    </maintainer>
+    <maintainer>
       <user>pookey</user>
       <role>lead</role>
       <name>Ian P. Christian</name>
@@ -29,13 +35,13 @@ Package containes locale validation for UK such as:
     </maintainer>
   </maintainers>
   <release>
-    <version>0.5.2</version>
+    <version>0.5.3</version>
     <state>alpha</state>
-    <date>2005-04-17</date>
+    <date>2007-03-27</date>
     <notes>
-Attention, this release has a BC break:
-- tel renamed to phoneNumber to confirm to the Validate standard
-- faster regexp for the postal code
+- #5983, shorter regexp, tests pass (Ian)
+- update tests to match the normalized API (Ian)
+- Better vehicle registration number validation (Ian)
     </notes>
     <filelist>
       <dir name="/">
@@ -56,6 +62,33 @@ Attention, this release has a BC break:
     </deps>
   </release>
   <changelog>
+   <release>
+     <version>0.5.2</version>
+     <state>alpha</state>
+     <date>2005-04-17</date>
+     <notes>
+Attention, this release has a BC break:
+- tel renamed to phoneNumber to confirm to the Validate standard
+- faster regexp for the postal code
+     </notes>
+     <filelist>
+      <dir name="/">
+        <file role="doc" name="LICENSE"/>
+        <dir name="Validate">
+          <dir name="UK">
+            <file role="php">carReg.php</file>
+          </dir>
+          <file role="php">UK.php</file>
+        </dir>
+        <dir name="tests" role="test">
+          <file>validate_UK.phpt</file>
+        </dir>
+      </dir>
+     </filelist>
+     <deps>
+      <dep type="php" rel="ge" version="4.2.0"/>
+     </deps>
+    </release>
     <release>
       <version>0.5.1</version>
       <state>alpha</state>
