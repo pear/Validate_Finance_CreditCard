@@ -32,7 +32,7 @@ Package containes ISPN (International Standard Product Numbers) validations such
   <release>
     <version>0.6.0</version>
     <state>alpha</state>
-    <date>2005-11-04</date>
+    <date>2006-11-01</date>
     <notes>
 - ISRC (International Standard Recording Code) added by the courtesy of David Grant [david at grant dot org dot uk]
 - ISBN13 added, the isbn() function is used at all times and will figure out if it should validate against isbn10 or isbn13
