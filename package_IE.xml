@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<package version="1.0">
+  <name>Validate_IE</name>
+  <summary>Validation class for IE</summary>
+  <description>
+Package containes locale validation for IE such as:
+- Phone numbers
+- Postal code (HOAX)
+- Passport number
+  </description>
+  <license>New BSD</license>
+  <maintainers>
+    <maintainer>
+      <user>davidc</user>
+      <role>lead</role>
+      <name>David Coallier</name>
+      <email>davidc@agoraproduction.com</email>
+    </maintainer>
+   </maintainers>
+  <release>
+    <version>0.0.1</version>
+    <state>alpha</state>
+    <date>2007-03-30</date>
+    <notes>
+- First release of the Irish validator.
+    </notes>
+    <filelist>
+    <dir name="/">
+      <file role="doc" name="LICENSE" />
+      <dir name="Validate">
+        <file role="php">IE.php</file>
+      </dir>
+      <dir name="tests" role="test">
+        <file>validate_IE.phpt</file>
+      </dir>
+    </dir>
+    </filelist>
+    <deps>
+      <dep type="php" rel="ge" version="4.1.0" />
+    </deps>
+  </release>
+</package>
