@@ -35,6 +35,7 @@
  * @category   Validate
  * @package    Validate_IE
  * @author     David Coallier <davidc@php.net> 
+ * @author     Ken Guest      <ken@linux.ie>
  * @copyright  1997-2007 Agora Production (http://agoraproduction.com)
  * @license    http://www.opensource.org/licenses/bsd-license.php  New BSD License
  * @version    Release: @package_version@
@@ -123,6 +124,26 @@ class Validate_IE
         }
 
         return false;
+    }
+    // }}}
+    // {{{ public function drive
+    /**
+     * Validates an Irish driving licence
+     *
+     * This function will validate the drivers
+     * licence for irish licences.
+     *
+     * @access    public
+     * @param     string $dl  The drivers licence to validate
+     * @return    bool   true if it validates false if it doesn't.
+     */
+    function drive($dl)
+    {
+        $dl    = str_replace(array(' ', '-'), '', $dl);
+        $preg  = "/^[0-9]{3}[0-9]{3}[0-9]{3}$/";
+        $match = preg_match($preg, $dl) ? true : false;
+
+        return $match;
     }
     // }}}
 }
