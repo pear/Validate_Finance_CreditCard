@@ -146,6 +146,32 @@ class Validate_IE
         return $match;
     }
     // }}}
+    // {{{ public function bankAC
+    /**
+     * Validate a bank account number
+     *
+     * This function will validate a bank account
+     * number for irish banks.
+     *
+     * @access public
+     * @param  string           $ac       The account number
+     * @param  string  optional $noSort   Do not validate the sort codes (default: false)
+     * @return bool                       true if the account validates
+     */
+    function bankAC($ac, $noSort = false)
+    {
+        $ac = str_replace(array('-', ' '), '', $ac);
+        $preg = "/^\d{14}$/";
+
+        if ($noSort) {
+            $preg = "/^\d{8}$/";
+        }
+
+        $returnValue = preg_match($preg, $ac) ? true : false;
+
+        return $returnValue;
+    }
+    // }}}
 }
 // }}}
 ?>
