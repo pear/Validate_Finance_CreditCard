@@ -62,7 +62,7 @@ class Validate_IE
      */
     function phoneNumber($number, $requiredAreaCode = true)
     {
-        $number = str_replace(array('(', ')', '-', '+', '.'. ' '), '', $number);
+        $number = str_replace(array('(', ')', '-', '+', '.', ' '), '', $number);
 
         if (strlen(trim($number)) <= 0) {
             return false;
