@@ -172,6 +172,49 @@ class Validate_IE
         return $returnValue;
     }
     // }}}
+    // {{{ public function ssn
+    /**
+     * Validate SSN 
+     *
+     * Ireland does not have a social security number system,
+     * the closest equivalent is a Personal Public Service Number.
+     *
+     * @link http://en.wikipedia.org/wiki/Personal_Public_Service_Number
+     * @access  public
+     * @see     Validate_IE::ppsn()
+     * @param   string  $ssn; ssn number to validate
+     * @return  bool    Returns true on success, false otherwise
+     */
+    function ssn($ssn)
+    {
+        return Validate_IE::ppsn($ssn);
+    }
+    // }}}
+    // {{{ public function ppsn
+    /**
+     * Personal Public Service Number
+     *
+     * Ireland does not have a social security number system,
+     * the closest equivalent is a Personal Public Service Number.
+     *
+     * @access  public
+     * @param   $ppsn   Personal Public Service Number
+     * @return  bool    Returns true on success, false otherwise
+     * @link    http://en.wikipedia.org/wiki/Personal_Public_Service_Number
+     */
+    function ppsn($ppsn)
+    {
+        $preg = "/^[0-9]{7}[A-Z]$/";
+
+        if (preg_match($preg, $ppsn)) {
+            return (true);
+        }
+
+        $preg  = "/^[0-9]{7}[A-Z][\ WTX]$/";
+        $match = preg_match($preg, $ppsn) ? true : false;
+        return $match;
+    }
+    // }}}
 }
 // }}}
 ?>
