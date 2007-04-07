@@ -83,13 +83,13 @@ class Validate_World
     function pin($nationCode, $pin)
     {
         // some packages have national signifiant function names
-        static $compat = array( 'BE' => 'nationalId',
+        static $compat = array( 'BE'   => 'nationalId',
                                 'esMX' => 'dni',
-                                'ES' => 'dni',
-                                'FI' => 'pin',
-                                'IE' => 'passport',
-                                'LV' => 'personId',
-                                'PL' => 'pesel');
+                                'ES'   => 'dni',
+                                'FI'   => 'pin',
+                                'IE'   => 'passport',
+                                'LV'   => 'personId',
+                                'PL'   => 'pesel');
 
         // we keep the behaviour to default to ssn
         $fun = isset($compat[$nationCode]) ? $compat[$nationCode] : 'ssn';
@@ -111,11 +111,11 @@ class Validate_World
     {
         // some packages have national signifiant function names
         static  $compat = array('esMX' => 'dni',
-                                'ES' => 'dni',
-                                'FI' => 'pin',
-                                'IE' => 'ppsn',
-                                'LV' => 'personId',
-                                'PL' => 'pesel');
+                                'ES'   => 'dni',
+                                'FI'   => 'pin',
+                                'IE'   => 'ppsn',
+                                'LV'   => 'personId',
+                                'PL'   => 'pesel');
 
         $fun = isset($compat[$nationCode]) ? $compat[$nationCode] : 'ssn';
         return Validate_World::check($fun, func_get_args());
@@ -185,13 +185,16 @@ class Validate_World
         $nationCode = array_shift($args);
         if (!isset($nations[$nationCode])) {
             $nations[$nationCode] = is_readable(dirname(__FILE__) .
-                        DIRECTORY_SEPARATOR . $nationCode . '.php')
-                && require_once('Validate' . '/' . $nationCode . '.php');
+                                    DIRECTORY_SEPARATOR . $nationCode . '.php')
+                                    && require_once 'Validate' . DIRECTORY_SEPARATOR . $nationCode . '.php';
         }
+        
         if (!$nations[$nationCode] || !method_exists(
-                $class = 'Validate' . '_' . $nationCode, $what)) {
+                $class = 'Validate' . '_' . $nationCode, $what)) 
+        {
             return VALIDATE_WORLD_DEFAULT;
         }
+        
         return (bool) call_user_func_array(array($class, $what), $args);
     }
 }
