@@ -82,11 +82,13 @@ class Validate_World
     function pin($nationCode, $ssn)
     {
         // some packages have national signifiant function names
-        static $compat = array( 'PL' => 'pesel',
+        static $compat = array( 'BE' => 'nationalId',
                                 'esMX' => 'dni',
                                 'ES' => 'dni',
                                 'FI' => 'pin',
-                                'BE' => 'nationalId');
+                                'IE' => 'passport',
+                                'LV' => 'personId',
+                                'PL' => 'pesel');
 
         // we keep the behaviour to default to ssn
         $fun = isset($compat[$nationCode]) ? $compat[$nationCode] : 'ssn';
@@ -107,10 +109,12 @@ class Validate_World
     function ssn($nationCode, $ssn)
     {
         // some packages have national signifiant function names
-        static  $compat = array('PL' => 'pesel',
-                                'esMX' => 'dni',
+        static  $compat = array('esMX' => 'dni',
                                 'ES' => 'dni',
-                                'FI' => 'pin');
+                                'FI' => 'pin',
+                                'IE' => 'ppsn',
+                                'LV' => 'personId',
+                                'PL' => 'pesel');
 
         $fun = isset($compat[$nationCode]) ? $compat[$nationCode] : 'ssn';
         return Validate_World::check($fun, func_get_args());
@@ -145,7 +149,11 @@ class Validate_World
      */
     function region($nationCode, $region)
     {
-        return Validate_World::check('region', func_get_args());
+        // some packages have national signifiant function names
+        static  $compat = array('PL' => 'regon');
+
+        $fun = isset($compat[$nationCode]) ? $compat[$nationCode] : 'region';
+        return Validate_World::check($fun, func_get_args());
     }
 
     /**
