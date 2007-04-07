@@ -94,7 +94,7 @@ class Validate_World
     }
 
     /**
-     * Validate a national identity number
+     * Validate a social insurance (or security) number
      *
      * @param  string $nationCode nation code
      * @param  string $ssn national identity number to check
