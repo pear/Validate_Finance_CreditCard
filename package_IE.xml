@@ -7,9 +7,12 @@ http://pear.php.net/dtd/package-2.0.xsd">
  <channel>pear.php.net</channel>
  <summary>Validation class for Ireland</summary>
  <description>Package contains validation for Irish credentials:
-  - postalCodes (hoax)
-  - passport numbers
-  - phone numbers
+- PostalCodes (hoax)
+- Passport Numbers
+- Phone Numbers
+- Bank Account Numbers
+- Drivers Licence Numbers
+- PPSN / SSN Numbers
 
  </description>
  <lead>
@@ -21,8 +24,8 @@ http://pear.php.net/dtd/package-2.0.xsd">
  <date>2007-04-01</date>
  <time>15:25:59</time>
  <version>
-  <release>0.0.1</release>
-  <api>0.0.1</api>
+  <release>0.1.0</release>
+  <api>0.1.0</api>
  </version>
  <stability>
   <release>alpha</release>
