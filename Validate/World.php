@@ -37,7 +37,8 @@ if (!defined('VALIDATE_WORLD_DEFAULT')) {
  * Worldwide data validation class for installed locals
  *
  * This class provides methods to validate, if implemented by the local package:
- *  - Identity number (aka SSN, Social insurance number )
+ *  - Identity number
+ *  - Social insurance number (ssn)
  *  - Postal code
  *  - Region
  *  - Phone number
@@ -72,14 +73,14 @@ class Validate_World
      * but some nations make the distinction
      *
      * @param  string $nationCode nation code
-     * @param  string $ssn national identity number to check
+     * @param  string $pin national identity number to check
      * @param  mixed optionnal extra parameters depending on the implementation
      * @return mixed bool if method available: data is valid
      *               number if method unavailable  
      * @access public
      * @static
      */
-    function pin($nationCode, $ssn)
+    function pin($nationCode, $pin)
     {
         // some packages have national signifiant function names
         static $compat = array( 'BE' => 'nationalId',
