@@ -67,6 +67,33 @@ if (!defined('VALIDATE_WORLD_DEFAULT')) {
 class Validate_World
 {
     /**
+     * Validate a personal identity number
+     * Formerly mixed with ssn, social security number,
+     * but some nations make the distinction
+     *
+     * @param  string $nationCode nation code
+     * @param  string $ssn national identity number to check
+     * @param  mixed optionnal extra parameters depending on the implementation
+     * @return mixed bool if method available: data is valid
+     *               number if method unavailable  
+     * @access public
+     * @static
+     */
+    function pin($nationCode, $ssn)
+    {
+        // some packages have national signifiant function names
+        static $compat = array( 'PL' => 'pesel',
+                                'esMX' => 'dni',
+                                'ES' => 'dni',
+                                'FI' => 'pin',
+                                'BE' => 'nationalId');
+
+        // we keep the behaviour to default to ssn
+        $fun = isset($compat[$nationCode]) ? $compat[$nationCode] : 'ssn';
+        return Validate_World::check($fun, func_get_args());
+    }
+
+    /**
      * Validate a national identity number
      *
      * @param  string $nationCode nation code
@@ -79,7 +106,14 @@ class Validate_World
      */
     function ssn($nationCode, $ssn)
     {
-        return Validate_World::check('ssn', func_get_args());
+        // some packages have national signifiant function names
+        static  $compat = array('PL' => 'pesel',
+                                'esMX' => 'dni',
+                                'ES' => 'dni',
+                                'FI' => 'pin');
+
+        $fun = isset($compat[$nationCode]) ? $compat[$nationCode] : 'ssn';
+        return Validate_World::check($fun, func_get_args());
     }
 
     /**
@@ -127,7 +161,11 @@ class Validate_World
      */
     function phoneNumber($nationCode, $phoneNumber)
     {
-        return Validate_World::check('phoneNumber', func_get_args());
+        // some packages were written before function names uniformisation
+        static $compat = array( 'esMX' => 'phone');
+
+        $fun = isset($compat[$nationCode]) ? $compat[$nationCode] : 'phoneNumber';
+        return Validate_World::check($fun, func_get_args());
     }
 
     /**
