@@ -239,6 +239,26 @@ class Validate_esMX
      */
     function phone($phone, $requireAreaCode = true)
     {
+        return Validate_esMX::phoneNumber($phone, $requireAreaCode);
+    }
+
+    /**
+     * Check that the given telephone number is valid.
+     *
+     * According to COFETEL (Comision Federal de Telecomunicaciones) the telephone
+     * numbers can have 7 or 8 digits. Only 3 states can have 8 digit numbers, which are:
+     * Distrito Federal, Guadalajara and Monterrey. Others need to have 7 digits.
+     *
+     * In the case of a required area code the required length should be 12 (including
+     * the 01). This is for all states.
+     * 
+     * @access  public
+     * @param   string  $phone Phone number
+     * @param   bool    $requireAreaCode    require the area code? (default: true)
+     * @return  bool    Passed / Not passed
+     */
+    function phoneNumber($phone, $requireAreaCode = true)
+    {
         $phone = str_replace(array('(', ')', '-', '+', '.', ' '), '', $phone);
         if ($requireAreaCode) {
             $regexp = '/^01[0-9]{10}$/';

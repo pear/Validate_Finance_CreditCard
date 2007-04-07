@@ -150,11 +150,7 @@ class Validate_World
      */
     function region($nationCode, $region)
     {
-        // some packages have national signifiant function names
-        static  $compat = array('PL' => 'regon');
-
-        $fun = isset($compat[$nationCode]) ? $compat[$nationCode] : 'region';
-        return Validate_World::check($fun, func_get_args());
+        return Validate_World::check('region', func_get_args());
     }
 
     /**
@@ -170,11 +166,7 @@ class Validate_World
      */
     function phoneNumber($nationCode, $phoneNumber)
     {
-        // some packages were written before function names uniformisation
-        static $compat = array( 'esMX' => 'phone');
-
-        $fun = isset($compat[$nationCode]) ? $compat[$nationCode] : 'phoneNumber';
-        return Validate_World::check($fun, func_get_args());
+        return Validate_World::check('phoneNumber', func_get_args());
     }
 
     /**
