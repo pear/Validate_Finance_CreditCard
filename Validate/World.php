@@ -212,8 +212,14 @@ class Validate_World
      */
     function getLocales($locale = null)
     {
+        static $last = '';
+        static $ret = null;
+        if ($locale === $last and isset($ret)) {
+            return $ret;
+        }
+        $last = $locale;
         $ret = array();
-       	if (isset($locale) && is_string($locale)) {
+       	if (!empty($locale) && is_string($locale)) {
        	    $locale = array($locale);
         }
         $dh = opendir(dirname(__FILE__));
@@ -221,7 +227,7 @@ class Validate_World
             while ($fname = readdir($dh)) {
                 if (preg_match('#^([A-Z]{2}[a-z_]*)\.php$#i', $fname, $matches)) {
                     if (is_file($dname . $fname) && is_readable($dname . $fname) &&
-                        (!isset($locale) || in_array($matches[1], $locale))) {
+                        (empty($locale) || in_array($matches[1], $locale))) {
                         $ret[] = $matches[1];
                     }
                 }
