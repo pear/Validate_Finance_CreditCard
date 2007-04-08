@@ -197,4 +197,38 @@ class Validate_World
         
         return (bool) call_user_func_array(array($class, $what), $args);
     }
+
+    /**
+     * Lists available locales for Validate
+     *
+     * @param  mixed   string/array of strings $locale
+     *                 Optional searched locale code(s).
+     *                 If not present: all available locales.
+     *
+     * @return array   The available locales (optionaly only the requested ones)
+     *
+     * @access public
+     * @static
+     */
+    function getLocales($locale = null)
+    {
+        $ret = array();
+       	if (isset($locale) && is_string($locale)) {
+       	    $locale = array($locale);
+        }
+        $dh = opendir(dirname(__FILE__));
+        if ($dh) {
+            while ($fname = readdir($dh)) {
+                if (preg_match('#^([A-Z]{2}[a-z_]*)\.php$#i', $fname, $matches)) {
+                    if (is_file($dname . $fname) && is_readable($dname . $fname) &&
+                        (!isset($locale) || in_array($matches[1], $locale))) {
+                        $ret[] = $matches[1];
+                    }
+                }
+            }
+            closedir($dh);
+            sort($ret);
+        }
+        return $ret;
+    }
 }
