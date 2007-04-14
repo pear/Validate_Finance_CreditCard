@@ -370,7 +370,7 @@ class Validate_FR
             '984' => 'Terres Australes et Antarctiques',
             '985' => 'Mayotte', // deprecated
             '986' => 'Wallis-et-Futuna',
-            '987' => 'Polyn&#233;sie française',
+            '987' => 'Polyn&#233;sie fran&#231;aise',
             '988' => 'Nouvelle-Cal&#233;donie'
         );
     
