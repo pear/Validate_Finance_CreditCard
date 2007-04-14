@@ -390,29 +390,6 @@ class Validate_FR
      */
     function region($region)
     {
-    
-        if (is_numeric($region)
-            && floor($region) == ceil($region)) {
-            switch (strlen($region)) {
-                case 2:
-                    if ($region >= 1 && $region <= 95
-                        && $region != 20) {
-                        return nameDepartement($region) || true;
-                    }
-                    break;
-                case 3:
-                    /* DOM/TOM et collectivitees OM  */
-                    if (($region >= 971 && $region <= 976) || ($region >= 984 && $region <= 988)) {
-                        return nameDepartement($region) || true;
-                    }
-                    break;
-            }
-        }
-        switch (strtoupper($region)) {
-            case '2A':
-            case '2B':
-                return nameDepartement($region) || true;
-        }
-        return false;
+        return ($return = nameDepartement($region)) ? $return : false;
     }
 }
