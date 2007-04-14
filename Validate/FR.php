@@ -258,7 +258,7 @@ class Validate_FR
      * Validates a French "departement"
      *
      * @param string $region 2 (2A or 2B included) or 3 -digit department number
-     * @return mixed The department's name (true) or false
+     * @return mixed The department's name, special chars numeric entities (true) or false
      * @static
      */
     function region($region)
