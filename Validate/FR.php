@@ -255,13 +255,15 @@ class Validate_FR
     }
 
     /**
-     * Validates a French "departement"
+     * Name of a French "departement"
      *
-     * @param string $region 2 (2A or 2B included) or 3 -digit department number
-     * @return mixed The department's name, special chars numeric entities (true) or false
+     * @param string $departement 2 (2A or 2B included) or 3 -digit department number
+     *               or none to get the list
+     * @return mixed The department's name, special chars in numeric entities or ''
+     *               No argument, returns the array of known code => departements
      * @static
      */
-    function region($region)
+    function nameDepartement($departement = null)
     {
         static $return = array(
             '01' => 'Ain',
@@ -374,19 +376,34 @@ class Validate_FR
             '988' => 'Nouvelle-Cal&#233;donie'
         );
     
+        return isset($departement) ?
+            (isset($return[$departement]) ? $return[$departement] : '') :
+            $return;
+    }
+
+    /**
+     * Validates a French "departement"
+     *
+     * @param string $region 2 (2A or 2B included) or 3 -digit department number
+     * @return mixed The department's name, special chars numeric entities (true) or false
+     * @static
+     */
+    function region($region)
+    {
+    
         if (is_numeric($region)
             && floor($region) == ceil($region)) {
             switch (strlen($region)) {
                 case 2:
                     if ($region >= 1 && $region <= 95
                         && $region != 20) {
-                        return $return[$region] || true;
+                        return nameDepartement($region) || true;
                     }
                     break;
                 case 3:
                     /* DOM/TOM et collectivitees OM  */
                     if (($region >= 971 && $region <= 976) || ($region >= 984 && $region <= 988)) {
-                        return $return[$region] || true;
+                        return nameDepartement($region) || true;
                     }
                     break;
             }
@@ -394,7 +411,7 @@ class Validate_FR
         switch (strtoupper($region)) {
             case '2A':
             case '2B':
-                return $return[$region] || true;
+                return nameDepartement($region) || true;
         }
         return false;
     }
