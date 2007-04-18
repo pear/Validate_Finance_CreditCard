@@ -61,11 +61,11 @@
     <email>pear.neufeind@speedpartner.de</email>
     <active>no</active>
   </developer>
-  <date>2006-11-17</date>
-  <time>15:53:08</time>
+  <date>2007-04-18</date>
+  <time>23:18:08</time>
   <version>
-    <release>0.7.0</release>
-    <api>0.7.0</api>
+    <release>0.7.1</release>
+    <api>0.7.1</api>
   </version>
   <stability>
     <release>beta</release>
@@ -73,10 +73,7 @@
   </stability>
   <license>New BSD</license>
   <notes>
-    - string():
-     * New chars in VALIDATE_EALPHA_LOWER and UPPER
-    - date():
-     * RFC822 date-time format compliant
+    Fixed Bug #10167 ISSN/ISBN validation is broken by _checkControlNumber
   </notes>
   <contents>
     <dir name="/">
@@ -114,6 +111,23 @@
   </dependencies>
   <phprelease />
   <changelog>
+    <release>
+      <version>
+        <release>0.7.0</release>
+        <api>0.7.0</api>
+      </version>
+      <stability>
+        <release>beta</release>
+        <api>beta</api>
+      </stability>
+      <license>New BSD</license>
+      <notes>
+    - string():
+     * New chars in VALIDATE_EALPHA_LOWER and UPPER
+    - date():
+     * RFC822 date-time format compliant
+      </notes>
+    </release>
     <release>
       <version>
         <release>0.6.5</release>
