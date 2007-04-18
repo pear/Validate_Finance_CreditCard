@@ -52,6 +52,8 @@ $issns = array(
     '2317-8472', // NOK
     '8675-4543', // NOK
     '4342-7675', // NOK
+    '1044-789X', // OK
+    '1044-7890', // NOK
 );
 
 $isbn10 = array(
@@ -67,6 +69,7 @@ $isbn10 = array(
     '1873671003',    // NOK
     '1-56619-909-2', // NOK
     '1566199091',    // NOK
+    '0735714100',    // NOK
 );
 
 $isbn13 = array(
@@ -129,6 +132,11 @@ foreach ($isbn10 as $isbn) {
     echo "{$isbn} : ".$noYes[Validate_ISPN::isbn10($isbn)]."\n";
 }
 
+echo "\nTest ISBN13\n";
+foreach ($isbn13 as $isbn) {
+    echo "{$isbn} : ".$noYes[Validate_ISPN::isbn13($isbn)]."\n";
+}
+
 echo "\nTest ISMN\n";
 foreach ($ismns as $ismn) {
     echo "{$ismn} : ".$noYes[Validate_ISPN::ismn($ismn)]."\n";
@@ -179,6 +187,8 @@ Test ISSN
 2317-8472 : NO
 8675-4543 : NO
 4342-7675 : NO
+1044-789X : YES
+1044-7890 : NO
 
 Test ISBN10
 0-06-064831-7 : YES
@@ -193,6 +203,13 @@ ISBN 0-201-63361-3 : NO
 1873671003 : NO
 1-56619-909-2 : NO
 1566199091 : NO
+0735714100 : NO
+
+Test ISBN13
+978-1-873671-00-9 : YES
+9781873671009 : YES
+978-1-56619-909-4 : YES
+9781566199094 : YES
 
 Test ISMN
 M-345-24680-5 : YES
