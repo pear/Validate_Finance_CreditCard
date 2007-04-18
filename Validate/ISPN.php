@@ -71,13 +71,13 @@ class Validate_ISPN
             return Validate_ISPN::isbn13($isbn);
         } elseif (strlen($isbn) == 10) {
             return Validate_ISPN::isbn10($isbn);
-        } else {
-            return false;
         }
+
+        return false;
     }
 
     /**
-     * Validate a ISBN 13 number
+     * Validate a ISBN 13 number (basically ean13)
      * The ISBN is a unique machine-readable identification number,
      * which marks any book unmistakably.
      *
@@ -88,7 +88,7 @@ class Validate_ISPN
      * @param  string  $isbn number (only numeric chars will be considered)
      * @return bool    true if number is valid, otherwise false
      * @access public
-     * @author Helgi Þormar <dufuz@php.net>
+     * @author Helgi Þormar Þorbjörnsson <dufuz@php.net>
      * @author Piotr Klaban <makler@man.torun.pl>
      */
     function isbn13($isbn)
@@ -119,7 +119,7 @@ class Validate_ISPN
      * @return bool    true if number is valid, otherwise false
      * @access public
      * @author Damien Seguy <dams@nexen.net>
-     * @author Helgi Þormar <dufuz@php.net>
+     * @author Helgi Þormar Þorbjörnsson <dufuz@php.net>
      */
     function isbn10($isbn)
     {
@@ -353,9 +353,6 @@ class Validate_ISPN
      */
     function process($data, $length, &$weights, $modulo = 10, $subtract = 0)
     {
-        //$weights = array(3,1,3,1,3,1,3,1,3,1,3,1,3,1,3,1,3);
-        //$weights = array_slice($weights, 0, $length);
-
         $data = str_replace(array('-', '/', ' ', "\t", "\n"), '', $data);
 
         // check if this is a digit number and is the right length
@@ -368,4 +365,3 @@ class Validate_ISPN
         return Validate::_checkControlNumber($data, $weights, $modulo, $subtract);
     }
 }
-?>
