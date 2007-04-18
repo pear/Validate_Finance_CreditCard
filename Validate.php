@@ -98,7 +98,7 @@ class Validate
     /**
      * Generic top-level domain
      *
-     * This is an array of the official 
+     * This is an array of the official
      * generic top-level domains.
      *
      * @access protected
@@ -249,7 +249,7 @@ class Validate
         }
         return true;
     }
-    
+
     /**
      * Converting a string to UTF-7 (RFC 2152)
      *
@@ -286,7 +286,7 @@ class Validate
                     } else {
                         $return .= $char;
                     }
-                } elseif (($i == strlen($string) || 
+                } elseif (($i == strlen($string) ||
                             !((ord($char) >= 0x7F)) || (ord($char) <= 0x1F))) {
                     if ($state != 1) {
                         if (ord($char) > 64) {
@@ -396,7 +396,7 @@ class Validate
      * Full TLD Validation function
      *
      * This function is used to make a much more proficient validation
-     * against all types of official domain names. 
+     * against all types of official domain names.
      *
      * @access protected
      * @param  string    $email    The email address to check.
@@ -408,7 +408,7 @@ class Validate
         if (!is_array($options)) {
             return false;
         }
-        
+
         $validate = array();
 
         switch ($options['tld']) {
@@ -541,7 +541,7 @@ class Validate
          (?:(?:(?:(?:25[0-5])|(?:2[0-4][0-9])|(?:[0-1]?[0-9]?[0-9]))\.){3}
                (?:(?:25[0-5])|(?:2[0-4][0-9])|(?:[0-1]?[0-9]?[0-9]))))(?(5)\])|
          ((?:[a-z0-9](?:[-a-z0-9]*[a-z0-9])?\.)*[a-z0-9](?:[-a-z0-9]*[a-z0-9])?)  #6 domain as hostname
-         \.((?:([^- ])[-a-z]*[-a-z])?)) #7 TLD 
+         \.((?:([^- ])[-a-z]*[-a-z])?)) #7 TLD
          $&xi';
 
         if ($use_rfc822? Validate::__emailRFC822($email, $options) :
@@ -771,7 +771,7 @@ class Validate
                             } else {
                                 $year = (int)(substr(date('Y'), 0, 2) .
                                               Validate::_substr($date, 2));
-                            }   
+                            }
                             if (strlen($year) != 4 || $year < 0 || $year > 9999) {
                                 return false;
                             }
@@ -963,7 +963,7 @@ class Validate
             return false;
         }
         $target_digit  = substr($number, count($weights), 1);
-        $control_digit = Validate::_getControlNumber($number, $weights, $modulo, $subtract, $target_digit === 'X');
+        $control_digit = Validate::_getControlNumber($number, $weights, $modulo, $subtract, $modulo > 10);
 
         if ($control_digit == -1) {
             return false;
