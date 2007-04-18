@@ -91,8 +91,8 @@ class Validate
      * @var    array     $_iTld (International top-level domains)
      */
     var $_itld = array(
-            'arpa',
-            'root',
+        'arpa',
+        'root',
     );
 
     /**
@@ -405,13 +405,9 @@ class Validate
      */
     function _fullTLDValidation($email, $options)
     {
-        if (!is_array($options)) {
-            return false;
-        }
-
         $validate = array();
 
-        switch ($options['tld']) {
+        switch ($options) {
             /** 1 */
             case VALIDATE_ITLD_EMAILS:
                 array_push($validate, 'itld');
@@ -457,10 +453,12 @@ class Validate
         /**
          * Debugging still, not implemented but code is somewhat here.
          */
-        $self =& $this;
+        
 
-        if (!is_a($this, 'Validate')) {
+        if (!isset($this) && !is_a($this, 'Validate')) {
             $self = new Validate;
+        } else {
+            $self =& $this;
         }
 
         $toValidate = array();
@@ -469,7 +467,6 @@ class Validate
             $tmpVar = '_' . (string)$valid;
             $toValidate[$valid] = $this->{$tmpVar};
         }
-
 
         $e = $self->_executeFullEmailValidation($email, $toValidate);
         return $e;
@@ -525,11 +522,16 @@ class Validate
             extract($options);
         }
 
-        if (is_array($fullTLDValidation)) {
+        /**
+         * @todo Fix bug here.. even if it passes this, it won't be passing
+         *       The regular expression below
+         */
+        $checkTLD = true;
+        if (isset($fullTLDValidation)) {
             $valid = Validate::_fullTLDValidation($email, $fullTLDValidation);
 
-            if (!$valid) {
-                return false;
+            if ($valid) {
+                $checkTLD = false;
             }
         }
 
@@ -541,8 +543,14 @@ class Validate
          (?:(?:(?:(?:25[0-5])|(?:2[0-4][0-9])|(?:[0-1]?[0-9]?[0-9]))\.){3}
                (?:(?:25[0-5])|(?:2[0-4][0-9])|(?:[0-1]?[0-9]?[0-9]))))(?(5)\])|
          ((?:[a-z0-9](?:[-a-z0-9]*[a-z0-9])?\.)*[a-z0-9](?:[-a-z0-9]*[a-z0-9])?)  #6 domain as hostname
-         \.((?:([^- ])[-a-z]*[-a-z])?)) #7 TLD
-         $&xi';
+         ';
+
+         if ($checkTLD) {
+            $regex .= '\.((?:([^- ])[-a-z]*[-a-z])?)) #7 TLD
+             ';
+         }
+         
+         $regex .= '$&xi';
 
         if ($use_rfc822? Validate::__emailRFC822($email, $options) :
             preg_match($regex, $email)) {
