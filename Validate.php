@@ -471,7 +471,7 @@ class Validate
         }
 
 
-        $e = $this->_executeFullEmailValidation($email, $toValidate);
+        $e = $self->_executeFullEmailValidation($email, $toValidate);
         return $e;
     }
 
@@ -526,7 +526,7 @@ class Validate
         }
 
         if (is_array($fullTLDValidation)) {
-            $valid = $this->_fullTLDValidation($email, $fullTLDValidation);
+            $valid = Validate::_fullTLDValidation($email, $fullTLDValidation);
 
             if (!$valid) {
                 return false;
