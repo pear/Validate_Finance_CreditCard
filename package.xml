@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<package packagerversion="1.4.11" 
-    version="2.0" 
-    xmlns="http://pear.php.net/dtd/package-2.0" 
-    xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" 
-    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+<package packagerversion="1.4.11"
+    version="2.0"
+    xmlns="http://pear.php.net/dtd/package-2.0"
+    xmlns:tasks="http://pear.php.net/dtd/tasks-1.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0
                         http://pear.php.net/dtd/tasks-1.0.xsd
                         http://pear.php.net/dtd/package-2.0
@@ -32,7 +32,7 @@
     <active>no</active>
   </lead>
   <lead>
-    <name>Helgi Þormar</name>
+    <name>Helgi Thormar</name>
     <user>dufuz</user>
     <email>dufuz@php.net</email>
     <active>no</active>
@@ -50,8 +50,8 @@
     <active>no</active>
   </lead>
   <lead>
-    <user>toggg</user>
     <name>bertrand Gugger</name>
+    <user>toggg</user>
     <email>toggg at php dot net</email>
     <active>yes</active>
   </lead>
@@ -132,7 +132,7 @@
  * #8629, hostnames starting with numbers are valid because of their popularity
  * #8853, E-Mail validation allows space before TLD.
 - date():
- * #8851, date-validation allows letters in time.  
+ * #8851, date-validation allows letters in time.
       </notes>
     </release>
     <release>
@@ -154,7 +154,7 @@
 - email():
  * #7531, utf-7 encoding
 - __stringToUtf7():
- * new method added to do care about utf-7      
+ * new method added to do care about utf-7
       </notes>
     </release>
     <release>
@@ -183,7 +183,7 @@
  * Double slashes are accepted in the path part (requested by bjori)
    As a consequence, only URIs with full authority can be valid, no relative URI
  * documentation header completed : usage notes , options and &quot;strict&quot; parameter
- * unit tests completed and updated , use php.net instead of unavailable example.org      
+ * unit tests completed and updated , use php.net instead of unavailable example.org
       </notes>
     </release>
     <release>
@@ -294,7 +294,7 @@
       <license>New BSD</license>
       <notes>
 - fixed issue when validating IBANs via a static call
-- added missing test validate_UK.php to package.xml       
+- added missing test validate_UK.php to package.xml
       </notes>
     </release>
     <release>
@@ -314,7 +314,7 @@
 - added Euro banknotes IDs
 - Improved UK postcodes validation
 - Fixed allowed_scheme options in Validate::uri() (Torsten Roehr)
-- Fixed optional arguments in Validate::number() (Torsten Roehr)        
+- Fixed optional arguments in Validate::number() (Torsten Roehr)
       </notes>
     </release>
     <release>
@@ -338,7 +338,7 @@
   and Music Number(ISMN) (Piotr Klaban, David Grant)
 - Drop Validate::url() in preferenc of Validate::uri() which is fully
   RFC2396 compliant
-- Move to PHP 3.0 license        
+- Move to PHP 3.0 license
       </notes>
     </release>
     <release>
