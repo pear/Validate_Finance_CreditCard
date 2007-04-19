@@ -17,6 +17,8 @@ $emails = array(
         // with out the dns lookup
         'example@fluffffffrefrffrfrfrfrfrfr.is', // OK
 
+        array('davidc@php.net', array('fullTLDValidation' => array('tld' => VALIDATE_ITLD_EMAILS))),
+
         // Some none english chars, those should fail until we fix the IDN stuff
         'hæjjæ@homms.com', // NOK
         'postmaster@tüv.de', // NOK
@@ -90,10 +92,13 @@ $emails = array(
 
 foreach ($emails as $email) {
     if (is_array($email)) {
-    echo "{$email[0]}: with". ($email[1] ? '' : 'out') . ' domain check : '.
-        $noYes[Validate::email($email[0], $email[1])]."\n";
+        echo "{$email[0]}:";
+        if (!is_array($email[1])) {
+            echo " with". ($email[1] ? '' : 'out') . ' domain check :';
+        }
+        echo ' ' . $noYes[Validate::email($email[0], $email[1])]."\n";
     } else {
-    echo "{$email}: ".
+        echo "{$email}: ".
         $noYes[Validate::email($email)]."\n";
     }
 }
@@ -104,6 +109,7 @@ pear-general@lists.php.net: with domain check : YES
 example@fluffffffrefrffrfrfrfrfrfr.is: with domain check : NO
 example@fluffffffrefrffrfrfrfrfrfr.is: without domain check : YES
 example@fluffffffrefrffrfrfrfrfrfr.is: YES
+davidc@php.net: YES
 hæjjæ@homms.com: NO
 postmaster@tüv.de: NO
 mark_@example.com: YES
