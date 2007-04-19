@@ -38,6 +38,13 @@ http://pear.php.net/dtd/package-2.0.xsd">
    <dir name="Validate">
     <file name="IE.php" role="php" />
    </dir> <!-- /Validate -->
+   <dir name="tests">
+    <file name="validate_IE_bankAC.phpt" role="test"/>
+    <file name="validate_IE_drive.phpt"  role="test"/>
+    <file name="validate_IE_passport.phpt" role="test" />
+    <file name="validate_IE_phoneNumber.phpt" role="test"/>
+    <file name="validate_IE_ppsn.phpt" role="test"/>
+   </dir>
   </dir> <!-- / -->
  </contents>
  <dependencies>
