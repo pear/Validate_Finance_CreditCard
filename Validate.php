@@ -46,8 +46,8 @@ define('VALIDATE_SPACE',        '\s');
 define('VALIDATE_ALPHA_LOWER',  'a-z');
 define('VALIDATE_ALPHA_UPPER',  'A-Z');
 define('VALIDATE_ALPHA',        VALIDATE_ALPHA_LOWER . VALIDATE_ALPHA_UPPER);
-define('VALIDATE_EALPHA_LOWER', VALIDATE_ALPHA_LOWER . '‡Ž’—œ?ˆ“˜Š‘•šŸØ‰”™ž‹–›¬Œ¾??¿?');
-define('VALIDATE_EALPHA_UPPER', VALIDATE_ALPHA_UPPER . 'çƒêîò?Ëéíñô€èì…†?åæëïóÌ„Í?®‚??¯?');
+define('VALIDATE_EALPHA_LOWER', VALIDATE_ALPHA_LOWER . 'áéíóúýàèìòùäëïöüÿâêîôûãñõ¨åæç½ðøþ');
+define('VALIDATE_EALPHA_UPPER', VALIDATE_ALPHA_UPPER . 'ÁÉÍÓÚÝÀÈÌÒÙÄËÏÖÜ¾ÂÊÎÔÛÃÑÕ¦ÅÆÇ¼ÐØÞ');
 define('VALIDATE_EALPHA',       VALIDATE_EALPHA_LOWER . VALIDATE_EALPHA_UPPER);
 define('VALIDATE_PUNCTUATION',  VALIDATE_SPACE . '\.,;\:&"\'\?\!\(\)');
 define('VALIDATE_NAME',         VALIDATE_EALPHA . VALIDATE_SPACE . "'" . "-");
@@ -453,6 +453,7 @@ class Validate
         /**
          * Debugging still, not implemented but code is somewhat here.
          */
+
         $self = new Validate;
 
         $toValidate = array();
@@ -463,7 +464,7 @@ class Validate
         }
 
         $e = $self->executeFullEmailValidation($email, $toValidate);
-        
+
         return $e;
     }
 
@@ -544,7 +545,7 @@ class Validate
             $regex .= '\.((?:([^- ])[-a-z]*[-a-z])?)) #7 TLD
              ';
          }
-         
+
          $regex .= '$&xi';
 
         if ($use_rfc822? Validate::__emailRFC822($email, $options) :
