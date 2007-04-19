@@ -453,27 +453,22 @@ class Validate
         /**
          * Debugging still, not implemented but code is somewhat here.
          */
-        
-
-        if (!isset($this) && !is_a($this, 'Validate')) {
-            $self = new Validate;
-        } else {
-            $self =& $this;
-        }
+        $self = new Validate;
 
         $toValidate = array();
 
         foreach ($validate as $valid) {
             $tmpVar = '_' . (string)$valid;
-            $toValidate[$valid] = $this->{$tmpVar};
+            $toValidate[$valid] = $self->{$tmpVar};
         }
 
-        $e = $self->_executeFullEmailValidation($email, $toValidate);
+        $e = $self->executeFullEmailValidation($email, $toValidate);
+        
         return $e;
     }
 
 
-    // {{{ protected function _executeFullEmailValidation
+    // {{{ protected function executeFullEmailValidation
     /**
      * Execute the validation
      *
@@ -485,7 +480,7 @@ class Validate
      * @param  array  $arrayOfTLDs The array of the TLDs to validate
      * @return true or false (Depending on if it validates or if it does not)
      */
-    function _executeFullEmailValidation($email, $arrayOfTLDs)
+    function executeFullEmailValidation($email, $arrayOfTLDs)
     {
         $emailEnding = explode('.', $email);
         $emailEnding = $emailEnding[count($emailEnding)-1];
