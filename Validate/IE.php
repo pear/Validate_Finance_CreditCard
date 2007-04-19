@@ -50,6 +50,28 @@ class Validate_IE
      * This function validates an irish phone number.
      * You can either use the requiredAreaCode or not.
      * by default this is set to true.
+     * 
+     * <code>
+     * <?php
+     * // Include the package
+     * require_once('Validate/IE.php');
+     * 
+     * $phoneNumber = '+353 1 213 4567';
+     * if ( Validate_IE::phoneNumber($phoneNumber) ) {
+     *     print 'Valid';
+     * } else {
+     *     print 'Not valid!';
+     * }
+     * $phoneNumber = '213 4567';
+     * if ( Validate_IE::phoneNumber($phoneNumber, false) ) {
+     *     print 'Valid';
+     * } else {
+     *     print 'Not valid!';
+     * }
+     * 
+     * ?>
+     * </code>
+     * 
      *
      * @note Irish phone numbers are not the same than UK Phone numbers
      *       Irish phone numbers are much less complex as UK now has per 
@@ -57,26 +79,130 @@ class Validate_IE
      *
      * @access public
      * @param  string $number            The phone number
-     * @param  bool   $requiredAreaCode  Default false If require area code checking
-     * @return bool   true of number is valid, false if not. 
+     * @param  bool   $requiredAreaCode  defaults to true. If set require area code checking.
+     * @return bool   true if number is valid, false if not. 
      * @static
      */
     function phoneNumber($number, $requiredAreaCode = true)
     {
+        /*
+         * categorize prefixes into landline, mobile and 'other'
+         * each prefix has an associated regular expression.
+         * use defaultRegExp if associated entry is empty.
+         */
+        static $defaultRegExp = '/^\d{7,10}$/';
+        static $irishLandLine = array(
+                '1'=>'/^01\d{7}$/',
+                '21'=>'', '22'=>'', '23'=>'', '24'=>'', '25'=>'', '242'=>'',
+                '225'=>'', '26'=>'', '27'=>'', '28'=>'', '29'=>'', '402'=>'',
+                '404'=>'', '405'=>'', '41'=>'', '42'=>'', '43'=>'', '44'=>'',
+                '45'=>'', '46'=>'', '47'=>'',
+                '48'=>'/^048[0-9]{8}$/', //direct dial to Northern Ireland
+                '49'=>'', '51'=>'', '52'=>'', '53'=>'', '54'=>'', '55'=>'',
+                '56'=>'', '57'=>'',
+                '58'=>'/^058[0-9]{5}$/',
+                '59'=>'/^059[0-9]{7}$/',
+                '502'=>'', '504'=>'',
+                '505'=>'/^0505[0-9]{5}$/',
+                '506'=>'', '509'=>'', '61'=>'', '62'=>'', '63'=>'', '64'=>'',
+                '65'=>'', '66'=>'', '67'=>'', '68'=>'', '69'=>'', '71'=>'',
+                '74'=>'',
+                '818'=>'/^0818[0-9]{6}$/',
+                '90'=>'', '91'=>'', '92'=>'', '93'=>'', '94'=>'', '95'=>'',
+                '96'=>'', '97'=>'', '98'=>'', '99'=>'');
+        static $irishMobileAreas = array('83'=>'/^083[0-9]{7}$/',
+                                           '85'=>'/^085[0-9]{7}$/',
+                                           '86'=>'/^086[0-9]{7}$/',
+                                           '87'=>'/^087[0-9]{7}$/',
+                                           '88'=>'/^088[0-9]{7}$/');
+        static $irishMobileAreasVoiceMail = array('83'=>'/^0835[0-9]{7}$/',
+                                           '85'=>'/^0855[0-9]{7}$/',
+                                           '86'=>'/^0865[0-9]{7}$/',
+                                           '87'=>'/^0875[0-9]{7}$/',
+                                           '88'=>'/^0885[0-9]{7}$/');
+        static $irishOtherRates = array('1800'=>'/^1800[0-9]{6}$/',
+                                          '1850'=>'/^1850[0-9]{6}$/',
+                                          '1890'=>'/^1890[0-9]{6}$/');
+
+        if (preg_match('/^00.*$/', $number)) {
+            $number = '+' . substr($number,2);
+        }
         $number = str_replace(array('(', ')', '-', '+', '.', ' '), '', $number);
+        //remove country code for Ireland and insert leading zero of area code.
+        //presence of area code is implied if country code is present.
+        if (strpos($number, '353') === 0) {
+            $number = "0" . substr($number, 3);
+        }
 
         if (strlen(trim($number)) <= 0) {
             return false;
         }
+        if (!ctype_digit($number)) {
+            return false;
+        }
+        //area code must start with the standard 0 or a 1 for 'other rates'.
+        if (($requiredAreaCode) && !(preg_match("(^[01][0-9]*$)", $number))) {
+            return false;
+        }
+        //check special rate numbers
+        if (($requiredAreaCode) && (substr($number,0,1) == '1')) {
+            $prefix = substr($number, 0,4);
+            if (isset($irishOtherRates[$prefix])) {
+                $reg = $irishOtherRates[$prefix];
+                return (preg_match($reg, $number));
+            } else {
+                return false;
+            }
+        }
+
+        $len = strlen($number);
+
+        //if number has ten digits and a prefix it's likely a mobile phone
+        if (($requiredAreaCode) && ($len == 10)) {
+            $prefix = substr($number, 1,2);
+            if (isset($irishMobileAreas[$prefix])) {
+                $regexp = $irishMobileAreas[$prefix];
+                if (preg_match($regexp,$number)) {
+                    return true;
+                }
+            }
+        }
+        //see if it's a mobile phone with a 'direct to voicemail' prefix.
+        if (($requiredAreaCode) && ($len == 11)) {
+            $prefix = substr($number, 1,2);
+            if (isset($irishMobileAreasVoiceMail[$prefix])) {
+                $regexp = $irishMobileAreasVoiceMail[$prefix];
+                if (preg_match($regexp,$number)) {
+                    return true;
+                }
+            }
+        }
 
         if (!$requiredAreaCode) {
-            $preg = "/^\d{7}$/";
+            //regular numbers, without an area code, don't start with a zero.
+            //they may be 5-8 digits long (depending on area code which can 
+            //be 2-4 digits long...)
+            $preg = "/^[1-9]\d{4,7}$/";
             if (preg_match($preg, $number)) {
                 return true;
             }
         } else {
-            $preg = "/^\d{9,10}$/";
-            if (preg_match($preg, $number)) {
+            $ret = false;
+            for($i = 3; $i > 0; $i--){
+                $prefix = substr($number, 1,$i);
+                $preg = "";
+                if (isset($irishLandLine[$prefix])) {
+                    $preg = $irishLandLine[$prefix];
+                    if ($preg == '') {
+                        $preg = $defaultRegExp;
+                    }
+                    if (preg_match($preg, $number)) {
+                        $ret = true;
+                    } 
+                    break;
+                }
+            }
+            if ($ret) {
                 return true;
             }
         }
@@ -95,7 +221,7 @@ class Validate_IE
      *
      * @access public
      * @param  string $postalCode  The postal code to validate
-     * @return bool   false.. there's not postal codes in Ireland.
+     * @return bool   false .. there's not postal codes in Ireland.
      */
     function postalCode($postalCode)
     {
