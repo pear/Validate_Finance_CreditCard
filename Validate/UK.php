@@ -161,13 +161,9 @@ class Validate_UK
      */
     function phoneNumber($number)
     {
-        // just checks to see if it is numeric and starts with a 0
-        // remove any wierd characters like (,),-,. etc
-        // FIXME this could be improved.
-        $number = str_replace(array('(', ')', '-', '+', '.', ' '), '', $number);
-        $preg = "/^0[125789][0-9]{9,10}$/";
-        $match = (preg_match($preg, $number)) ? true : false;
-        return $match;
+        $number = preg_replace('/\D+/', '', $number);
+        $len = $number[1] == 1 || $number[1] == 8 ? 10 : 11;
+        return $number[0] == 0 && strlen($number) == $len;
     }
 
     /**
