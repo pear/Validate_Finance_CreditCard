@@ -162,8 +162,11 @@ class Validate_UK
     function phoneNumber($number)
     {
         $number = preg_replace('/\D+/', '', $number);
-        $len = $number[1] == 1 || $number[1] == 8 ? 10 : 11;
-        return $number[0] == 0 && strlen($number) == $len;
+        $len = strlen($number);
+        return $number[0] == 0 // first number is 0
+            && ($len == 11     // 11 digits is fine
+            || ($len == 10     // 10 digits is fine if 01 or 08
+                && ($number[1] == 1 || $number[1] == 8)));
     }
 
     /**
