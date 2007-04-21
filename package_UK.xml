@@ -18,15 +18,9 @@ http://pear.php.net/dtd/package-2.0.xsd">
 
  </description>
  <lead>
-  <name>Pierre-Alain Joye</name>
-  <user>pajoye</user>
-  <email>pajoye@php.net</email>
-  <active>no</active>
- </lead>
- <lead>
-  <name>Helgi Thormar</name>
-  <user>dufuz</user>
-  <email>dufuz@php.net</email>
+  <name>Arpad Ray</name>
+  <user>arpad</user>
+  <email>arpad@php.net</email>
   <active>yes</active>
  </lead>
  <lead>
