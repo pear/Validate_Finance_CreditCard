@@ -13,6 +13,7 @@ $types = array(
     'myemail1'   => array('type' => 'email'),
     'no'         => array('type' => 'number', array('min' => -8, 'max' => -7)),
     'teststring' => array('type' => 'string', array('format' => VALIDATE_ALPHA)),
+    'test10844'  => array('type' => 'string', 'format' => '0-9'),
     'date'       => array('type' => 'date',   array('format' => '%d%m%Y'))
 );
 
@@ -22,6 +23,7 @@ $data  = array(
     'myemail1' => 'webmaster.@google.com', // NOK
     'no' => '-8', // OK
     'teststring' => 'PEARrocks', // OK
+    'test10844' => 'dsfasdf', // NOK
     'date' => '12121996' // OK
     )
 );
@@ -45,6 +47,7 @@ myemail: webmaster@google.com =>YES
 myemail1: webmaster.@google.com =>NO
 no: -8 =>YES
 teststring: PEARrocks =>YES
+test10844: dsfasdf =>NO
 date: 12121996 =>YES
 *****************************************
 

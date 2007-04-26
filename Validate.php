@@ -1018,7 +1018,7 @@ class Validate
                 $method = $opt['type'];
                 unset($opt['type']);
 
-                if (sizeof($opt) == 1) {
+                if (sizeof($opt) == 1 && is_array(reset($opt))) {
                     $opt = array_pop($opt);
                 }
                 $valid[$var_name] = call_user_func(array('Validate', $method), $val2check, $opt);
