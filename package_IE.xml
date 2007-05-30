@@ -11,6 +11,8 @@ http://pear.php.net/dtd/package-2.0.xsd">
 - Passport Numbers
 - Phone Numbers
 - Bank Account Numbers
+- swift codes
+- IBAN codes
 - Drivers Licence Numbers
 - PPSN / SSN Numbers
 
