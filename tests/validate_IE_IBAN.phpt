@@ -5,7 +5,7 @@ validate_IE_IBAN.phpt: Unit tests for IBAN method 'Validate/IE.php'
 <?php
 // Validate test script
 $noYes = array('NO', 'YES');
-require_once '/home/kguest/dev/code/pear/Validate/Validate/IE.php';
+require_once 'Validate/IE.php';
 
 echo "Test Validate_IE\n";
 echo "****************\n";
