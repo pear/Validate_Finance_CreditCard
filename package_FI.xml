@@ -23,25 +23,20 @@
   <email>jani@mikkonen.info</email>
   <active>yes</active>
  </lead>
- <date>2006-11-08</date>
+ <date>2007-06-01</date>
  <version>
-  <release>0.2.0</release>
-  <api>0.2.0</api>
+  <release>0.3.0</release>
+  <api>0.3.0</api>
  </version>
  <stability>
-  <release>alpha</release>
-  <api>alpha</api>
+  <release>beta</release>
+  <api>beta</api>
  </stability>
  <license uri="http://www.opensource.org/licenses/bsd-license.php">New BSD</license>
  <notes>
-   - BC break: Renamed carReg() to carLicensePlate()
-   - BC break: Renamed bikeReg() to bikeLicensePlate()
-   - BC break: pin() retuns array containing gender and date of birth if optional param is true
-   - Fixed some typos and rewrote parts of the code
-   - Added unit tests for all public methods
-   - Proper API documentation
-   - Change package.xml to version 2
-   - Removed str_pad extension requirement (typo)
+   - Minor changes in documentation + copyright 
+   - Check Code fixes (Variable 'regs' is used before it was assigned.).
+   - Move to beta
  </notes>
  <contents>
   <dir name="/">
@@ -75,6 +70,23 @@
  </dependencies>
  <phprelease />
  <changelog>
+  <release>
+   <version>
+    <release>0.3.0</release>
+    <api>0.3.0</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <date>2007-06-01</date>
+   <license uri="http://www.opensource.org/licenses/bsd-license.php">New BSD</license>
+   <notes>
+   - Minor changes in documentation + copyright 
+   - Check Code fixes (Variable 'regs' is used before it was assigned.).
+   - Move to beta
+   </notes>
+  </release>
   <release>
    <version>
     <release>0.2.0</release>
