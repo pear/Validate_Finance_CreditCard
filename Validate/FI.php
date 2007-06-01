@@ -2,7 +2,7 @@
 
 /* vim: set expandtab tabstop=4 shiftwidth=4 softtabstop=4: */
 // +----------------------------------------------------------------------+
-// | Copyright (c) 2006 Jani Mikkonen                                     |
+// | Copyright (c) 2006-2007 Jani Mikkonen                                     |
 // +----------------------------------------------------------------------+
 // | This source file is subject to the New BSD license, That is bundled  |
 // | with this package in the file LICENSE, and is available through      |
@@ -21,7 +21,7 @@
  * @category   Validate
  * @package    Validate_FI
  * @author     Jani Mikkonen <jani@mikkonen.info>
- * @copyright  2006 Jani Mikkonen
+ * @copyright  2006-2007 Jani Mikkonen
  * @license    http://www.opensource.org/licenses/bsd-license.php  New BSD
  * @version    CVS: $Id$
  * @link       http://pear.php.net/package/Validate_FI
@@ -67,7 +67,7 @@ class Validate_FI
      * <code>
      * <?php
      * // Include the package
-     * require_once('Validate/FI.php');
+     * require_once 'Validate/FI.php';
      * 
      * $postalCode = '00100';
      * if ( Validate_FI::postalCode($postalCode) ) {
@@ -102,7 +102,7 @@ class Validate_FI
      * <code>
      * <?php
      * // Include the package
-     * require_once('Validate/FI.php');
+     * require_once 'Validate/FI.php';
      * 
      * $phoneNumber = '+358 40 1234567';
      * if ( Validate_FI::phoneNumber($phoneNumber) ) {
@@ -138,7 +138,7 @@ class Validate_FI
      * <code>
      * <?php
      * // Include the package
-     * require_once('Validate/FI.php');
+     * require_once 'Validate/FI.php';
      * 
      * $carLicensePlate = 'ABC-123';
      * if ( Validate_FI::carLicensePlate($carLicensePlate) ) {
@@ -185,7 +185,7 @@ class Validate_FI
      * <code>
      * <?php
      * // Include the package
-     * require_once('Validate/FI.php');
+     * require_once 'Validate/FI.php';
      * 
      * $bikeLicensePlate = 'ABC123';
      * if ( Validate_FI::bikeLicensePlate($bikeLicensePlate) ) {
@@ -227,7 +227,7 @@ class Validate_FI
      * <code>
      * <?php
      * // Include the package
-     * require_once('Validate/FI.php');
+     * require_once 'Validate/FI.php';
      * 
      * $pin = '010101-123N';
      * if ( Validate_FI::pin($pin) ) {
@@ -256,6 +256,7 @@ class Validate_FI
      */
     function pin($number, $info = false)
     {
+        $regs           = '';
         $pin            = strtoupper($number);
         static $control = array("0","1","2","3","4","5","6","7","8","9",
                                 "A","B","C","D","E","F","H","J","K","L",
@@ -292,7 +293,7 @@ class Validate_FI
      * <code>
      * <?php
      * // Include the package
-     * require_once('Validate/FI.php');
+     * require_once 'Validate/FI.php';
      * 
      * $finuid = '10011187H';
      * if ( Validate_FI::finuid($finuid) ) {
@@ -312,6 +313,7 @@ class Validate_FI
      */
     function finuid($number)
     {
+        $regs           = '';
         $number         = strtoupper($number);
         static $control = array("0","1","2","3","4","5","6","7","8","9",
                                 "A","B","C","D","E","F","H","J","K","L",
@@ -337,7 +339,7 @@ class Validate_FI
      * <code>
      * <?php
      * // Include the package
-     * require_once('Validate/FI.php');
+     * require_once 'Validate/FI.php';
      * 
      * $businessId = '1572860-0';
      * if ( Validate_FI::businessId($businessId) ) {
@@ -393,7 +395,7 @@ class Validate_FI
      * <code>
      * <?php
      * // Include the package
-     * require_once('Validate/FI.php');
+     * require_once 'Validate/FI.php';
      * 
      * $partyId = '003715728600';
      * if ( Validate_FI::partyId($partyId) ) {
@@ -439,7 +441,7 @@ class Validate_FI
      * <code>
      * <?php
      * // Include the package
-     * require_once('Validate/FI.php');
+     * require_once 'Validate/FI.php';
      * 
      * $vatNumber = 'FI15728600';
      * if ( Validate_FI::vatNumber($vatNumber) ) {
@@ -483,7 +485,7 @@ class Validate_FI
      * <code>
      * <?php
      * // Include the package
-     * require_once('Validate/FI.php');
+     * require_once 'Validate/FI.php';
      * 
      * $bankAccount = '159030-776';
      * if ( Validate_FI::bankAccount($bankAccount) ) {
@@ -506,12 +508,13 @@ class Validate_FI
     {
         if (preg_match("/^[0-9]{6}-[0-9]{2,8}$/", $number)) {
             // Bank groups are identified by the first digit
-            $bankType = substr($number, 0, 1);
+            $bankType   = substr($number, 0, 1);
             // Group 1: First digit is 1, 2, 3, 6 or 8
             $bankGroup1 = array('1','2','3','6','8');
             // Group 2: First digit is 4 or 5
             $bankGroup2 = array('4','5');
             // split account number
+            $regs       = '';
             ereg("([0-9]{6})-([0-9]{2,8})", $number, $regs);
             if (in_array($bankType, $bankGroup1)) {
                 // Group 1: 999999-99999 -> 999999-00099999
@@ -538,7 +541,7 @@ class Validate_FI
      * <code>
      * <?php
      * // Include the package
-     * require_once('Validate/FI.php');
+     * require_once 'Validate/FI.php';
      * 
      * $refNum = '61 74354';
      * if ( Validate_FI::refNum($refNum) ) {
@@ -603,7 +606,7 @@ class Validate_FI
      * <code>
      * <?php
      * // Include the package
-     * require_once('Validate/FI.php');
+     * require_once 'Validate/FI.php';
      * 
      * $creditCard = '5427 0073 1297 6425';
      * if ( Validate_FI::creditCard($creditCard) ) {
@@ -645,7 +648,7 @@ class Validate_FI
     function _mod10($number)
     {
         // Double every second digit started at the right
-        $doubledNumber  = "";
+        $doubledNumber  = '';
         $odd            = false;
         for($i = strlen($number)-1; $i >=0; $i--)
         {
