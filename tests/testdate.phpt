@@ -15,6 +15,8 @@ echo "******************\n";
 $dates = array(
     array('121202', 'format'=>'%d%m%y'), // OK
     array('21202', 'format'=>'%d%m%y'), // NOK
+    array('02122', 'format'=>'%y%m%d'), // NOK
+    array('02229', 'format'=>'%y%d%m'), // NOK
     array('121402', 'format'=>'%d%m%y'), // NOK
     array('12120001', 'format'=>'%d%m%Y'), // OK
 
@@ -94,6 +96,8 @@ Test Validate_Date
 Test dates
 121202 (format=>%d%m%y ): YES
 21202 (format=>%d%m%y ): NO
+02122 (format=>%y%m%d ): NO
+02229 (format=>%y%d%m ): NO
 121402 (format=>%d%m%y ): NO
 12120001 (format=>%d%m%Y ): YES
 220001 (format=>%j%n%Y ): NO

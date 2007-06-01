@@ -750,7 +750,7 @@ class Validate
                             if ($next == 'j') {
                                 $day = (int)Validate::_substr($date, 1, 2);
                             } else {
-                                $day = (int)Validate::_substr($date, 2);
+                                $day = (int)Validate::_substr($date, 0, 2);
                             }
                             if ($day < 1 || $day > 31) {
                                 return false;
@@ -759,7 +759,7 @@ class Validate
                         case 'm':
                         case 'n':
                             if ($next == 'm') {
-                                $month = (int)Validate::_substr($date, 2);
+                                $month = (int)Validate::_substr($date, 0, 2);
                             } else {
                                 $month = (int)Validate::_substr($date, 1, 2);
                             }
