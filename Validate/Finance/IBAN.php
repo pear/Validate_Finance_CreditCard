@@ -52,6 +52,7 @@ define('VALIDATE_FINANCE_IBAN_CHECKSUM_INVALID',  -8);
  * @license    http://www.opensource.org/licenses/bsd-license.php  New BSD License
  * @version    Release: @package_version@
  * @link       http://pear.php.net/package/Validate
+ * @link       Ireland IBANs http://www.skynet.ie/~martin/pages/iban.html
  */
 class Validate_Finance_IBAN
 {
