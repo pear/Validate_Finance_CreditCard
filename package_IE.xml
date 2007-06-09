@@ -15,7 +15,7 @@ http://pear.php.net/dtd/package-2.0.xsd">
 - IBAN codes
 - Drivers Licence Numbers
 - PPSN / SSN Numbers
-
+- Swift numbers
  </description>
  <lead>
   <name>David Coallier</name>
@@ -48,6 +48,9 @@ http://pear.php.net/dtd/package-2.0.xsd">
 - PPSN/SSN validation
 - swift code validation
 - IBAN code validation
+ Implemented feature #10584 (david)
+ Implemented feature #10585 (ken)
+ Implemented feature #10586 (ken)
  </notes>
  <contents>
   <dir name="/">
