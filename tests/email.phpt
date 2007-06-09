@@ -17,7 +17,7 @@ $emails = array(
         // with out the dns lookup
         'example@fluffffffrefrffrfrfrfrfrfr.is', // OK
 
-        array('davidc@php.net', array('fullTLDValidation' => array('tld' => VALIDATE_ITLD_EMAILS))),
+        array('davidc@php.net', array('fullTLDValidation' => VALIDATE_GTLD_EMAILS)),
 
         // Some none english chars, those should fail until we fix the IDN stuff
         'hæjjæ@homms.com', // NOK
