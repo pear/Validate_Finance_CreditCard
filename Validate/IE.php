@@ -74,13 +74,15 @@ class Validate_IE
                 return false;
             }
         }
-        $iban = strtoupper($iban);
-        if (!preg_match('/^IE[0-9]{2}[A-Z]{4}[0-9A-Z]{14}$/', $iban)){
-            return false;
-        } else {
-            require_once 'Validate/Finance/IBAN.php';
-            return Validate_Finance_IBAN::validate($iban);
+        
+        if (substr($iban, 0, 2) == 'IE') {
+            if (is_readable('Validate/Finance/IBAN.php')) {
+                require 'Validate/Finance/IBAN.php';
+                return Validate_Finance_IBAN::validate($iban);
+            }
         }
+
+        return false;
     }
     // }}}
     // {{{ public function phoneNumber
