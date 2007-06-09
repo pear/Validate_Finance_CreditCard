@@ -46,15 +46,18 @@ class Validate_IE
     // {{{ public function swift
     /**
      * Validate an Irish SWIFT code
+     *
      * @access public
      * @param  string $swift   swift code
      * @return bool   true if number is valid, false if not. 
      * @static
      */
-    function swift($swift) {
+    function swift($swift) 
+    {
         return preg_match('/^[a-z0-9]{4}IE[a-z0-9]{2}$/i', $swift);
     }
     // }}}
+    // {{{ public function IBAN
     /**
      * Validate Irish IBAN
      * 
@@ -63,7 +66,8 @@ class Validate_IE
      * @param   string  swift code to compare against IBAN
      * @return    bool
      */
-    function IBAN($iban, $swift = false) {
+    function IBAN($iban, $swift = false) 
+    {
         if ($swift) {
             $swift = substr($swift, 0, 4);
             if (substr($iban, 4, 4) != $swift) {
@@ -78,6 +82,7 @@ class Validate_IE
             return Validate_Finance_IBAN::validate($iban);
         }
     }
+    // }}}
     // {{{ public function phoneNumber
     /**
      * Validate an irish phone number
