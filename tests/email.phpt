@@ -19,7 +19,7 @@ $emails = array(
 
         array('davidc@php.net', array('fullTLDValidation' => VALIDATE_GTLD_EMAILS)),
         array('example (though bad)@example.com', array('use_rfc822' => true)), // OK
-        'bugme@not./com', // NOK
+        'bugme@not./com', // OK
 
         // Some none english chars, those should fail until we fix the IDN stuff
         'hæjjæ@homms.com', // OK
@@ -114,7 +114,7 @@ example@fluffffffrefrffrfrfrfrfrfr.is: without domain check : YES
 example@fluffffffrefrffrfrfrfrfrfr.is: YES
 davidc@php.net: YES
 example (though bad)@example.com: YES
-bugme@not./com: NO
+bugme@not./com: YES
 hæjjæ@homms.com: YES
 þæöð@example.com: YES
 postmaster@tüv.de: NO
