@@ -257,19 +257,21 @@ class Validate_IE
      * Validate postal code
      *
      * This function validate postal codes in Ireland
-     * @note There is not postal code in ireland, this is either
-     *       a joke :) or a catch to catch people that are faking
-     *       to be irish.
+     * @note   Postal codes in Dublin, not in the whole country.
+     *         http://en.wikipedia.org/wiki/List_of_Dublin_postal_districts
      *
      * @access public
      * @param  string $postalCode  The postal code to validate
-     * @return bool   false .. there's not postal codes in Ireland.
+     * @return bool    true if postcode is ok, false otherwise
      */
     function postalCode($postalCode)
     {
-        if (strlen(trim($postalCode)) > 0) {
-            return false;
-        }
+        $postalCode = strtoupper(str_replace(' ', '', trim($postalCode)));
+        $postalCode = str_replace('DUBLIN','D', $postalCode);
+
+        $file = '@DATADIR@/Validate_IE/data/IE_postcodes.txt';
+        $postcodes = array_map('trim', file($file));
+        return in_array($postalCode, $postcodes);
     }
     // }}}
     // {{{ public function passport
