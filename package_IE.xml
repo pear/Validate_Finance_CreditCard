@@ -63,6 +63,7 @@ http://pear.php.net/dtd/package-2.0.xsd">
     <file name="validate_IE_drive.phpt"  role="test"/>
     <file name="validate_IE_passport.phpt" role="test" />
     <file name="validate_IE_phoneNumber.phpt" role="test"/>
+    <file name="validate_IE_post_code.phpt"  role="test"/>
     <file name="validate_IE_ppsn.phpt" role="test"/>
     <file name="validate_IE_swift.phpt" role="test"/>
    </dir>
