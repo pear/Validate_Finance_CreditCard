@@ -7,7 +7,7 @@ http://pear.php.net/dtd/package-2.0.xsd">
  <channel>pear.php.net</channel>
  <summary>Validation class for Ireland</summary>
  <description>Package contains validation for Irish credentials:
-- PostalCodes (hoax)
+- PostalCodes
 - Passport Numbers
 - Phone Numbers
 - Bank Account Numbers
@@ -16,6 +16,7 @@ http://pear.php.net/dtd/package-2.0.xsd">
 - Drivers Licence Numbers
 - PPSN / SSN Numbers
 - Swift numbers
+- License Plates
  </description>
  <lead>
   <name>David Coallier</name>
@@ -61,6 +62,7 @@ http://pear.php.net/dtd/package-2.0.xsd">
     <file name="validate_IE_IBAN.phpt" role="test"/>
     <file name="validate_IE_bankAC.phpt" role="test"/>
     <file name="validate_IE_drive.phpt"  role="test"/>
+    <file name="validate_IE_licensePlate.phpt" role="test"/>
     <file name="validate_IE_passport.phpt" role="test" />
     <file name="validate_IE_phoneNumber.phpt" role="test"/>
     <file name="validate_IE_post_code.phpt"  role="test"/>

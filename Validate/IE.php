@@ -316,6 +316,32 @@ class Validate_IE
         return $match;
     }
     // }}}
+    // {{{ public function 
+    /**
+     * Validate an Irish vehicle's license plate/registration number.
+     * 
+     * @param  string $number value to validate.
+     * @access public
+     * @return bool   true on success; else false.
+     */
+    function licensePlate($number)
+    {
+        //in_array is case sensitive, so use strtoupper...
+        $plate = strtoupper($number);
+        $regex = "/^\d{2}[\ -]([A-Z][A-Z]?)[\ -]\d{1,6}$/";
+
+        if (preg_match($regex, $plate, $matches)){
+            $mark = strtoupper($matches[1]);
+            //check valid index mark
+            $marks = array('C','CE','CN','CW','D','DL','G','KE','KK','KY','L',
+                           'LD','LH','LK','LM','LS','MH','MN','MO','OY','RN',
+                           'SO','TN','TS','W','WD','WH','WX','WW');
+            return in_array($mark, $marks);
+        } else {
+            return false;
+        }
+    }
+    // }}}
     // {{{ public function bankAC
     /**
      * Validate a bank account number
