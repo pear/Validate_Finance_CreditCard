@@ -12,6 +12,12 @@ echo "****************\n";
 
 //test passport
 $plates = array(
+'ZZ-54321', //NOK
+'ZZ-654321', //OK
+'ZZ-7654321', //NOK
+'ZV-54321', //NOK
+'ZV-654321', //OK
+'ZV-7654321', //NOK
 '98-KY-2655', //OK
 '06-D-2600', //OK
 '06-DE-2600', //NOK - DE index doesn't exist
@@ -29,6 +35,12 @@ Test Validate_IE
 ****************
 
 Test License Plates
+ZZ-54321: NO
+ZZ-654321: YES
+ZZ-7654321: NO
+ZV-54321: NO
+ZV-654321: YES
+ZV-7654321: NO
 98-KY-2655: YES
 06-D-2600: YES
 06-DE-2600: NO
