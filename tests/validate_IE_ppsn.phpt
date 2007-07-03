@@ -1,6 +1,5 @@
 --TEST--
 validate_IE_ppsn.phpt: Unit tests for ppsn method 'Validate/IE.php'
-
 --FILE--
 <?php
 // Validate test script
@@ -11,12 +10,12 @@ echo "Test Validate_IE\n";
 echo "****************\n";
 
 echo "\nTest PPSNs\n";
-$ppsns = array("1234567C",  //OK
-               "1234567CW", //OK
-               "1234567CT", //OK
-               "1234567CX", //OK
-               "0234567CX", //OK
-               "1234567CB", //NOK - unrecognised suffix
+$ppsns = array("1234567T",  //OK
+               "1234567TW", //OK
+               "1234567TT", //OK
+               "1234567TX", //OK
+               "0234567LX", //OK
+               "1234567TB", //NOK - unrecognised suffix
                "1234567"  //NOK - no letter present
                );
 foreach ($ppsns as $ppsn) {
@@ -30,10 +29,10 @@ Test Validate_IE
 ****************
 
 Test PPSNs
-1234567C: YES
-1234567CW: YES
-1234567CT: YES
-1234567CX: YES
-0234567CX: YES
-1234567CB: NO
+1234567T: YES
+1234567TW: YES
+1234567TT: YES
+1234567TX: YES
+0234567LX: YES
+1234567TB: NO
 1234567: NO

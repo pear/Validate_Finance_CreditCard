@@ -396,6 +396,24 @@ class Validate_IE
         return Validate_IE::ppsn($ssn);
     }
     // }}}
+    // {{{ public function check_mod23
+    /**
+     * check_mod23 
+     * 
+     * @param string $ppsn 
+     * @access public
+     * @return boolean
+     */
+    function check_mod23($ppsn)
+    {
+        $total=0;
+        for($i=0;$i<7;++$i) {
+            $total+=(int)$ppsn[$i]*(8-$i);
+        }
+        return (int) (chr(64+($total%23)) == strtoupper($ppsn[7]));
+
+    }
+    // }}}
     // {{{ public function ppsn
     /**
      * Personal Public Service Number
@@ -413,12 +431,16 @@ class Validate_IE
         $preg = "/^[0-9]{7}[A-Z]$/";
 
         if (preg_match($preg, $ppsn)) {
-            return (true);
+            //return (true);
+            return Validate_IE::check_mod23($ppsn);
         }
 
-        $preg  = "/^[0-9]{7}[A-Z][\ WTX]$/";
-        $match = preg_match($preg, $ppsn) ? true : false;
-        return $match;
+        $preg  = "/^[0-9]{7}[A-Z][\ WTX]?$/";
+        if (preg_match($preg, $ppsn)){
+            return Validate_IE::check_mod23($ppsn);
+        } else {
+            return false;
+        }
     }
     // }}}
 }
