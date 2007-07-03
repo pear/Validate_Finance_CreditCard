@@ -338,9 +338,17 @@ class Validate_IE
                            'SO','TN','TS','W','WD','WH','WX','WW');
             return in_array($mark, $marks);
         } else {
-            //two pre-1987 codes are still in use. ZZ and ZV. format is ZZ nnnnn
-            $regex = "/^Z[ZV][\ -]\d{6}$/";
-            return preg_match($regex, $plate);
+            //two pre-1987 codes are still in use. ZZ and ZV. 
+            //format is ZZ nnnnn - 5 digits for ZZ code and as few as 4 for ZV
+            $regex = "/^ZZ[\ -]\d{5}$/";
+            if (preg_match($regex, $plate)){
+                return true;
+            }
+            $regex = "/^ZV[\ -]\d{4,5}$/";
+            if (preg_match($regex, $plate)){
+                return true;
+            }
+            return false;
         }
     }
     // }}}
