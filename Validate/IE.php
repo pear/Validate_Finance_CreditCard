@@ -443,6 +443,23 @@ class Validate_IE
         }
     }
     // }}}
+
+    // {{{ public function vatNumber
+    /**
+     * vatNumber 
+     * 
+     * @access  public
+     * @param   string  $vat    vat number to validate.
+     * @return  bool            Returns true on success, false otherwise
+     * @link    http://www.iecomputersystems.com/ordering/eu_vat_numbers.htm
+     */
+    function vatNumber($vat)
+    {
+        // IE1234567X or IE1X34567X are valid (includes one or two letters
+        // either the last or second + last).
+        return (preg_match('/^IE\d{7}[a-z]$/i', $vat) || preg_match('/^IE\d[a-z]\d{5}[a-z]$/i', $vat));
+    }
+    // }}}
 }
 // }}}
 ?>

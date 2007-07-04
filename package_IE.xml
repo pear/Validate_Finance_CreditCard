@@ -17,6 +17,7 @@ http://pear.php.net/dtd/package-2.0.xsd">
 - PPSN / SSN Numbers
 - Swift numbers
 - License Plates
+- VAT numbers
  </description>
  <lead>
   <name>David Coallier</name>
@@ -68,6 +69,7 @@ http://pear.php.net/dtd/package-2.0.xsd">
     <file name="validate_IE_post_code.phpt"  role="test"/>
     <file name="validate_IE_ppsn.phpt" role="test"/>
     <file name="validate_IE_swift.phpt" role="test"/>
+    <file name="validate_IE_vatNumber.phpt" role="test"/>
    </dir>
   </dir> <!-- / -->
  </contents>
