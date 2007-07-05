@@ -31,7 +31,14 @@ $carLicensePlates = array('AB-123',     // OK
                           'c-12345',    // NOK
                           '0',          // NOK 
                           '-1',         // NOK 
-                          'valid'       // NOK
+                          'valid',      // NOK
+                          'ежд-123',    // OK
+                          'жд-12',      // OK
+                          'ABC-0',      // NOK
+                          'ABC-01',     // NOK
+                          'ABC-012',    // NOK
+                          'CD-0234',    // NOK
+                          'C-02345'     // NOK
 );
 
 echo "\nTest carLicensePlate\n";
@@ -67,3 +74,10 @@ c-12345: NO
 0: NO
 -1: NO
 valid: NO
+ежд-123: YES
+жд-12: YES
+ABC-0: NO
+ABC-01: NO
+ABC-012: NO
+CD-0234: NO
+C-02345: NO

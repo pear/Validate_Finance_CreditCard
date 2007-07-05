@@ -2,7 +2,7 @@
 
 /* vim: set expandtab tabstop=4 shiftwidth=4 softtabstop=4: */
 // +----------------------------------------------------------------------+
-// | Copyright (c) 2006-2007 Jani Mikkonen                                     |
+// | Copyright (c) 2006-2007 Jani Mikkonen                                |
 // +----------------------------------------------------------------------+
 // | This source file is subject to the New BSD license, That is bundled  |
 // | with this package in the file LICENSE, and is available through      |
@@ -48,7 +48,7 @@
  * @category   Validate
  * @package    Validate_FI
  * @author     Jani Mikkonen <jani@mikkonen.info>
- * @copyright  2006 Jani Mikkonen
+ * @copyright  2006-2007 Jani Mikkonen
  * @license    http://www.opensource.org/licenses/bsd-license.php  New BSD
  * @version    Release: @package_version@
  * @link       http://pear.php.net/package/Validate_FI
@@ -129,9 +129,9 @@ class Validate_FI
     /**
      * Validate Finnish car license plate number.
      * 
-     * Format: AAA-XXX, CD-XXXX or C-XXXXX
+     * Format: AAA-XXX, CD-XXXX or C-XXXXX. First or only number cannot be zero.
      * 
-     * AAA-XXX: AAA is 2-3 letters UPPERCASE A-Z and XXX is 1-3 numbers
+     * AAA-XXX: AAA is 2-3 letters UPPERCASE A-Z + ÅÄÖ and XXX is 1-3 numbers.
      * CD-XXXX: CD- and XXXX is 1-4 numbers (diplomat licence plate)
      * C-XXXXX: C- and XXXXX is 1-5 numbers (other tax-free diplomat licence plate)
      * 
@@ -158,15 +158,15 @@ class Validate_FI
      */
     function carLicensePlate($number){
         // diplomat licence plate
-        if (preg_match("/^CD-[0-9]{1,4}$/", $number)) {
+        if (preg_match("/^CD-[1-9]{1}[0-9]{0,3}$/", $number)) {
             return true;
         }
         // other tax-free diplomat licence plate
-        if (preg_match("/^C-[0-9]{1,5}$/", $number)) {
+        if (preg_match("/^C-[1-9]{1}[0-9]{0,4}$/", $number)) {
             return true;
         }
         // regular licence plate
-        if (preg_match("/^[A-Z]{2,3}-[0-9]{1,3}$/", $number)) {          
+        if (preg_match("/^[A-ZÅÄÖ]{2,3}-[1-9]{1}[0-9]{0,2}$/", $number)) {
             return true;
         }
         return false;
@@ -177,9 +177,9 @@ class Validate_FI
     /**
      * Validate Finnish motorbike license plate number.
      * 
-     * Format: AAAXXX
+     * Format: AAAXXX. First or only number cannot be zero.
      * 
-     * Where AAA is 2-3 letters UPPERCASE A-Z and XXX is 1-3 numbers.
+     * Where AAA is 2-3 letters UPPERCASE A-Z + ÅÄÖ and XXX is 1-3 numbers.
      * Letters and numbers are actually in separate lines.
      * 
      * <code>
@@ -204,7 +204,7 @@ class Validate_FI
      * @link        http://www.ake.fi/AKE/Rekisterointi/Suomen_rekisterikilvet/
      */
     function bikeLicensePlate($number){
-        return (preg_match("/^[A-Z]{2,3}(\n)?[0-9]{1,3}$/", $number)) ? true : false;
+        return (preg_match("/^[A-ZÅÄÖ]{2,3}(\n)?[1-9]{1}[0-9]{0,2}$/", $number)) ? true : false;
     }
     // }}}
     

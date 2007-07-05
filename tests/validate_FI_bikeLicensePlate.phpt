@@ -21,7 +21,12 @@ $bikeLicensePlates = array('AB123',     // OK
                            'abc123',    // NOK
                            '0',         // NOK 
                            '-1',        // NOK 
-                           'valid'      // NOK
+                           'valid',     // NOK
+                           'ежд123',    // OK
+                           'жд12',      // OK
+                           'ABC0',      // NOK
+                           'ABC01',     // NOK
+                           'ABC012'     // NOK
 );
 
 echo "\nTest bikeLicensePlate\n";
@@ -47,3 +52,8 @@ abc123: NO
 0: NO
 -1: NO
 valid: NO
+ежд123: YES
+жд12: YES
+ABC0: NO
+ABC01: NO
+ABC012: NO
