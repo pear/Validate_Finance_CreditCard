@@ -32,14 +32,14 @@
  * This class provides methods to validate:
  *  - Postal code
  *
- * @category   Validate
- * @package    Validate_IE
- * @author     David Coallier <davidc@php.net> 
- * @author     Ken Guest      <ken@linux.ie>
- * @copyright  1997-2007 Agora Production (http://agoraproduction.com)
- * @license    http://www.opensource.org/licenses/bsd-license.php  New BSD License
- * @version    Release: @package_version@
- * @link       http://pear.php.net/package/Validate_IE
+ * @category  Validate
+ * @package   Validate_IE
+ * @author    David Coallier <davidc@php.net> 
+ * @author    Ken Guest      <ken@linux.ie>
+ * @copyright 1997-2007 Agora Production (http://agoraproduction.com)
+ * @license   http://www.opensource.org/licenses/bsd-license.php  New BSD License
+ * @version   Release: @package_version@
+ * @link      http://pear.php.net/package/Validate_IE
  */
 class Validate_IE
 {
@@ -47,10 +47,11 @@ class Validate_IE
     /**
      * Validate an Irish SWIFT code
      *
-     * @access public
-     * @param  string $swift   swift code
+     * @param string $swift swift code
+     *
      * @return bool   true if number is valid, false if not. 
      * @static
+     * @access public
      */
     function swift($swift) 
     {
@@ -61,10 +62,11 @@ class Validate_IE
     /**
      * Validate Irish IBAN
      * 
-     * @access  public
-     * @param   string  The account number to be validated
-     * @param   string  swift code to compare against IBAN
+     * @param string $iban  The account number to be validated
+     * @param string $swift swift code to compare against IBAN
+     * 
      * @return    bool
+     * @access  public
      */
     function IBAN($iban, $swift = false) 
     {
@@ -77,7 +79,7 @@ class Validate_IE
         
         if (substr($iban, 0, 2) == 'IE') {
             if (is_readable('Validate/Finance/IBAN.php')) {
-                require 'Validate/Finance/IBAN.php';
+                include 'Validate/Finance/IBAN.php';
                 return Validate_Finance_IBAN::validate($iban);
             }
         }
@@ -92,6 +94,9 @@ class Validate_IE
      * This function validates an irish phone number.
      * You can either use the requiredAreaCode or not.
      * by default this is set to true.
+     * 
+     * @param string $number           The phone number
+     * @param bool   $requiredAreaCode defaults to true - to require area code checks
      * 
      * <code>
      * <?php
@@ -114,14 +119,7 @@ class Validate_IE
      * ?>
      * </code>
      * 
-     *
-     * @note Irish phone numbers are not the same than UK Phone numbers
-     *       Irish phone numbers are much less complex as UK now has per 
-     *       district phone numbers etc.
-     *
      * @access public
-     * @param  string $number            The phone number
-     * @param  bool   $requiredAreaCode  defaults to true. If set require area code checking.
      * @return bool   true if number is valid, false if not. 
      * @static
      */
@@ -131,6 +129,9 @@ class Validate_IE
          * categorize prefixes into landline, mobile and 'other'
          * each prefix has an associated regular expression.
          * use defaultRegExp if associated entry is empty.
+         * @note Irish phone numbers are not the same as UK Phone numbers;
+         *       Irish phone numbers are much less complex as UK now has per 
+         *       district phone numbers etc.
          */
         static $defaultRegExp = '/^\d{7,10}$/';
         static $irishLandLine = array(
@@ -167,7 +168,7 @@ class Validate_IE
                                           '1890'=>'/^1890[0-9]{6}$/');
 
         if (preg_match('/^00.*$/', $number)) {
-            $number = '+' . substr($number,2);
+            $number = '+' . substr($number, 2);
         }
         $number = str_replace(array('(', ')', '-', '+', '.', ' '), '', $number);
         //remove country code for Ireland and insert leading zero of area code.
@@ -187,8 +188,8 @@ class Validate_IE
             return false;
         }
         //check special rate numbers
-        if (($requiredAreaCode) && (substr($number,0,1) == '1')) {
-            $prefix = substr($number, 0,4);
+        if (($requiredAreaCode) && (substr($number, 0, 1) == '1')) {
+            $prefix = substr($number, 0, 4);
             if (isset($irishOtherRates[$prefix])) {
                 $reg = $irishOtherRates[$prefix];
                 return (preg_match($reg, $number));
@@ -201,20 +202,20 @@ class Validate_IE
 
         //if number has ten digits and a prefix it's likely a mobile phone
         if (($requiredAreaCode) && ($len == 10)) {
-            $prefix = substr($number, 1,2);
+            $prefix = substr($number, 1, 2);
             if (isset($irishMobileAreas[$prefix])) {
                 $regexp = $irishMobileAreas[$prefix];
-                if (preg_match($regexp,$number)) {
+                if (preg_match($regexp, $number)) {
                     return true;
                 }
             }
         }
         //see if it's a mobile phone with a 'direct to voicemail' prefix.
         if (($requiredAreaCode) && ($len == 11)) {
-            $prefix = substr($number, 1,2);
+            $prefix = substr($number, 1, 2);
             if (isset($irishMobileAreasVoiceMail[$prefix])) {
                 $regexp = $irishMobileAreasVoiceMail[$prefix];
-                if (preg_match($regexp,$number)) {
+                if (preg_match($regexp, $number)) {
                     return true;
                 }
             }
@@ -230,9 +231,9 @@ class Validate_IE
             }
         } else {
             $ret = false;
-            for($i = 3; $i > 0; $i--){
-                $prefix = substr($number, 1,$i);
-                $preg = "";
+            for ($i = 3; $i > 0; $i--) {
+                $prefix = substr($number, 1, $i);
+                $preg   = "";
                 if (isset($irishLandLine[$prefix])) {
                     $preg = $irishLandLine[$prefix];
                     if ($preg == '') {
@@ -256,20 +257,21 @@ class Validate_IE
     /**
      * Validate postal code
      *
-     * This function validate postal codes in Ireland
-     * @note   Postal codes in Dublin, not in the whole country.
-     *         http://en.wikipedia.org/wiki/List_of_Dublin_postal_districts
+     * This function validates postal district codes in Dublin.
+     * It will be revised when national postal codes are rolled out.
+     *
+     * @param string $postalCode The postal code to validate
      *
      * @access public
-     * @param  string $postalCode  The postal code to validate
+     * @link   http://en.wikipedia.org/wiki/List_of_Dublin_postal_districts
      * @return bool    true if postcode is ok, false otherwise
      */
     function postalCode($postalCode)
     {
         $postalCode = strtoupper(str_replace(' ', '', trim($postalCode)));
-        $postalCode = str_replace('DUBLIN','D', $postalCode);
+        $postalCode = str_replace('DUBLIN', 'D', $postalCode);
 
-        $file = '@DATADIR@/Validate_IE/data/IE_postcodes.txt';
+        $file      = '@DATADIR@/Validate_IE/data/IE_postcodes.txt';
         $postcodes = array_map('trim', file($file));
         return in_array($postalCode, $postcodes);
     }
@@ -280,8 +282,9 @@ class Validate_IE
      *
      * Validate an irish passport number.
      *
+     * @param string $pp The passport number to validate.
+     *
      * @access public
-     * @param  string $pp   The passport number to validate.
      * @return bool   If the passport number is valid or not.
      */
     function passport($pp) 
@@ -300,11 +303,11 @@ class Validate_IE
     /**
      * Validates an Irish driving licence
      *
-     * This function will validate the drivers
-     * licence for irish licences.
+     * This function will validate the number on an Irish driving licence.
+     *
+     * @param string $dl The drivers licence to validate
      *
      * @access    public
-     * @param     string $dl  The drivers licence to validate
      * @return    bool   true if it validates false if it doesn't.
      */
     function drive($dl)
@@ -320,7 +323,8 @@ class Validate_IE
     /**
      * Validate an Irish vehicle's license plate/registration number.
      * 
-     * @param  string $number value to validate.
+     * @param string $number value to validate.
+     *
      * @access public
      * @return bool   true on success; else false.
      */
@@ -330,7 +334,7 @@ class Validate_IE
         $plate = strtoupper($number);
         $regex = "/^\d{2}[\ -]([A-Z][A-Z]?)[\ -]\d{1,6}$/";
 
-        if (preg_match($regex, $plate, $matches)){
+        if (preg_match($regex, $plate, $matches)) {
             $mark = strtoupper($matches[1]);
             //check valid index mark
             $marks = array('C','CE','CN','CW','D','DL','G','KE','KK','KY','L',
@@ -341,11 +345,11 @@ class Validate_IE
             //two pre-1987 codes are still in use. ZZ and ZV. 
             //format is ZZ nnnnn - 5 digits for ZZ code and as few as 4 for ZV
             $regex = "/^ZZ[\ -]\d{5}$/";
-            if (preg_match($regex, $plate)){
+            if (preg_match($regex, $plate)) {
                 return true;
             }
             $regex = "/^ZV[\ -]\d{4,5}$/";
-            if (preg_match($regex, $plate)){
+            if (preg_match($regex, $plate)) {
                 return true;
             }
             return false;
@@ -359,14 +363,15 @@ class Validate_IE
      * This function will validate a bank account
      * number for irish banks.
      *
+     * @param string $ac     The account number
+     * @param string $noSort Don't validate the sort codes, optional (default: false)
+     *
      * @access public
-     * @param  string           $ac       The account number
-     * @param  string  optional $noSort   Do not validate the sort codes (default: false)
-     * @return bool                       true if the account validates
+     * @return bool                    true if the account validates
      */
     function bankAC($ac, $noSort = false)
     {
-        $ac = str_replace(array('-', ' '), '', $ac);
+        $ac   = str_replace(array('-', ' '), '', $ac);
         $preg = "/^\d{14}$/";
 
         if ($noSort) {
@@ -385,10 +390,11 @@ class Validate_IE
      * Ireland does not have a social security number system,
      * the closest equivalent is a Personal Public Service Number.
      *
+     * @param string $ssn ssn number to validate
+     *
      * @link http://en.wikipedia.org/wiki/Personal_Public_Service_Number
      * @access  public
      * @see     Validate_IE::ppsn()
-     * @param   string  $ssn; ssn number to validate
      * @return  bool    Returns true on success, false otherwise
      */
     function ssn($ssn)
@@ -396,19 +402,20 @@ class Validate_IE
         return Validate_IE::ppsn($ssn);
     }
     // }}}
-    // {{{ public function check_mod23
+    // {{{ public function checkMOD23
     /**
-     * check_mod23 
+     * Return true if the checksum in the specified PPSN is valid.
      * 
-     * @param string $ppsn 
+     * @param string $ppsn The PPS number.
+     *
      * @access public
      * @return boolean
      */
-    function check_mod23($ppsn)
+    function checkMOD23($ppsn)
     {
-        $total=0;
-        for($i=0;$i<7;++$i) {
-            $total+=(int)$ppsn[$i]*(8-$i);
+        $total = 0;
+        for ($i = 0;$i<7;++$i) {
+            $total += (int)$ppsn[$i]*(8-$i);
         }
         return (int) (chr(64+($total%23)) == strtoupper($ppsn[7]));
 
@@ -421,8 +428,9 @@ class Validate_IE
      * Ireland does not have a social security number system,
      * the closest equivalent is a Personal Public Service Number.
      *
+     * @param string $ppsn Personal Public Service Number
+     *
      * @access  public
-     * @param   $ppsn   Personal Public Service Number
      * @return  bool    Returns true on success, false otherwise
      * @link    http://en.wikipedia.org/wiki/Personal_Public_Service_Number
      */
@@ -432,12 +440,12 @@ class Validate_IE
 
         if (preg_match($preg, $ppsn)) {
             //return (true);
-            return Validate_IE::check_mod23($ppsn);
+            return Validate_IE::checkMOD23($ppsn);
         }
 
-        $preg  = "/^[0-9]{7}[A-Z][\ WTX]?$/";
-        if (preg_match($preg, $ppsn)){
-            return Validate_IE::check_mod23($ppsn);
+        $preg = "/^[0-9]{7}[A-Z][\ WTX]?$/";
+        if (preg_match($preg, $ppsn)) {
+            return Validate_IE::checkMOD23($ppsn);
         } else {
             return false;
         }
@@ -446,8 +454,12 @@ class Validate_IE
 
     // {{{ public function vatNumber
     /**
-     * vatNumber 
+     * Validate Irish VAT registration number.
      * 
+     * @param string $vat vat number to validate.
+     *
+     * @access  public
+     *
      * <code>
      * <?php
      * // Include the package
@@ -463,8 +475,6 @@ class Validate_IE
      * ?>
      * </code>
      * 
-     * @access  public
-     * @param   string  $vat    vat number to validate.
      * @return  bool            Returns true on success, false otherwise
      * @link    http://www.iecomputersystems.com/ordering/eu_vat_numbers.htm
      */
@@ -472,7 +482,8 @@ class Validate_IE
     {
         // IE1234567X or IE1X34567X are valid (includes one or two letters
         // either the last or second + last).
-        return (preg_match('/^IE\d{7}[a-z]$/i', $vat) || preg_match('/^IE\d[a-z]\d{5}[a-z]$/i', $vat));
+        return (preg_match('/^IE\d{7}[a-z]$/i', $vat) || 
+                preg_match('/^IE\d[a-z]\d{5}[a-z]$/i', $vat));
     }
     // }}}
 }
