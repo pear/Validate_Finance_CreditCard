@@ -448,6 +448,21 @@ class Validate_IE
     /**
      * vatNumber 
      * 
+     * <code>
+     * <?php
+     * // Include the package
+     * require_once('Validate/IE.php');
+     * 
+     * $vat = 'IE6335315A';
+     * if ( Validate_IE::vatNumber($vat) ) {
+     *     print 'Valid';
+     * } else {
+     *     print 'Not valid!';
+     * }
+     * 
+     * ?>
+     * </code>
+     * 
      * @access  public
      * @param   string  $vat    vat number to validate.
      * @return  bool            Returns true on success, false otherwise
