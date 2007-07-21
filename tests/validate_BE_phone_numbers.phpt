@@ -2,7 +2,7 @@
 validate_BE_phone_numbers: Unit tests for phoneNumber method in 'Validate/BE.php'
 --FILE--
 <?php
-include (dirname(__FILE__).'/validate_BE_functions.inc.php');
+include (dirname(__FILE__).'/validate_functions.inc');
 require_once 'Validate/BE.php';
 
 $phoneNumberList = array( '065 12 34 56'        => 'OK'// national little zone (phone number with 6 number)
@@ -42,17 +42,13 @@ $phoneNumberList = array( '065 12 34 56'        => 'OK'// national little zone (
                       , '++ 32 485 112 34 56' => 'KO'
 
                       );
-$functionToTest = 'phoneNumber';
-$title = 'Test Validate_BE::' . $functionToTest . '()';
-echo $title . "\n";
-echo str_pad('',strlen($title),'*') . "\n";
-echo (test_func($functionToTest, $phoneNumberList )) ? '... FAILED' : '... SUCCESS';
+$errorFound = false;
+$errorFound = $errorFound || test_func(array('validate_BE','phoneNumber'), $phoneNumberList );
+echo ($errorFound) ? '... FAILED' : '... SUCCESS';
 ?>
 --EXPECT--
-Test Validate_BE::phoneNumber()
-*******************************
 ---------
-Test phoneNumber
+Test validate_BE::phoneNumber
  _ Value                  State Return
  V = validation result is right
  X = validation result is wrong

@@ -2,7 +2,7 @@
 validate_BE_ssn.phpt: Unit tests ssn method for 'Validate/BE.php'
 --FILE--
 <?php
-include (dirname(__FILE__).'/validate_BE_functions.inc.php');
+include (dirname(__FILE__).'/validate_functions.inc');
 require_once 'Validate/BE.php';
 
 echo "Test Validate_BE\n";
@@ -23,17 +23,14 @@ $ssns = array ( '72011136173' => 'KO'
               );
 
 $errorFound = false;
-
-
-  $errorFound = $errorFound || test_func('ssn', $ssns );
-
- echo ($errorFound) ? '... FAILED' : '... SUCCESS';
+$errorFound = $errorFound || test_func(array('validate_BE','ssn'), $ssns );
+echo ($errorFound) ? '... FAILED' : '... SUCCESS';
 ?>
 --EXPECT--
 Test Validate_BE
 ****************
 ---------
-Test ssn
+Test validate_BE::ssn
  _ Value                  State Return
  V = validation result is right
  X = validation result is wrong

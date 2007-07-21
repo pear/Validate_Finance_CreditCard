@@ -2,7 +2,7 @@
 validate_BE_bank_transfer_message.phpt: Unit tests for bank transfert message method 'Validate/BE.php'
 --FILE--
 <?php
-include (dirname(__FILE__).'/validate_BE_functions.inc.php');
+include (dirname(__FILE__) . '/validate_functions.inc');
 require_once 'Validate/BE.php';
 
 echo "Test bank Transfer Message Validate_BE\n";
@@ -21,14 +21,15 @@ $bankTransferMessageList = array( '054/3140/16211' => 'OK'
                                 , '053314016211' => 'KO'
                                 , '54314016211' => 'KO'
                                 );
-
-echo ( test_func('bankTransferMessage', $bankTransferMessageList )) ? '... FAILED' : '... SUCCESS';
+$errorFound = false;
+$errorFound = $errorFound || test_func(array('validate_BE','bankTransferMessage'), $bankTransferMessageList );
+echo ($errorFound) ? '... FAILED' : '... SUCCESS';
 ?>
 --EXPECT--
 Test bank Transfer Message Validate_BE
 **************************************
 ---------
-Test bankTransferMessage
+Test validate_BE::bankTransferMessage
  _ Value                  State Return
  V = validation result is right
  X = validation result is wrong

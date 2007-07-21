@@ -2,7 +2,7 @@
 validate_BE.phpt: Unit tests for 'Validate/BE.php'
 --FILE--
 <?php
-include (dirname(__FILE__).'/validate_BE_functions.inc.php');
+include (dirname(__FILE__).'/validate_functions.inc');
 require_once 'Validate/BE.php';
 
 $nationalIdList = array( '73011136173'  => 'OK'
@@ -13,18 +13,19 @@ $nationalIdList = array( '73011136173'  => 'OK'
                        , '730211-361-99'  => 'KO'
                        );
 
+echo "Test Validate_BE::nationalId()\n";
+echo "******************************\n";
 
-$functionToTest = 'nationalId';
-$title = 'Test Validate_BE::' . $functionToTest . '()';
-echo $title . "\n";
-echo str_pad('',strlen($title),'*') . "\n";
-echo (test_func($functionToTest, $nationalIdList )) ? '... FAILED' : '... SUCCESS';
+
+$errorFound = false;
+$errorFound = $errorFound || test_func(array('validate_BE','nationalId'), $nationalIdList );
+echo ($errorFound) ? '... FAILED' : '... SUCCESS';
 ?>
 --EXPECT--
 Test Validate_BE::nationalId()
 ******************************
 ---------
-Test nationalId
+Test validate_BE::nationalId
  _ Value                  State Return
  V = validation result is right
  X = validation result is wrong

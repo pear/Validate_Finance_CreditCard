@@ -2,7 +2,7 @@
 validate_BE_vat.phpt: Unit tests for vat check method 'Validate/BE.php'
 --FILE--
 <?php
-include (dirname(__FILE__).'/validate_BE_functions.inc.php');
+include (dirname(__FILE__).'/validate_functions.inc');
 require_once 'Validate/BE.php';
 
 echo "Test vat Validate_BE\n";
@@ -19,13 +19,15 @@ $vats = array( '202239951'    => 'OK'
 ,              '2002.239.951' => 'KO'
 ,);
 
-echo (test_func('vat', $vats )) ? '... FAILED' : '... SUCCESS';
+$errorFound = false;
+$errorFound = $errorFound || test_func(array('validate_BE','vat'), $vats );
+echo ($errorFound) ? '... FAILED' : '... SUCCESS';
 ?>
 --EXPECT--
 Test vat Validate_BE
 ********************
 ---------
-Test vat
+Test validate_BE::vat
  _ Value                  State Return
  V = validation result is right
  X = validation result is wrong

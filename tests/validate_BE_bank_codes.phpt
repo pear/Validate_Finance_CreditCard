@@ -2,7 +2,7 @@
 validate_BE_bank_codes.phpt: Unit tests for bank code method 'Validate/BE.php'
 --FILE--
 <?php
-include (dirname(__FILE__).'/validate_BE_functions.inc.php');
+include (dirname(__FILE__).'/validate_functions.inc');
 require_once 'Validate/BE.php';
 
 echo "Test bank code Validate_BE\n";
@@ -24,13 +24,16 @@ $bankCodeList = array( '310164533207' => 'OK'
 ,
 );
 
-echo (test_func('bankCode', $bankCodeList )) ? '... FAILED' : '... SUCCESS';
+$errorFound = false;
+$errorFound = $errorFound || test_func(array('validate_BE','bankCode'), $bankCodeList );
+echo ($errorFound) ? '... FAILED' : '... SUCCESS';
+
 ?>
 --EXPECT--
 Test bank code Validate_BE
 **************************
 ---------
-Test bankCode
+Test validate_BE::bankCode
  _ Value                  State Return
  V = validation result is right
  X = validation result is wrong

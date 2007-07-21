@@ -2,13 +2,11 @@
 validate_BE_post_code_strong.phpt: Unit tests for postalCode in strong mode in 'Validate/BE.php'
 --FILE--
 <?php
-include (dirname(__FILE__).'/validate_BE_functions.inc.php');
+include (dirname(__FILE__).'/validate_functions.inc');
 require_once 'Validate/BE.php';
 
 echo "Test postalCode STRONG Validate_BE\n";
 echo "**********************************\n";
-
-$noYes = array('KO', 'OK');
 
 $postalCodeList = array('b-1234' => 'KO', 
                        'B-1234' => 'KO',
@@ -27,16 +25,22 @@ $postalCodeList = array('b-1234' => 'KO',
                        '2A34'   => 'KO',
                        '023X'   => 'KO');
 
-
-
-echo (test_func('postalCode', $postalCodeList, true )) ? '... FAILED' : '... SUCCESS';
-
+$errorFound = false;
+$errorFound =
+$errorFound
+||
+test_func(
+ array('validate_BE','postalCode'),
+ $postalCodeList,
+ true );
+echo ($errorFound) ? '... FAILED' : '... SUCCESS';
 ?>
 --EXPECT--
 Test postalCode STRONG Validate_BE
 **********************************
 ---------
-Test postalCode
+Test validate_BE::postalCode
+extra params:1
  _ Value                  State Return
  V = validation result is right
  X = validation result is wrong
