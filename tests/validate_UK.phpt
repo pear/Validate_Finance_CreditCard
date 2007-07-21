@@ -1,5 +1,5 @@
 --TEST--
-validate_UK.phpt: Unit tests for 
+validate_UK.phpt: Unit tests for United Kingdom Validation class
 --FILE--
 <?php
 // $Id$
