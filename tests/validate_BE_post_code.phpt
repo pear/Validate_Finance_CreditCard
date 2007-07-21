@@ -2,7 +2,7 @@
 validate_BE_post_code.phpt: Unit tests for post code method 'Validate/BE.php'
 --FILE--
 <?php
-include (dirname(__FILE__).'/validate_BE_functions.inc.php');
+include (dirname(__FILE__).'/validate_functions.inc');
 require_once 'Validate/BE.php';
 
 echo "Test Post Code Validate_BE\n";
@@ -24,14 +24,19 @@ $postalCodeList = array('b-1234' => 'OK',
                         '7234'   => 'OK',
                         '2A34'   => 'KO',
                         '023X'   => 'KO');
+$errorFound = false;
+$errorFound =
+$errorFound
+||
+test_func( array('validate_BE','postalCode'), $postalCodeList );
+echo ($errorFound) ? '... FAILED' : '... SUCCESS';
 
-echo (test_func('postalCode', $postalCodeList )) ? '... FAILED' : '... SUCCESS';
 ?>
 --EXPECT--
 Test Post Code Validate_BE
 **************************
 ---------
-Test postalCode
+Test validate_BE::postalCode
  _ Value                  State Return
  V = validation result is right
  X = validation result is wrong
