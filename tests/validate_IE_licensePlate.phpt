@@ -25,7 +25,7 @@ $plates = array(
 '07=KY=23233' //NOK - wrong delimiters
 );
 echo "\nTest License Plates\n";
-foreach($plates as $plate) {
+foreach ($plates as $plate) {
     echo "{$plate}: ".$noYes[Validate_IE::licensePlate($plate)]."\n";
 }
 exit(0);

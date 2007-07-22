@@ -18,7 +18,7 @@ $passports = array(
 'AN12345678' //NOK - too long
 );
 echo "\nTest Passports\n";
-foreach($passports as $passport) {
+foreach ($passports as $passport) {
     echo "{$passport}: ".$noYes[Validate_IE::passport($passport)]."\n";
 }
 exit(0);

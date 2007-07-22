@@ -18,7 +18,7 @@ $codes = array(
 'D100' //NOK - too long
 );
 echo "\nTest Postal Codes\n";
-foreach($codes as $code) {
+foreach ($codes as $code) {
     echo "{$code}: ".$noYes[Validate_IE::postalCode($code)]."\n";
 }
 exit(0);

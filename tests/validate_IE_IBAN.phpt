@@ -12,7 +12,8 @@ echo "****************\n";
 
 //test bank account
 $IBANs = array(
-'IE29AIBK93115212345678', //OK (test value copied from http://www.tbg5-finance.org/?ibandocs.shtml)
+//(test value copied from http://www.tbg5-finance.org/?ibandocs.shtml
+'IE29AIBK93115212345678', //OK
 'IE29AIBK93115212345679', //NOK - checksum problem
 'XX29AIBK93115212345678' //NOK - invalid country code
 );
@@ -22,14 +23,14 @@ array('IE79BOFI93115212345678','AIBK'),
 array('IE79BOFI93115212345678','BOFI')
 );
 echo "\nTest IBANs\n";
-foreach($IBANs as $IBAN) {
+foreach ($IBANs as $IBAN) {
     echo "{$IBAN}: ".$noYes[Validate_IE::IBAN($IBAN)]."\n";
 }
 echo "\nTest IBANs with SWIFTs\n";
-foreach($combo as $test) {
-    $iban = $test[0];
+foreach ($combo as $test) {
+    $iban  = $test[0];
     $swift = $test[1];
-    echo "{$iban} {$swift}: ".$noYes[Validate_IE::IBAN($iban,$swift)]."\n";
+    echo "{$iban} {$swift}: ".$noYes[Validate_IE::IBAN($iban, $swift)]."\n";
 }
 exit(0);
 ?>

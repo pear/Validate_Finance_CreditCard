@@ -11,7 +11,7 @@ echo "Test Validate_IE\n";
 echo "****************\n";
 
 //test bank account
-$ACs = array(
+$ACs        = array(
 '12345678901234', //OK
 'A2345678901234', //NOK - not numeric
 '123456789012345', //NOK - too long
@@ -24,11 +24,11 @@ $sort_codes = array(
 '1234567', //NOK - too few digits;
 );
 echo "\nTest bank accounts\n";
-foreach($ACs as $AC) {
+foreach ($ACs as $AC) {
     echo "{$AC}: ".$noYes[Validate_IE::bankAC($AC)]."\n";
 }
 echo "\nTest sort codes\n";
-foreach($sort_codes as $sort_code) {
+foreach ($sort_codes as $sort_code) {
     echo "{$sort_code}: ".$noYes[Validate_IE::bankAC($sort_code, true)]."\n";
 }
 exit(0);

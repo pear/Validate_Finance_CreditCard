@@ -19,7 +19,7 @@ $SWIFTs = array(
 'AIBKIE2DE' //NOK - too long
 );
 echo "\nTest SWIFTs\n";
-foreach($SWIFTs as $SWIFT) {
+foreach ($SWIFTs as $SWIFT) {
     echo "{$SWIFT}: ".$noYes[Validate_IE::swift($SWIFT)]."\n";
 }
 exit(0);
