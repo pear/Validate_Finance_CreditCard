@@ -1,10 +1,14 @@
 --TEST--
-validate_US.phpt: Unit tests for
+validate_US.phpt: Unit tests for United State Validation.
 --FILE--
 <?php
 // $Id$
 // Validate test script
-$noYes = array('NO', 'YES');
+$noYes = array('KO', 'OK');
+$symbol = array('!X!', ' V ');
+
+include (dirname(__FILE__).'/validate_functions.inc');
+
 require 'Validate/US.php';
 
 echo "Test Validate_US\n";
@@ -12,290 +16,311 @@ echo "****************\n";
 
 $postalCodes = array(
         /* some test-cases from the original of the postcode-check */
-        '48103', // OK
-        '48103-6565', // OK
-        '48103 6565', // OK
-        '1234', // NOK
-        '3454545', // NOK
+        '48103' => 'OK',
+        '48103-6565' => 'OK',
+        '48103 6565' => 'OK',
+        '1234' => 'KO',
+        '3454545' => 'KO',
 
         /* this ought to be disallowed if the official zip codes have dashes */
-        '481036565', // NOK
+        '481036565' => 'KO',
 
         /* zip codes can start with any digit */
-        '00125', // OK
-        '12368', // OK
-        '22587', // OK
-        '36914', // OK
-        '56412', // OK
-        '68795', // OK
-        '71142', // OK
-        '85941', // OK
-        '90125', // OK
+        '00125' => 'OK',
+        '12368' => 'OK',
+        '22587' => 'OK',
+        '36914' => 'OK',
+        '56412' => 'OK',
+        '68795' => 'OK',
+        '71142' => 'OK',
+        '85941' => 'OK',
+        '90125' => 'OK',
 
         /* must have five or nine digits */
-        '9065', // NOK
-        '54268-1', // NOK
-        '54-2681', // NOK
-        '6154166', // NOK
-        '10275776', // NOK
-        '10275-776', // NOK
-        '1235a', // NOK
-        'foo', // NOK
-        'QN55 1PT' // NOK
+        '9065' => 'KO',
+        '54268-1' => 'KO',
+        '54-2681' => 'KO',
+        '6154166' => 'KO',
+        '10275776' => 'KO',
+        '10275-776' => 'KO',
+        '1235a' => 'KO',
+        'foo' => 'KO',
+        'QN55 1PT' => 'KO',
 );
 
-$phonenumbers = array(
+$phonenumbersDoNotRequireAreaCode  = array(
                 /* test allowed seven digit numbers */
-                array('875-0987', false), // OK
-                array('875 0987', false), // OK
-                array('8750987', false), // OK
-                array('1750987', false), // NOK
-                array('0750987', false), // NOK
-                array('875098a', false), // NOK
-                array('8dy0985', false), // NOK
-
-                /* test allowed seven digit numbers */
-                array('875-0987', true), // NOK
-                array('875 0987', true), // NOK
-                array('8750987', true), // NOK
-                array('1750987', true), // NOK
-                array('0750987', true), // NOK
-                array('875098a', true), // NOK
-                array('8dy0985', true), // NOK
+                '875-0987' => 'OK',
+                '875 0987' => 'OK',
+                '8750987' => 'OK',
+                '1750987' => 'KO',
+                '0750987' => 'KO',
+                '875098a' => 'KO',
+                '8dy0985' => 'KO',
 
                 /* test ten digit numbers without a required area code */
-                array('(467) 875-0987', false), // OK
-                array('(467)-875-0987', false), // OK
-                array('(467)875-0987', false), // OK
-                array('(467) 875 0987', false), // OK
-                array('(467)-875 0987', false), // OK
-                array('(467)875 0987', false), // OK
-                array('(467) 8750987', false), // OK
-                array('(467)-8750987', false), // OK
-                array('(467)8750987', false), // OK
-                array('467-875-0987', false), // OK
-                array('4678750987', false), // OK
-                array('467 875 0987', false), // OK
-                array('267 471-0967', false), // OK
-                array('267-471-0967', false), // OK
-                array('267471-0967', false), // OK
-                array('419 285 9377', false), // OK
-                array('419-285 9377', false), // OK
-                array('419285 9377', false), // OK
-                array('419 2859377', false), // OK
-                array('267-4710967', false), // OK
-                array('4192859377', false), // OK
-
-                /* test ten digit numbers with a required area code */
-                array('(467) 875-0987', true), // OK
-                array('(467)-875-0987', true), // OK
-                array('(467)875-0987', true), // OK
-                array('(467) 875 0987', true), // OK
-                array('(467)-875 0987', true), // OK
-                array('(467)875 0987', true), // OK
-                array('(467) 8750987', true), // OK
-                array('(467)-8750987', true), // OK
-                array('(467)8750987', true), // OK
-                array('267 471-0967', true), // OK
-                array('267-471-0967', true), // OK
-                array('267471-0967', true), // OK
-                array('419 285 9377', true), // OK
-                array('419-285 9377', true), // OK
-                array('419285 9377', true), // OK
-                array('419 2859377', true), // OK
-                array('267-4710967', true), // OK
-                array('4192859377', true), // OK
-                array('(313) 535-8553', true), // OK
+                '(467) 875-0987' => 'OK',
+                '(467)-875-0987' => 'OK',
+                '(467)875-0987' => 'OK',
+                '(467) 875 0987' => 'OK',
+                '(467)-875 0987' => 'OK',
+                '(467)875 0987' => 'OK',
+                '(467) 8750987' => 'OK',
+                '(467)-8750987' => 'OK',
+                '(467)8750987' => 'OK',
+                '467-875-0987' => 'OK',
+                '4678750987' => 'OK',
+                '467 875 0987' => 'OK',
+                '267 471-0967' => 'OK',
+                '267-471-0967' => 'OK',
+                '267471-0967' => 'OK',
+                '419 285 9377' => 'OK',
+                '419-285 9377' => 'OK',
+                '419285 9377' => 'OK',
+                '419 2859377' => 'OK',
+                '267-4710967' => 'OK',
+                '4192859377' => 'OK',
 
                 /* test ten digit numbers without a required area code */
-                array('(167) 175-0987', false), // NOK
-                array('(467) 075-0987', false), // NOK
-                array('(467)-awe-0987', false), // NOK
-                array('(4r4x7)-875-0987', false), // NOK
-                array('(469875-0987', false), // NOK
-                array('98 487-0987', false), // NOK
+                '(167) 175-0987' => 'KO',
+                '(467) 075-0987' => 'KO',
+                '(467)-awe-0987' => 'KO',
+                '(4r4x7)-875-0987' => 'KO',
+                '(469875-0987' => 'KO',
+                '98 487-0987' => 'KO',
+                );
+$phonenumbersRequireAreaCode = array(
+
+
+                /* test allowed seven digit numbers */
+                '875-0987' => 'KO',
+                '875 0987' => 'KO',
+                '8750987' => 'KO',
+                '1750987' => 'KO',
+                '0750987' => 'KO',
+                '875098a' => 'KO',
+                '8dy0985' => 'KO',
 
                 /* test ten digit numbers with a required area code */
-                array('(4a7) 875-0987', true), // NOK
-                array('(467)-085-0987', true), // NOK
-                array('(467)87-0987', true), // NOK
-                array('(46e) t75 0987', true), // NOK
-                array('(313 535-8553', true), // NOK
+                '(467) 875-0987' => 'OK',
+                '(467)-875-0987' => 'OK',
+                '(467)875-0987' => 'OK',
+                '(467) 875 0987' => 'OK',
+                '(467)-875 0987' => 'OK',
+                '(467)875 0987' => 'OK',
+                '(467) 8750987' => 'OK',
+                '(467)-8750987' => 'OK',
+                '(467)8750987' => 'OK',
+                '267 471-0967' => 'OK',
+                '267-471-0967' => 'OK',
+                '267471-0967' => 'OK',
+                '419 285 9377' => 'OK',
+                '419-285 9377' => 'OK',
+                '419285 9377' => 'OK',
+                '419 2859377' => 'OK',
+                '267-4710967' => 'OK',
+                '4192859377' => 'OK',
+                '(313) 535-8553' => 'OK',
+
+                /* test ten digit numbers with a required area code */
+                '(4a7) 875-0987' => 'KO',
+                '(467)-085-0987' => 'KO',
+                '(467)87-0987' => 'KO',
+                '(46e) t75 0987' => 'KO',
+                '(313 535-8553' => 'KO',
 
                 // This should fail, less digit then is needed
-                array('(123) 456-78', true), // NOK
-                array('(517) 474-', true), // NOK
-            );
+                '(123) 456-78' => 'KO',
+                '(517) 474-' => 'KO',
+);
+
 
 $regions = array(
-                'MT', // OK
-                'DC', // OK
-                'ILL', // NOK
-                'il', // OK
-                'FLA', // NOK
-                'NL'); // NOK
+                'MT' => 'OK',
+                'DC' => 'OK',
+                'ILL' => 'KO',
+                'il' => 'OK',
+                'FLA' => 'KO',
+                'NL' => 'KO',
+                ); // NOK
 
 $ssns = array(
                 // Should work
-                '712180565', // OK
-                '019880001', // OK
-                '019889999', // OK
-                '133920565', // OK
-                '001020030', // OK
-                '097920845', // OK
-                '097469490', // OK
-                '001-01-3000', // OK
-                '001 42 3000', // OK
-                '001 44 3000', // OK
+                '712180565' => 'OK',
+                '019880001' => 'OK',
+                '019889999' => 'OK',
+                '133920565' => 'OK',
+                '001020030' => 'OK',
+                '097920845' => 'OK',
+                '097469490' => 'OK',
+                '001-01-3000' => 'OK',
+                '001 42 3000' => 'OK',
+                '001 44 3000' => 'OK',
 
                 // Should fail
-                '001 43 3000', // NOK
-                '019880000', // NOK
-                '712194509', // NOK
-                '019000000', // NOK
-                '019890000', // NOK
-                '001713000', // NOK
-                '133939759', // NOK
-                '097999490', // NOK
+                '001 43 3000' => 'KO',
+                '019880000' => 'KO',
+                '712194509' => 'KO',
+                '019000000' => 'KO',
+                '019890000' => 'KO',
+                '001713000' => 'KO',
+                '133939759' => 'KO',
+                '097999490' => 'KO',
             );
 
-echo "Test postalCode\n";
-foreach ($postalCodes as $postalCode) {
-    echo "{$postalCode}: ".$noYes[Validate_US::postalCode($postalCode)]."\n";
-}
+$errorFound = false;
+$errorFound = $errorFound || test_func(array('Validate_US','postalCode'  ), $postalCodes );
+$errorFound = $errorFound || test_func(array('Validate_US','region'      ), $regions     );
+$errorFound = $errorFound || test_func(array('Validate_US','ssn'         ), $ssns        );
+$errorFound = $errorFound || test_func(array('Validate_US','phonenumber' ), $phonenumbersDoNotRequireAreaCode, false);
+$errorFound = $errorFound || test_func(array('Validate_US','phonenumber' ), $phonenumbersRequireAreaCode,true );
+echo ($errorFound) ? '... FAILED' : '... SUCCESS';
 
-echo "Test phonenumber\n";
-foreach ($phonenumbers as $phonenumber) {
-    echo "{$phonenumber[0]} ".($phonenumber[1]? "(10)" : "(7)").": ".
-        $noYes[Validate_US::phonenumber($phonenumber[0], $phonenumber[1])]."\n";
-}
 
-echo "Test region\n";
-foreach ($regions as $region) {
-    echo "{$region}: ".$noYes[Validate_US::region($region)]."\n";
-}
-
-echo "Test ssn\n";
-foreach ($ssns as $ssn) {
-    echo "{$ssn}: ".$noYes[Validate_US::ssn($ssn)]."\n";
-}
 ?>
 --EXPECT--
 Test Validate_US
 ****************
-Test postalCode
-48103: YES
-48103-6565: YES
-48103 6565: YES
-1234: NO
-3454545: NO
-481036565: NO
-00125: YES
-12368: YES
-22587: YES
-36914: YES
-56412: YES
-68795: YES
-71142: YES
-85941: YES
-90125: YES
-9065: NO
-54268-1: NO
-54-2681: NO
-6154166: NO
-10275776: NO
-10275-776: NO
-1235a: NO
-foo: NO
-QN55 1PT: NO
-Test phonenumber
-875-0987 (7): YES
-875 0987 (7): YES
-8750987 (7): YES
-1750987 (7): NO
-0750987 (7): NO
-875098a (7): NO
-8dy0985 (7): NO
-875-0987 (10): NO
-875 0987 (10): NO
-8750987 (10): NO
-1750987 (10): NO
-0750987 (10): NO
-875098a (10): NO
-8dy0985 (10): NO
-(467) 875-0987 (7): NO
-(467)-875-0987 (7): NO
-(467)875-0987 (7): NO
-(467) 875 0987 (7): NO
-(467)-875 0987 (7): NO
-(467)875 0987 (7): NO
-(467) 8750987 (7): NO
-(467)-8750987 (7): NO
-(467)8750987 (7): NO
-267 471-0967 (7): NO
-267-471-0967 (7): NO
-267471-0967 (7): NO
-419 285 9377 (7): NO
-419-285 9377 (7): NO
-419285 9377 (7): NO
-419 2859377 (7): NO
-267-4710967 (7): NO
-4192859377 (7): NO
-(467) 875-0987 (10): YES
-(467)-875-0987 (10): YES
-(467)875-0987 (10): YES
-(467) 875 0987 (10): YES
-(467)-875 0987 (10): YES
-(467)875 0987 (10): YES
-(467) 8750987 (10): YES
-(467)-8750987 (10): YES
-(467)8750987 (10): YES
-267 471-0967 (10): YES
-267-471-0967 (10): YES
-267471-0967 (10): YES
-419 285 9377 (10): YES
-419-285 9377 (10): YES
-419285 9377 (10): YES
-419 2859377 (10): YES
-267-4710967 (10): YES
-4192859377 (10): YES
-(313) 535-8553 (10): YES
-(167) 175-0987 (7): NO
-(467) 075-0987 (7): NO
-(467)-awe-0987 (7): NO
-(4r4x7)-875-0987 (7): NO
-(469875-0987 (7): NO
-98 487-0987 (7): NO
-(4a7) 875-0987 (10): NO
-(467)-085-0987 (10): NO
-(467)87-0987 (10): NO
-(46e) t75 0987 (10): NO
-(313 535-8553 (10): NO
-(123) 456-78 (10): NO
-(517) 474- (10): NO
-Test region
-MT: YES
-DC: YES
-ILL: NO
-il: YES
-FLA: NO
-NL: NO
-Test ssn
-712180565: YES
-019880001: YES
-019889999: YES
-133920565: YES
-001020030: YES
-097920845: YES
-097469490: YES
-001-01-3000: YES
-001 42 3000: YES
-001 44 3000: YES
-001 43 3000: NO
-019880000: NO
-712194509: NO
-019000000: NO
-019890000: NO
-001713000: NO
-133939759: NO
-097999490: NO
+---------
+Test Validate_US::postalCode
+ _ Value                  State Return
+ V = validation result is right
+ X = validation result is wrong
+ V 48103                : OK    OK
+ V 48103-6565           : OK    OK
+ V 48103 6565           : OK    OK
+ V 1234                 : KO    KO
+ V 3454545              : KO    KO
+ V 481036565            : KO    KO
+ V 00125                : OK    OK
+ V 12368                : OK    OK
+ V 22587                : OK    OK
+ V 36914                : OK    OK
+ V 56412                : OK    OK
+ V 68795                : OK    OK
+ V 71142                : OK    OK
+ V 85941                : OK    OK
+ V 90125                : OK    OK
+ V 9065                 : KO    KO
+ V 54268-1              : KO    KO
+ V 54-2681              : KO    KO
+ V 6154166              : KO    KO
+ V 10275776             : KO    KO
+ V 10275-776            : KO    KO
+ V 1235a                : KO    KO
+ V foo                  : KO    KO
+ V QN55 1PT             : KO    KO
+---------
+Test Validate_US::region
+ _ Value                  State Return
+ V = validation result is right
+ X = validation result is wrong
+ V MT                   : OK    OK
+ V DC                   : OK    OK
+ V ILL                  : KO    KO
+ V il                   : OK    OK
+ V FLA                  : KO    KO
+ V NL                   : KO    KO
+---------
+Test Validate_US::ssn
+ _ Value                  State Return
+ V = validation result is right
+ X = validation result is wrong
+ V 712180565            : OK    OK
+ V 019880001            : OK    OK
+ V 019889999            : OK    OK
+ V 133920565            : OK    OK
+ V 001020030            : OK    OK
+ V 097920845            : OK    OK
+ V 097469490            : OK    OK
+ V 001-01-3000          : OK    OK
+ V 001 42 3000          : OK    OK
+ V 001 44 3000          : OK    OK
+ V 001 43 3000          : KO    KO
+ V 019880000            : KO    KO
+ V 712194509            : KO    KO
+ V 019000000            : KO    KO
+ V 019890000            : KO    KO
+ V 001713000            : KO    KO
+ V 133939759            : KO    KO
+ V 097999490            : KO    KO
+---------
+Test Validate_US::phonenumber
+extra params:
+ _ Value                  State Return
+ V = validation result is right
+ X = validation result is wrong
+ V 875-0987             : OK    OK
+ V 875 0987             : OK    OK
+ V 8750987              : OK    OK
+ V 1750987              : KO    KO
+ V 0750987              : KO    KO
+ V 875098a              : KO    KO
+ V 8dy0985              : KO    KO
+!X!(467) 875-0987       : OK    KO
+!X!(467)-875-0987       : OK    KO
+!X!(467)875-0987        : OK    KO
+!X!(467) 875 0987       : OK    KO
+!X!(467)-875 0987       : OK    KO
+!X!(467)875 0987        : OK    KO
+!X!(467) 8750987        : OK    KO
+!X!(467)-8750987        : OK    KO
+!X!(467)8750987         : OK    KO
+!X!467-875-0987         : OK    KO
+!X!4678750987           : OK    KO
+!X!467 875 0987         : OK    KO
+!X!267 471-0967         : OK    KO
+!X!267-471-0967         : OK    KO
+!X!267471-0967          : OK    KO
+!X!419 285 9377         : OK    KO
+!X!419-285 9377         : OK    KO
+!X!419285 9377          : OK    KO
+!X!419 2859377          : OK    KO
+!X!267-4710967          : OK    KO
+!X!4192859377           : OK    KO
+ V (167) 175-0987       : KO    KO
+ V (467) 075-0987       : KO    KO
+ V (467)-awe-0987       : KO    KO
+ V (4r4x7)-875-0987     : KO    KO
+ V (469875-0987         : KO    KO
+ V 98 487-0987          : KO    KO
+---------
+Test Validate_US::phonenumber
+extra params:1
+ _ Value                  State Return
+ V = validation result is right
+ X = validation result is wrong
+ V 875-0987             : KO    KO
+ V 875 0987             : KO    KO
+ V 8750987              : KO    KO
+ V 1750987              : KO    KO
+ V 0750987              : KO    KO
+ V 875098a              : KO    KO
+ V 8dy0985              : KO    KO
+ V (467) 875-0987       : OK    OK
+ V (467)-875-0987       : OK    OK
+ V (467)875-0987        : OK    OK
+ V (467) 875 0987       : OK    OK
+ V (467)-875 0987       : OK    OK
+ V (467)875 0987        : OK    OK
+ V (467) 8750987        : OK    OK
+ V (467)-8750987        : OK    OK
+ V (467)8750987         : OK    OK
+ V 267 471-0967         : OK    OK
+ V 267-471-0967         : OK    OK
+ V 267471-0967          : OK    OK
+ V 419 285 9377         : OK    OK
+ V 419-285 9377         : OK    OK
+ V 419285 9377          : OK    OK
+ V 419 2859377          : OK    OK
+ V 267-4710967          : OK    OK
+ V 4192859377           : OK    OK
+ V (313) 535-8553       : OK    OK
+ V (4a7) 875-0987       : KO    KO
+ V (467)-085-0987       : KO    KO
+ V (467)87-0987         : KO    KO
+ V (46e) t75 0987       : KO    KO
+ V (313 535-8553        : KO    KO
+ V (123) 456-78         : KO    KO
+ V (517) 474-           : KO    KO
+... SUCCESS
