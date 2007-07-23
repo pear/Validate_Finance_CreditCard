@@ -5,84 +5,112 @@ validate_AT.phpt: Unit tests for 'Validate/AT.php'
 // $Id$
 // Validate test script
 $noYes = array('NO', 'YES');
-require_once '../Validate/AT.php';
+include (dirname(__FILE__).'/validate_functions.inc');
+require_once 'Validate/AT.php';
 
 echo "Test Validate_AT\n";
 echo "****************\n";
 
-$postalCodes = array( 7033, // OK
-                     7000, // OK
-                     4664, // OK
-                     2491, // OK
-                     1000, // NOK (OK if not strong)
-                     9999, // NOK (OK if not strong)
-                     'abc', // NOK
-                     'a7000' // NOK
+$postalCodes = array( 7033 => 'OK',
+                     7000 => 'OK',
+                     4664 => 'OK',
+                     2491 => 'OK',
+                     1000 => 'OK', // (OK if not strong)
+                     9999 => 'OK', // (OK if not strong)
+                     'abc' => 'KO',
+                     'a7000' => 'KO',
 );
-    
-$ssns = array( '4298 02-12-82', // OK
-               '4298001282',    // NOK
-               '1508-10-13-50', //NOK
-               '1508101050', // OK
-                1508101051, // NOK
-                4290021282, // NOK
-                '21 34 23 12 74' // NOK
+
+$postalCodesStrong = array( 7033 => 'OK',
+                     7000 => 'OK',
+                     4664 => 'OK',
+                     2491 => 'OK',
+                     1000 => 'KO', // (OK if not strong)
+                     9999 => 'KO', // (OK if not strong)
+                     'abc' => 'KO',
+                     'a7000' => 'KO',
+);
+
+$ssns = array( '4298 02-12-82' => 'OK',
+               '4298001282' => 'KO',
+               '1508-10-13-50' => 'KO',
+               '1508101050' => 'OK',
+                1508101051 => 'KO', //
+                4290021282 => 'KO', //
+                '21 34 23 12 74' => 'KO',
 );
 
 
 $regions = array(
-    "AU-06", // OK
-    "2",     // OK
-    "AU-00"); // NOK
+    "AU-06" => 'OK',
+    "2"     => 'OK',
+    "AU-00" => 'KO',
+    );
 
-echo "\nTest postalCode without check against table\n";
-foreach ($postalCodes as $postalCode) {
-    echo "{$postalCode}: ".$noYes[Validate_AT::postalCode($postalCode)]."\n";
-}
+$errorFound = false;
+$errorFound = $errorFound || test_func(array('Validate_AT','ssn'        ), $ssns        );
+$errorFound = $errorFound || test_func(array('Validate_AT','postalCode' ), $postalCodesStrong );
+$errorFound = $errorFound || test_func(array('Validate_AT','postalCode' ), $postalCodesStrong, true );
+$errorFound = $errorFound || test_func(array('Validate_AT','postalCode' ), $postalCodes,false );
+echo ($errorFound) ? '... FAILED' : '... SUCCESS';
 
-echo "\nTest postalCode with check against table (strong)\n";
-foreach ($postalCodes as $postalCode) {
-    echo "{$postalCode}: ".$noYes[Validate_AT::postalCode($postalCode, false)]."\n";
-}
 
-echo "\nTest ssn\n";
-foreach ($ssns as $ssn) {
-    echo "{$ssn}: ".$noYes[Validate_AT::ssn($ssn)]."\n";
-}
-
-echo "\nTest Region\n";
-foreach ($regions as $r) {
-    echo "{$r}: ".$noYes[Validate_AT::region($r)]."\n";
-}
 
 ?>
 --EXPECT--
 Test Validate_AT
 ****************
-
-Test postalCode without check against table
-7033: YES
-7000: YES
-4664: YES
-2491: YES
-1000: YES
-9999: YES
-abc: NO
-a7000: NO
-
-Test postalCode with check against table (strong)
-7033: YES
-7000: YES
-4664: YES
-2491: YES
-1000: NO
-9999: NO
-abc: NO
-a7000: NO
-
-Test ssn
-4298 02-12-82: YES
-1508101050: YES
-1508101051: NO
-4290021282: NO
-21 34 23 12 74: NO
+---------
+Test Validate_AT::ssn
+ _ Value                  State Return
+ V = validation result is right
+ X = validation result is wrong
+ V 4298 02-12-82        : OK    OK
+ V 4298001282           : KO    KO
+ V 1508-10-13-50        : KO    KO
+ V 1508101050           : OK    OK
+ V 1508101051           : KO    KO
+ V -4946014             : KO    KO
+ V 21 34 23 12 74       : KO    KO
+---------
+Test Validate_AT::postalCode
+ _ Value                  State Return
+ V = validation result is right
+ X = validation result is wrong
+ V 7033                 : OK    OK
+ V 7000                 : OK    OK
+ V 4664                 : OK    OK
+ V 2491                 : OK    OK
+!X!1000                 : KO    OK
+!X!9999                 : KO    OK
+ V abc                  : KO    KO
+ V a7000                : KO    KO
+---------
+Test Validate_AT::postalCode
+extra params:1
+ _ Value                  State Return
+ V = validation result is right
+ X = validation result is wrong
+ V 7033                 : OK    OK
+ V 7000                 : OK    OK
+ V 4664                 : OK    OK
+ V 2491                 : OK    OK
+ V 1000                 : KO    KO
+ V 9999                 : KO    KO
+ V abc                  : KO    KO
+ V a7000                : KO    KO
+---------
+Test Validate_AT::postalCode
+extra params:
+ _ Value                  State Return
+ V = validation result is right
+ X = validation result is wrong
+ V 7033                 : OK    OK
+ V 7000                 : OK    OK
+ V 4664                 : OK    OK
+ V 2491                 : OK    OK
+ V 1000                 : OK    OK
+ V 9999                 : OK    OK
+ V abc                  : KO    KO
+ V a7000                : KO    KO
+... SUCCESS
