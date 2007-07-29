@@ -400,20 +400,20 @@ class Validate_IE
     // }}}
     // {{{ public function checkMOD23
     /**
-     * Return true if the checksum in the specified PPSN is valid.
+     * Return true if the checksum in the specified PPSN or vat number, without the 'IE' prefix, is valid.
      * 
      * @param string $ppsn The PPS number.
      *
      * @access public
      * @return boolean
      */
-    function checkMOD23($ppsn)
+    function checkMOD23($value)
     {
         $total = 0;
         for ($i = 0;$i<7;++$i) {
-            $total += (int)$ppsn[$i]*(8-$i);
+            $total += (int)$value[$i]*(8-$i);
         }
-        return (int) (chr(64+($total%23)) == strtoupper($ppsn[7]));
+        return (int) (chr(64+($total%23)) == strtoupper($value[7]));
 
     }
     // }}}
@@ -473,13 +473,18 @@ class Validate_IE
      * 
      * @return  bool            Returns true on success, false otherwise
      * @link    http://www.iecomputersystems.com/ordering/eu_vat_numbers.htm
+     * @link    http://www.braemoor.co.uk/software/vat.shtml
      */
     function vatNumber($vat)
     {
         // IE1234567X or IE1X34567X are valid (includes one or two letters
         // either the last or second + last).
-        return (preg_match('/^IE\d{7}[a-z]$/i', $vat) || 
-                preg_match('/^IE\d[a-z]\d{5}[a-z]$/i', $vat));
+        if (preg_match('/^IE\d{7}[a-z]$/i', $vat) || 
+            preg_match('/^IE\d[a-z]\d{5}[a-z]$/i', $vat)){
+            return Validate_IE::checkMOD23(substr($vat,2));
+        } else {
+            return false;
+        }
     }
     // }}}
 }

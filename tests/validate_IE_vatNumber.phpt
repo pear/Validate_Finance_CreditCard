@@ -12,10 +12,11 @@ $vatNumbers = array('IE4531617P',    // OK
                     'IE8234895A',    // OK
                     'IE4736919B',    // OK
                     'IE6344246G',    // OK
-                    'IE8F52100V',    // OK
+                    "IE5439382J",    // OK
+                    "IE6564239M",    // OK
                     'IEF852100V',    // NOK - letter in wrong location
                     'IE8F5210V0',    // NOK - letter in wrong location
-                    'IRL8F52100V',    // NOK - too long
+                    'IRL8F52100V',   // NOK - too long
 );
 
 echo "\nTest vatNumber\n";
@@ -33,7 +34,8 @@ IE4531617P: YES
 IE8234895A: YES
 IE4736919B: YES
 IE6344246G: YES
-IE8F52100V: YES
+IE5439382J: YES
+IE6564239M: YES
 IEF852100V: NO
 IE8F5210V0: NO
 IRL8F52100V: NO
