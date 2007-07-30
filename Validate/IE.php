@@ -413,7 +413,11 @@ class Validate_IE
         for ($i = 0;$i<7;++$i) {
             $total += (int)$value[$i]*(8-$i);
         }
-        return (int) (chr(64+($total%23)) == strtoupper($value[7]));
+        $mod = ($total%23);
+        if ($mod === 0) {
+            $mod = 23;
+        }
+        return (int) (chr(64+$mod) == strtoupper($value[7]));
 
     }
     // }}}

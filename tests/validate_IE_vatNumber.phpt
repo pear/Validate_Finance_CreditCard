@@ -14,6 +14,7 @@ $vatNumbers = array('IE4531617P',    // OK
                     'IE6344246G',    // OK
                     "IE5439382J",    // OK
                     "IE6564239M",    // OK
+                    "IE6572557W",    // OK
                     'IEF852100V',    // NOK - letter in wrong location
                     'IE8F5210V0',    // NOK - letter in wrong location
                     'IRL8F52100V',   // NOK - too long
@@ -36,6 +37,7 @@ IE4736919B: YES
 IE6344246G: YES
 IE5439382J: YES
 IE6564239M: YES
+IE6572557W: YES
 IEF852100V: NO
 IE8F5210V0: NO
 IRL8F52100V: NO
