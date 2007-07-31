@@ -126,7 +126,8 @@ class Validate_CA
 
         } else {
             switch (strtoupper($province)) {
-                case 'NF':          // Newfoundland
+                case 'NL':          // Newfoundland and Labrador
+                case 'NF':          // Newfoundland (kept for BC)
                     $sRegExp = 'A';
                     break;
                 case 'NS':          // Nova Scotia
@@ -161,6 +162,7 @@ class Validate_CA
                     $sRegExp = 'X';
                     break;
                 case 'YK':          // Yukon Territory
+                case 'YT':          // Yukon Territory (Canada Post)
                     $sRegExp = 'Y';
                     break;
                 default:
@@ -190,7 +192,8 @@ class Validate_CA
             case 'BC':
             case 'MB':
             case 'NB':
-            case 'NF':
+            case 'NF':    // Newfoundland (kept for BC)
+            case 'NL':
             case 'NT':
             case 'NS':
             case 'NU':
@@ -199,6 +202,7 @@ class Validate_CA
             case 'QC':
             case 'SK':
             case 'YK':
+            case 'YT':    // Yukon (Canada Post)
                 return true;
         }
         return false;
