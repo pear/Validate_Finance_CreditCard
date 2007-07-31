@@ -402,7 +402,7 @@ class Validate_IE
     /**
      * Return true if the checksum in the specified PPSN or vat number, without the 'IE' prefix, is valid.
      * 
-     * @param string $ppsn The PPS number.
+     * @param string $value Value to perform modulus 23 checksum on.
      *
      * @access public
      * @return boolean
@@ -484,9 +484,9 @@ class Validate_IE
         // IE1234567X or IE1X34567X are valid (includes one or two letters
         // either the last or second + last).
         if (preg_match('/^IE\d{7}[a-z]$/i', $vat)) {
-            return Validate_IE::checkMOD23(substr($vat,2));
-        } elseif (preg_match('/^IE\d[a-z]\d{5}[a-z]$/i', $vat)){
-            $d = substr($vat,2);
+            return Validate_IE::checkMOD23(substr($vat, 2));
+        } elseif (preg_match('/^IE\d[a-z]\d{5}[a-z]$/i', $vat)) {
+            $d   = substr($vat, 2);
             $new = "0" . substr($d, 2, 5) . substr($d, 0, 1) . substr($d, 7, 1);
             return Validate_IE::checkMOD23($new);
         } else {
