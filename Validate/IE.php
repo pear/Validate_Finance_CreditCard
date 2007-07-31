@@ -74,10 +74,8 @@ class Validate_IE
         }
         
         if (substr($iban, 0, 2) == 'IE') {
-            if (is_readable('Validate/Finance/IBAN.php')) {
-                include 'Validate/Finance/IBAN.php';
-                return Validate_Finance_IBAN::validate($iban);
-            }
+            include_once 'Validate/Finance/IBAN.php';
+            return Validate_Finance_IBAN::validate($iban);
         }
 
         return false;
