@@ -57,7 +57,10 @@ http://pear.php.net/dtd/package-2.0.xsd">
  <contents>
   <dir name="/">
    <dir name="Validate">
-    <file name="IE.php" role="php" />
+   <file name="IE.php" role="php">
+     <tasks:replace from="@PACKAGE-VER@" to="version" type="package-info"/>
+     <tasks:replace from="@DATADIR@" to="data_dir" type="pear-config"/>
+   </file> 
    </dir> <!-- /Validate -->
    <dir name="tests">
     <file name="validate_IE_IBAN.phpt" role="test"/>
@@ -71,6 +74,9 @@ http://pear.php.net/dtd/package-2.0.xsd">
     <file name="validate_IE_swift.phpt" role="test"/>
     <file name="validate_IE_vatNumber.phpt" role="test"/>
    </dir>
+   <dir name="data">
+       <file name="IE_postcodes.txt" role="data" />
+   </dir> 
   </dir> <!-- / -->
  </contents>
  <dependencies>
