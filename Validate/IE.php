@@ -255,17 +255,22 @@ class Validate_IE
      * It will be revised when national postal codes are rolled out.
      *
      * @param string $postalCode The postal code to validate
+     * @param string $dir        optional; /path/to/data/dir
      *
      * @access public
      * @link   http://en.wikipedia.org/wiki/List_of_Dublin_postal_districts
      * @return bool    true if postcode is ok, false otherwise
      */
-    function postalCode($postalCode)
+    function postalCode($postalCode, $dir = null)
     {
         $postalCode = strtoupper(str_replace(' ', '', trim($postalCode)));
         $postalCode = str_replace('DUBLIN', 'D', $postalCode);
 
-        $file      = '@DATADIR@/Validate_IE/data/IE_postcodes.txt';
+        if ($dir != null && (is_file($dir . '/IE_postcodes.txt'))) {
+            $file = $dir . '/IE_postcodes.txt';
+        } else {
+            $file = '@DATADIR@/Validate_IE/data/IE_postcodes.txt';
+        }
         $postcodes = array_map('trim', file($file));
         return in_array($postalCode, $postcodes);
     }
@@ -398,7 +403,8 @@ class Validate_IE
     // }}}
     // {{{ public function checkMOD23
     /**
-     * Return true if the checksum in the specified PPSN or vat number, without the 'IE' prefix, is valid.
+     * Return true if the checksum in the specified PPSN or vat number, without 
+     * the 'IE' prefix, is valid.
      * 
      * @param string $value Value to perform modulus 23 checksum on.
      *

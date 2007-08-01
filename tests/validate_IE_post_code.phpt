@@ -5,7 +5,13 @@ validate_IE_post_code.phpt: Unit tests for postalCode method 'Validate/IE.php'
 <?php
 // Validate test script
 $noYes = array('NO', 'YES');
-require_once 'Validate/IE.php';
+if (is_file(dirname(__FILE__) . '/../Validate/IE.php')) {
+    require_once dirname(__FILE__) . '/../Validate/IE.php';
+    $postcodes_dir = dirname(__FILE__) . '/../data';
+} else {
+    require_once 'Validate/IE.php';
+    $postcodes_dir = null;
+}
 
 echo "Test Validate_IE\n";
 echo "****************\n";
@@ -19,7 +25,7 @@ $codes = array(
 );
 echo "\nTest Postal Codes\n";
 foreach ($codes as $code) {
-    echo "{$code}: ".$noYes[Validate_IE::postalCode($code)]."\n";
+    echo "{$code}: ".$noYes[Validate_IE::postalCode($code, $postcodes_dir)]."\n";
 }
 exit(0);
 ?>
