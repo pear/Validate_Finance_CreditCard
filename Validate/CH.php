@@ -1,29 +1,25 @@
 <?php
 /* vim: set expandtab tabstop=4 shiftwidth=4: */
-// +----------------------------------------------------------------------+
-// | Copyright (c) 1997-2005 Hans-Peter Oeri                              |
-// +----------------------------------------------------------------------+
-// | This source file is subject to the New BSD license, That is bundled  |
-// | with this package in the file LICENSE, and is available through      |
-// | the world-wide-web at                                                |
-// | http://www.opensource.org/licenses/bsd-license.php                   |
-// | If you did not receive a copy of the new BSDlicense and are unable   |
-// | to obtain it through the world-wide-web, please send a note to       |
-// | pajoye@php.net so we can mail you a copy immediately.                |
-// +----------------------------------------------------------------------+
-// | Author: Hans-Peter Oeri <hp@oeri.ch>                                 |
-// +----------------------------------------------------------------------+
-//
 /**
- * Methods for common data validations
+ * Data validation class for Switzerland
  *
- * @category   Validate
- * @package    Validate_CH
- * @author     Hans-Peter Oeri <hp@oeri.ch>
- * @copyright  1997-2005 Hans-Peter Oeri
- * @license    http://www.opensource.org/licenses/bsd-license.php  New BSD License
- * @version    CVS: $Id$
- * @link       http://pear.php.net/package/Validate_CH
+ * PHP Versions 4 and 5
+ *
+ * This source file is subject to the New BSD license, That is bundled
+ * with this package in the file LICENSE, and is available through
+ * the world-wide-web at
+ * http://www.opensource.org/licenses/bsd-license.php
+ * If you did not receive a copy of the new BSDlicense and are unable
+ * to obtain it through the world-wide-web, please send a note to
+ * pajoye@php.net so we can mail you a copy immediately.
+ *
+ * @category  Validate
+ * @package   Validate_CH
+ * @author    Hans-Peter Oeri <hp@oeri.ch>
+ * @copyright 1997-2005 Hans-Peter Oeri
+ * @license   http://www.opensource.org/licenses/bsd-license.php  New BSD License
+ * @version   CVS: $Id$
+ * @link      http://pear.php.net/package/Validate_CH
  */
 
 /**
@@ -39,13 +35,13 @@ require_once 'Validate.php';
  *  - Swiss university's immatriculation number
  *  - Postal code
  *
- * @category   Validate
- * @package    Validate_CH
- * @author     Hans-Peter Oeri <hp@oeri.ch>
- * @copyright  1997-2005 Hans-Peter Oeri
- * @license    http://www.opensource.org/licenses/bsd-license.php  New BSD License
- * @version    Release: @package_version@
- * @link       http://pear.php.net/package/Validate_CH
+ * @category  Validate
+ * @package   Validate_CH
+ * @author    Hans-Peter Oeri <hp@oeri.ch>
+ * @copyright 1997-2005 Hans-Peter Oeri
+ * @license   http://www.opensource.org/licenses/bsd-license.php  New BSD License
+ * @version   Release: @package_version@
+ * @link      http://pear.php.net/package/Validate_CH
  */
 class Validate_CH
 {
@@ -56,14 +52,15 @@ class Validate_CH
     * A check digit is the last one, computed the standard
     * _get_control_number function.
     *
+    * @param string $ssn ssn to validate
+    *
     * @static
     * @access   public
-    * @param    string  ssn to validate
     * @return   bool    true on success
     */
     function ssn($ssn)
     {
-        $t_regex = preg_match('/\d{3}\.\d{2}\.\d{3}\.\d{3}/', $ssn, $matches );
+        $t_regex = preg_match('/\d{3}\.\d{2}\.\d{3}\.\d{3}/', $ssn, $matches);
 
         if (!$t_regex) {
             return false;
@@ -91,15 +88,16 @@ class Validate_CH
     * which not a sum of products, but the sum of the digits of products
     * are taken.
     *
+    * @param string $umn university's immatriculation number
+    *
     * @static
     * @access   public
-    * @param    string  immatriculation number
     * @return   bool    true on success
     */
     function studentid($umn)
     {
         // we accept both formats
-        $umn = preg_replace('/(\d{2})-(\d{3})-(\d{3})/', '$1$2$3', $umn);
+        $umn     = preg_replace('/(\d{2})-(\d{3})-(\d{3})/', '$1$2$3', $umn);
         $t_regex = preg_match('/\d{8}/', $umn);
 
         if (!$t_regex) {
@@ -126,10 +124,12 @@ class Validate_CH
     /**
     * Validate a Swiss ZIP
     *
+    * @param string $postcode postcode to validate
+    * @param bool   $strong   optional; strong checks (e.g. against a 
+    *                         list of postcodes)
+    *
     * @static
     * @access   public
-    * @param    string  postcode to validate
-    * @param    bool    optional; strong checks (e.g. against a list of postcodes)
     * @return   bool    true if postcode is ok, false otherwise
     */
     function postalCode($postcode, $strong = false)
@@ -138,7 +138,7 @@ class Validate_CH
             static $postcodes;
 
             if (!isset($postcodes)) {
-                $file = '@DATADIR@/Validate_CH/CH_postcodes.txt';
+                $file      = '@DATADIR@/Validate_CH/CH_postcodes.txt';
                 $postcodes = array_map('trim', file($file));
             }
 
