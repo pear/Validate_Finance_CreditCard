@@ -1,30 +1,26 @@
 <?php
 /* vim: set expandtab tabstop=4 shiftwidth=4: */
-// +----------------------------------------------------------------------+
-// | Copyright (c) 2005-2006  Hannes Magnusson                            |
-// +----------------------------------------------------------------------+
-// | This source file is subject to the New BSD license, That is bundled  |
-// | with this package in the file LICENSE, and is available through      |
-// | the world-wide-web at                                                |
-// | http://www.opensource.org/licenses/bsd-license.php                   |
-// | If you did not receive a copy of the new BSDlicense and are unable   |
-// | to obtain it through the world-wide-web, please send a note to       |
-// | pajoye@php.net so we can mail you a copy immediately.                |
-// +----------------------------------------------------------------------+
-// | Author: Hannes Magnusson  <bjori@php.net>                            |
-// +----------------------------------------------------------------------+
-//
 /**
  * Specific validation methods for data used in Iceland
  *
- * @category   Validate
- * @package    Validate
+ * PHP Versions 4 and 5
+ *
+ * This source file is subject to the New BSD license, That is bundled
+ * with this package in the file LICENSE, and is available through
+ * the world-wide-web at
+ * http://www.opensource.org/licenses/bsd-license.php
+ * If you did not receive a copy of the new BSDlicense and are unable
+ * to obtain it through the world-wide-web, please send a note to
+ * pajoye@php.net so we can mail you a copy immediately.
+ *
+ * @category  Validate
+ * @package   Validate
  * @subpackage Validate_IS
- * @author     Hannes Magnusson <bjori@php.net>
- * @copyright  2005-2006  Hannes Magnusson
- * @license    http://www.opensource.org/licenses/bsd-license.php  new BSD
- * @version    CVS: $Id$
- * @link       http://pear.php.net/package/Validate_IS
+ * @author    Hannes Magnusson <bjori@php.net>
+ * @copyright 2005-2006  Hannes Magnusson
+ * @license   http://www.opensource.org/licenses/bsd-license.php  new BSD
+ * @version   CVS: $Id$
+ * @link      http://pear.php.net/package/Validate_IS
  */
 
 /**
@@ -36,10 +32,17 @@
  *  - Address (Icelandic: heimilisfang)
  *  - Telephone number (Icelandic: simanumer)
  *
+ * @category  Validate
+ * @package   Validate
+ * @subpackage Validate_IS
+ * @author    Hannes Magnusson <bjori@php.net>
+ * @copyright 2005-2006  Hannes Magnusson
+ * @license   http://www.opensource.org/licenses/bsd-license.php  new BSD
+ * @version   Release: @package_version@
+ * @link      http://pear.php.net/package/Validate_IS
  */
 class Validate_IS
 {
-// {{{ bool Validate_IS::ssn(string $ssn)
     /**
      * Validate Icelandic SSN (kennitolu)
      *
@@ -51,8 +54,9 @@ class Validate_IS
      * Note: PASS IN STRING, NO EXCEPTIONS! SSN with leading zero
      *       (passed as integer) will NOT get validated!
      *
+     * @param string $ssn SSN
+     *
      * @access    public
-     * @param     string $ssn SSN
      * @return    bool
      */
     function ssn($ssn)
@@ -74,20 +78,20 @@ class Validate_IS
          * $kt[2] = year (2 letters!)
          */
         switch($ssn{9}) {
-            case 0:
-                $kt[2] += 2000;
-                break;
-            case 1:
-                $kt[3] += 2100;
-                break;
-            case 8:
-                $kt[2] += 1800;
-                break;
-            case 9:
-                $kt[2] += 1900;
-                break;
-            default:
-                return false;
+        case 0:
+            $kt[2] += 2000;
+            break;
+        case 1:
+            $kt[3] += 2100;
+            break;
+        case 8:
+            $kt[2] += 1800;
+            break;
+        case 9:
+            $kt[2] += 1900;
+            break;
+        default:
+            return false;
         }
 
         if (!checkdate($kt[1], $kt[0], $kt[2])) {
@@ -106,11 +110,11 @@ class Validate_IS
 
         $varTala = 11 - ($sum % 11);
         switch($varTala) {
-            case 10: // "Hagstofan" has nothing to say what should happen here
-                     // it looks like "vartalan" should be set to 0
-            case 11:
-                $varTala = 0;
-                break;
+        case 10: // "Hagstofan" has nothing to say what should happen here
+                 // it looks like "vartalan" should be set to 0
+        case 11:
+            $varTala = 0;
+            break;
         }
 
         if ($ssn{8} != $varTala) {
@@ -119,9 +123,7 @@ class Validate_IS
 
         return true;
     }
-// }}} 
 
-// {{{ bool Validate_IS::postalCode(int $postCode [, bool $strong = false [, string $dataDir = DATADIR [, string $url = postur.is]]])
     /**
      * Validates Icelandic postal codes (postnumer)
      *
@@ -133,11 +135,13 @@ class Validate_IS
      *
      * User can provide his own datafile if he wishes and/or own "official" list.
      *
+     * @param int    $postCode the postcode to be validated
+     * @param bool   $strong   optional; check against the official list 
+     *                         (default off)
+     * @param string $dataDir  optional; /path/to/data/dir
+     * @param string $url      optional; http://domain.tld/path/to/live/data/file.txt
+     *
      * @access    public
-     * @param     int     the postcode to be validated
-     * @param     bool    optional; check against the official list (default off)
-     * @param     string  optional; /path/to/data/dir
-     * @param     string  optional; http://domain.tld/path/to/live/data/file.txt
      * @return    bool
      */
     function postalCode($postCode, $strong = false,
@@ -154,7 +158,7 @@ class Validate_IS
             return false;
         }
 
-        $dataDir = !empty($dataDir) ? $dataDir : '@DATADIR@/Validate_IS';
+        $dataDir  = !empty($dataDir) ? $dataDir : '@DATADIR@/Validate_IS';
         $dataFile = $dataDir . "/IS_postcodes.txt";
         /* Same configuration as last time? No need to go further then */
         if (count($postCodes) && $dataFile == $lastFile &&
@@ -185,7 +189,7 @@ class Validate_IS
 
         if (!count($postCodes) && is_readable($dataFile)) {
             $postCodes = file($dataFile);
-            $lastFile = $dataFile;
+            $lastFile  = $dataFile;
         }
         if (count($postCodes) && in_array($postCode, $postCodes)) {
             return true;
@@ -193,18 +197,20 @@ class Validate_IS
 
         return false;
     }
-// }}}
 
-// {{{ mixed Validate_IS::address(string $address [, int $postcode = null [, $dataDir = @DATADIR@/Validate_IS/]]
     /**
      * Checks if given address exists
      * If postcode is provided, check if address exists in that area.
      *
-     * @param string $address   Address to validate
-     * @param int    $postcode  Optional; check if address exists in that area
-     * @param string $dataDir   Optional; /path/to/data/dir
+     * @param string $address  Address to validate
+     * @param int    $postcode Optional; check if address exists in that area
+     * @param string $dataDir  Optional; /path/to/data/dir
+     *
      * @return mixed            false on failure
-     *                          array on in the form of: array(array("nf" => $nf, "thgf" => $thgf, "pnr" => $postnumer))
+     *                          array on in the form of: 
+     *                          array(array("nf" => $nf, 
+     *                                      "thgf" => $thgf, 
+     *                                      "pnr" => $postnumer))
      *                          on success.
      */
     function address($address, $postcode = null, $dataDir = '')
@@ -231,12 +237,13 @@ class Validate_IS
             }
         }
         
-        $file = $dataDir ? $dataDir. '/IS_gotuskra.txt' : '@DATADIR@/Validate_IS/IS_gotuskra.txt';
+        $installedData = "@DATADIR@/Validate_IS/IS_gotuskra.txt";
+        $file          = $dataDir ? $dataDir. '/IS_gotuskra.txt' : $installedData;
         
         if ($file != $lastFile) {
             /* Reset cache */
             $lastData = array();
-            $lastPos = -1;
+            $lastPos  = -1;
             $lastFile = "";
         }
         $lastFile = $file;
@@ -250,19 +257,25 @@ class Validate_IS
         }
 
         $lastCount = count($lastData);
-        $i = 0;
-        $return = array();
+        $i         = 0;
+        $return    = array();
         reset($lastData);
-        while (false !== ($data = ($lastPos == 0 || $lastCount>$i) ? next($lastData) : fgetcsv($fp, 128, ';'))) {
+        while (false !== ($data = ($lastPos == 0 || $lastCount>$i) ? 
+            next($lastData) : fgetcsv($fp, 128, ';'))) {
             if ($i >= $lastCount) {
                 $lastData[$i] = $data;
             }
             /* $data = array(0=>key, 1=>pnr 2=>nf 3=>thgf */
-            if (strcasecmp($address, $data[2]) === 0 || strcasecmp($address, $data[3]) === 0) {
-                $return[] = array("nf" => $data[2], "thgf" => $data[3], "pnr" => $data[1]);
+            if (strcasecmp($address, $data[2]) === 0 || 
+                strcasecmp($address, $data[3]) === 0) {
+                $return[] = array("nf" => $data[2], 
+                                  "thgf" => $data[3], 
+                                  "pnr" => $data[1]);
                 if ($postcode && $postcode == $data[1]) {
                     $lastPos = ftell($fp);
-                    /* In case we found matching address which didnt match the postcode we'll return the last found */
+                    /* In case we found matching address which didnt match 
+                     * the postcode we'll return the last found 
+                     */
                     return array(current($return));
                 }
             }
@@ -271,14 +284,12 @@ class Validate_IS
         $lastPos = 0;
         fclose($fp);
 
-        if(!$postcode && count($return)) {
+        if (!$postcode && count($return)) {
             return $return;
         }
         return false;
     }
-// }}}
 
-// {{{ bool Validate_IS::phoneNumber(string $number)
     /**
      * Validates Icelandic telephone numbers (simanumer)
      * 
@@ -291,8 +302,9 @@ class Validate_IS
      *       Here we strip the "-" char from the string (if present) and/or
      *       spaces in our match.
      *
+     * @param string $number the telephone number
+     *
      * @access    public
-     * @param     string $number the telephone number
      * @return    bool
      */
     function phoneNumber($number)
@@ -325,6 +337,5 @@ class Validate_IS
 
         return true;
     }
-// }}}
 }
 ?>
