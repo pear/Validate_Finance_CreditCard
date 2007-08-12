@@ -1,31 +1,26 @@
 <?php
 /* vim: set expandtab tabstop=4 shiftwidth=4: */
-// +----------------------------------------------------------------------+
-// | Copyright (c) 1997-2005  Silvano Girardi Jr.                         |
-// +----------------------------------------------------------------------+
-// | This source file is subject to the New BSD license, That is bundled  |
-// | with this package in the file LICENSE, and is available through      |
-// | the world-wide-web at                                                |
-// | http://www.opensource.org/licenses/bsd-license.php                   |
-// | If you did not receive a copy of the new BSDlicense and are unable   |
-// | to obtain it through the world-wide-web, please send a note to       |
-// | pajoye@php.net so we can mail you a copy immediately.                |
-// +----------------------------------------------------------------------+
-// | Author: Silvano Girardi Jr. <silvano@php.net>                        |
-// |         Marcelo Santos Araujo <msaraujo@php.net>                     |
-// +----------------------------------------------------------------------+
-//
 /**
  * Specific validation methods for data used in Brazil
  *
- * @category   Validate
- * @package    Validate_ptBR
- * @author     Silvano Girardi Jr. <silvano@php.net>
- * @author     Marcelo Santos Araujo <msaraujo@php.net>
- * @copyright  1997-2005  Silvano Girardi Jr.
- * @license    http://www.opensource.org/licenses/bsd-license.php  new BSD
- * @version    CVS: $Id$
- * @link       http://pear.php.net/package/Validate_ptBR
+ * PHP Versions 4 and 5
+ *
+ * This source file is subject to the New BSD license, That is bundled
+ * with this package in the file LICENSE, and is available through
+ * the world-wide-web at
+ * http://www.opensource.org/licenses/bsd-license.php
+ * If you did not receive a copy of the new BSDlicense and are unable
+ * to obtain it through the world-wide-web, please send a note to
+ * pajoye@php.net so we can mail you a copy immediately.
+ *
+ * @category  Validate
+ * @package   Validate_ptBR
+ * @author    Silvano Girardi Jr. <silvano@php.net>
+ * @author    Marcelo Santos Araujo <msaraujo@php.net>
+ * @copyright 1997-2005  Silvano Girardi Jr.
+ * @license   http://www.opensource.org/licenses/bsd-license.php  new BSD
+ * @version   CVS: $Id$
+ * @link      http://pear.php.net/package/Validate_ptBR
  */
 
 /**
@@ -39,14 +34,14 @@
  *  - Phone Numbers - brazilian phone numbers
  *  - Vehicle Plates - brazilian vehicle's plate
  * 
- * @category   Validate
- * @package    Validate_ptBR
- * @author     Silvano Girardi Jr. <silvano@php.net>
- * @author     Marcelo Santos Araujo <msaraujo@php.net>
- * @copyright  1997-2005  Silvano Girardi Jr.
- * @license    http://www.opensource.org/licenses/bsd-license.php  new BSD
- * @version    Release: @package_version@
- * @link       http://pear.php.net/package/Validate_ptBR
+ * @category  Validate
+ * @package   Validate_ptBR
+ * @author    Silvano Girardi Jr. <silvano@php.net>
+ * @author    Marcelo Santos Araujo <msaraujo@php.net>
+ * @copyright 1997-2005  Silvano Girardi Jr.
+ * @license   http://www.opensource.org/licenses/bsd-license.php  new BSD
+ * @version   Release: @package_version@
+ * @link      http://pear.php.net/package/Validate_ptBR
  */
 class Validate_ptBR
 {
@@ -55,20 +50,23 @@ class Validate_ptBR
      * and other languages)
      * format: xxxxx-xxx,xxxxx xxx,xxxxxxxx
      *
-     * @param   string  $postalCode   pt_BR CEP/postalCode to validate
-     * @param    bool    optional; strong checks (e.g. against a list of postcodes) (not implanted)
-     * @return  bool           true if $cep is ok, false otherwise
+     * @param string $postalCode pt_BR CEP/postalCode to validate
+     * @param bool   $strong     optional; strong checks (e.g. against a list 
+     *                           of postcodes) (not implanted)
+     *
+     * @return  bool true if $cep is ok, false otherwise
      */
     function postalCode($postalCode, $strong = false)
     {
-        return (bool)ereg('^([0-9]{2}\.?[0-9]{3})[- ]?([0-9]{3})$', $postalCode);
+        return (bool) ereg('^([0-9]{2}\.?[0-9]{3})[- ]?([0-9]{3})$', $postalCode);
     }
 
     /**
      * Validade CPF (Cadastro de Pessoa Física)
      *
-     * @param   string $cpf  CPF to validate
-     * @return  bool         true if $cpf is ok, false otherwise
+     * @param string $cpf CPF to validate
+     *
+     * @return  bool true if $cpf is ok, false otherwise
      */
     function cpf($cpf)
     {
@@ -83,12 +81,12 @@ class Validate_ptBR
 
         if (strlen($cpf) != 11) {
             return false;
-        } elseif (in_array($cpf,array("00000000000","11111111111",
-                                      "22222222222","33333333333",
-                                      "44444444444","55555555555",
-                                      "66666666666","77777777777",
-                                      "88888888888","99999999999"))) {
-                  return false;
+        } elseif (in_array($cpf, array("00000000000", "11111111111",
+                                       "22222222222", "33333333333",
+                                       "44444444444", "55555555555",
+                                       "66666666666", "77777777777",
+                                       "88888888888", "99999999999"))) {
+            return false;
         } else {
             $number[0]  = intval(substr($cpf, 0, 1));
             $number[1]  = intval(substr($cpf, 1, 1));
@@ -111,13 +109,13 @@ class Validate_ptBR
             if ($sum == 0 || $sum == 1) {
                 $result1 = 0;
             } else {
-                $result1 = 11-$sum;
+                $result1 = 11 - $sum;
             }
 
             if ($result1 == $number[9]) {
-                $sum = $number[0]*11+$number[1]*10+$number[2]*9+$number[3]*8+
-                        $number[4]*7+$number[5]*6+$number[6]*5+$number[7]*4+
-                        $number[8]*3+$number[9]*2;
+                $sum  = $number[0]*11+$number[1]*10+$number[2]*9+$number[3]*8+
+                    $number[4]*7+$number[5]*6+$number[6]*5+$number[7]*4+
+                    $number[8]*3+$number[9]*2;
                 $sum -= (11*(intval($sum/11)));
 
                 if ($sum == 0 || $sum == 1) {
@@ -140,8 +138,9 @@ class Validate_ptBR
     /**
      * Validade CNPJ (Cadastro Nacional de Pessoa Jurídica)
      *
-     * @param   string $cnpj  CNPJ to validate
-     * @return  bool          true if $cnpj is ok, false otherwise
+     * @param string $cnpj CNPJ to validate
+     *
+     * @return  bool true if $cnpj is ok, false otherwise
      */
     function cnpj($cnpj)
     {
@@ -174,8 +173,8 @@ class Validate_ptBR
             $number[13] = intval(substr($cnpj, 13, 1));
 
             $sum = $number[0]*5+$number[1]*4+$number[2]*3+$number[3]*2+
-                   $number[4]*9+$number[5]*8+$number[6]*7+$number[7]*6+
-                   $number[8]*5+$number[9]*4+$number[10]*3+$number[11]*2;
+                $number[4]*9+$number[5]*8+$number[6]*7+$number[7]*6+
+                $number[8]*5+$number[9]*4+$number[10]*3+$number[11]*2;
 
             $sum -= (11*(intval($sum/11)));
 
@@ -186,10 +185,10 @@ class Validate_ptBR
             }
 
             if ($result1 == $number[12]) {
-                $sum = $number[0]*6+$number[1]*5+$number[2]*4+$number[3]*3+
-                        $number[4]*2+$number[5]*9+$number[6]*8+$number[7]*7+
-                        $number[8]*6+$number[9]*5+$number[10]*4+$number[11]*3+
-                        $number[12]*2;
+                $sum  = $number[0]*6+$number[1]*5+$number[2]*4+$number[3]*3+
+                    $number[4]*2+$number[5]*9+$number[6]*8+$number[7]*7+
+                    $number[8]*6+$number[9]*5+$number[10]*4+$number[11]*3+
+                    $number[12]*2;
                 $sum -= (11*(intval($sum/11)));
                 if ($sum == 0 || $sum == 1) {
                     $result2 = 0;
@@ -208,45 +207,45 @@ class Validate_ptBR
         }
     }
 
-    
     /**
      * Validates a "region" (i.e. state) code
      *
      * @param string $region 2-letter state code
+     *
      * @return bool  true if $region is ok, false otherwise
      * @static
      */
     function region($region)
     {
         switch (strtoupper($region)) {
-            case 'AC':
-            case 'AP':
-            case 'AL':
-            case 'AM':
-            case 'BA':
-            case 'CE':
-            case 'DF':
-            case 'ES':
-            case 'GO':
-            case 'MA':
-            case 'MT':
-            case 'MS':
-            case 'MG':
-            case 'PA':
-            case 'PB':
-            case 'PR':
-            case 'PE':
-            case 'PI':
-            case 'RJ':
-            case 'RN':
-            case 'RS':
-            case 'RO':
-            case 'RR':
-            case 'SC':
-            case 'SP':
-            case 'SE':
-            case 'TO':
-                return true;
+        case 'AC':
+        case 'AP':
+        case 'AL':
+        case 'AM':
+        case 'BA':
+        case 'CE':
+        case 'DF':
+        case 'ES':
+        case 'GO':
+        case 'MA':
+        case 'MT':
+        case 'MS':
+        case 'MG':
+        case 'PA':
+        case 'PB':
+        case 'PR':
+        case 'PE':
+        case 'PI':
+        case 'RJ':
+        case 'RN':
+        case 'RS':
+        case 'RO':
+        case 'RR':
+        case 'SC':
+        case 'SP':
+        case 'SE':
+        case 'TO':
+            return true;
         }
         return false;
     }
@@ -259,9 +258,11 @@ class Validate_ptBR
      * (XX)-XXXX-XXXX,(XX) XXXX XXXX, (XX)-XXXX XXXX, (XX) XXXX-XXXX, 
      * XX-XXXX-XXXX,XX XXXX XXXX,XX-XXXX XXXX,XX XXXX-XXXX,XX XXXXXXXX,(XX)XXXXXXXX 
      * If $requiredAreaCode is false:  XXXX-XXXX,XXXX XXXX, XXXXXXXX
-     * @param  string    $number             phone to validate
-     * @param  bool      $requireAreaCode    require the area code? (default: true)
-     * @return bool                          The valid or invalid phone number
+     *
+     * @param string $number          phone to validate
+     * @param bool   $requireAreaCode require the area code? (default: true)
+     *
+     * @return bool The valid or invalid phone number
      */
     function phoneNumber($number, $requireAreaCode = true)
     {
@@ -270,8 +271,9 @@ class Validate_ptBR
                 return  true;
             }
         } else {
-            if (preg_match("/^(\()?[1-9]{2}(?(1)\))[- ]?(\d{4})[- ]?(\d{4})$/",$number)) {
-            	return true;
+            $exp = "/^(\()?[1-9]{2}(?(1)\))[- ]?(\d{4})[- ]?(\d{4})$/";
+            if (preg_match($exp, $number)) {
+                return true;
             }
         }
         return false;
@@ -283,12 +285,14 @@ class Validate_ptBR
      * XXX-XXXX,XXX XXXX,XXXXXXX
      * The first three chars are [A-Z]
      * The last four chars are [0-9]
+     *
      * @param string $reg vehicle's plate
+     *
      * @return bool
      */
     function carReg($reg)
     {
-      return ereg('^[A-Z]{3}[- ]?[0-9]{4}$', $reg);
+        return ereg('^[A-Z]{3}[- ]?[0-9]{4}$', $reg);
     }
 
 
@@ -299,31 +303,32 @@ class Validate_ptBR
      * Allows the following formats
      * XXX.XXX.XXX-XX, XXXXXXXXXXX or 
      * any combination with dots and/or hyphens 
+     *
      * @param string $pis pis code
+     *
      * @return bool
      */
     function pis($pis)
     {
-      static $sum = 0;
+        static $sum = 0;
 
-      if (strlen($pis) < 11) {
-          return false;
-      }
+        if (strlen($pis) < 11) {
+            return false;
+        }
 
-      $pis = str_replace(array("-","."), "", $pis);
- 
-      $multiplier = array(3,2,9,8,7,6,5,4,3,2);
-      
-      for($i = 0; $i < 10; $i++)    
-      {   
-          $sum += (int) $pis[$i] * $multiplier[$i];
-      }
- 
-      $mod = $sum % 11;
- 
-      $mod = ($mod < 2)  ? 0 : 11 - $mod;  
-      
-      return ( (int) $pis[10] === $mod);
+        $pis = str_replace(array("-","."), "", $pis);
+
+        $multiplier = array(3,2,9,8,7,6,5,4,3,2);
+
+        for ($i = 0; $i < 10; $i++) {   
+            $sum += (int) $pis[$i] * $multiplier[$i];
+        }
+
+        $mod = $sum % 11;
+
+        $mod = ($mod < 2)  ? 0 : 11 - $mod;  
+
+        return ( (int) $pis[10] === $mod);
 
     }
 
