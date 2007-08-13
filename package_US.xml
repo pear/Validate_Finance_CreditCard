@@ -45,6 +45,7 @@ Package containes locale validation for US such as:
         <file role="php">US.php</file>
       </dir>
       <dir name="tests" role="test">
+        <file>validate_functions.inc</file>
         <file>validate_US.phpt</file>
       </dir>
     </dir>
