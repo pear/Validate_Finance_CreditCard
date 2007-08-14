@@ -59,6 +59,7 @@
 	            </file> 
 	        </dir> 
 	        <dir name="tests">
+	        	<file name="validate_functions.inc" role="test" />
 	        	<file name="validate_AU.phpt" role="test" />
 	        </dir> 
 	        <dir name="data">
