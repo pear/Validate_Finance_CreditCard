@@ -5,7 +5,13 @@ validate_IS.phpt: Unit tests for 'Validate/IS.php'
 // $Id$
 // Validate test script
 $noYes = array('NO', 'YES');
-require 'Validate/IS.php';
+if (is_file(dirname(__FILE__) . '/../Validate/IS.php')) {
+    require_once dirname(__FILE__) . '/../Validate/IS.php';
+    $dataDir = dirname(__FILE__) . '/../data';
+} else {
+    require_once 'Validate/IS.php';
+    $dataDir = null;
+}
 
 $validate = new Validate_IS;
 echo "Test Validate_IS\n";
@@ -56,12 +62,12 @@ $telNumbers = array(
 
 echo "Test postalCode\n";
 foreach ($postalCodes as $postalCode) {
-    echo "{$postalCode}: ".$noYes[$validate->postalCode($postalCode)]."\n";
+    echo "{$postalCode}: ".$noYes[$validate->postalCode($postalCode, false, $dataDir)]."\n";
 }
 
 echo "\nTest postalCode strong\n";
 foreach($postalCodes as $postalCode) {
-    printf("%s: %s\n", $postalCode, $noYes[$validate->postalCode($postalCode, true)]);
+    printf("%s: %s\n", $postalCode, $noYes[$validate->postalCode($postalCode, true, $dataDir)]);
 }
 
 echo "\nTest phoneNumbers\n";
