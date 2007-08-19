@@ -53,19 +53,25 @@ class Validate_esMX
      * @param   int     $postalCode  Postal code to validate
      * @param   bool    $strongCheck True  = It uses a file and checks that the postal code exists (Default) 
      *                               False = It uses a regexp to do the validation.
+     * @param   string  $dir         Optional; /path/to/data/dir
      * @return  bool    Passed / Not passed
      */
-    function postalCode($postalCode, $strongCheck = false) 
+    function postalCode($postalCode, $strongCheck = false, $dir = null) 
     {
         if ($strongCheck) {
             static $postalCodes;
 
             if (!isset($postalCodes)) {
-                $file = '@DATADIR@/Validate_esMX/esMX_postcodes.txt';
+                if ($dir != null && (is_file($dir . '/esMX_postcodes.txt'))) {
+                    $file = $dir . '/esMX_postcodes.txt';
+                } else {
+                    $file = '@DATADIR@/Validate_esMX/esMX_postcodes.txt';
+                }
+
                 if (!file_exists($file)) {
                     return false;
                 }
-                $postalCodes = file($file);
+                $postalCodes = file($file, FILE_IGNORE_NEW_LINES);
             }
             if (!is_array($postalCodes)) {
                 return false;
@@ -124,6 +130,10 @@ class Validate_esMX
             }
             
             if (isset($matches[9])) {
+                //There's no sense in continue the process if $dni is < 17 chars
+                if (strlen($dni) < 17) {
+                    return false;
+                }
                 //CURP algorithm to get the digitVerifier.
                 $algChar = '';
                 $curpVerifier = '';
@@ -149,9 +159,10 @@ class Validate_esMX
                     }
                 }
                 
-                for($i=0; $i<strlen($dni); $i++) {
+                for($i=1; $i<strlen($dni); $i++) {
                     $counterDigit += $curpVerifier{($i*2-1)} * (19 - $i);
                 }
+
                 $digitModule = $counterDigit % 10;                
                 if ($digitModule == 0) {
                     $digitVerifier = '0';

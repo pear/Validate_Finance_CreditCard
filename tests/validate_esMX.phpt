@@ -1,10 +1,21 @@
 --TEST--
 validate_esMX.phpt: Unit tests for validate_esMX
+
 --FILE--
 <?php
-require_once 'Validate/esMX.php';
 echo "Test Validate_esMX\n";
 echo "****************\n";
+/**
+ * Sometimes the DATADIR variable is not replaced and therefor it keeps saying
+ * DATADIR as it was a directory name instead of a variable
+*/
+if (is_file(dirname(__FILE__) . '/../Validate/esMX.php')) {
+    require_once dirname(__FILE__) . '/../Validate/esMX.php';
+    $postcodes_dir = dirname(__FILE__) . '/../data';
+} else {
+    require_once 'Validate/esMX.php';
+    $postcodes_dir = null;
+}
 
 $noYes = array('NO', 'YES');
 $postalCodes = array(
@@ -23,12 +34,12 @@ $postalCodes = array(
 $validate = new Validate_esMX;
 echo "Test postalCode\n";
 foreach($postalCodes as $code) {
-    echo $code . ':' . $noYes[$validate->postalCode($code)]."\n";
+    echo $code . ':' . $noYes[$validate->postalCode($code, false, $postcodes_dir)]."\n";
 }
 
 echo "\nTest postalCode (strong)\n";
 foreach($postalCodes as $code) {
-    echo $code . ':' . $noYes[$validate->postalCode($code, true)]."\n";
+    echo $code . ':' . $noYes[$validate->postalCode($code, true, $postcodes_dir)]."\n";
 }
 
 $dnis = array(
@@ -38,7 +49,7 @@ $dnis = array(
               'AAPR630321LDFLRC09', //NO
               'AAPR630321HIOLRC49', //NO
               'OIBR780920HDFRNN09', //YES
-              'GIBR780920HDFRNN09', //NO
+              'GIBR780920HDFRNN09', //
               'OMBR780920HDFRNN09', //NO
               'ACPR63032', //NO
               'xxxxxxxxxxxxxxxxxx', //NO
@@ -81,7 +92,9 @@ echo "\nTest phones (with area code)\n";
 foreach($phones as $phone) {
     echo $phone . ':' . $noYes[$validate->phone($phone, true)]."\n";
 }
+exit(0);
 ?>
+
 --EXPECT--
 Test Validate_esMX
 ****************
