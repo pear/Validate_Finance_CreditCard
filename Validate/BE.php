@@ -166,6 +166,9 @@ class Validate_BE
      * @param string $postcode postcode to validate
      * @param bool   $strong   optional; strong checks (e.g. against a list 
      *                         of postcodes)
+     * @param string $dataDir  optional; name of directory datafile can be 
+     *                         found in. set during install process but may be
+     *                         overridden.
      *
      * @return  bool    true if postcode is ok, false otherwise
      */
