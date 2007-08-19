@@ -5,7 +5,7 @@ validate_BE_post_code_strong.phpt: Unit tests for postalCode in strong mode in '
 include (dirname(__FILE__).'/validate_functions.inc');
 if (is_file(dirname(__FILE__) . '/../Validate/BE.php')) {
     require_once dirname(__FILE__) . '/../Validate/BE.php';
-    $dataDir = dirname(__FILE__) . '/../data';
+    $dataDir = '../data';
 } else {
     require_once 'Validate/BE.php';
     $dataDir = null;
@@ -43,7 +43,7 @@ Test postalCode STRONG Validate_BE
 **********************************
 ---------
 Test validate_BE::postalCode
-extra params:1|/home/kguest/dev/code/pear/pear/Valid8/tests/../data
+extra params:1|../data
  _ Value                  State Return
  V = validation result is right
  X = validation result is wrong
