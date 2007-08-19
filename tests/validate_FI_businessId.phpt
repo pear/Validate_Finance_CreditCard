@@ -5,7 +5,11 @@ validate_FI_businessId.phpt: Unit tests for businessId method 'Validate/FI.php'
 // $Id$
 // Validate test script
 $noYes = array('NO', 'YES');
-require_once 'Validate/FI.php';
+if (is_file(dirname(__FILE__) . '/../Validate/FI.php')) {
+    require_once dirname(__FILE__) . '/../Validate/FI.php';
+} else {
+    require_once 'Validate/FI.php';
+}
 
 echo "Test Validate_FI\n";
 echo "****************\n";
