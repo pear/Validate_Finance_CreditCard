@@ -5,7 +5,13 @@ validate_AU.phpt: Unit tests for 'Validate/AU.php'
 // 
 // Validate test script
 include (dirname(__FILE__) . '/validate_functions.inc');
-require_once 'Validate/AU.php';
+if (is_file(dirname(__FILE__) . '/../Validate/AU.php')) {
+    require_once dirname(__FILE__) . '/../Validate/AU.php';
+    $dataDir = '../data';
+} else {
+    require_once 'Validate/AU.php';
+    $dataDir = null;
+}
 
 echo "Test Validate_AU\n";
 echo "****************\n";
@@ -99,8 +105,8 @@ $acns = array(
 
 $errorFound = false;
 	
-$errorFound = $errorFound || test_func(array('validate_AU','postalCode'), $postalCodes );
-$errorFound = $errorFound || test_func(array('validate_AU','postalCode'), $postalCodesStrong,true);
+$errorFound = $errorFound || test_func(array('validate_AU','postalCode'), $postalCodes, array(false, $dataDir));
+$errorFound = $errorFound || test_func(array('validate_AU','postalCode'), $postalCodesStrong,array(true, $dataDir));
 $errorFound = $errorFound || test_func(array('validate_AU','abn'), $abns );
 $errorFound = $errorFound || test_func(array('validate_AU','acn'), $acns );
 $errorFound = $errorFound || test_func(array('validate_AU','tfn'), $tfns );
@@ -111,6 +117,7 @@ Test Validate_AU
 ****************
 ---------
 Test validate_AU::postalCode
+extra params:|../data
  _ Value                  State Return
  V = validation result is right
  X = validation result is wrong
@@ -124,7 +131,7 @@ Test validate_AU::postalCode
  V a7000                : KO    KO
 ---------
 Test validate_AU::postalCode
-extra params:1
+extra params:1|../data
  _ Value                  State Return
  V = validation result is right
  X = validation result is wrong

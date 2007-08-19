@@ -67,18 +67,23 @@ class Validate_AU
      *
      * @param string $postcode postcode to validate
      * @param bool   $strong   optional; strong checks against a list of postcodes
+     * @param string $dataDir  optional; name of directory datafile is located in
      *
      * @access   public
      * @static   string  $postcodes
      * @return   bool    true if postcode is ok, false otherwise
      */
-    function postalCode($postcode, $strong = false)
+    function postalCode($postcode, $strong = false, $dataDir = null)
     {
         if ($strong) {
             static $postcodes;
 
             if (!isset($postcodes)) {
-                $file      = '@DATADIR@/Validate_AU/data/AU_postcodes.txt';
+                if ($dataDir != null && (is_file($dataDir . '/AU_postcodes.txt'))) {
+                    $file = $dataDir . '/AU_postcodes.txt';
+                } else {
+                    $file = '@DATADIR@/Validate_AU/data/AU_postcodes.txt';
+                }
                 $postcodes = array_map('trim', file($file));
             }
 
