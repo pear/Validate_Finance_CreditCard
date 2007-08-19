@@ -3,7 +3,13 @@ validate_BE_bank_codes.phpt: Unit tests for bank code method 'Validate/BE.php'
 --FILE--
 <?php
 include (dirname(__FILE__).'/validate_functions.inc');
-require_once 'Validate/BE.php';
+if (is_file(dirname(__FILE__) . '/../Validate/BE.php')) {
+    require_once dirname(__FILE__) . '/../Validate/BE.php';
+    $dataDir = dirname(__FILE__) . '/../data';
+} else {
+    require_once 'Validate/BE.php';
+    $dataDir = null;
+}
 
 echo "Test bank code Validate_BE\n";
 echo "**************************\n";

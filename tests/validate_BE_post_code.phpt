@@ -3,7 +3,13 @@ validate_BE_post_code.phpt: Unit tests for post code method 'Validate/BE.php'
 --FILE--
 <?php
 include (dirname(__FILE__).'/validate_functions.inc');
-require_once 'Validate/BE.php';
+if (is_file(dirname(__FILE__) . '/../Validate/BE.php')) {
+    require_once dirname(__FILE__) . '/../Validate/BE.php';
+    $dataDir = dirname(__FILE__) . '/../data';
+} else {
+    require_once 'Validate/BE.php';
+    $dataDir = null;
+}
 
 echo "Test Post Code Validate_BE\n";
 echo "**************************\n";
@@ -28,7 +34,7 @@ $errorFound = false;
 $errorFound =
 $errorFound
 ||
-test_func( array('validate_BE','postalCode'), $postalCodeList );
+test_func( array('validate_BE','postalCode'), $postalCodeList, array(false, $dataDir) );
 echo ($errorFound) ? '... FAILED' : '... SUCCESS';
 
 ?>
@@ -37,6 +43,7 @@ Test Post Code Validate_BE
 **************************
 ---------
 Test validate_BE::postalCode
+extra params:|/home/kguest/dev/code/pear/pear/Valid8/tests/../data
  _ Value                  State Return
  V = validation result is right
  X = validation result is wrong

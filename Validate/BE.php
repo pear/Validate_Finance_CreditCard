@@ -169,14 +169,18 @@ class Validate_BE
      *
      * @return  bool    true if postcode is ok, false otherwise
      */
-    function postalCode($postcode, $strong = false)
+    function postalCode($postcode, $strong = false, $dataDir = null)
     {
         static $postCodeList = null;
 
         $postcode = ltrim(ltrim(strtolower($postcode), 'b'), '-');
         if ($strong) {
             if (!isset($postCodeList)) {
-                $file = '@DATADIR@/Validate_BE/BE_postcodes.txt';
+                if ($dataDir != null && (is_file($dataDir . '/BE_postcodes.txt'))) {
+                    $file = $dataDir . '/BE_postcodes.txt';
+                } else {
+                    $file = '@DATADIR@/Validate_BE/BE_postcodes.txt';
+                }
                 if (file_exists($file)) {
                     foreach (file($file) as $line) {
                         $postCodeList[] = substr($line, 0, 4);
