@@ -31,7 +31,7 @@ $postalCodes = array(
                      '75684',  //YES / NO (if strong)
                      );
 
-$validate = new Validate_esMX;
+$validate = new Validate_EsMX;
 echo "Test postalCode\n";
 foreach($postalCodes as $code) {
     echo $code . ':' . $noYes[$validate->postalCode($code, false, $postcodes_dir)]."\n";
