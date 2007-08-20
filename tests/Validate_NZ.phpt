@@ -5,7 +5,11 @@ Validate_NZ.phpt: Unit tests for
 // Validate test script
 $noYes = array('NO', 'YES');
 
-require 'Validate/NZ.php';
+if (is_file(dirname(__FILE__) . '/../Validate/NZ.php')) {
+    require_once dirname(__FILE__) . '/../Validate/NZ.php';
+} else {
+    require_once 'Validate/NZ.php';
+}
 
 echo " Test Validate_NZ\n";
 echo "****************\n";
@@ -107,16 +111,6 @@ $regions = array(
                         "SC",    //NOk
                         "CAB",    //NOk
                         "CAN"); //OK
-                        /*
-                        "South Canterbury",//OK
-                        "West Auckland",  //OK
-                        "Central-Otago",  //OK
-                        "west coast",     //OK
-                        
-                        /*this ones causing trouble... its on the todo list */
-                        /*"west-coast");    //NOk 
-                         */
-                        
                         
 $bankAccounts = array(
                       "06-0889-0262506-00", //OK
@@ -127,11 +121,12 @@ $bankAccounts = array(
                       
 
 $IrdNumbers = array(
-                    "087 784 215",
-                    "071-321-321",
-                    "97 654 456",
-                    "83-366-3215",
-                    "987 784 215",);
+                    "087 784 215", //VALID
+                    "036-410-232", //VALID
+                    "071-321-321",//INVALID
+                    "97 654 456", //INVALID
+                    "83-366-3215", //INVALID
+                    "987 784 215",); //INVALID
 
 $Carreg = array("AE12Y3", //Ok
                 "000000", //NOk
@@ -249,8 +244,9 @@ CAN: YES
 06-088902625060: NO
 ----Test IRD Numbers (SSN)----
 087 784 215: YES
-071-321-321: YES
-97 654 456: YES
+036-410-232: YES
+071-321-321: NO
+97 654 456: NO
 83-366-3215: NO
 987 784 215: NO
 ----Test Vehicle License plates ----

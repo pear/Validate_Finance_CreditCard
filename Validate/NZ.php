@@ -113,6 +113,8 @@ class Validate_NZ
      *
      * @access  public
      * @return  bool       The valid or invalid ird number
+     *
+     * @link www.ird.govt.nz/resources/file/eb70020dbbadb13/rwt-nrwt-spec-2006.pdf
      */
     function ssn($ssn)
     {
@@ -122,11 +124,11 @@ class Validate_NZ
         }
         switch (strlen($ssn)) {
         case 8:
-            return true;
+            return Validate_NZ::checkIRD($ssn);
             break;
         case 9:
             if ($ssn{0} == "0") {
-                return true;
+                return Validate_NZ::checkIRD($ssn);
             }
             break;
         }
@@ -246,5 +248,49 @@ class Validate_NZ
                !ctype_alpha($reg) &&
                !ctype_digit($reg) &&
                in_array(strlen($reg), array("6", "5")));
+    }
+    /**
+     * Return true if the checksum[s] in the specified value is valid as
+     * regards the value being a valid IRD number.
+     * 
+     * @param string $ssn Value to perform the validation on
+     *
+     * @access public
+     * @return boolean
+     */
+    function checkIRD($ssn) 
+    {
+        $ird = (int) str_replace("-", "", $ssn);
+        if (strlen("$ird") == 8 ) {
+            //should be 8 characters in length: converting to int drops leading zero.
+            if ($ird < 10000000) {
+                return false;
+            }
+            $weights = array(2,7,6,5,4,3,2);
+            $sird    = "$ird";
+            $sum     = 0;
+            for ($i = 0; $i < 7; ++$i) {
+                $sum += $sird[$i] * $weights[$i];
+            }
+            $remainder  = ($sum%11);
+            $checkdigit = 11 - $remainder;
+            if ($sird[7] == $checkdigit) { 
+                return true; 
+            }
+            if ($checkdigit == 10) {
+                $weights = array(4,3,2,5,2,7,6);
+                $sum     = 0;
+                for ($i = 0; $i < 7; ++$i) {
+                    $sum += $sird[$i] * $weights[$i];
+                }
+                $remainder  = ($sum%11);
+                $checkdigit = 11 - $remainder;
+                if ($checkdigit == 10) {
+                    return false;
+                }
+                return ($sird[7] == $checkdigit);
+            }
+        } 
+        return false;
     }
 }
