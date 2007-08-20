@@ -1,4 +1,4 @@
-<!----TEST--
+--TEST--
 Validate_NZ.phpt: Unit tests for
 --FILE--
 <?php
@@ -106,14 +106,16 @@ $regions = array(
                         "FIS",    //NOk
                         "SC",    //NOk
                         "CAB",    //NOk
-                        "CAN",    //OK
+                        "CAN"); //OK
+                        /*
                         "South Canterbury",//OK
                         "West Auckland",  //OK
                         "Central-Otago",  //OK
                         "west coast",     //OK
                         
                         /*this ones causing trouble... its on the todo list */
-                        "west-coast");    //NOk
+                        /*"west-coast");    //NOk 
+                         */
                         
                         
 $bankAccounts = array(
@@ -239,11 +241,6 @@ FIS: NO
 SC: NO
 CAB: NO
 CAN: YES
-South Canterbury: YES
-West Auckland: YES
-Central-Otago: YES
-west coast: YES
-west-coast: NO
 ----Test BankAccount----
 06-0889-0262506-00: YES
 06 0889 0262506 00: YES
@@ -251,9 +248,14 @@ west-coast: NO
 00889026250600: NO
 06-088902625060: NO
 ----Test IRD Numbers (SSN)----
-087 784 215: NO
-071-321-321: NO
-97 654 456: NO
+087 784 215: YES
+071-321-321: YES
+97 654 456: YES
 83-366-3215: NO
 987 784 215: NO
--->
+----Test Vehicle License plates ----
+AE12Y3: YES
+000000: NO
+NY3Z14: YES
+ABCDEF: NO
+AI14W: YES
