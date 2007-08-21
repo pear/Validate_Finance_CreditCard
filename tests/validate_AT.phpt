@@ -6,7 +6,13 @@ validate_AT.phpt: Unit tests for 'Validate/AT.php'
 // Validate test script
 $noYes = array('NO', 'YES');
 include (dirname(__FILE__).'/validate_functions.inc');
-require_once 'Validate/AT.php';
+if (is_file(dirname(__FILE__) . '/../Validate/AT.php')) {
+    require_once dirname(__FILE__) . '/../Validate/AT.php';
+    $dataDir = '../data';
+} else {
+    require_once 'Validate/AT.php';
+    $dataDir = null;
+}
 
 echo "Test Validate_AT\n";
 echo "****************\n";
@@ -35,9 +41,9 @@ $ssns = array( '4298 02-12-82' => 'OK',
                '4298001282' => 'KO',
                '1508-10-13-50' => 'KO',
                '1508101050' => 'OK',
-                1508101051 => 'KO', //
-                4290021282 => 'KO', //
-                '21 34 23 12 74' => 'KO',
+               '1508101051' => 'KO',
+               '4290021282' => 'KO',
+               '21 34 23 12 74' => 'KO',
 );
 
 
@@ -49,8 +55,8 @@ $regions = array(
 
 $errorFound = false;
 $errorFound = $errorFound || test_func(array('Validate_AT','ssn'        ), $ssns        );
-$errorFound = $errorFound || test_func(array('Validate_AT','postalCode' ), $postalCodesStrong );
-$errorFound = $errorFound || test_func(array('Validate_AT','postalCode' ), $postalCodesStrong, true );
+$errorFound = $errorFound || test_func(array('Validate_AT','postalCode' ), $postalCodesStrong, array(false, $dataDir));
+$errorFound = $errorFound || test_func(array('Validate_AT','postalCode' ), $postalCodesStrong, array(true, $dataDir));
 $errorFound = $errorFound || test_func(array('Validate_AT','postalCode' ), $postalCodes,false );
 echo ($errorFound) ? '... FAILED' : '... SUCCESS';
 
@@ -70,10 +76,11 @@ Test Validate_AT::ssn
  V 1508-10-13-50        : KO    KO
  V 1508101050           : OK    OK
  V 1508101051           : KO    KO
- V -4946014             : KO    KO
+ V 4290021282           : KO    KO
  V 21 34 23 12 74       : KO    KO
 ---------
 Test Validate_AT::postalCode
+extra params:|../data
  _ Value                  State Return
  V = validation result is right
  X = validation result is wrong
@@ -87,7 +94,7 @@ Test Validate_AT::postalCode
  V a7000                : KO    KO
 ---------
 Test Validate_AT::postalCode
-extra params:1
+extra params:1|../data
  _ Value                  State Return
  V = validation result is right
  X = validation result is wrong

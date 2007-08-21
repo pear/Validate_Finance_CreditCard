@@ -33,6 +33,7 @@ Package containes locale validation for AT such as:
         </file>
       </dir>
       <dir name="tests" role="test">
+        <file>validate_functions.inc</file>
         <file>validate_AT.phpt</file>
       </dir>
       <file role="data" name="data/AT_postcodes.txt" install-as="AT_postcodes.txt" />
