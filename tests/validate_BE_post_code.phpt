@@ -43,7 +43,7 @@ Test Post Code Validate_BE
 **************************
 ---------
 Test validate_BE::postalCode
-extra params:|../data
+extra params:|
  _ Value                  State Return
  V = validation result is right
  X = validation result is wrong
