@@ -21,7 +21,7 @@
  * @author     Roman Roan <opensourceNO@SPAMvideinfra.com>
  * @copyright  2006 Vide Infra Grupa SIA
  * @license    http://www.opensource.org/licenses/bsd-license.php  New BSD License
- * @version    1.0 $id: $
+ * @version    1.1 $id: $
  * @link       http://pear.php.net/package/Validate_LV
  */
 
@@ -114,7 +114,12 @@ class Validate_LV {
         // It's because we can't know century and 2000 year is leap, but 1900 isn't
         // (in 2000 there is the February 29th, in 1900 isn't)
         // In fact everything between 4 and 324 would match
-        checkdate(substr($personId, 2, 2), substr($personId, 0, 2), '20' . substr($personId, 4, 2));
+        $validDate = checkdate(substr($personId, 2, 2), substr($personId, 0, 2), '20' . substr($personId, 4, 2));
+		if (!$validDate)
+		{
+			return false;
+		}
+        
 
         // Checking last digit
         $mult = Array (

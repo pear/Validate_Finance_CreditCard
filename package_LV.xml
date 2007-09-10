@@ -1,60 +1,79 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE package SYSTEM "http://pear.php.net/dtd/package-1.0">
-<package version="1.0" packagerversion="1.4.2">
-  <name>Validate_LV</name>
-  <summary>Validation class for Latvia</summary>
-  <description>Data validation class for Latvia
-   Provides methods to validate:
-   - VAT number
-   - Registration number
-   - Swift code
-   - Telephone number
-   - Person ID
-   - IBAN Bank account number for Latvian Banks
-   - Postal code
-   - Passport
-   - Person name
-  </description>
-  <license>New BSD</license>
-  <maintainers>
-    <maintainer>
-      <user>videinfra</user>
-      <name>Roman Roan</name>
-      <email>opensource@videinfra.com</email>
-      <role>lead</role>
-    </maintainer>
-  </maintainers>
+<?xml version="1.0" encoding="UTF-8"?>
+<package packagerversion="1.4.9" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0
+http://pear.php.net/dtd/tasks-1.0.xsd
+http://pear.php.net/dtd/package-2.0
+http://pear.php.net/dtd/package-2.0.xsd">
+ <name>Validate_LV</name>
+ <channel>pear.php.net</channel>
+ <summary>Validation class for Latvia</summary>
+ <description>Data validation class for Latvia
+Provides methods to validate:
+- VAT number
+- Registration number
+- Swift code
+- Telephone number
+- Person ID
+- IBAN Bank account number for Latvian Banks
+- Postal code
+- Passport
+- Person name
+ 
+ </description>
+ <lead>
+  <name>Roman Roan</name>
+  <user>videinfra</user>
+  <email>opensource@videinfra.com</email>
+  <active>yes</active>
+ </lead>
+ <date>2007-09-08</date>
+ <time>12:35:21</time>
+ <version>
+  <release>1.0.0RC2</release>
+  <api>1.0</api>
+ </version>
+ <stability>
+  <release>beta</release>
+  <api>stable</api>
+ </stability>
+ <license>New BSD</license>
+ <notes>
+   Fixed person id check date bug (Thanks Igor Istochnick)
+ </notes>
+ <contents>
+  <dir name="/">
+   <dir name="Validate">
+    <file md5sum="5b7d6003771227548c5fc3be7e0f3119" name="LV.php" role="php" />
+   </dir> 
+   <file md5sum="f8790e48b597dff12a643e08e9be3fab" name="LICENSE" role="doc" />
+  </dir> 
+ </contents>
+ <dependencies>
+  <required>
+   <php>
+    <min>4.2.0</min>
+   </php>
+   <pearinstaller>
+    <min>1.4.0b1</min>
+   </pearinstaller>
+  </required>
+ </dependencies>
+ <phprelease />
+ <changelog>
+ 
   <release>
-    <version>1.0.0</version>
-    <date>2006-10-11</date>
-    <state>stable</state>
-    <notes>
-    </notes>
-    <deps>
-      <dep type="php" rel="ge" version="4.2.0"/>
-      <dep type="pkg" rel="ge" version="0.5.0">Validate</dep>
-    </deps>
-    <provides type="class" name="Validate_LV" />
-    <provides type="function" name="Validate_LV::IBAN" />
-    <provides type="function" name="Validate_LV::passport" />
-    <provides type="function" name="Validate_LV::personId" />
-    <provides type="function" name="Validate_LV::personName" />
-    <provides type="function" name="Validate_LV::phoneNumber" />
-    <provides type="function" name="Validate_LV::postalCode" />
-    <provides type="function" name="Validate_LV::registrationNumber" />
-    <provides type="function" name="Validate_LV::swift" />
-    <provides type="function" name="Validate_LV::vatNumber" />
-    <filelist>
-      <file role="php" md5sum="f3213652ae3201504566871126bef77f" name="Validate/LV.php"/>
-    </filelist>
+   <version>
+    <release>1.0.0RC1</release>
+    <api>1.0</api>
+   </version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <date>2007-03-07</date>
+   <license>New BSD</license>
+   <notes>Initial Release.
+    
+   </notes>
   </release>
-  <changelog>
-    <release>
-      <version>1.0</version>
-      <date>2006-10-06</date>
-      <state>stable</state>
-      <notes>Initial Release.
-      </notes>
-    </release>
-  </changelog>
+ </changelog>
 </package>
