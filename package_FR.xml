@@ -41,6 +41,7 @@ Package containes locale validation for FR such as:
           <file role="php">FR.php</file>
         </dir>
         <dir name="tests" role="test">
+          <file>validate_functions.inc</file>
           <file>validate_FR.phpt</file>
           <file>bug7389.phpt</file>
         </dir>
