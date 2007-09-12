@@ -117,7 +117,6 @@ Test Validate_AU
 ****************
 ---------
 Test validate_AU::postalCode
-extra params:|
  _ Value                  State Return
  V = validation result is right
  X = validation result is wrong
@@ -131,7 +130,6 @@ extra params:|
  V a7000                : KO    KO
 ---------
 Test validate_AU::postalCode
-extra params:1|
  _ Value                  State Return
  V = validation result is right
  X = validation result is wrong

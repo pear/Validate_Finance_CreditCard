@@ -80,7 +80,6 @@ Test Validate_AT::ssn
  V 21 34 23 12 74       : KO    KO
 ---------
 Test Validate_AT::postalCode
-extra params:|
  _ Value                  State Return
  V = validation result is right
  X = validation result is wrong
@@ -94,7 +93,6 @@ extra params:|
  V a7000                : KO    KO
 ---------
 Test Validate_AT::postalCode
-extra params:1|
  _ Value                  State Return
  V = validation result is right
  X = validation result is wrong
@@ -108,7 +106,6 @@ extra params:1|
  V a7000                : KO    KO
 ---------
 Test Validate_AT::postalCode
-extra params:
  _ Value                  State Return
  V = validation result is right
  X = validation result is wrong
