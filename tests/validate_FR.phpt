@@ -5,8 +5,11 @@ validate_FR.phpt: Unit tests for 'Validate/FR.php'
 // $Id$
 
 include (dirname(__FILE__).'/validate_functions.inc');
-
-require_once dirname(__FILE__) . '/../Validate/FR.php';
+if (is_file(dirname(__FILE__) . '/../Validate/FR.php')) {
+    require_once dirname(__FILE__) . '/../Validate/FR.php';
+} else {
+    require_once 'Validate/FR.php';
+}
 
 echo "Test Validate_FR\n";
 echo "****************\n";
