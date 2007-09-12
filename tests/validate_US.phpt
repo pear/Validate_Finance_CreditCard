@@ -9,7 +9,11 @@ $symbol = array('!X!', ' V ');
 
 include (dirname(__FILE__).'/validate_functions.inc');
 
-require 'Validate/US.php';
+if (is_file(dirname(__FILE__) . '/../Validate/US.php')) {
+    require_once dirname(__FILE__) . '/../Validate/US.php';
+} else {
+    require 'Validate/US.php';
+}
 
 echo "Test Validate_US\n";
 echo "****************\n";
@@ -246,7 +250,6 @@ Test Validate_US::ssn
  V 097999490            : KO    KO
 ---------
 Test Validate_US::phonenumber
-extra params:
  _ Value                  State Return
  V = validation result is right
  X = validation result is wrong
@@ -286,7 +289,6 @@ extra params:
  V 98 487-0987          : KO    KO
 ---------
 Test Validate_US::phonenumber
-extra params:1
  _ Value                  State Return
  V = validation result is right
  X = validation result is wrong
