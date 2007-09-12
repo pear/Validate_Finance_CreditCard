@@ -291,7 +291,7 @@ class Validate_FR
             '17' => 'Charente-Maritime',
             '18' => 'Cher',
             '19' => 'Corr&#232;ze',
-            '20' => 'Corse', // deprecated
+            //'20' => 'Corse', // deprecated
             '21' => 'C&#244;te-d\'Or',
             '22' => 'C&#244;tes d\'Armor',
             '23' => 'Creuse',
@@ -398,6 +398,11 @@ class Validate_FR
      */
     function region($region)
     {
-        return ($return = Validate_FR::nameDepartement($region)) ? $return : false;
+        //return ($return = Validate_FR::nameDepartement($region)) ? $return : false;
+        if (Validate_FR::nameDepartement($region) !== '') {
+            return true;
+        } else {
+            return false;
+        }
     }
 }
