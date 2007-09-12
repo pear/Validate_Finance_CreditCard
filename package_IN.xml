@@ -34,8 +34,10 @@ http://pear.php.net/dtd/package-2.0.xsd">
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL Version 2.1</license>
  <notes>Initial release of package.</notes>
  <contents>
-  <dir baseinstalldir="Validate" name="/">
-    <file baseinstalldir="Validate" name="IN.php" role="php" />
+  <dir name="/">
+   <dir name="Validate">
+    <file name="IN.php" role="php" />
+  </dir>
   </dir>
  </contents>
  <dependencies>
