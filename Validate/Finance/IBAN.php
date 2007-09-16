@@ -1,29 +1,25 @@
 <?php
 /* vim: set expandtab tabstop=4 shiftwidth=4: */
-// +----------------------------------------------------------------------+
-// | Copyright (c) 1997-2005  Stefan Neufeind                             |
-// +----------------------------------------------------------------------+
-// | This source file is subject to the New BSD license, That is bundled  |
-// | with this package in the file LICENSE, and is available through      |
-// | the world-wide-web at                                                |
-// | http://www.opensource.org/licenses/bsd-license.php                   |
-// | If you did not receive a copy of the new BSDlicense and are unable   |
-// | to obtain it through the world-wide-web, please send a note to       |
-// | pajoye@php.net so we can mail you a copy immediately.                |
-// +----------------------------------------------------------------------+
-// | Author: Stefan Neufeind <pear.neufeind@speedpartner.de>              |
-// +----------------------------------------------------------------------+
-//
 /**
  * Methods for common data validations
  *
- * @category   Validate
- * @package    Validate_Finance_IBAN
- * @author     Stefan Neufeind <pear.neufeind@speedpartner.de>
- * @copyright  2005 The PHP Group
- * @license    http://www.opensource.org/licenses/bsd-license.php  New BSD License
- * @version    CVS: $Id$
- * @link       http://pear.php.net/package/Validate_Finance_IBAN
+ * PHP Versions 4 and 5
+ *
+ * This source file is subject to the New BSD license, That is bundled
+ * with this package in the file LICENSE, and is available through
+ * the world-wide-web at
+ * http://www.opensource.org/licenses/bsd-license.php
+ * If you did not receive a copy of the new BSDlicense and are unable
+ * to obtain it through the world-wide-web, please send a note to
+ * pajoye@php.net so we can mail you a copy immediately.
+ *
+ * @category  Validate
+ * @package   Validate_Finance_IBAN
+ * @author    Stefan Neufeind <pear.neufeind@speedpartner.de>
+ * @copyright 1997-2005  Stefan Neufeind
+ * @license   http://www.opensource.org/licenses/bsd-license.php  New BSD License
+ * @version   CVS: $Id$
+ * @link      http://pear.php.net/package/Validate_Finance_IBAN
  */
 
 
@@ -33,26 +29,27 @@
  * sure to add the textual messages to the IBAN::errorMessage() function as well
  */
 
-define('VALIDATE_FINANCE_IBAN_OK',                 1);
-define('VALIDATE_FINANCE_IBAN_ERROR',             -1);
-define('VALIDATE_FINANCE_IBAN_GENERAL_INVALID',   -2);
-define('VALIDATE_FINANCE_IBAN_TOO_SHORT',         -4);
-define('VALIDATE_FINANCE_IBAN_TOO_LONG',          -5);
-define('VALIDATE_FINANCE_IBAN_COUNTRY_INVALID',   -6);
-define('VALIDATE_FINANCE_IBAN_INVALID_FORMAT',    -7); // tested via regex; e.g. if un-allowed characters in IBAN
-define('VALIDATE_FINANCE_IBAN_CHECKSUM_INVALID',  -8);
+define('VALIDATE_FINANCE_IBAN_OK', 1);
+define('VALIDATE_FINANCE_IBAN_ERROR', -1);
+define('VALIDATE_FINANCE_IBAN_GENERAL_INVALID', -2);
+define('VALIDATE_FINANCE_IBAN_TOO_SHORT', -4);
+define('VALIDATE_FINANCE_IBAN_TOO_LONG', -5);
+define('VALIDATE_FINANCE_IBAN_COUNTRY_INVALID', -6);
+// tested via regex; e.g. if un-allowed characters in IBAN
+define('VALIDATE_FINANCE_IBAN_INVALID_FORMAT', -7);
+define('VALIDATE_FINANCE_IBAN_CHECKSUM_INVALID', -8);
 
 /**
  * Validate and process IBAN (international bank account numbers)
  *
- * @category   Validate
- * @package    Validate_Finance_IBAN
- * @author     Stefan Neufeind <neufeind@speedpartner.de>
- * @copyright  2005 The PHP Group
- * @license    http://www.opensource.org/licenses/bsd-license.php  New BSD License
- * @version    Release: @package_version@
- * @link       http://pear.php.net/package/Validate
- * @link       Ireland IBANs http://www.skynet.ie/~martin/pages/iban.html
+ * @category  Validate
+ * @package   Validate_Finance_IBAN
+ * @author    Stefan Neufeind <neufeind@speedpartner.de>
+ * @copyright 2005 The PHP Group
+ * @license   http://www.opensource.org/licenses/bsd-license.php  New BSD License
+ * @version   Release: @package_version@
+ * @link      http://pear.php.net/package/Validate
+ * @link      Ireland IBANs http://www.skynet.ie/~martin/pages/iban.html
  */
 class Validate_Finance_IBAN
 {
@@ -71,7 +68,9 @@ class Validate_Finance_IBAN
     var $_errorcode = 0;
 
     /**
-     * List of all IBAN countrycodes; also gives corresponding countrynames (in long form)
+     * List of all IBAN countrycodes; also gives corresponding countrynames (in 
+     * long form)
+     *
      * @return  array
      * @access  private
      */
@@ -127,6 +126,7 @@ class Validate_Finance_IBAN
 
     /**
      * List of IBAN length; can be used for a quick check
+     *
      * @return  array
      * @access  private
      */
@@ -181,7 +181,9 @@ class Validate_Finance_IBAN
     }
 
     /**
-     * List of where the bankcode inside an IBAN starts (starting from 0) and its length
+     * List of where the bankcode inside an IBAN starts (starting from 0) and 
+     * its length
+     *
      * @return  array
      * @access  private
      */
@@ -191,52 +193,69 @@ class Validate_Finance_IBAN
         if (!isset($_iban_countrycode_bankcode)) {
             $_iban_countrycode_bankcode =
                 array(
-                    'AD' => array('start' =>  4, 'length' =>  8), // first 4 chars bankcode, last 4 chars branch
+                    //AD: first 4 chars bankcode, last 4 chars branch
+                    'AD' => array('start' =>  4, 'length' =>  8),
                     'AT' => array('start' =>  4, 'length' =>  5),
-                    'BA' => array('start' =>  4, 'length' =>  6), // first 3 chars bankcode, last 3 chars branch
+                    //BA: first 3 chars bankcode, last 3 chars branch
+                    'BA' => array('start' =>  4, 'length' =>  6),
                     'BE' => array('start' =>  4, 'length' =>  3),
                     'BG' => array('start' =>  4, 'length' =>  8),
                     'CH' => array('start' =>  4, 'length' =>  5),
                     'CS' => array('start' =>  4, 'length' =>  3),
-                    'CY' => array('start' =>  4, 'length' =>  8), // first 3 chars bankcode, last 5 chars branch
+                    //CY: first 3 chars bankcode, last 5 chars branch
+                    'CY' => array('start' =>  4, 'length' =>  8), 
                     'CZ' => array('start' =>  4, 'length' =>  4),
                     'DE' => array('start' =>  4, 'length' =>  8),
                     'DK' => array('start' =>  4, 'length' =>  4),
-                    'EE' => array('start' =>  4, 'length' =>  4), // first 2 chars bankidentifier, last 2 chars bankcode
-                    'ES' => array('start' =>  4, 'length' =>  8), // followed by 2 chars (checksum)
+                    //EE: first 2 chars bankidentifier, last 2 chars bankcode
+                    'EE' => array('start' =>  4, 'length' =>  4), 
+                    // ES: followed by 2 chars (checksum)
+                    'ES' => array('start' =>  4, 'length' =>  8), 
                     'FR' => array('start' =>  4, 'length' => 10),
                     'FI' => array('start' =>  4, 'length' =>  6),
-                    'GB' => array('start' =>  4, 'length' => 10), // first 4 chars bankidentifier, last 6 chars bank-branchcode
+                    //GB: first 4 chars bankidentifier, last 6 chars bank-branchcode
+                    'GB' => array('start' =>  4, 'length' => 10), 
                     'GI' => array('start' =>  4, 'length' =>  4),
-                    'GR' => array('start' =>  4, 'length' =>  7), // first 3 chars bankcode, last 4 chars branch
+                    //GR: first 3 chars bankcode, last 4 chars branch
+                    'GR' => array('start' =>  4, 'length' =>  7), 
                     'HR' => array('start' =>  4, 'length' =>  7),
-                    'HU' => array('start' =>  4, 'length' =>  7), // first 3 chars bankcode, last 4 chars branch, followed by 1 char (checksum)
-                    'IE' => array('start' =>  4, 'length' => 10), // first 4 chars bankcode, last 6 chars branch
+                    //HU: first 3 chars bankcode, last 4 chars branch, 
+                    //followed by 1 char (checksum)
+                    'HU' => array('start' =>  4, 'length' =>  7), 
+                    //IE: first 4 chars bankcode, last 6 chars branch
+                    'IE' => array('start' =>  4, 'length' => 10), 
                     'IS' => array('start' =>  4, 'length' =>  4),
                     'IT' => array('start' =>  4, 'length' => 11),
-                    'LI' => array('start' =>  4, 'length' =>  5), // bankcode and branch
+                    //LI: bankcode and branch
+                    'LI' => array('start' =>  4, 'length' =>  5), 
                     'LT' => array('start' =>  4, 'length' =>  5),
                     'LU' => array('start' =>  4, 'length' =>  3),
                     'LV' => array('start' =>  4, 'length' =>  4),
                     'MK' => array('start' =>  4, 'length' =>  3),
-                    'MT' => array('start' =>  4, 'length' =>  9), // first 4 chars bankidentifier, last 5 chars bank sort code
+                    //MT: first 4 chars bankidentifier, last 5 chars bank sort code
+                    'MT' => array('start' =>  4, 'length' =>  9), 
                     'NL' => array('start' =>  4, 'length' =>  4),
                     'NO' => array('start' =>  4, 'length' =>  4),
                     'PL' => array('start' =>  4, 'length' =>  8),
                     'PT' => array('start' =>  4, 'length' =>  8),
                     'RO' => array('start' =>  4, 'length' =>  4),
-                    'SE' => array('start' =>  4, 'length' =>  3), // bankcode and branch
+                    //SE: bankcode and branch
+                    'SE' => array('start' =>  4, 'length' =>  3), 
                     'SI' => array('start' =>  4, 'length' =>  5),
                     'SK' => array('start' =>  4, 'length' =>  4),
-                    'TN' => array('start' =>  4, 'length' =>  5), // first 2 chars bankcode, last 3 chars branch
-                    'TR' => array('start' =>  4, 'length' =>  5), // followed by 1 char (reserved field)
+                    //TN: first 2 chars bankcode, last 3 chars branch
+                    'TN' => array('start' =>  4, 'length' =>  5), 
+                    //TR: followed by 1 char (reserved field)
+                    'TR' => array('start' =>  4, 'length' =>  5), 
                 );
         }
         return $_iban_countrycode_bankcode;
     }
 
     /**
-     * List of where the bankaccount-number inside an IBAN starts (starting from 0) and its length
+     * List of where the bankaccount-number inside an IBAN starts (starting from 0) 
+     * and its length
+     *
      * @return  array
      * @access  private
      */
@@ -248,42 +267,58 @@ class Validate_Finance_IBAN
                 array(
                     'AD' => array('start' => 12, 'length' => 12),
                     'AT' => array('start' =>  9, 'length' => 11),
-                    'BA' => array('start' => 10, 'length' =>  8), // followed by 2 chars (checksum)
-                    'BE' => array('start' =>  7, 'length' =>  7), // followed by 2 chars (checksum)
+                    //BA: followed by 2 chars (checksum)
+                    'BA' => array('start' => 10, 'length' =>  8),
+                    //BE: followed by 2 chars (checksum)
+                    'BE' => array('start' =>  7, 'length' =>  7), 
                     'BG' => array('start' => 12, 'length' => 10),
                     'CH' => array('start' =>  9, 'length' => 12),
-                    'CS' => array('start' =>  7, 'length' => 13), // followed by 2 chars (checksum)
+                    //CS: followed by 2 chars (checksum)
+                    'CS' => array('start' =>  7, 'length' => 13), 
                     'CY' => array('start' => 12, 'length' => 16),
                     'CZ' => array('start' =>  8, 'length' => 16),
                     'DE' => array('start' => 12, 'length' => 10),
-                    'DK' => array('start' =>  8, 'length' =>  9), // followed by 1 char (checksum)
-                    'EE' => array('start' =>  8, 'length' => 11), // followed by 1 char (checksum)
+                    //DK: followed by 1 char (checksum)
+                    'DK' => array('start' =>  8, 'length' =>  9),
+                    //EE: followed by 1 char (checksum)
+                    'EE' => array('start' =>  8, 'length' => 11), 
                     'ES' => array('start' => 14, 'length' => 10),
-                    'FR' => array('start' => 14, 'length' => 11), // followed by 2 chars (checksum)
-                    'FI' => array('start' => 10, 'length' =>  7), // followed by 1 char (checksum)
+                    //FR: followed by 2 chars (checksum)
+                    'FR' => array('start' => 14, 'length' => 11),
+                    //FI: followed by 1 char (checksum)
+                    'FI' => array('start' => 10, 'length' =>  7), 
                     'GB' => array('start' => 14, 'length' =>  8),
                     'GI' => array('start' =>  8, 'length' => 15),
                     'GR' => array('start' => 11, 'length' => 16),
                     'HR' => array('start' => 11, 'length' => 10),
-                    'HU' => array('start' => 12, 'length' => 15), // followed by 1 char (checksum)
+                    //HU: followed by 1 char (checksum)
+                    'HU' => array('start' => 12, 'length' => 15), 
                     'IE' => array('start' => 14, 'length' =>  8),
-                    'IS' => array('start' =>  8, 'length' => 18), // 2 accounttype, 6 account number, 10 identification number
+                    //IS: 2 accounttype, 6 account number, 10 identification number
+                    'IS' => array('start' =>  8, 'length' => 18), 
                     'IT' => array('start' => 15, 'length' => 12),
                     'LI' => array('start' =>  9, 'length' => 12),
                     'LT' => array('start' =>  9, 'length' => 11),
                     'LU' => array('start' =>  7, 'length' => 13),
                     'LV' => array('start' =>  8, 'length' => 13),
-                    'MK' => array('start' =>  7, 'length' => 10), // followed by 2 chars (checksum)
+                    //MK: followed by 2 chars (checksum)
+                    'MK' => array('start' =>  7, 'length' => 10), 
                     'MT' => array('start' => 13, 'length' => 18),
                     'NL' => array('start' =>  8, 'length' => 10),
-                    'NO' => array('start' =>  8, 'length' =>  6), // followed by 1 char (checksum)
+                    //NO: followed by 1 char (checksum)
+                    'NO' => array('start' =>  8, 'length' =>  6), 
                     'PL' => array('start' => 12, 'length' => 16),
-                    'PT' => array('start' => 12, 'length' => 11), // followed by 2 chars (checksum)
-                    'RO' => array('start' =>  8, 'length' => 16), // branch and client account identifier
-                    'SE' => array('start' =>  7, 'length' => 16), // followed by 1 char (checksum)
-                    'SI' => array('start' =>  9, 'length' =>  8), // followed by 2 chars (checksum)
+                    //PT: followed by 2 chars (checksum)
+                    'PT' => array('start' => 12, 'length' => 11), 
+                    // branch and client account identifier
+                    'RO' => array('start' =>  8, 'length' => 16), 
+                    //SE: followed by 1 char (checksum)
+                    'SE' => array('start' =>  7, 'length' => 16), 
+                    //SI: followed by 2 chars (checksum)
+                    'SI' => array('start' =>  9, 'length' =>  8), 
                     'SK' => array('start' =>  8, 'length' => 16),
-                    'TN' => array('start' =>  9, 'length' => 13), // followed by 2 chars (checksum)
+                    //TN: followed by 2 chars (checksum)
+                    'TN' => array('start' =>  9, 'length' => 13), 
                     'TR' => array('start' => 10, 'length' => 16),
                 );
         }
@@ -292,6 +327,7 @@ class Validate_Finance_IBAN
 
     /**
      * List of regex for validating an IBAN according to standards for each country
+     *
      * @return  array
      * @access  private
      */
@@ -347,14 +383,16 @@ class Validate_Finance_IBAN
 
     /**
      * Class constructor
-     * @param    string      $iban              IBAN to be validated / processed
+     *
+     * @param string $iban IBAN to be validated / processed
+     *
      * @access   public
      */
     function Validate_Finance_IBAN($iban = '')
     {
-        $iban = strtoupper($iban);
+        $iban        = strtoupper($iban);
         $this->_iban = $iban;
-    } // end constructor
+    }
 
     /**
      * Returns the current IBAN
@@ -370,20 +408,22 @@ class Validate_Finance_IBAN
     /**
      * Sets the current IBAN to a new value
      *
-     * @param    string      $iban              IBAN to be validated / processed
+     * @param string $iban IBAN to be validated / processed
+     *
      * @access    public
      * @return    void
      */
     function setIBAN($iban = '')
     {
-        $iban = strtoupper($iban);
+        $iban        = strtoupper($iban);
         $this->_iban = $iban;
-    } // end func setIBAN
+    }
 
     /**
      * Performs validation of the IBAN
      *
-     * @param     string      $arg              optional parameter for calling validate as a static function
+     * @param string $arg optional parameter for calling validate as static function
+     *
      * @access    public
      * @return    boolean   true if no error found
      */
@@ -395,7 +435,7 @@ class Validate_Finance_IBAN
             $iban = $arg;
         }
 
-        $errorcode=VALIDATE_FINANCE_IBAN_OK;
+        $errorcode = VALIDATE_FINANCE_IBAN_OK;
 
         static $_iban_countrycode_countryname;
         if (!isset($_iban_countrycode_countryname)) {
@@ -403,52 +443,55 @@ class Validate_Finance_IBAN
         }
         static $_iban_countrycode_length;
         if (!isset($_iban_countrycode_length)) {
-            $_iban_countrycode_ibanlength      = Validate_Finance_IBAN::_getCountrycodeIBANLength();
+            $_iban_countrycode_ibanlength = Validate_Finance_IBAN::_getCountrycodeIBANLength();
         }
         static $_iban_countrycode_regex;
         if (!isset($_iban_countrycode_regex)) {
-            $_iban_countrycode_regex       = Validate_Finance_IBAN::_getCountrycodeRegex();
+            $_iban_countrycode_regex = Validate_Finance_IBAN::_getCountrycodeRegex();
         }
 
         if (strlen($iban) <= 4) {
             $errorcode = VALIDATE_FINANCE_IBAN_TOO_SHORT;
-        } elseif (!isset( $_iban_countrycode_countryname[ substr($iban,0,2) ] )) {
+        } elseif (!isset( $_iban_countrycode_countryname[substr($iban, 0, 2)])) {
             $errorcode = VALIDATE_FINANCE_IBAN_COUNTRY_INVALID;
-        } elseif (strlen($iban) < $_iban_countrycode_ibanlength[ substr($iban,0,2) ]) {
+        } elseif (strlen($iban) < $_iban_countrycode_ibanlength[substr($iban, 0, 2)]) {
             $errorcode = VALIDATE_FINANCE_IBAN_TOO_SHORT;
-        } elseif (strlen($iban) > $_iban_countrycode_ibanlength[ substr($iban,0,2) ]) {
+        } elseif (strlen($iban) > $_iban_countrycode_ibanlength[substr($iban, 0, 2)]) {
             $errorcode = VALIDATE_FINANCE_IBAN_TOO_LONG;
-        } elseif (!preg_match($_iban_countrycode_regex[ substr($iban,0,2) ],$iban)) {
+        } elseif (!preg_match($_iban_countrycode_regex[substr($iban, 0, 2)], $iban)) {
             $errorcode = VALIDATE_FINANCE_IBAN_INVALID_FORMAT;
         } else {
             // todo: maybe implement direct checks for bankcodes of certain countries
 
             // let's see if checksum is also correct
-            $iban_replace_chars = range('A','Z');
-            foreach (range(10,35) as $tempvalue) {
-                $iban_replace_values[]=strval($tempvalue);
+            $iban_replace_chars = range('A', 'Z');
+            foreach (range(10, 35) as $tempvalue) {
+                $iban_replace_values[] = strval($tempvalue);
             }
 
             // move first 4 chars (countrycode and checksum) to the end of the string
-            $tempiban = substr($iban, 4).substr($iban, 0, 4);
-            $tempiban = str_replace($iban_replace_chars, $iban_replace_values, $tempiban);
+            $tempiban = substr($iban, 4) . substr($iban, 0, 4);
+            $tempiban = str_replace($iban_replace_chars,
+                                    $iban_replace_values,
+                                    $tempiban);
+
             $tempcheckvalue = intval(substr($tempiban, 0, 1));
             for ($strcounter = 1; $strcounter < strlen($tempiban); $strcounter++) {
                 $tempcheckvalue *= 10;
-                $tempcheckvalue += intval(substr($tempiban,$strcounter,1));
+                $tempcheckvalue += intval(substr($tempiban, $strcounter, 1));
                 $tempcheckvalue %= 97;
             }
 
             // checkvalue of 1 indicates correct IBAN checksum
             if ($tempcheckvalue != 1) {
-                $errorcode=VALIDATE_FINANCE_IBAN_CHECKSUM_INVALID;
+                $errorcode = VALIDATE_FINANCE_IBAN_CHECKSUM_INVALID;
             } else {
-                $errorcode=VALIDATE_FINANCE_IBAN_OK;
+                $errorcode = VALIDATE_FINANCE_IBAN_OK;
             }
         }
 
         if (isset($this)) {
-            $this->_errorcode=$errorcode;
+            $this->_errorcode = $errorcode;
         }
         return ($errorcode == VALIDATE_FINANCE_IBAN_OK);
     } // end func validate
@@ -474,10 +517,15 @@ class Validate_Finance_IBAN
     {
         if (strlen($this->_iban)>4) {
             // return first two characters
-            return substr($this->_iban,0,2);
+            return substr($this->_iban, 0, 2);
         } else {
             $this->_errorcode = VALIDATE_FINANCE_IBAN_TOO_SHORT;
-            return PEAR::raiseError($this->errorMessage($this->_errorcode), $this->_errorcode, PEAR_ERROR_TRIGGER, E_USER_WARNING, $this->errorMessage($this->_errorcode)." in VALIDATE_FINANCE_IBAN::getCountrycode()");
+            $msg              = $this->errorMessage($this->_errorcode);
+            return PEAR::raiseError($msg, 
+                                    $this->_errorcode, 
+                                    PEAR_ERROR_TRIGGER, 
+                                    E_USER_WARNING, 
+                                    "$msg in VALIDATE_FINANCE_IBAN::getCountrycode()");
         }
     } // end func getCountrycode
 
@@ -508,11 +556,19 @@ class Validate_Finance_IBAN
     {
         if (!$this->validate()) {
             $this->_errorcode = VALIDATE_FINANCE_IBAN_GENERAL_INVALID;
-            return PEAR::raiseError($this->errorMessage($this->_errorcode), $this->_errorcode, PEAR_ERROR_TRIGGER, E_USER_WARNING, $this->errorMessage($this->_errorcode)." in VALIDATE_FINANCE_IBAN::getBankcode()");
+            $msg              = $this->errorMessage($this->_errorcode);
+            return PEAR::raiseError($msg, 
+                                    $this->_errorcode, 
+                                    PEAR_ERROR_TRIGGER, 
+                                    E_USER_WARNING, 
+                                    "$msg in VALIDATE_FINANCE_IBAN::getBankcode()");
         } else {
             $_iban_countrycode_bankcode = Validate_Finance_IBAN::_getCountrycodeBankcode();
-            $currCountrycodeBankcode = $_iban_countrycode_bankcode[ substr($this->_iban,0,2) ];
-            return substr($this->_iban, $currCountrycodeBankcode['start'], $currCountrycodeBankcode['length']);
+            $position                   = substr($this->_iban, 0, 2);
+            $currCountrycodeBankcode    = $_iban_country_code_bankcode[$position];
+            return substr($this->_iban, 
+                          $currCountrycodeBankcode['start'], 
+                          $currCountrycodeBankcode['length']);
         }
     } // end func getBankcode
 
@@ -526,19 +582,29 @@ class Validate_Finance_IBAN
     {
         if (!$this->validate()) {
             $this->_errorcode = VALIDATE_FINANCE_IBAN_GENERAL_INVALID;
-            return PEAR::raiseError($this->errorMessage($this->_errorcode), $this->_errorcode, PEAR_ERROR_TRIGGER, E_USER_WARNING, $this->errorMessage($this->_errorcode)." in VALIDATE_FINANCE_IBAN::getBankaccount()");
+            //get error message
+            $msg = $this->errorMessage($this->_errorcode);
+            return PEAR::raiseError($msg, 
+                                    $this->_errorcode, 
+                                    PEAR_ERROR_TRIGGER, 
+                                    E_USER_WARNING, 
+                                    "$msg in VALIDATE_FINANCE_IBAN::getBankaccount()");
         } else {
             $_iban_countrycode_bankaccount = Validate_Finance_IBAN::_getCountrycodeBankaccount();
-            $currCountrycodeBankaccount = $_iban_countrycode_bankaccount[ substr($this->_iban,0,2) ];
-            return substr($this->_iban, $currCountrycodeBankaccount['start'], $currCountrycodeBankaccount['length']);
+            //extract details
+            $currCountrycodeBankaccount = $_iban_countrycode_bankaccount[substr($this->_iban, 0, 2)];
+            return substr($this->_iban, 
+                          $currCountrycodeBankaccount['start'], 
+                          $currCountrycodeBankaccount['length']);
         }
     } // end func getAccount
 
     /**
      * Return a textual error message for an IBAN error code
      *
+     * @param int $value error code
+     *
      * @access  public
-     * @param   int     error code
      * @return  string  error message
      */
     function errorMessage($value)

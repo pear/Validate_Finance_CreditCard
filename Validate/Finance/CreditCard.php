@@ -1,29 +1,26 @@
 <?php
 /* vim: set expandtab tabstop=4 shiftwidth=4: */
-// +----------------------------------------------------------------------+
-// | Copyright (c) 1997-2005  Stefan Neufeind                             |
-// +----------------------------------------------------------------------+
-// | This source file is subject to the New BSD license, That is bundled  |
-// | with this package in the file LICENSE, and is available through      |
-// | the world-wide-web at                                                |
-// | http://www.opensource.org/licenses/bsd-license.php                   |
-// | If you did not receive a copy of the new BSDlicense and are unable   |
-// | to obtain it through the world-wide-web, please send a note to       |
-// | pajoye@php.net so we can mail you a copy immediately.                |
-// +----------------------------------------------------------------------+
-// | Author: Stefan Neufeind <pear.neufeind@speedpartner.de>              |
-// +----------------------------------------------------------------------+
-//
 /**
  * Validation methods for credit card related data
  *
- * @category   Validate
- * @package    Validate_Finance_CreditCard
- * @author     Philippe Jausions <Philippe.Jausions@11abacus.com>
- * @copyright  1997-2005  Stefan Neufeind
- * @license    http://www.opensource.org/licenses/bsd-license.php  New BSD License
- * @version    CVS: $Id$
- * @link       http://pear.php.net/package/Validate_Finance_CreditCard
+ * PHP Versions 4 and 5
+ *
+ * This source file is subject to the New BSD license, That is bundled
+ * with this package in the file LICENSE, and is available through
+ * the world-wide-web at
+ * http://www.opensource.org/licenses/bsd-license.php
+ * If you did not receive a copy of the new BSDlicense and are unable
+ * to obtain it through the world-wide-web, please send a note to
+ * pajoye@php.net so we can mail you a copy immediately.
+ *
+ * @category  Validate
+ * @package   Validate_Finance_CreditCard
+ * @author    Stefan Neufeind <pear.neufeind@speedpartner.de>
+ * @author    Philippe Jausions <Philippe.Jausions@11abacus.com>
+ * @copyright 1997-2005  Stefan Neufeind
+ * @license   http://www.opensource.org/licenses/bsd-license.php  New BSD License
+ * @version   CVS: $Id$
+ * @link      http://pear.php.net/package/Validate_Finance_CreditCard
  */
 
 /**
@@ -38,14 +35,14 @@
  * the package does NOT check if a card is a legitimate card registered
  * with a card issuer, or if the card is reported stolen, etc...
  *
- * @category   Validate
- * @package    Validate_Finance_CreditCard
- * @author     Philippe Jausions <Philippe.Jausions@11abacus.com>
- * @author     Ondrej Jombik <nepto@pobox.sk>
- * @copyright  1997-2005  Stefan Neufeind
- * @license    http://www.opensource.org/licenses/bsd-license.php  New BSD License
- * @version    Release: @package_version@
- * @link       http://pear.php.net/package/Validate_Finance_CreditCard
+ * @category  Validate
+ * @package   Validate_Finance_CreditCard
+ * @author    Philippe Jausions <Philippe.Jausions@11abacus.com>
+ * @author    Ondrej Jombik <nepto@pobox.sk>
+ * @copyright 1997-2005  Stefan Neufeind
+ * @license   http://www.opensource.org/licenses/bsd-license.php  New BSD License
+ * @version   Release: @package_version@
+ * @link      http://pear.php.net/package/Validate_Finance_CreditCard
  */
 class Validate_Finance_CreditCard
 {
@@ -53,23 +50,23 @@ class Validate_Finance_CreditCard
      * Validates a number according to Luhn check algorithm
      *
      * This function checks given number according Luhn check
-     * algorithm. It is published on several places, also here:
+     * algorithm. It is published on several places. See links for details.
+     *
+     * @param string $number number to check
      *
      * @link http://www.webopedia.com/TERM/L/Luhn_formula.html
      * @link http://www.merriampark.com/anatomycc.htm
      * @link http://hysteria.sk/prielom/prielom-12.html#3 (Slovak language)
      * @link http://www.speech.cs.cmu.edu/~sburke/pub/luhn_lib.html (Perl lib)
      *
-     * @param  string  $number to check
      * @return bool    TRUE if number is valid, FALSE otherwise
      * @access public
      * @static
-     * @author Ondrej Jombik <nepto@pobox.sk>
      */
     function Luhn($number)
     {
         $len_number = strlen($number);
-        $sum = 0;
+        $sum        = 0;
         for ($k = $len_number % 2; $k < $len_number; $k += 2) {
             if ((intval($number{$k}) * 2) > 9) {
                 $sum += (intval($number{$k}) * 2) - 9;
@@ -93,12 +90,13 @@ class Validate_Finance_CreditCard
      * This method doesn't guarantee that the card is legitimate. It merely
      * checks the card number passes a mathematical algorithm.
      *
-     * @param string  $creditCard number (spaces and dashes tolerated)
-     * @param string  $cardType type/brand of card (case insensitive)
+     * @param string $creditCard number (spaces and dashes tolerated)
+     * @param string $cardType   type/brand of card (case insensitive)
      *               "MasterCard", "Visa", "AMEX", "AmericanExpress",
      *               "American Express", "Diners", "DinersClub", "Diners Club",
      *               "CarteBlanche", "Carte Blanche", "Discover", "JCB",
      *               "EnRoute", "Eurocard", "Eurocard/MasterCard".
+     *
      * @return bool   TRUE if number is valid, FALSE otherwise
      * @access public
      * @static
@@ -143,12 +141,13 @@ class Validate_Finance_CreditCard
      * For instance, if a $card is a MasterCard, type($card, 'EuroCard')
      * will also return true.
      *
-     * @param string  $creditCard number (spaces and dashes tolerated)
-     * @param string  $cardType type/brand of card (case insensitive)
+     * @param string $creditCard number (spaces and dashes tolerated)
+     * @param string $cardType   type/brand of card (case insensitive)
      *               "MasterCard", "Visa", "AMEX", "AmericanExpress",
      *               "American Express", "Diners", "DinersClub", "Diners Club",
      *               "CarteBlanche", "Carte Blanche", "Discover", "JCB",
      *               "EnRoute", "Eurocard", "Eurocard/MasterCard".
+     *
      * @return bool   TRUE is type matches, FALSE otherwise
      * @access public
      * @static
@@ -157,37 +156,37 @@ class Validate_Finance_CreditCard
     function type($creditCard, $cardType)
     {
         switch (strtoupper($cardType)) {
-            case 'MASTERCARD':
-            case 'EUROCARD':
-            case 'EUROCARD/MASTERCARD':
-                $regex = '5[1-5][0-9]{14}';
-                break;
-            case 'VISA':
-                $regex = '4([0-9]{12}|[0-9]{15})';
-                break;
-            case 'AMEX':
-            case 'AMERICANEXPRESS':
-            case 'AMERICAN EXPRESS':
-                $regex = '3[47][0-9]{13}';
-                break;
-            case 'DINERS':
-            case 'DINERSCLUB':
-            case 'DINERS CLUB':
-            case 'CARTEBLANCHE':
-            case 'CARTE BLANCHE':
-                $regex = '3(0[0-5][0-9]{11}|[68][0-9]{12})';
-                break;
-            case 'DISCOVER':
-                $regex = '6011[0-9]{12}';
-                break;
-            case 'JCB':
-                $regex = '(3[0-9]{15}|(2131|1800)[0-9]{11})';
-                break;
-            case 'ENROUTE':
-                $regex = '2(014|149)[0-9]{11}';
-                break;
-            default:
-                return false;
+        case 'MASTERCARD':
+        case 'EUROCARD':
+        case 'EUROCARD/MASTERCARD':
+            $regex = '5[1-5][0-9]{14}';
+            break;
+        case 'VISA':
+            $regex = '4([0-9]{12}|[0-9]{15})';
+            break;
+        case 'AMEX':
+        case 'AMERICANEXPRESS':
+        case 'AMERICAN EXPRESS':
+            $regex = '3[47][0-9]{13}';
+            break;
+        case 'DINERS':
+        case 'DINERSCLUB':
+        case 'DINERS CLUB':
+        case 'CARTEBLANCHE':
+        case 'CARTE BLANCHE':
+            $regex = '3(0[0-5][0-9]{11}|[68][0-9]{12})';
+            break;
+        case 'DISCOVER':
+            $regex = '6011[0-9]{12}';
+            break;
+        case 'JCB':
+            $regex = '(3[0-9]{15}|(2131|1800)[0-9]{11})';
+            break;
+        case 'ENROUTE':
+            $regex = '2(014|149)[0-9]{11}';
+            break;
+        default:
+            return false;
         }
         $regex = '/^' . $regex . '$/';
 
@@ -217,11 +216,12 @@ class Validate_Finance_CreditCard
      *
      * This method returns FALSE for card types that don't support CVV.
      *
-     * @param string  $cvv value to verify
-     * @param string  $cardType type/brand of card (case insensitive)
+     * @param string $cvv      value to verify
+     * @param string $cardType type/brand of card (case insensitive)
      *               "MasterCard", "Visa", "AMEX", "AmericanExpress",
      *               "American Express", "Discover", "Eurocard/MasterCard",
      *               "Eurocard"
+     *
      * @return bool   TRUE if format is correct, FALSE otherwise
      * @access public
      * @static
@@ -229,20 +229,20 @@ class Validate_Finance_CreditCard
     function cvv($cvv, $cardType)
     {
         switch (strtoupper($cardType)) {
-            case 'MASTERCARD':
-            case 'EUROCARD':
-            case 'EUROCARD/MASTERCARD':
-            case 'VISA':
-            case 'DISCOVER':
-                $digits = 3;
-                break;
-            case 'AMEX':
-            case 'AMERICANEXPRESS':
-            case 'AMERICAN EXPRESS':
-                $digits = 4;
-                break;
-            default:
-                return false;
+        case 'MASTERCARD':
+        case 'EUROCARD':
+        case 'EUROCARD/MASTERCARD':
+        case 'VISA':
+        case 'DISCOVER':
+            $digits = 3;
+            break;
+        case 'AMEX':
+        case 'AMERICANEXPRESS':
+        case 'AMERICAN EXPRESS':
+            $digits = 4;
+            break;
+        default:
+            return false;
         }
 
         if (strlen($cvv) == $digits

@@ -13,21 +13,33 @@
  * the PHP License and are unable to obtain it through the web, please
  * send a note to license@php.net so we can mail you a copy immediately.
  *
- * @category   Validate
- * @package    Validate_Finance_ISIN
- * @author     Stephan Jakoubek <stephan-pear@jakoubek.de>
- * @author     Uli Honal <uli@netzgeist.de> 
- * @license    http://www.php.net/license/3_0.txt  PHP License 3.0
+ * @category Validate
+ * @package  Validate_Finance_ISIN
+ * @author   Stephan Jakoubek <stephan-pear@jakoubek.de>
+ * @author   Uli Honal <uli@netzgeist.de> 
+ * @license  http://www.php.net/license/3_0.txt  PHP License 3.0
+ * @link     http://pear.php.net/package/Validate_Finance
  */
 
+/**
+ * Validate_Finance_ISIN 
+ * 
+ * @category Validate
+ * @package  Validate_Finance_ISIN
+ * @author   Stephan Jakoubek <stephan-pear@jakoubek.de>
+ * @author   Uli Honal <uli@netzgeist.de> 
+ * @license  http://www.php.net/license/3_0.txt  PHP License 3.0
+ * @link     http://pear.php.net/package/Validate_Finance
+ */
 class Validate_Finance_ISIN
 {
     /**
      * Validate an ISIN (International Securities Identification Number, ISO 6166)
      *
-     * @param     string      $isin              ISIN to be validated
-     * @access    public
-     * @return    boolean   true if ISIN is valid
+     * @param string $isin ISIN to be validated
+     *
+     * @access public
+     * @return boolean true if ISIN is valid
      */
     function validate($isin)
     {
@@ -44,8 +56,8 @@ class Validate_Finance_ISIN
 
         // Calculate double-add-double checksum.
         $checksum = 0;
-        $len = strlen($base10) - 1;
-        $parity = $len % 2;
+        $len      = strlen($base10) - 1;
+        $parity   = $len % 2;
         // Iterate over every digit, starting with the rightmost (=check digit).
         for ($i = $len; $i >= 0; $i--) {
             // Multiply every other digit by two.
