@@ -1,7 +1,41 @@
 <?php
+/* vim: set expandtab tabstop=4 shiftwidth=4: */
+/**
+ * Specific validation methods for data used in the UK
+ *
+ * PHP Versions 4 and 5
+ *
+ * This source file is subject to the New BSD license, That is bundled
+ * with this package in the file LICENSE, and is available through
+ * the world-wide-web at
+ * http://www.opensource.org/licenses/bsd-license.php
+ * If you did not receive a copy of the new BSDlicense and are unable
+ * to obtain it through the world-wide-web, please send a note to
+ * pajoye@php.net so we can mail you a copy immediately.
+ *
+ * @category  Validate
+ * @package   Validate_UK
+ * @author    Michael Dransfield <mikeNO@SPAMblueroot.net>
+ * @author    Ian P. Christian <pookey@pookey.co.uk>
+ * @author    Tomas V.V.Cox <cox@idecnet.com>
+ * @author    Pierre-Alain Joye <pajoye@php.net>
+ * @copyright 1997-2005 Michael Dransfield, Ian P. Christian, Pierre-Alain Joye
+ * @license   http://www.opensource.org/licenses/bsd-license.php  New BSD License
+ * @version   CVS: $Id$
+ * @link      http://pear.php.net/package/Validate_UK
+ */
 
-// input must be uppercased and spaces and dashes removed
 
+/**
+ * validateVehiclePre1932
+ *
+ * input must be uppercased and spaces and dashes removed
+ *
+ * @param string $input car reg
+ *
+ * @access public
+ * @return bool
+ */
 function validateVehiclePre1932($input)
 {
     if (!preg_match('/^[A-Z]{1,2}\d{1,4}$/', $input, $m)) {
@@ -10,6 +44,14 @@ function validateVehiclePre1932($input)
     }
 }
 
+/**
+ * validateVehicle1932
+ *
+ * @param string $input car reg
+ *
+ * @access public
+ * @return bool
+ */
 function validateVehicle1932($input)
 {
     if (!preg_match('/^[A-Z]{3}\d{1,3}$/', $input, $m)) {
@@ -18,6 +60,14 @@ function validateVehicle1932($input)
     }
 }
 
+/**
+ * validateVehicle1950
+ *
+ * @param string $input car reg
+ *
+ * @access public
+ * @return bool
+ */
 function validateVehicle1950($input)
 {
     if (!preg_match('/^\d{1,3}[A-Z]{3}\d{1,4}[A-Z]{1,3}$/', $input, $m)) {
@@ -26,6 +76,14 @@ function validateVehicle1950($input)
     }
 }
 
+/**
+ * validateVehicle1963
+ *
+ * @param string $input car reg
+ *
+ * @access public
+ * @return bool
+ */
 function validateVehicle1963($input)
 {
     if (!preg_match('/^([A-Z]{3})\d{1,3}([A-Z]?)$/', $input, $m)) {
@@ -34,6 +92,14 @@ function validateVehicle1963($input)
     }
 }
 
+/**
+ * validateVehicle1982
+ *
+ * @param string $input car reg
+ *
+ * @access public
+ * @return bool
+ */
 function validateVehicle1982($input)
 {
     if (!preg_match('/^([A-Z])\d{1,3}[A-Z]{3}$/', $input, $m)) {
@@ -46,25 +112,33 @@ function validateVehicle1982($input)
         $year -= floor(($year - 15) / 2);
     }
     $year += 1984;
-    // is there a region list anywhere?    
+    // is there a region list anywhere?
     return array(
         'year' => $year
     );
 }
 
+/**
+ * validateVehicle2001
+ *
+ * @param string $input car reg
+ *
+ * @access public
+ * @return bool
+ */
 function validateVehicle2001($input)
 {
     if (!preg_match('/^([A-Z]{2})(\d{2})([A-Z]{3})$/', $input, $m)) {
         // invalidly formed
         return false;
-    }   
+    }
     global $regions2001;
     if (!isset($regions2001[$m[1][0]])) {
         // region can't be found
         return false;
     }
     $region = $regions2001[$m[1]];
-    $dvla = false;
+    $dvla   = false;
     for ($i = count($region['dvla']); $i--;) {
         if (strpos($region['dvla'][$i], $m[1][1]) !== false) {
             $dvla = $region['dvla'][$i];

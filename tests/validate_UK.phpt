@@ -5,7 +5,12 @@ validate_UK.phpt: Unit tests for United Kingdom Validation class
 // $Id$
 // Validate test script
 $noYes = array('NO', 'YES');
-require 'Validate/UK.php';
+if (is_file(dirname(__FILE__) . '/../Validate/UK.php')) {
+    require_once dirname(__FILE__) . '/../Validate/UK.php';
+    require_once dirname(__FILE__) . '/../Validate/UK/carReg.php';
+} else {
+    require_once 'Validate/UK.php';
+}
 
 echo "Test Validate_UK\n";
 echo "****************\n";
@@ -29,7 +34,7 @@ $postalCodes = array(
         'W1A 1HQ', // OK
         'EC1A 1BB', // OK
         'GIR 0AA', // OK
-        
+
         /* some variations of the official examples which make it non-compliant */
         'V1 1AA', // NOK
         'M6L 1NW', // NOK
@@ -38,7 +43,7 @@ $postalCodes = array(
         'W1L 1HQ', // NOK
         'EC1A 1BC', // NOK
         'GIR 1AA', // NOK
-        
+
         /* additional checks by David Grant (djg), these are valid */
         'CF23 7JN', // OK
         'BS8 4UD', // OK
@@ -76,7 +81,7 @@ $telNumbers = array(
     '020-1234-5678', // OK
     '020 1234 5678', // OK
     '000 1234 5678', // NOK
-    '020 1234 56789', // OK
+    '020 1234 56789', // NOK
     '020 1234 567', // NOK
     'foo020 1234 5678', // NOK
     '020 1234 5678bar', // NOK
@@ -202,7 +207,7 @@ Test tel
 020-1234-5678: YES
 020 1234 5678: YES
 000 1234 5678: NO
-020 1234 56789: YES
+020 1234 56789: NO
 020 1234 567: NO
 foo020 1234 5678: NO
 020 1234 5678bar: NO
