@@ -51,6 +51,9 @@ http://pear.php.net/dtd/package-2.0.xsd">
     <file name="validate_UK.phpt" role="test" />
    </dir> <!-- /tests -->
    <dir name="Validate">
+    <dir name="UK">
+     <file name="carReg.php" role="php" />
+    </dir>
     <file name="UK.php" role="php" />
    </dir> <!-- /Validate -->
    <file name="LICENSE" role="doc" />
