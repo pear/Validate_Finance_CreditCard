@@ -1,30 +1,25 @@
 <?php
 /* vim: set expandtab tabstop=4 shiftwidth=4: */
-//
-// +----------------------------------------------------------------------+
-// | Copyright (c) 1997-2005 Jacques Marneweck                            |
-// +----------------------------------------------------------------------+
-// | This source file is subject to the New BSD license, That is bundled  |
-// | with this package in the file LICENSE, and is available through      |
-// | the world-wide-web at                                                |
-// | http://www.opensource.org/licenses/bsd-license.php                   |
-// | If you did not receive a copy of the new BSDlicense and are unable   |
-// | to obtain it through the world-wide-web, please send a note to       |
-// | pajoye@php.net so we can mail you a copy immediately.                |
-// +----------------------------------------------------------------------+
-// | Author: Jacques Marneweck <jacques@php.net>                          |
-// +----------------------------------------------------------------------+
-//
 /**
  * Specific validation methods for data used in South Africa
  *
- * @category   Validate
- * @package    Validate_ZA
- * @author     Jacques Marneweck <jacques@php.net>
- * @copyright  1997-2005 Jacques Marneweck
- * @license    http://www.opensource.org/licenses/bsd-license.php  New BSD License
- * @version    CVS: $Id$
- * @link       http://pear.php.net/package/Validate_ZA
+ * PHP Versions 4 and 5
+ *
+ * This source file is subject to the New BSD license, That is bundled
+ * with this package in the file LICENSE, and is available through
+ * the world-wide-web at
+ * http://www.opensource.org/licenses/bsd-license.php
+ * If you did not receive a copy of the new BSDlicense and are unable
+ * to obtain it through the world-wide-web, please send a note to
+ * pajoye@php.net so we can mail you a copy immediately.
+ *
+ * @category  Validate
+ * @package   Validate_ZA
+ * @author    Jacques Marneweck <jacques@php.net>
+ * @copyright 1997-2005 Jacques Marneweck
+ * @license   http://www.opensource.org/licenses/bsd-license.php  New BSD License
+ * @version   CVS: $Id$
+ * @link      http://pear.php.net/package/Validate_ZA
  */
 
 /**
@@ -40,13 +35,13 @@ require_once 'Validate.php';
  *  - Province code
  *  - Postal code
  *
- * @category   Validate
- * @package    Validate_ZA
- * @author     Jacques Marneweck <jacques@php.net>
- * @copyright  1997-2005 Jacques Marneweck
- * @license    http://www.opensource.org/licenses/bsd-license.php  New BSD License
- * @version    Release: @package_version@
- * @link       http://pear.php.net/package/Validate_ZA
+ * @category  Validate
+ * @package   Validate_ZA
+ * @author    Jacques Marneweck <jacques@php.net>
+ * @copyright 1997-2005 Jacques Marneweck
+ * @license   http://www.opensource.org/licenses/bsd-license.php  New BSD License
+ * @version   Release: @package_version@
+ * @link      http://pear.php.net/package/Validate_ZA
  */
 class Validate_ZA
 {
@@ -56,11 +51,13 @@ class Validate_ZA
      * I've downloaded a list of postal codes from the SAPO website and
      * reduced the list down to unique postal codes.
      *
+     * @param string $postcode the postal code to validate
+     * @param bool   $strong   optional; strong checks (e.g. against a list 
+     *                         of postcodes)
+     *
+     * @return  bool    true if postal code is ok else false
      * @static
      * @access  public
-     * @param   string  the postal code to validate
-     * @param   bool    optional; strong checks (e.g. against a list of postcodes)
-     * @return  bool    true if postal code is ok else false
      * @link    http://www.sapo.co.za/cms/download/postcodes.zip
      */
     function postalCode($postcode, $strong = false)
@@ -73,7 +70,7 @@ class Validate_ZA
             static $postcodes;
 
             if (!isset($postcodes)) {
-                $file = '@DATADIR@/Validate_ZA/ZA_postcodes.txt';
+                $file      = '@DATADIR@/Validate_ZA/ZA_postcodes.txt';
                 $postcodes = array_map('trim', file($file));
             }
             return in_array((int)$postcode, $postcodes);
@@ -84,27 +81,28 @@ class Validate_ZA
     /**
      * Validates a "region" (i.e. province) code
      *
-     * @static
-     * @param   string  2-letter province code
+     * @param string $region 2-letter province code
+     *
      * @return  bool    true if valid else false
      * @access  public
+     * @static
      */
     function region($region)
     {
         switch (strtoupper($region)) {
-            case 'EC': /* Eastern Cape */
-            case 'FS': /* Free State */
-            case 'GP': /* Gauteng */
-            case 'KN': /* Kwa-Zulu Natal */
-            case 'MP': /* Mpumalanga */
-            case 'NC': /* Northern Cape */
-            case 'NP': /* Limpopo (former Northern Province) */
-            case 'NW': /* North West */
-            case 'WC': /* Western Cape */
-                return true;
-                break;
-            default:
-                return false;
+        case 'EC': /* Eastern Cape */
+        case 'FS': /* Free State */
+        case 'GP': /* Gauteng */
+        case 'KN': /* Kwa-Zulu Natal */
+        case 'MP': /* Mpumalanga */
+        case 'NC': /* Northern Cape */
+        case 'NP': /* Limpopo (former Northern Province) */
+        case 'NW': /* North West */
+        case 'WC': /* Western Cape */
+            return true;
+            break;
+        default:
+            return false;
         }
         return (false);
     }
@@ -112,13 +110,14 @@ class Validate_ZA
     /**
      * Validate a South African ID Number
      *
-     * @param   string  11 digit South African Identity Number
+     * @param string $id 11 digit South African Identity Number
+     *
      * @return  bool    true if valid else false
      * @access  public
      */
     function ssn($id)
     {
-        $match = preg_match ("!^(\d{2})(\d{2})(\d{2})[0|5]\d{6}$!", $id, $matches);
+        $match = preg_match("!^(\d{2})(\d{2})(\d{2})[0|5]\d{6}$!", $id, $matches);
         if (!$match) {
             return false;
         }
@@ -132,7 +131,7 @@ class Validate_ZA
             return false;
         }
 
-        require_once 'Validate/Finance/CreditCard.php';
+        include_once 'Validate/Finance/CreditCard.php';
 
         if (Validate_Finance_CreditCard::Luhn($id)) {
             return true;
