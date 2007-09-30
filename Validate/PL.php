@@ -1,30 +1,25 @@
 <?php
 /* vim: set expandtab tabstop=4 shiftwidth=4: */
-// +----------------------------------------------------------------------+
-// | Copyright (c) 1997-2005 Piotr Klaban                                 |
-// +----------------------------------------------------------------------+
-// | This source file is subject to the New BSD license, That is bundled  |
-// | with this package in the file LICENSE, and is available through      |
-// | the world-wide-web at                                                |
-// | http://www.opensource.org/licenses/bsd-license.php                   |
-// | If you did not receive a copy of the new BSDlicense and are unable   |
-// | to obtain it through the world-wide-web, please send a note to       |
-// | pajoye@php.net so we can mail you a copy immediately.                |
-// +----------------------------------------------------------------------+
-// | Author: Tomas V.V.Cox  <cox@idecnet.com>                             |
-// |         Pierre-Alain Joye <pajoye@php.net>                           |
-// +----------------------------------------------------------------------+
-//
 /**
  * Specific validation methods for data used in Poland
  *
- * @category   Validate
- * @package    Validate_PL
- * @author     Piotr Klaban <makler@man.torun.pl>
- * @copyright  1997-2005 Piotr Klaban
- * @license    http://www.opensource.org/licenses/bsd-license.php  new BSD
- * @version    CVS: $Id$
- * @link       http://pear.php.net/package/Validate_PL
+ * PHP Versions 4 and 5
+ *
+ * This source file is subject to the New BSD license, That is bundled
+ * with this package in the file LICENSE, and is available through
+ * the world-wide-web at
+ * http://www.opensource.org/licenses/bsd-license.php
+ * If you did not receive a copy of the new BSDlicense and are unable
+ * to obtain it through the world-wide-web, please send a note to
+ * pajoye@php.net so we can mail you a copy immediately.
+ *
+ * @category  Validate
+ * @package   Validate_PL
+ * @author    Piotr Klaban <makler@man.torun.pl>
+ * @copyright 1997-2005 Piotr Klaban
+ * @license   http://www.opensource.org/licenses/bsd-license.php  new BSD
+ * @version   CVS: $Id$
+ * @link      http://pear.php.net/package/Validate_PL
  */
 
 /**
@@ -41,13 +36,13 @@ require_once 'Validate.php';
  *  - PESEL (Polish human identification number)
  *  - REGON (Polish statistical national economy register)
  *
- * @category   Validate
- * @package    Validate_PL
- * @author     Piotr Klaban <makler@man.torun.pl>
- * @copyright  1997-2005 Piotr Klaban
- * @license    http://www.opensource.org/licenses/bsd-license.php  new BSD
- * @version    Release: @package_version@
- * @link       http://pear.php.net/package/Validate_PL
+ * @category  Validate
+ * @package   Validate_PL
+ * @author    Piotr Klaban <makler@man.torun.pl>
+ * @copyright 1997-2005 Piotr Klaban
+ * @license   http://www.opensource.org/licenses/bsd-license.php  new BSD
+ * @version   Release: @package_version@
+ * @link      http://pear.php.net/package/Validate_PL
  */
 class Validate_PL
 {
@@ -58,8 +53,8 @@ class Validate_PL
      * http://chemeng.p.lodz.pl/zylla/ut/nip-rego.html
      *
      * @param string $nip 9-digit number to validate
-     * @returns bool
-     * @author Piotr Klaban <makler@man.torun.pl>
+     *
+     * @return bool
      */
     function nip($nip)
     {
@@ -81,8 +76,8 @@ class Validate_PL
      * Validates bank number (Polish banks)
      *
      * @param string $number 8-digit number to validate
-     * @returns bool
-     * @author Piotr Klaban <makler@man.torun.pl>
+     *
+     * @return bool
      */
     function bankBranch($number)
     {
@@ -108,11 +103,11 @@ class Validate_PL
      * NOTE: some people can have the same PESEL, and some can have
      * PESEL with wrong numbers in place of birth date.
      *
-     * @param string $pesel 11-digit number to validate
-     * @param array  $birth reference to array - returns birth date and sex
+     * @param string $pesel  11-digit number to validate
+     * @param array  &$birth reference to array - returns birth date and sex
      *               (either 'female' or 'male' string) extracted from pesel
-     * @returns bool
-     * @author Piotr Klaban <makler@man.torun.pl>
+     *
+     * @return bool
      */
     function pesel($pesel, &$birth)
     {
@@ -128,7 +123,10 @@ class Validate_PL
             return false;
         }
 
-        if (Validate::_checkControlNumber($pesel, $weights_pesel, 10, 10) === false) {
+        if (Validate::_checkControlNumber($pesel,
+                                          $weights_pesel,
+                                          10,
+                                          10) === false) {
             return false;
         }
 
@@ -149,11 +147,11 @@ class Validate_PL
         } else {
             $vy += 1800;
         }
-        $vm %= 20;
+        $vm      %= 20;
         $birth[0] = "$vy-$vm-$vd";
 
         // decode gender
-        $gender = substr($pesel,9,1) % 2;
+        $gender   = substr($pesel, 9, 1) % 2;
         $birth[1] = ($gender % 2 == 0) ? 'female' : 'male';
 
         return true;
@@ -165,13 +163,13 @@ class Validate_PL
      * Sprawdza REGON (Rejestr Gospodarki Narodowej)
      * http://chemeng.p.lodz.pl/zylla/ut/nip-rego.html
      *
-     * @param string $nip 9- or 14- digit number to validate
-     * @returns bool
-     * @author Piotr Klaban <makler@man.torun.pl>
+     * @param string $regon 9- or 14- digit number to validate
+     *
+     * @return bool
      */
     function regon($regon)
     {
-        return Validate_PL::region($regon)
+        return Validate_PL::region($regon);
     }
 
     /**
@@ -180,9 +178,9 @@ class Validate_PL
      * Sprawdza REGON (Rejestr Gospodarki Narodowej)
      * http://chemeng.p.lodz.pl/zylla/ut/nip-rego.html
      *
-     * @param string $nip 9- or 14- digit number to validate
-     * @returns bool
-     * @author Piotr Klaban <makler@man.torun.pl>
+     * @param string $regon 9- or 14- digit number to validate
+     *
+     * @return bool
      */
     function region($regon)
     {
@@ -199,8 +197,8 @@ class Validate_PL
 
         // first check first 9 digits
         if (Validate::_checkControlNumber($regon, $weights_regon, 11) === false) {
-          return false;
-       }
+            return false;
+        }
 
         // check wide number if there are 14 digits
         if (strlen($regon) == 14) {
