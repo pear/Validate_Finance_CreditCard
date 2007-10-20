@@ -4,7 +4,7 @@
  <channel>pear.php.net</channel>
  <summary>Validation class for Ireland</summary>
  <description>Package contains validation for Irish credentials:
-- PostalCodes (hoax)
+- PostalCodes
 - Passport Numbers
 - Phone Numbers
 - Bank Account Numbers
