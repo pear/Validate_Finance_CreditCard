@@ -1,13 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<package packagerversion="1.5.1" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0
-http://pear.php.net/dtd/tasks-1.0.xsd
-http://pear.php.net/dtd/package-2.0
-http://pear.php.net/dtd/package-2.0.xsd">
+<package packagerversion="1.6.1" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0 http://pear.php.net/dtd/tasks-1.0.xsd http://pear.php.net/dtd/package-2.0 http://pear.php.net/dtd/package-2.0.xsd">
  <name>Validate_IE</name>
  <channel>pear.php.net</channel>
  <summary>Validation class for Ireland</summary>
  <description>Package contains validation for Irish credentials:
-- PostalCodes
+- PostalCodes (hoax)
 - Passport Numbers
 - Phone Numbers
 - Bank Account Numbers
@@ -15,27 +12,24 @@ http://pear.php.net/dtd/package-2.0.xsd">
 - IBAN codes
 - Drivers Licence Numbers
 - PPSN / SSN Numbers
-- Swift numbers
-- License Plates
-- VAT numbers
- </description>
+- Swift numbers</description>
  <lead>
   <name>David Coallier</name>
   <user>davidc</user>
   <email>davidc@agoraproduction.com</email>
   <active>yes</active>
  </lead>
- <developer>
+ <lead>
   <name>Ken Guest</name>
   <user>kguest</user>
   <email>ken@linux.ie</email>
   <active>yes</active>
- </developer>
- <date>2007-06-09</date>
- <time>10:29:59</time>
+ </lead>
+ <date>2007-10-20</date>
+ <time>21:54:32</time>
  <version>
-  <release>0.2.1</release>
-  <api>0.2.1</api>
+  <release>0.3.0</release>
+  <api>0.2.0</api>
  </version>
  <stability>
   <release>beta</release>
@@ -43,40 +37,34 @@ http://pear.php.net/dtd/package-2.0.xsd">
  </stability>
  <license>New BSD</license>
  <notes>
-  We have fixed a few design bugs, and now with this release, we have implemented
-  many new features that were on the roadmap.
-- Bank account numbers validation
-- Drivers licence validation
-- PPSN/SSN validation
-- swift code validation
-- IBAN code validation
- Implemented feature #10584 (david)
- Implemented feature #10585 (ken)
- Implemented feature #10586 (ken)
+ * Fix Bug #11444: postal codes: validate existing Dublin postal codes [kguest]
+ * Fix Bug #11474: validate_IE_post_code.phpt not linked in package_IE.xml [kguest]
+ * Fix Bug #11506: licensePlate test fails ZZ and ZV codes. [kguest]
+ * Fix Bug #11515: PPSN isn&apos;t valid if the modulus 23 checksum doesn&apos;t match [kguest]
+ * Fix Bug #11531: using phpcs [php codesniffer] highlights a multitude of CS errors. [kguest]
+ * Fix Bug #11706: invalid VAT numbers are marked as Ok by vat validation function [kguest]
+ * Fix Bug #11712: checkMOD23 buggy. IE6572557W is a valid vat number. [kguest]
+ * Fix Bug #11719: old style vat numbers, which are still in use, are not marked as valid [kguest]
+ * Fix Bug #11726: IE_postcodes.txt not installed/included in package.xml [kguest]
+ * Fix Bug #11730: IBAN tests failing on fresh install of package [kguest]
+ * Fix Bug #11737: tests of functions using @DATADIR@ need to work when tests run from CVS. [kguest]
+ * Implement Feature #11477: package doesn&apos;t validate license plates [kguest]
+ * Implement Feature #11522: package should validate VAT numbers [kguest]
  </notes>
  <contents>
   <dir name="/">
-   <dir name="Validate">
-   <file name="IE.php" role="php">
-     <tasks:replace from="@PACKAGE-VER@" to="version" type="package-info"/>
-     <tasks:replace from="@DATADIR@" to="data_dir" type="pear-config"/>
-   </file> 
-   </dir> <!-- /Validate -->
    <dir name="tests">
-    <file name="validate_IE_IBAN.phpt" role="test"/>
-    <file name="validate_IE_bankAC.phpt" role="test"/>
-    <file name="validate_IE_drive.phpt"  role="test"/>
-    <file name="validate_IE_licensePlate.phpt" role="test"/>
+    <file name="validate_IE_bankAC.phpt" role="test" />
+    <file name="validate_IE_drive.phpt" role="test" />
+    <file name="validate_IE_IBAN.phpt" role="test" />
     <file name="validate_IE_passport.phpt" role="test" />
-    <file name="validate_IE_phoneNumber.phpt" role="test"/>
-    <file name="validate_IE_post_code.phpt"  role="test"/>
-    <file name="validate_IE_ppsn.phpt" role="test"/>
-    <file name="validate_IE_swift.phpt" role="test"/>
-    <file name="validate_IE_vatNumber.phpt" role="test"/>
-   </dir>
-   <dir name="data">
-       <file name="IE_postcodes.txt" role="data" />
-   </dir> 
+    <file name="validate_IE_phoneNumber.phpt" role="test" />
+    <file name="validate_IE_ppsn.phpt" role="test" />
+    <file name="validate_IE_swift.phpt" role="test" />
+   </dir> <!-- /tests -->
+   <dir name="Validate">
+    <file name="IE.php" role="php" />
+   </dir> <!-- /Validate -->
   </dir> <!-- / -->
  </contents>
  <dependencies>
@@ -87,13 +75,23 @@ http://pear.php.net/dtd/package-2.0.xsd">
    <pearinstaller>
     <min>1.4.0b1</min>
    </pearinstaller>
-   <package>
-    <name>Validate_Finance</name>
-    <channel>pear.php.net</channel>
-    <min>0.5.3</min>
-    <recommended>0.5.4</recommended>
-   </package>
   </required>
  </dependencies>
  <phprelease />
+ <changelog>
+  <release>
+   <version>
+    <release>0.3.0</release>
+    <api>0.2.0</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <date>2007-06-09</date>
+   <license>New BSD</license>
+   <notes>We have fixed a few design bugs, and now with this release, we have implemented
+many new features that were on the roadmap.</notes>
+  </release>
+ </changelog>
 </package>
