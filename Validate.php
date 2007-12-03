@@ -46,7 +46,7 @@ define('VALIDATE_SPACE',        '\s');
 define('VALIDATE_ALPHA_LOWER',  'a-z');
 define('VALIDATE_ALPHA_UPPER',  'A-Z');
 define('VALIDATE_ALPHA',        VALIDATE_ALPHA_LOWER . VALIDATE_ALPHA_UPPER);
-define('VALIDATE_EALPHA_LOWER', VALIDATE_ALPHA_LOWER . 'αινσϊύΰθμςωδλοφόÿβκξτϋγρυ¨εζη½πψώ');
+define('VALIDATE_EALPHA_LOWER', VALIDATE_ALPHA_LOWER . 'αινσϊύΰθμςωδλοφόÿβκξτϋγρυ¨εζη½πψώί');
 define('VALIDATE_EALPHA_UPPER', VALIDATE_ALPHA_UPPER . 'ΑΙΝΣΪέΐΘΜÒΩΔΛΟΦάΎΒΚΞΤΫΓΡΥ¦ΕΖΗΌΠΨή');
 define('VALIDATE_EALPHA',       VALIDATE_EALPHA_LOWER . VALIDATE_EALPHA_UPPER);
 define('VALIDATE_PUNCTUATION',  VALIDATE_SPACE . '\.,;\:&"\'\?\!\(\)');
