@@ -520,8 +520,6 @@ class Validate
          * @todo Fix bug here.. even if it passes this, it won't be passing
          *       The regular expression below
          */
-
-        $checkTLD = true;
         if (isset($fullTLDValidation)) {
             $valid = Validate::_fullTLDValidation($email, $fullTLDValidation);
 
@@ -538,15 +536,9 @@ class Validate
          (?:(?:(?:(?:25[0-5])|(?:2[0-4][0-9])|(?:[0-1]?[0-9]?[0-9]))\.){3}
                (?:(?:25[0-5])|(?:2[0-4][0-9])|(?:[0-1]?[0-9]?[0-9]))))(?(5)\])|
          ((?:[a-z0-9](?:[-a-z0-9]*[a-z0-9])?\.)*[a-z0-9](?:[-a-z0-9]*[a-z0-9])?)  #6 domain as hostname
-         ';
-
-         if ($checkTLD) {
-            $regex .= '\.((?:([^- ])[-a-z]*[-a-z])?)) #7 TLD
-             ';
-         }
-
-         $regex .= '$&xi';
-
+         \.((?:([^- ])[-a-z]*[-a-z]))) #7 TLD 
+         $&xi';
+        
         if ($use_rfc822? Validate::__emailRFC822($email, $options) :
             preg_match($regex, $email)) {
             if ($check_domain && function_exists('checkdnsrr')) {
@@ -561,7 +553,7 @@ class Validate
         return false;
     }
 
-    /**
+   /**
      * Validate a string using the given format 'format'
      *
      * @param string    $string     String to validate
