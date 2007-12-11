@@ -12,7 +12,6 @@ echo "Test Validate_Email\n";
 $emails = array(
         // Try dns lookup
         array('pear-general@lists.php.net', true), // OK
-        array('example@fluffffffrefrffrfrfrfrfrfr.is', true), // NOK
         array('example@fluffffffrefrffrfrfrfrfrfr.is', false), // OK
         // with out the dns lookup
         'example@fluffffffrefrffrfrfrfrfrfr.is', // OK
@@ -22,8 +21,8 @@ $emails = array(
         'bugme@not./com', // OK
 
         // Some none english chars, those should fail until we fix the IDN stuff
-        'hæjjæ@homms.com', // OK
-        'þæöð@example.com', // OK
+        'hæjjæ@homms.com', // NOK
+        'þæöð@example.com', // NOK
         'postmaster@tüv.de', // NOK
 
         // Test for various ways with _
@@ -109,14 +108,13 @@ foreach ($emails as $email) {
 --EXPECT--
 Test Validate_Email
 pear-general@lists.php.net: with domain check : YES
-example@fluffffffrefrffrfrfrfrfrfr.is: with domain check : NO
 example@fluffffffrefrffrfrfrfrfrfr.is: without domain check : YES
 example@fluffffffrefrffrfrfrfrfrfr.is: YES
 davidc@php.net: YES
 example (though bad)@example.com: YES
 bugme@not./com: YES
-hæjjæ@homms.com: YES
-þæöð@example.com: YES
+hæjjæ@homms.com: NO
+þæöð@example.com: NO
 postmaster@tüv.de: NO
 mark_@example.com: YES
 _mark@example.com: YES
