@@ -1,77 +1,104 @@
-<?xml version="1.0" encoding="ISO-8859-1" ?>
-<package version="1.0">
-  <name>Validate_US</name>
-  <summary>Validation class for US</summary>
-  <description>
-Package containes locale validation for US such as:
+<?xml version="1.0" encoding="UTF-8"?>
+<package packagerversion="1.7.0RC1" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0
+http://pear.php.net/dtd/tasks-1.0.xsd
+http://pear.php.net/dtd/package-2.0
+http://pear.php.net/dtd/package-2.0.xsd">
+ <name>Validate_US</name>
+ <channel>pear.php.net</channel>
+ <summary>Validation class for US</summary>
+ <description>Package containes locale validation for US such as:
  * SSN
  * Postal Code
  * Regions (States)
  * Phone Numbers
-  </description>
-  <license>new BSD</license>
-  <maintainers>
-    <maintainer>
-      <user>busterb</user>
-      <role>lead</role>
-      <name>Brent Cook</name>
-      <email>busterbcook@yahoo.com</email>
-    </maintainer>
-    <maintainer>
-      <user>timmyg</user>
-      <role>lead</role>
-      <name>Tim Gallagher</name>
-      <email>timg@sunflowerroad.com</email>
-    </maintainer>
-    <maintainer>
-      <user>davidc</user>
-      <role>lead</role>
-      <name>David Coallier</name>
-      <email>davidc@php.net</email>
-    </maintainer>
-   </maintainers>
+  
+ </description>
+ <lead>
+  <name>Brent Cook</name>
+  <user>busterb</user>
+  <email>busterbcook@yahoo.com</email>
+  <active>yes</active>
+ </lead>
+ <lead>
+  <name>Tim Gallagher</name>
+  <user>timmyg</user>
+  <email>timg@sunflowerroad.com</email>
+  <active>yes</active>
+ </lead>
+ <lead>
+  <name>David Coallier</name>
+  <user>davidc</user>
+  <email>davidc@php.net</email>
+  <active>yes</active>
+ </lead>
+ <date>2007-12-12</date>
+ <time>19:40:40</time>
+ <version>
+  <release>0.5.3</release>
+  <api>0.5.3</api>
+ </version>
+ <stability>
+  <release>beta</release>
+  <api>beta</api>
+ </stability>
+ <license>new BSD</license>
+ <notes>
+ </notes>
+ <contents>
+  <dir name="/">
+   <dir name="tests">
+    <file name="validate_functions.inc" role="test" />
+    <file name="validate_US.phpt" role="test" />
+   </dir> <!-- /tests -->
+   <dir name="Validate">
+    <file name="US.php" role="php" />
+   </dir> <!-- /Validate -->
+   <file name="LICENSE" role="doc" />
+  </dir> <!-- / -->
+ </contents>
+ <dependencies>
+  <required>
+   <php>
+    <min>4.2.0</min>
+   </php>
+   <pearinstaller>
+    <min>1.4.0b1</min>
+   </pearinstaller>
+  </required>
+ </dependencies>
+ <phprelease />
+ <changelog>
   <release>
-    <version>0.5.3</version>
-    <state>beta</state>
-    <date>2007-12-12</date>
-    <notes>
-
-    </notes>
-    <filelist>
-    <dir name="/">
-      <file role="doc" name="LICENSE" />
-      <dir name="Validate">
-        <file role="php">US.php</file>
-      </dir>
-      <dir name="tests" role="test">
-        <file>validate_functions.inc</file>
-        <file>validate_US.phpt</file>
-      </dir>
-    </dir>
-    </filelist>
-    <deps>
-      <dep type="php" rel="ge" version="4.2.0" />
-    </deps>
-  </release>
-  <changelog>
-  <release>
-    <version>0.5.2</version>
-    <state>beta</state>
-    <date>2005-11-04</date>
-    <notes>
-- Switch to the new BSD License
+   <version>
+    <release>0.5.2</release>
+    <api>0.5.2</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <date>2005-11-04</date>
+   <license>new BSD</license>
+   <notes>- Switch to the new BSD License
 (see http://www.opensource.org/licenses/bsd-license.php)
-    </notes>
+    
+   </notes>
   </release>
   <release>
-    <version>0.5.0</version>
-    <state>beta</state>
-    <date>2005-05-20</date>
-    <notes>
-- Split from Validate into independent package
+   <version>
+    <release>0.5.0</release>
+    <api>0.5.0</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <date>2005-05-20</date>
+   <license>new BSD</license>
+   <notes>- Split from Validate into independent package
 - CS fixes
 - region() added in US (that is validation of the states)
-- phoneNumber() added.  hasn't had a release in too long.
+- phoneNumber() added.  hasn&apos;t had a release in too long.
 - Fix Bug #4068 Always returns true if area code is required in Validate_US::phoneNumber
 - BC break!
 postalCode unified between countries (name wise), now all postcode validation funcs are named postalCode
@@ -81,9 +108,10 @@ does to get list of all high groups, this will really help keeping the load down
 in a row.
 - Fix an unassigned variable warning in SSN checks
 - Lots of updates to how SSN checks work (various contributors)
-Note, I'm releasing this because I just realized that I'm the maintainer and it
-hasn't had a release in too long. We really should stabilize it.
-    </notes>
+Note, I&apos;m releasing this because I just realized that I&apos;m the maintainer and it
+hasn&apos;t had a release in too long. We really should stabilize it.
+    
+   </notes>
   </release>
-  </changelog>
+ </changelog>
 </package>
