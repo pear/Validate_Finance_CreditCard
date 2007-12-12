@@ -23,7 +23,7 @@
   <active>no</active>
  </lead>
  <lead>
-  <name>Helgi Thormar Thorbjornsson</name>
+  <name>Helgi Þormar Þorbjörnsson</name>
   <user>dufuz</user>
   <email>dufuz@php.net</email>
   <active>no</active>
@@ -52,10 +52,10 @@
   <email>pear.neufeind@speedpartner.de</email>
   <active>no</active>
  </developer>
- <date>2007-12-10</date>
- <time>22:25:30</time>
+ <date>2007-12-12</date>
+ <time>14:14:46</time>
  <version>
-  <release>0.8.0</release>
+  <release>0.8.1</release>
   <api>0.7.0</api>
  </version>
  <stability>
@@ -64,30 +64,7 @@
  </stability>
  <license>New BSD</license>
  <notes>
- * Fix Bug #2662: Invalid email addresses are validated [dufuz]
- * Fix Bug #2936: Typo in sample_multiple.php [dufuz]
- * Fix Bug #4068: errant &quot;return true;&quot; in Validate_US::phoneNumber [dufuz]
- * Fix Bug #5390: XML Package Error [dufuz]
- * Fix Bug #7531: Email-checks need to be more RFC-compliant [amir]
- * Fix Bug #7648: VALIDATE_EALPHA does not include the Å character [amir]
- * Fix Bug #7864: uris rejected if subdomain contains underscores [amir]
- * Fix Bug #8442: Undefined variable &quot;return&quot; [amir]
- * Fix Bug #8629: eMail validation fails [amir]
- * Fix Bug #8768: Valid URL&apos;s are marked invalid [amir]
- * Fix Bug #8839: defect [amir]
- * Fix Bug #8851: date-validation allows letters in time. [amir]
- * Fix Bug #8853: E-Mail validation allows space before TLD [amir]
- * Fix Bug #9156: Missing characters in validation sequence [amir]
- * Fix Bug #9385: Missing characters in validation sequence [amir]
- * Fix Bug #9386: Missing punctuation mark (hyphen) in VALIDATE_NAME [amir]
- * Fix Bug #10044: email validation bug [davidc]
- * Fix Bug #10167: ISSN/ISBN validation is broken by _checkControlNumber [dufuz]
- * Fix Bug #10844: Validate::multiple() breaks by consolidating single field array [toggg]
- * Fix Bug #11073: date() %d validates \d{1,2} as correct [amir]
- * Fix Bug #11592: Email validation not working properly [davidc]
- * Fix Bug #12452: EALPHA_LOWER is missing a ß [thesaur]
- * Implement Feature #11244: documentation [davidc]
- * Implement Feature #8073: a@a is valid email [amir]
+ * Fix Bug #12658: New lines at end of file create output [davidc]
  </notes>
  <contents>
   <dir name="/">
@@ -125,6 +102,42 @@
  </dependencies>
  <phprelease />
  <changelog>
+  <release>
+   <version>
+    <release>0.8.1</release>
+    <api>0.7.0</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <date>2007-12-10</date>
+   <license>New BSD</license>
+   <notes>* Fix Bug #2662: Invalid email addresses are validated [dufuz]
+* Fix Bug #2936: Typo in sample_multiple.php [dufuz]
+* Fix Bug #4068: errant &quot;return true;&quot; in Validate_US::phoneNumber [dufuz]
+* Fix Bug #5390: XML Package Error [dufuz]
+* Fix Bug #7531: Email-checks need to be more RFC-compliant [amir]
+* Fix Bug #7648: VALIDATE_EALPHA does not include the Ã� character [amir]
+* Fix Bug #7864: uris rejected if subdomain contains underscores [amir]
+* Fix Bug #8442: Undefined variable &quot;return&quot; [amir]
+* Fix Bug #8629: eMail validation fails [amir]
+* Fix Bug #8768: Valid URL&apos;s are marked invalid [amir]
+* Fix Bug #8839: defect [amir]
+* Fix Bug #8851: date-validation allows letters in time. [amir]
+* Fix Bug #8853: E-Mail validation allows space before TLD [amir]
+* Fix Bug #9156: Missing characters in validation sequence [amir]
+* Fix Bug #9385: Missing characters in validation sequence [amir]
+* Fix Bug #9386: Missing punctuation mark (hyphen) in VALIDATE_NAME [amir]
+* Fix Bug #10044: email validation bug [davidc]
+* Fix Bug #10167: ISSN/ISBN validation is broken by _checkControlNumber [dufuz]
+* Fix Bug #10844: Validate::multiple() breaks by consolidating single field array [toggg]
+* Fix Bug #11073: date() %d validates \d{1,2} as correct [amir]
+* Fix Bug #11592: Email validation not working properly [davidc]
+* Fix Bug #12452: EALPHA_LOWER is missing a Ã� [thesaur]
+* Implement Feature #11244: documentation [davidc]
+* Implement Feature #8073: a@a is valid email [amir]</notes>
+  </release>
   <release>
    <version>
     <release>0.8.0</release>
@@ -223,7 +236,7 @@
 - The path part in uri cannot contain two slash characters.
 - Refactored email() regexp, hardened hostname check (taken from uri()) (bug #5804)
 - Empty quoted email recipient is not valid, must at least contain a non blank char
-- Use &amp; as delimiter as Â£ is problematic if the script is saved utf8
+- Use &amp; as delimiter as Ã�Â£ is problematic if the script is saved utf8
 - Enhanced uri.phpt and email.phpt tests</notes>
   </release>
   <release>
