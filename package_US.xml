@@ -11,7 +11,7 @@ http://pear.php.net/dtd/package-2.0.xsd">
  * Postal Code
  * Regions (States)
  * Phone Numbers
-  
+
  </description>
  <lead>
   <name>Brent Cook</name>
@@ -41,8 +41,15 @@ http://pear.php.net/dtd/package-2.0.xsd">
   <release>beta</release>
   <api>beta</api>
  </stability>
- <license>new BSD</license>
+ <license>New BSD</license>
  <notes>
+ * Fix Bug #2394: Validate_US needs updating [busterb]
+ * Fix Bug #5867: Test bug. [davidc]
+ * Fix Bug #11784: running phpcs on US.php highlights 138 errors + 15 warnings [kguest]
+ * Fix Bug #11837: package now uses validate_functions.inc for tests but it is not
+   installed. [kguest]
+ * Implement Feature #6676: just  a note about source code comments [davidc]
+ * Implement Feature #6898: Change if empty() then true behavior of Validate_US::phoneNumber() [davidc]
  </notes>
  <contents>
   <dir name="/">
@@ -78,10 +85,10 @@ http://pear.php.net/dtd/package-2.0.xsd">
     <api>beta</api>
    </stability>
    <date>2005-11-04</date>
-   <license>new BSD</license>
+   <license>New BSD</license>
    <notes>- Switch to the new BSD License
 (see http://www.opensource.org/licenses/bsd-license.php)
-    
+
    </notes>
   </release>
   <release>
@@ -110,7 +117,7 @@ in a row.
 - Lots of updates to how SSN checks work (various contributors)
 Note, I&apos;m releasing this because I just realized that I&apos;m the maintainer and it
 hasn&apos;t had a release in too long. We really should stabilize it.
-    
+
    </notes>
   </release>
  </changelog>
