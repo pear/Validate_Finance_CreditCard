@@ -70,6 +70,10 @@ class Validate_ptBR
      */
     function cpf($cpf)
     {
+        if(!preg_match("/^\d{3}\.?\d{3}\.?\d{3}\.?-?\d{2}$/", $cpf)) {  
+           return false;
+        }
+
         $cleaned = '';
         for ($i = 0; $i < strlen($cpf); $i++) {
             $num = substr($cpf, $i, 1);
@@ -78,6 +82,8 @@ class Validate_ptBR
             }
         }
         $cpf = $cleaned;
+
+        $cpf = preg_replace("/[^\d]/", '', $cpf);
 
         if (strlen($cpf) != 11) {
             return false;
@@ -267,7 +273,6 @@ class Validate_ptBR
     function phoneNumber($number, $requireAreaCode = true)
     {
         $number = addcslashes($number, "\n");
-   
         if (!$requireAreaCode) {
             if (preg_match("/^(\d{4})[- ]?(\d{4})$/", $number)) {
                 return  true;
