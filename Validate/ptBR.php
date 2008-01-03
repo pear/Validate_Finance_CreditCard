@@ -58,7 +58,7 @@ class Validate_ptBR
      */
     function postalCode($postalCode, $strong = false)
     {
-        return (bool) ereg('^([0-9]{2}\.?[0-9]{3})[- ]?([0-9]{3})$', $postalCode);
+         return (bool) preg_match('/^([0-9]{2}\.?[0-9]{3})[- ]?([0-9]{3})$/', addcslashes($postalCode, "\n"));
     }
 
     /**
@@ -266,6 +266,8 @@ class Validate_ptBR
      */
     function phoneNumber($number, $requireAreaCode = true)
     {
+        $number = addcslashes($number, "\n");
+   
         if (!$requireAreaCode) {
             if (preg_match("/^(\d{4})[- ]?(\d{4})$/", $number)) {
                 return  true;
@@ -292,7 +294,7 @@ class Validate_ptBR
      */
     function carReg($reg)
     {
-        return ereg('^[A-Z]{3}[- ]?[0-9]{4}$', $reg);
+        return (bool) preg_match('/^[A-Z]{3}[- ]?[0-9]{4}$/', addcslashes($reg, "\n"));
     }
 
 
