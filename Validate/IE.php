@@ -16,7 +16,7 @@
  * @category  Validate
  * @package   Validate_IE
  * @author    David Coallier <davidc@php.net>
- * @copyright 1997-2007 Agora Production (http://agoraproduction.com)
+ * @copyright 1997-2008 Agora Production (http://agoraproduction.com)
  * @license   http://www.opensource.org/licenses/bsd-license.php  New BSD License
  * @version   CVS: $Id$
  * @link      http://pear.php.net/package/Validate_IE
@@ -30,9 +30,9 @@
  *
  * @category  Validate
  * @package   Validate_IE
- * @author    David Coallier <davidc@php.net> 
+ * @author    David Coallier <davidc@php.net>
  * @author    Ken Guest      <ken@linux.ie>
- * @copyright 1997-2007 Agora Production (http://agoraproduction.com)
+ * @copyright 1997-2008 Agora Production (http://agoraproduction.com)
  * @license   http://www.opensource.org/licenses/bsd-license.php  New BSD License
  * @version   Release: @package_version@
  * @link      http://pear.php.net/package/Validate_IE
@@ -45,11 +45,11 @@ class Validate_IE
      *
      * @param string $swift swift code
      *
-     * @return bool   true if number is valid, false if not. 
+     * @return bool   true if number is valid, false if not.
      * @static
      * @access public
      */
-    function swift($swift) 
+    function swift($swift)
     {
         return preg_match('/^[a-z0-9]{4}IE[a-z0-9]{2}$/i', $swift);
     }
@@ -57,14 +57,14 @@ class Validate_IE
     // {{{ public function IBAN
     /**
      * Validate Irish IBAN
-     * 
+     *
      * @param string $iban  The account number to be validated
      * @param string $swift swift code to compare against IBAN
-     * 
+     *
      * @return    bool
      * @access  public
      */
-    function IBAN($iban, $swift = false) 
+    function IBAN($iban, $swift = false)
     {
         if ($swift) {
             $swift = substr($swift, 0, 4);
@@ -72,7 +72,7 @@ class Validate_IE
                 return false;
             }
         }
-        
+
         if (substr($iban, 0, 2) == 'IE') {
             include_once 'Validate/Finance/IBAN.php';
             return Validate_Finance_IBAN::validate($iban);
@@ -84,19 +84,19 @@ class Validate_IE
     // {{{ public function phoneNumber
     /**
      * Validate an irish phone number
-     * 
+     *
      * This function validates an irish phone number.
      * You can either use the requiredAreaCode or not.
      * by default this is set to true.
-     * 
+     *
      * @param string $number           The phone number
      * @param bool   $requiredAreaCode defaults to true - to require area code checks
-     * 
+     *
      * <code>
      * <?php
      * // Include the package
      * require_once('Validate/IE.php');
-     * 
+     *
      * $phoneNumber = '+353 1 213 4567';
      * if ( Validate_IE::phoneNumber($phoneNumber) ) {
      *     print 'Valid';
@@ -109,12 +109,12 @@ class Validate_IE
      * } else {
      *     print 'Not valid!';
      * }
-     * 
+     *
      * ?>
      * </code>
-     * 
+     *
      * @access public
-     * @return bool   true if number is valid, false if not. 
+     * @return bool   true if number is valid, false if not.
      * @static
      */
     function phoneNumber($number, $requiredAreaCode = true)
@@ -124,7 +124,7 @@ class Validate_IE
          * each prefix has an associated regular expression.
          * use defaultRegExp if associated entry is empty.
          * @note Irish phone numbers are not the same as UK Phone numbers;
-         *       Irish phone numbers are much less complex as UK now has per 
+         *       Irish phone numbers are much less complex as UK now has per
          *       district phone numbers etc.
          */
         static $defaultRegExp = '/^\d{7,10}$/';
@@ -217,7 +217,7 @@ class Validate_IE
 
         if (!$requiredAreaCode) {
             //regular numbers, without an area code, don't start with a zero.
-            //they may be 5-8 digits long (depending on area code which can 
+            //they may be 5-8 digits long (depending on area code which can
             //be 2-4 digits long...)
             $preg = "/^[1-9]\d{4,7}$/";
             if (preg_match($preg, $number)) {
@@ -235,7 +235,7 @@ class Validate_IE
                     }
                     if (preg_match($preg, $number)) {
                         $ret = true;
-                    } 
+                    }
                     break;
                 }
             }
@@ -286,7 +286,7 @@ class Validate_IE
      * @access public
      * @return bool   If the passport number is valid or not.
      */
-    function passport($pp) 
+    function passport($pp)
     {
         $pp   = strtolower($pp);
         $preg = "/^[a-z]{2}[0-9]{7}$/";
@@ -318,10 +318,10 @@ class Validate_IE
         return $match;
     }
     // }}}
-    // {{{ public function 
+    // {{{ public function
     /**
      * Validate an Irish vehicle's license plate/registration number.
-     * 
+     *
      * @param string $number value to validate.
      *
      * @access public
@@ -341,7 +341,7 @@ class Validate_IE
                            'SO','TN','TS','W','WD','WH','WX','WW');
             return in_array($mark, $marks);
         } else {
-            //two pre-1987 codes are still in use. ZZ and ZV. 
+            //two pre-1987 codes are still in use. ZZ and ZV.
             //format is ZZ nnnnn - 5 digits for ZZ code and as few as 4 for ZV
             $regex = "/^ZZ[\ -]\d{5}$/";
             if (preg_match($regex, $plate)) {
@@ -384,7 +384,7 @@ class Validate_IE
     // }}}
     // {{{ public function ssn
     /**
-     * Validate SSN 
+     * Validate SSN
      *
      * Ireland does not have a social security number system,
      * the closest equivalent is a Personal Public Service Number.
@@ -403,9 +403,9 @@ class Validate_IE
     // }}}
     // {{{ public function checkMOD23
     /**
-     * Return true if the checksum in the specified PPSN or vat number, without 
+     * Return true if the checksum in the specified PPSN or vat number, without
      * the 'IE' prefix, is valid.
-     * 
+     *
      * @param string $value Value to perform modulus 23 checksum on.
      *
      * @access public
@@ -459,7 +459,7 @@ class Validate_IE
     // {{{ public function vatNumber
     /**
      * Validate Irish VAT registration number.
-     * 
+     *
      * @param string $vat vat number to validate.
      *
      * @access  public
@@ -468,17 +468,17 @@ class Validate_IE
      * <?php
      * // Include the package
      * require_once('Validate/IE.php');
-     * 
+     *
      * $vat = 'IE6335315A';
      * if ( Validate_IE::vatNumber($vat) ) {
      *     print 'Valid';
      * } else {
      *     print 'Not valid!';
      * }
-     * 
+     *
      * ?>
      * </code>
-     * 
+     *
      * @return  bool            Returns true on success, false otherwise
      * @link    http://www.iecomputersystems.com/ordering/eu_vat_numbers.htm
      * @link    http://www.braemoor.co.uk/software/vat.shtml
