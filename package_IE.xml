@@ -25,31 +25,19 @@
   <email>ken@linux.ie</email>
   <active>yes</active>
  </lead>
- <date>2007-10-20</date>
- <time>21:54:32</time>
+ <date>2008-02-14</date>
+ <time>22:35:32</time>
  <version>
-  <release>0.3.0</release>
-  <api>0.2.0</api>
+  <release>1.0.0</release>
+  <api>1.0.0</api>
  </version>
  <stability>
-  <release>beta</release>
-  <api>beta</api>
+  <release>stable</release>
+  <api>stable</api>
  </stability>
  <license>New BSD</license>
  <notes>
- * Fix Bug #11444: postal codes: validate existing Dublin postal codes [kguest]
- * Fix Bug #11474: validate_IE_post_code.phpt not linked in package_IE.xml [kguest]
- * Fix Bug #11506: licensePlate test fails ZZ and ZV codes. [kguest]
- * Fix Bug #11515: PPSN isn&apos;t valid if the modulus 23 checksum doesn&apos;t match [kguest]
- * Fix Bug #11531: using phpcs [php codesniffer] highlights a multitude of CS errors. [kguest]
- * Fix Bug #11706: invalid VAT numbers are marked as Ok by vat validation function [kguest]
- * Fix Bug #11712: checkMOD23 buggy. IE6572557W is a valid vat number. [kguest]
- * Fix Bug #11719: old style vat numbers, which are still in use, are not marked as valid [kguest]
- * Fix Bug #11726: IE_postcodes.txt not installed/included in package.xml [kguest]
- * Fix Bug #11730: IBAN tests failing on fresh install of package [kguest]
- * Fix Bug #11737: tests of functions using @DATADIR@ need to work when tests run from CVS. [kguest]
- * Implement Feature #11477: package doesn&apos;t validate license plates [kguest]
- * Implement Feature #11522: package should validate VAT numbers [kguest]
+ * Package has been stable for a long time. Bumping the version number to 1.0.0 to mirror that fact.
  </notes>
  <contents>
   <dir name="/">
@@ -81,17 +69,16 @@
  <changelog>
   <release>
    <version>
-    <release>0.3.0</release>
-    <api>0.2.0</api>
+    <release>1.0.0</release>
+    <api>1.0.0</api>
    </version>
    <stability>
-    <release>beta</release>
-    <api>beta</api>
+    <release>stable</release>
+    <api>stable</api>
    </stability>
-   <date>2007-06-09</date>
+   <date>2008-02-14</date>
    <license>New BSD</license>
-   <notes>We have fixed a few design bugs, and now with this release, we have implemented
-many new features that were on the roadmap.</notes>
+   <notes> </notes>
   </release>
  </changelog>
 </package>
