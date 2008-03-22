@@ -482,6 +482,24 @@ class Validate
         }
 
         /**
+         * Check for IDN usage so we can encode the domain as Punycode
+         * before continuing.
+         */
+        if (strpos($email, '@') !== false) {
+            list($name, $domain) = explode('@', $email, 2);
+            // Check if the domain contains characters > 127 which means 
+            // it's an idn domain name.
+            $chars = count_chars($domain, 1);
+            if (max(array_keys($chars)) > 127) {
+                require_once 'Net/IDNA.php';
+                $idna   =& Net_IDNA::singleton();
+                $domain = $idna->encode($domain);
+            }
+
+            $email = "$name@$domain";
+        }
+        
+        /**
          * @todo Fix bug here.. even if it passes this, it won't be passing
          *       The regular expression below
          */
