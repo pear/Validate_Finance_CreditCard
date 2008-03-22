@@ -92,6 +92,11 @@
    <pearinstaller>
     <min>1.4.0b1</min>
    </pearinstaller>
+   <package>
+    <name>Net_IDNA</name>
+    <channel>pear.php.net</channel>
+    <min>0.7.1</min>
+   </package>
   </required>
   <optional>
    <package>
