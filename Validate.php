@@ -406,53 +406,9 @@ class Validate
     function _fullTLDValidation($email, $options)
     {
         $validate = array();
-
-        switch ($options) {
-            /** 1 */
-            case VALIDATE_ITLD_EMAILS:
-                array_push($validate, 'itld');
-                break;
-
-            /** 2 */
-            case VALIDATE_GTLD_EMAILS:
-                array_push($validate, 'gtld');
-                break;
-
-            /** 3 */
-            case VALIDATE_ITLD_EMAILS | VALIDATE_GTLD_EMAILS:
-                array_push($validate, 'itld');
-                array_push($validate, 'gtld');
-                break;
-
-            /** 4 */
-            case VALIDATE_CCTLD_EMAILS:
-                array_push($validate, 'cctld');
-                break;
-
-            /** 5 */
-            case VALIDATE_CCTLD_EMAILS | VALIDATE_ITLD_EMAILS:
-                array_push($validate, 'cctld');
-                array_push($validate, 'itld');
-                break;
-
-            /** 6 */
-            case VALIDATE_CCTLD_EMAILS ^ VALIDATE_ITLD_EMAILS:
-                array_push($validate, 'cctld');
-                array_push($validate, 'itld');
-                break;
-
-            /** 7 - 8 */
-            case VALIDATE_CCTLD_EMAILS | VALIDATE_ITLD_EMAILS | VALIDATE_GTLD_EMAILS:
-            case VALIDATE_ALL_EMAILS:
-                array_push($validate, 'cctld');
-                array_push($validate, 'itld');
-                array_push($validate, 'gtld');
-                break;
-        }
-
-        /**
-         * Debugging still, not implemented but code is somewhat here.
-         */
+        if($options["VALIDATE_ITLD_EMAILS"]) array_push($validate, 'itld');
+        if($options["VALIDATE_GTLD_EMAILS"]) array_push($validate, 'gtld');
+        if($options["VALIDATE_CCTLD_EMAILS"]) array_push($validate, 'cctld');        
 
         $self = new Validate;
 
@@ -467,6 +423,7 @@ class Validate
 
         return $e;
     }
+    
     // {{{ protected function executeFullEmailValidation
     /**
      * Execute the validation
@@ -483,7 +440,6 @@ class Validate
     {
         $emailEnding = explode('.', $email);
         $emailEnding = $emailEnding[count($emailEnding)-1];
-        
         foreach ($arrayOfTLDs as $validator => $keys) {
             if (in_array($emailEnding, $keys)) {
                 return true;
@@ -502,6 +458,15 @@ class Validate
      *              'check_domain' boolean Check or not if the domain exists
      *              'use_rfc822' boolean Apply the full RFC822 grammar
      *
+     * Ex.
+       $options = array(
+           'check_domain' => 'true',
+           'fullTLDValidation' => 'true',
+           'use_rfc822' => 'true',
+           'VALIDATE_GTLD_EMAILS' => 'true',
+           'VALIDATE_CCTLD_EMAILS' => 'true',
+           'VALIDATE_ITLD_EMAILS' => 'true',           
+           );
      * @return boolean true if valid email, false if not
      *
      * @access public
@@ -521,7 +486,8 @@ class Validate
          *       The regular expression below
          */
         if (isset($fullTLDValidation)) {
-            $valid = Validate::_fullTLDValidation($email, $fullTLDValidation);
+            //$valid = Validate::_fullTLDValidation($email, $fullTLDValidation);
+            $valid = Validate::_fullTLDValidation($email, $options);
 
             if (!$valid) {
                 return false;
@@ -538,11 +504,12 @@ class Validate
          ((?:[a-z0-9](?:[-a-z0-9]*[a-z0-9])?\.)*[a-z0-9](?:[-a-z0-9]*[a-z0-9])?)  #6 domain as hostname
          \.((?:([^- ])[-a-z]*[-a-z]))) #7 TLD 
          $&xi';
-        
+
+        //checks if exists the domain (MX or A)
         if ($use_rfc822? Validate::__emailRFC822($email, $options) :
-            preg_match($regex, $email)) {
+                preg_match($regex, $email)) {
             if ($check_domain && function_exists('checkdnsrr')) {
-                list (, $domain)  = explode('@', $email);
+                list ($account, $domain)  = explode('@', $email);
                 if (checkdnsrr($domain, 'MX') || checkdnsrr($domain, 'A')) {
                     return true;
                 }
