@@ -27,11 +27,6 @@
  * @link      http://pear.php.net/package/Validate_AU
  */
 
-define("VALIDATE_AU_PHONENUMBER_STRICT", 1);
-define("VALIDATE_AU_PHONENUMBER_NATIONAL", 2);
-define("VALIDATE_AU_PHONENUMBER_INDIAL", 4);
-define("VALIDATE_AU_PHONENUMBER_INTERNATIONAL", 8);
-
 /**
  * Data validation class for Australia
  *
@@ -100,7 +95,6 @@ class Validate_AU
      * @access    public
      * @static    array      $regions
      * @return    bool       Returns true on success, false otherwise
-     * @link      www.google.com/apis/adwords/developer/adwords_api_regions.html#Australia
      */
     function region($region)
     {
@@ -127,18 +121,16 @@ class Validate_AU
      * will have to strip these yourself if your data storage does not allow
      * these characters.
      *
-     * @param string $number The telephone number
-     * @param int    $flags  Can be a combination of the following flags:
-     *        - <b>VALIDATE_AU_PHONENUMBER_STRICT</b>: if
-     *          supplied then no spaces, parenthesis or dashes (-)
-     *          will be removed.
-     *        - <b>VALIDATE_AU_PHONENUMBER_NATIONAL</b>: when supplied
-     *          valid national numbers (eg. 03 9999 9999) will return true.
-     *        - <b>VALIDATE_AU_PHONENUMBER_INDIAL</b>: when supplied
-     *          valid indial numbers (eg. 13/1300/1800/1900) will return true.
-     *        - <b>VALIDATE_AU_PHONENUMBER_INTERNATIONAL</b>: when supplied
-     *          valid international notation of Australian numbers
-     *          (eg. +61.3 9999 9999) will return true.
+     * @param string  $number  The telephone number
+     * @param mixed[] $options A list of options
+     *                          'strict'   => true - do not common characters
+     *                          'national' => true - validate national numbers
+     *                          'indial'   => true - 13, 1300, 1800, 1900
+     *                                  numbers
+     *                          'other'    => true - uncommon phone validations
+     *                                  like premium sms, data and personal numbers
+     *                          'international => true - international numbers
+     *                                  for Australia (eg. +61.3 9999 9999)
      *
      * @static
      * @access    public
@@ -146,28 +138,58 @@ class Validate_AU
      *
      * @todo Check that $flags contains a valid flag.
      */
-    function phoneNumber($number, $flags = VALIDATE_AU_PHONENUMBER_NATIONAL)
+    function phoneNumber($number, $options = array('strict'        => false,
+                                                   'national'      => true,
+                                                   'indial'        => true,
+                                                   'international' => true,
+                                                   'other'         => true))
     {
 
-        if (!($flags & VALIDATE_AU_PHONENUMBER_STRICT)) {
+        $preg = array();
+        if (empty($options['strict'])) {
             $number = str_replace(array('(', ')', '-', ' '), '', $number);
         }
 
-        if ($flags & VALIDATE_AU_PHONENUMBER_NATIONAL) {
-             $preg[] = "(0[23478][0-9]{8})";
+        if (!empty($options['national'])) {
+             $preg[] = "(0[3478][0-9]{8})";
+             $preg[] = "(02[3-9][0-9]{7})";
         }
 
-        if ($flags & VALIDATE_AU_PHONENUMBER_INDIAL) {
-             $preg[] = "(13[0-9]{4}|1[3|8|9]00[0-9]{6})";
+        if (!empty($options['indial'])) {
+            $preg[] = '(13[0-9]{4})';
+            $preg[] = "(1[3|8|9]00[0-9]{6})";
         }
 
-        if ($flags & VALIDATE_AU_PHONENUMBER_INTERNATIONAL) {
+        if (!empty($options['international'])) {
              $preg[] = "(\+61\.[23478][0-9]{8})";
         }
 
-        if (is_array($preg)) {
-            $preg = implode("|", $preg);
-            return preg_match("/^" . $preg . "$/", $number) ? true : false;
+        //Other numbers, like premium SMS
+        if (!empty($options['other'])) {
+
+            //Premium SMS
+            $preg[] = "(19[0-9]{4,6})";
+
+            //Universial Personal Phones
+            $preg[] = "(0550[0-9]{6})"; //VOIP range (proposed)
+            $preg[] = "(059[0-9]{7})";  //Enum testing numbers
+            $preg[] = "(0500[0-9]{6})"; //"Find me anywhere"
+                                        //(divert the number and
+                                        // the caller pays the bill)
+
+
+
+            //Data access providers
+            $preg[] = "(0198[0-3][0-9]{5})";
+
+        }
+
+        if (!empty($preg)) {
+            foreach ($preg as $pattern) {
+                if (preg_match("/^" . $pattern . "$/", $number)) {
+                    return true;
+                }
+            }
         }
 
         return false;
