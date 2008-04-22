@@ -35,9 +35,9 @@
         <email>daniel.oconnor@gmail.com</email>
         <active>no</active>
     </lead>
-    <date>2006-10-10</date>
+    <date>2008-04-22</date>
     <version>
-        <release>0.1.0</release>
+        <release>0.1.1</release>
         <api>0.1.0</api>
     </version>
     <stability>
@@ -46,9 +46,7 @@
     </stability>
     <license uri="http://www.opensource.org/licenses/bsd-license.php">BSD License</license>
     <notes>
-- Added support for 13,13xx,18xx,19xx and international syntax phone numbers
-- Removed Validate.php package requirement (its not used within this class)
-- Change package.xml to version 2
+     - Bug #13111 phoneNumber() tests inaccurate
     </notes>
     <contents>
         <dir name="/">
