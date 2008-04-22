@@ -2,12 +2,12 @@
 validate_AU.phpt: Unit tests for 'Validate/AU.php'
 --FILE--
 <?php
-// 
 // Validate test script
-include (dirname(__FILE__) . '/validate_functions.inc');
+
+require dirname(__FILE__) . '/validate_functions.inc';
 if (is_file(dirname(__FILE__) . '/../Validate/AU.php')) {
     require_once dirname(__FILE__) . '/../Validate/AU.php';
-    $dataDir = '../data';
+    $dataDir = dirname(__FILE__) . '/../data';
 } else {
     require_once 'Validate/AU.php';
     $dataDir = null;
@@ -16,6 +16,35 @@ if (is_file(dirname(__FILE__) . '/../Validate/AU.php')) {
 echo "Test Validate_AU\n";
 echo "****************\n";
 
+$phones['evilNumbers']      = array('0212345678' => 'KO');
+$phones['nationalPhones']   = array('0883690791' => 'OK');
+$phones['indialPhones']     = array('1302123456' => 'KO',
+                                    '1300123456' => 'OK',
+                                    '131234'     => 'OK');
+$phones['premiumSMS']       = array('191234'     => 'OK',
+                                    '1912345'    => 'OK',
+                                    '19123467'   => 'OK');
+
+//International service - prefix 001 or 009 - 1 number
+
+//Digital mobile service - prefix 04 - 100,000 numbers
+$phones['mobilePhones'] = array('0413567532' => 'OK');
+
+
+//Universal personal telecommunications service
+$phones['universalPersonalPhones'] = array('0500456789' => 'OK', 
+                                           '0550456789' => 'OK',
+                                           '0590456789' => 'OK');
+
+
+//Data network access
+//prefix 019 80, 019 81, 019 82 or 019 83
+$phones['data'] = array('0198304123' => 'OK',
+                        '0198204123' => 'OK',
+                        '0198104123' => 'OK',
+                        '0198004123' => 'OK',
+                        '0198404123' => 'KO');
+
 $postalCodes = array( 5251 => 'OK',
                       5000 => 'OK',
                       4662 => 'OK',
@@ -23,9 +52,8 @@ $postalCodes = array( 5251 => 'OK',
                       1000 => 'OK', // (OK if not strong)
                       9999 => 'OK', // (OK if not strong)
                       'abc' => 'KO',
-                      'a7000' => 'KO',
-);
-    
+                      'a7000' => 'KO');
+
 $postalCodesStrong = array( 5251 => 'OK',
                       5000 => 'OK',
                       4662 => 'OK',
@@ -36,7 +64,7 @@ $postalCodesStrong = array( 5251 => 'OK',
                       'a7000' => 'KO',
 );
 
-$abns = array( 
+$abns = array(
 '28 043 145 470' => 'OK',
 '65 497 794 289' => 'OK',
 '46 527 394 509' => 'OK',
@@ -49,12 +77,12 @@ $abns = array(
 '21 188 299 895' => 'OK',
 '55 914 901 347' => 'OK',
 '92 638 328 368' => 'OK',
- );//OK 
+ );//OK
 
 
-$tfns = array( 
+$tfns = array(
 '123 456 782' => 'OK',
- );//OK 
+ );//OK
 
 $acns = array(
 '000 000 019' => 'OK',
@@ -104,17 +132,74 @@ $acns = array(
 );//OK
 
 $errorFound = false;
-	
+
+foreach ($phones as $data) {
+    $errorFound = $errorFound || test_func(array('validate_AU','phoneNumber'), $data);
+}
+
 $errorFound = $errorFound || test_func(array('validate_AU','postalCode'), $postalCodes, array(false, $dataDir));
-$errorFound = $errorFound || test_func(array('validate_AU','postalCode'), $postalCodesStrong,array(true, $dataDir));
-$errorFound = $errorFound || test_func(array('validate_AU','abn'), $abns );
-$errorFound = $errorFound || test_func(array('validate_AU','acn'), $acns );
-$errorFound = $errorFound || test_func(array('validate_AU','tfn'), $tfns );
+$errorFound = $errorFound || test_func(array('validate_AU','postalCode'), $postalCodesStrong, array(true, $dataDir));
+$errorFound = $errorFound || test_func(array('validate_AU','abn'), $abns);
+$errorFound = $errorFound || test_func(array('validate_AU','acn'), $acns);
+$errorFound = $errorFound || test_func(array('validate_AU','tfn'), $tfns);
+
 
 ?>
 --EXPECT--
 Test Validate_AU
 ****************
+---------
+Test validate_AU::phoneNumber
+ _ Value                  State Return
+ V = validation result is right
+ X = validation result is wrong
+ V 0212345678           : KO    KO
+---------
+Test validate_AU::phoneNumber
+ _ Value                  State Return
+ V = validation result is right
+ X = validation result is wrong
+ V 0883690791           : OK    OK
+---------
+Test validate_AU::phoneNumber
+ _ Value                  State Return
+ V = validation result is right
+ X = validation result is wrong
+ V 1302123456           : KO    KO
+ V 1300123456           : OK    OK
+ V 131234               : OK    OK
+---------
+Test validate_AU::phoneNumber
+ _ Value                  State Return
+ V = validation result is right
+ X = validation result is wrong
+ V 191234               : OK    OK
+ V 1912345              : OK    OK
+ V 19123467             : OK    OK
+---------
+Test validate_AU::phoneNumber
+ _ Value                  State Return
+ V = validation result is right
+ X = validation result is wrong
+ V 0413567532           : OK    OK
+---------
+Test validate_AU::phoneNumber
+ _ Value                  State Return
+ V = validation result is right
+ X = validation result is wrong
+ V 0500456789           : OK    OK
+ V 0550456789           : OK    OK
+ V 0590456789           : OK    OK
+---------
+Test validate_AU::phoneNumber
+ _ Value                  State Return
+ V = validation result is right
+ X = validation result is wrong
+ V 0198304123           : OK    OK
+ V 0198204123           : OK    OK
+ V 0198104123           : OK    OK
+ V 0198004123           : OK    OK
+ V 0198404123           : KO    KO
 ---------
 Test validate_AU::postalCode
  _ Value                  State Return
