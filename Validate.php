@@ -336,9 +336,6 @@ class Validate
      */
     function __emailRFC822(&$email, &$options)
     {
-        if (Validate::__stringToUtf7($email) != $email) {
-            return false;
-        }
         static $address = null;
         static $uncomment = null;
         if (!$address) {
@@ -931,8 +928,8 @@ class Validate
      *
      * @param string $number number to validate
      * @param array $weights reference to array of weights
-     * @param int $modulo (optionsl) number
-     * @param int $subtract (optional) numbier
+     * @param int $modulo (optional) number
+     * @param int $subtract (optional) number
      *
      * @returns bool true if valid, false if not
      *
