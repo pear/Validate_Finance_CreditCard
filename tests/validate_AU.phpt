@@ -52,6 +52,8 @@ $postalCodes = array( 5251 => 'OK',
                       1000 => 'OK', // (OK if not strong)
                       9999 => 'OK', // (OK if not strong)
                       'abc' => 'KO',
+                      '800' => 'KO',
+                      '0800' => 'OK',
                       'a7000' => 'KO');
 
 $postalCodesStrong = array( 5251 => 'OK',
@@ -60,6 +62,8 @@ $postalCodesStrong = array( 5251 => 'OK',
                       2470 => 'OK',
                       1000 => 'KO', // (OK if not strong)
                       9999 => 'KO', // (OK if not strong)
+                      '800' => 'KO',
+                      '0800' => 'OK',
                       'abc' => 'KO',
                       'a7000' => 'KO',
 );
@@ -211,6 +215,8 @@ Test validate_AU::postalCode
  V 2470                 : OK    OK
  V 1000                 : OK    OK
  V 9999                 : OK    OK
+ V 800                  : KO    KO
+ V 0800                 : OK    OK
  V abc                  : KO    KO
  V a7000                : KO    KO
 ---------
@@ -224,6 +230,8 @@ Test validate_AU::postalCode
  V 2470                 : OK    OK
  V 1000                 : KO    KO
  V 9999                 : KO    KO
+ V 800                  : KO    KO
+ V 0800                 : OK    OK
  V abc                  : KO    KO
  V a7000                : KO    KO
 ---------

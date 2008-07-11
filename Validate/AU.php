@@ -116,9 +116,10 @@ class Validate_AU
      * Australia's dial code, and the format MUST be +61.3, where 3 represents
      * the state dial code, in this case, Victoria.
      *
-     * Note: If the strict option is not supplied, then all spaces, dashes and
-     * parenthesis are removed before validation. You will have to strip these
-     * yourself if your data storage does not allow these characters.
+     * Note: If the VALIDATE_AU_PHONENUMBER_STRICT flag is not supplied, then
+     * all spaces, dashes and parenthesis are removed before validation. You
+     * will have to strip these yourself if your data storage does not allow
+     * these characters.
      *
      * @param string  $number  The telephone number
      * @param mixed[] $options A list of options
@@ -315,7 +316,7 @@ class Validate_AU
      * @param array $weights Array containing weighting
      * @param array $length  Length
      *
-     * @access protected
+     * @access public
      * @return bool     true on success, otherwise false
      * @link   http://en.wikipedia.org/wiki/Check_digit
      */
