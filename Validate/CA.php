@@ -45,24 +45,41 @@ class Validate_CA
      * Validates a number according to Luhn check algorithm
      *
      * This function checks given number according Luhn check
-     * algorithm. It is published on several places, also here:
-     *
-     * http://www.webopedia.com/TERM/L/Luhn_formula.html
-     * http://www.merriampark.com/anatomycc.htm
-     * http://hysteria.sk/prielom/prielom-12.html#3 (Slovak language)
-     * http://www.speech.cs.cmu.edu/~sburke/pub/luhn_lib.html (Perl lib)
+     * algorithm. It is published on several places, see links.
      *
      * @param string $number number to check
      *
      * @return bool    TRUE if number is valid, FALSE otherwise
      * @access public
      * @static
+     * @deprecated Scheduled for removal before beta release
      * @link http://www.webopedia.com/TERM/L/Luhn_formula.html
      * @link http://www.merriampark.com/anatomycc.htm
      * @link http://hysteria.sk/prielom/prielom-12.html#3 (Slovak language)
      * @link http://www.speech.cs.cmu.edu/~sburke/pub/luhn_lib.html (Perl lib)
      */
     function Luhn($number)
+    {
+        return Validate_CA::_luhn($number);
+    }
+
+    /**
+     * Validates a number according to Luhn check algorithm
+     *
+     * This function checks given number according Luhn check
+     * algorithm. It is published on several places, see links:
+     *
+     * @param string $number number to check
+     *
+     * @return bool    TRUE if number is valid, FALSE otherwise
+     * @access protected
+     * @static
+     * @link http://www.webopedia.com/TERM/L/Luhn_formula.html
+     * @link http://www.merriampark.com/anatomycc.htm
+     * @link http://hysteria.sk/prielom/prielom-12.html#3 (Slovak language)
+     * @link http://www.speech.cs.cmu.edu/~sburke/pub/luhn_lib.html (Perl lib)
+     */
+    function _luhn($number)
     {
         $len_number = strlen($number);
         $sum        = 0;
@@ -105,7 +122,7 @@ class Validate_CA
             return false;
         }
 
-        return Validate_CA::Luhn($ssn);
+        return Validate_CA::_luhn($ssn);
     }
 
     /**
@@ -220,36 +237,30 @@ class Validate_CA
      * Can allow only seven digit numbers.
      * Also allows the formats, (xxx) xxx-xxxx, xxx xxx-xxxx,
      * And now x (xxx) xxx-xxxx
-     * or various combination without spaces or dashes.
+     * or various combination without spaces, dashes.
      * THIS SHOULD EVENTUALLY take a FORMAT in the options, instead
      *
-     * @param string $number          phone to validate
-     * @param bool   $requireAreaCode require the area code?
+     * @param string $number       phone to validate
+     * @param bool   $withAreaCode require the area code?
      *
      * @return bool Whether the phone number is valid.
      * @access public
      * @static
      */
-    function phoneNumber($number, $requireAreaCode = true)
+    function phoneNumber($number, $withAreaCode = true)
     {
         if ($number == '') {
             return true;
         }
 
-        if (!$requireAreaCode) {
+        if (!$withAreaCode) {
             // just seven digits, maybe a space or dash
-            if (preg_match('/^[2-9]\d{2}[- ]?\d{4}$/', $number)) {
-                return  true;
-            }
-        } else {
-            // ten digits, maybe  spaces and/or dashes and/or parentheses
-            // maybe a 1 or a 0..
-            $reg = "/^[0-1]?[- ]?(\()?[2-9]\d{2}(?(1)\))[- ]?[2-9]\d{2}[- ]?\d{4}$/";
-            if (preg_match($reg, $number)) {
-                return true;
-            }
+            return (boolean)preg_match('/^[2-9]\d{2}[- ]?\d{4}$/', $number);
         }
-        return false;
+        // ten digits, maybe  spaces and/or dashes and/or parentheses
+        // maybe a 1 or a 0..
+        $reg = '/^[0-1]?[- ]?(\()?[2-9]\d{2}(?(1)\))[- ]?[2-9]\d{2}[- ]?\d{4}$/';
+        return (boolean)preg_match($reg, $number);
     }
 }
 ?>
