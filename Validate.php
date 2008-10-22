@@ -205,6 +205,31 @@ class Validate
         'zm','zw',
     );
 
+    function rfc4151($url){
+        echo  "rfc4141: url '$url'\n";
+        $datevalid = false;
+        if (preg_match(
+            #'/^tag:(.*),(\d{4}-?\d{0,2}-?\d{0,2}):(.*)(.*:)*(#?.*)$/', $url, $matches)) {
+            '/^tag:(?<name>.*),(?<date>\d{4}-?\d{0,2}-?\d{0,2}):(?<specific>.*)(.*:)*$/', $url, $matches)) {
+            $date = $matches['date'];
+            $date6 = strtotime($date);
+            if ((strlen($date) == 4) && $date <= date('Y')) {
+                $datevalid = true;
+            } elseif ((strlen($date) == 7) && ($date6 < strtotime("now"))) {
+                $datevalid = true;
+            } elseif ((strlen($date) == 10) && ($date6 < strtotime("now"))) {
+                $datevalid = true;
+            }
+            if (self::email($matches['name'])) {
+                $namevalid = true;
+            } else {
+                $namevalid = self::email('info@' . $matches['name']);
+            }
+            return $datevalid && $namevalid;
+        } else {
+            return false;
+        }
+    }
 
     /**
      * Validate a number
@@ -607,6 +632,9 @@ class Validate
      */
     function uri($url, $options = null)
     {
+        if (strpos($url, "tag:") === 0) {
+            return self::rfc4151($url);
+        }
         $strict = ';/?:@$,';
         $domain_check = false;
         $allowed_schemes = null;
