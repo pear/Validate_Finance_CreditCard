@@ -206,7 +206,7 @@ class Validate
     );
 
     function rfc4151($url){
-        echo  "rfc4141: url '$url'\n";
+        //echo  "rfc4141: url '$url'\n";
         $datevalid = false;
         if (preg_match(
             #'/^tag:(.*),(\d{4}-?\d{0,2}-?\d{0,2}):(.*)(.*:)*(#?.*)$/', $url, $matches)) {
