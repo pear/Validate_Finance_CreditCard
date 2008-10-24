@@ -205,12 +205,19 @@ class Validate
         'zm','zw',
     );
 
-    function rfc4151($url){
-        //echo  "rfc4141: url '$url'\n";
+    /**
+     * Validate a tag URI (RFC4151)
+     *
+     * @param   string  $uri    Tag URI to validate
+     *
+     * @return  boolean True if valid tag URI, false if not
+     *
+     * @access private
+     */
+    function __uriRFC4151($uri){
         $datevalid = false;
         if (preg_match(
-            #'/^tag:(.*),(\d{4}-?\d{0,2}-?\d{0,2}):(.*)(.*:)*(#?.*)$/', $url, $matches)) {
-            '/^tag:(?<name>.*),(?<date>\d{4}-?\d{0,2}-?\d{0,2}):(?<specific>.*)(.*:)*$/', $url, $matches)) {
+            '/^tag:(?<name>.*),(?<date>\d{4}-?\d{0,2}-?\d{0,2}):(?<specific>.*)(.*:)*$/', $uri, $matches)) {
             $date = $matches['date'];
             $date6 = strtotime($date);
             if ((strlen($date) == 4) && $date <= date('Y')) {
@@ -632,15 +639,20 @@ class Validate
      */
     function uri($url, $options = null)
     {
-        if (strpos($url, "tag:") === 0) {
-            return self::rfc4151($url);
-        }
         $strict = ';/?:@$,';
         $domain_check = false;
         $allowed_schemes = null;
         if (is_array($options)) {
             extract($options);
         }
+        if (is_array($allowed_schemes) &&
+            in_array("tag", $allowed_schemes)
+        ) {
+            if (strpos($url, "tag:") === 0) {
+                return self::__uriRFC4151($url);
+            }
+        }
+
         if (preg_match(
              '&^(?:([a-z][-+.a-z0-9]*):)?                             # 1. scheme
               (?://                                                   # authority start
