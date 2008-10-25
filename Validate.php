@@ -440,9 +440,9 @@ class Validate
     function _fullTLDValidation($email, $options)
     {
         $validate = array();
-        if($options["VALIDATE_ITLD_EMAILS"]) array_push($validate, 'itld');
-        if($options["VALIDATE_GTLD_EMAILS"]) array_push($validate, 'gtld');
-        if($options["VALIDATE_CCTLD_EMAILS"]) array_push($validate, 'cctld');        
+        if(isset($options["VALIDATE_ITLD_EMAILS"])) array_push($validate, 'itld');
+        if(isset($options["VALIDATE_GTLD_EMAILS"])) array_push($validate, 'gtld');
+        if(isset($options["VALIDATE_CCTLD_EMAILS"])) array_push($validate, 'cctld');
 
         $self = new Validate;
 
