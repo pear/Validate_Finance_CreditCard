@@ -219,7 +219,7 @@ class Validate
         $datevalid = false;
         if (preg_match(
             '/^tag:(?<name>.*),(?<date>\d{4}-?\d{0,2}-?\d{0,2}):(?<specific>.*)(.*:)*$/', $uri, $matches)) {
-            $date = $matches['date'];
+            $date  = $matches['date'];
             $date6 = strtotime($date);
             if ((strlen($date) == 4) && $date <= date('Y')) {
                 $datevalid = true;
@@ -262,8 +262,8 @@ class Validate
             extract($options);
         }
 
-        $dec_prec   = $dec_prec ? "{1,$dec_prec}" : '+';
-        $dec_regex  = $decimal  ? "[$decimal][0-9]$dec_prec" : '';
+        $dec_prec  = $dec_prec ? "{1,$dec_prec}" : '+';
+        $dec_regex = $decimal  ? "[$decimal][0-9]$dec_prec" : '';
 
         if (!preg_match("|^[-+]?\s*[0-9]+($dec_regex)?\$|", $number)) {
             return false;
@@ -296,7 +296,7 @@ class Validate
     function __stringToUtf7($string)
     {
         $return = '';
-        $utf7 = array(
+        $utf7   = array(
                         'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K',
                         'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V',
                         'W', 'X', 'Y', 'Z', 'a', 'b', 'c', 'd', 'e', 'f', 'g',
@@ -331,23 +331,23 @@ class Validate
                         }
                     }
                     $return .= '-';
-                    $state = 0;
+                    $state   = 0;
                 } else {
                     switch($state) {
                     case 1:
                         $return .= $utf7[ord($char) >> 2];
                         $residue = (ord($char) & 0x03) << 4;
-                        $state = 2;
+                        $state   = 2;
                         break;
                     case 2:
                         $return .= $utf7[$residue | (ord($char) >> 4)];
                         $residue = (ord($char) & 0x0F) << 2;
-                        $state = 3;
+                        $state   = 3;
                         break;
                     case 3:
                         $return .= $utf7[$residue | (ord($char) >> 6)];
                         $return .= $utf7[ord($char) & 0x3F];
-                        $state = 1;
+                        $state   = 1;
                         break;
                     }
                 }
@@ -371,7 +371,7 @@ class Validate
      */
     function __emailRFC822(&$email, &$options)
     {
-        static $address = null;
+        static $address   = null;
         static $uncomment = null;
         if (!$address) {
             // atom        =  1*<any CHAR except specials, SPACE and CTLs>
@@ -440,9 +440,9 @@ class Validate
     function _fullTLDValidation($email, $options)
     {
         $validate = array();
-        if(isset($options["VALIDATE_ITLD_EMAILS"])) array_push($validate, 'itld');
-        if(isset($options["VALIDATE_GTLD_EMAILS"])) array_push($validate, 'gtld');
-        if(isset($options["VALIDATE_CCTLD_EMAILS"])) array_push($validate, 'cctld');
+        if(!empty($options["VALIDATE_ITLD_EMAILS"])) array_push($validate, 'itld');
+        if(!empty($options["VALIDATE_GTLD_EMAILS"])) array_push($validate, 'gtld');
+        if(!empty($options["VALIDATE_CCTLD_EMAILS"])) array_push($validate, 'cctld');
 
         $self = new Validate;
 
@@ -509,7 +509,7 @@ class Validate
     function email($email, $options = null)
     {
         $check_domain = false;
-        $use_rfc822 = false;
+        $use_rfc822   = false;
         if (is_bool($options)) {
             $check_domain = $options;
         } elseif (is_array($options)) {
@@ -739,15 +739,15 @@ class Validate
                 return false;
             }
 
-            $year   = (int)$matches[4];
-            $months = array('Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
-                            'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec');
-            $month  = array_keys($months, $matches[3]);
-            $month  = (int)$month[0]+1;
-            $day    = (int)$matches[2];
-            $weekday= $matches[1];
-            $hour   = (int)$matches[6];
-            $minute = (int)$matches[7];
+            $year    = (int)$matches[4];
+            $months  = array('Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
+                             'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec');
+            $month   = array_keys($months, $matches[3]);
+            $month   = (int)$month[0]+1;
+            $day     = (int)$matches[2];
+            $weekday = $matches[1];
+            $hour    = (int)$matches[6];
+            $minute  = (int)$matches[7];
             isset($matches[9]) ? $second = (int)$matches[9] : $second = 0;
 
             if ((strlen($year) != 4)        ||
@@ -1032,8 +1032,8 @@ class Validate
                 }
                 continue;
             }
-            $opt = $val_type[$var_name];
-            $methods = get_class_methods('Validate');
+            $opt       = $val_type[$var_name];
+            $methods   = get_class_methods('Validate');
             $val2check = $data[$var_name];
             // core validation method
             if (in_array(strtolower($opt['type']), $methods)) {
@@ -1061,7 +1061,8 @@ class Validate
                     trigger_error("$class isn't installed or you may have some permissoin issues", E_USER_ERROR);
                 }
 
-                $ce = substr(phpversion(), 0, 1) > 4 ? class_exists($class, false) : class_exists($class);
+                $ce = substr(phpversion(), 0, 1) > 4 ?
+                    class_exists($class, false) : class_exists($class);
                 if (!$ce ||
                     !in_array($method, get_class_methods($class))
                 ) {
