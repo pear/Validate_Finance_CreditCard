@@ -215,9 +215,9 @@ Test validate_AU::postalCode
  V 2470                 : OK    OK
  V 1000                 : OK    OK
  V 9999                 : OK    OK
+ V abc                  : KO    KO
  V 800                  : KO    KO
  V 0800                 : OK    OK
- V abc                  : KO    KO
  V a7000                : KO    KO
 ---------
 Test validate_AU::postalCode
