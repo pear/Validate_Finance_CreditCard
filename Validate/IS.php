@@ -158,7 +158,16 @@ class Validate_IS
             return false;
         }
 
-        $dataDir  = !empty($dataDir) ? $dataDir : '@DATADIR@/Validate_IS';
+        if (empty($dataDir)) {
+            $paths = array('@DATADIR@/Validate_IS', dirname(dirname(__FILE__)) . '/data');
+
+            foreach ($paths as $path) {
+                if (file_exists($path)) {
+                    $dataDir = $path;
+                }
+            }
+        }
+        
         $dataFile = $dataDir . "/IS_postcodes.txt";
         /* Same configuration as last time? No need to go further then */
         if (count($postCodes) && $dataFile == $lastFile &&
@@ -237,8 +246,17 @@ class Validate_IS
             }
         }
         
-        $installedData = "@DATADIR@/Validate_IS/IS_gotuskra.txt";
-        $file          = $dataDir ? $dataDir. '/IS_gotuskra.txt' : $installedData;
+        if (empty($dataDir)) {
+            $paths = array('@DATADIR@/Validate_IS', dirname(dirname(__FILE__)) . '/data');
+
+            foreach ($paths as $path) {
+                if (file_exists($path)) {
+                    $dataDir = $path;
+                }
+            }
+        }
+
+        $file          = $dataDir. '/IS_gotuskra.txt';
         
         if ($file != $lastFile) {
             /* Reset cache */
