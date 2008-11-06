@@ -138,8 +138,14 @@ class Validate_CH
             static $postcodes;
 
             if (!isset($postcodes)) {
-                $file      = '@DATADIR@/Validate_CH/CH_postcodes.txt';
-                $postcodes = array_map('trim', file($file));
+                $paths = array('@DATADIR@/Validate_CH/CH_postcodes.txt', 
+                               dirname(dirname(__FILE__)) . '/data/CH_postcodes.txt');
+
+                foreach ($paths as $file) {
+                    if (file_exists($file)) {
+                        $postcodes = array_map('trim', file($file));
+                    }
+                }
             }
 
             return in_array($postcode, $postcodes);
