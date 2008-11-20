@@ -25,10 +25,10 @@
   <email>ken@linux.ie</email>
   <active>yes</active>
  </lead>
- <date>2008-04-11</date>
- <time>00:04:00</time>
+ <date>2008-11-20</date>
+ <time>21:04:00</time>
  <version>
-  <release>1.0.1</release>
+  <release>1.0.2</release>
   <api>1.0.0</api>
  </version>
  <stability>
@@ -37,7 +37,7 @@
  </stability>
  <license uri="http://www.gnu.org/licenses/lgpl.html">LGPL</license>
  <notes>
-* bug fix: #13633 - support for the 089 mobile phone network
+* bug fix: #15097 - package not marked as depending on validate_finance
  </notes>
  <contents>
   <dir name="/">
@@ -73,6 +73,21 @@
  </dependencies>
  <phprelease />
  <changelog>
+  <release>
+   <version>
+    <release>1.0.2</release>
+    <api>1.0.0</api>
+   </version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <date>2008-11-20</date>
+   <license uri="http://www.gnu.org/licenses/lgpl.html">LGPL</license>
+   <notes>
+* bug fix: #15097 - package not marked as depending on validate_finance
+   </notes>
+  </release>
   <release>
    <version>
     <release>1.0.1</release>
