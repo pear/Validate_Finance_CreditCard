@@ -48,6 +48,7 @@ http://pear.php.net/dtd/package-2.0.xsd">
 - Fixed Bug #11823  phpcs/Coding Standards issues highlighted.
 - Avoid two strlen calls on pis() - cosmetic changes
 - PHP test updated
+- add new method pis()
  </notes>
  <contents>
   <dir name="/">
