@@ -3,7 +3,7 @@
 /**
  * Specific validation methods for data used in Brazil
  *
- * PHP Versions 4 and 5
+ * PHP Versions 5
  *
  * This source file is subject to the New BSD license, That is bundled
  * with this package in the file LICENSE, and is available through
@@ -56,7 +56,7 @@ class Validate_ptBR
      *
      * @return  bool true if $cep is ok, false otherwise
      */
-    function postalCode($postalCode, $strong = false)
+    public static function postalCode($postalCode, $strong = false)
     {
          return (bool) preg_match('/^([0-9]{2}\.?[0-9]{3})[- ]?([0-9]{3})$/', addcslashes($postalCode, "\n"));
     }
@@ -68,20 +68,11 @@ class Validate_ptBR
      *
      * @return  bool true if $cpf is ok, false otherwise
      */
-    function cpf($cpf)
+    public static function cpf($cpf)
     {
         if(!preg_match("/^\d{3}\.?\d{3}\.?\d{3}\.?-?\d{2}$/", $cpf)) {  
            return false;
         }
-
-        $cleaned = '';
-        for ($i = 0; $i < strlen($cpf); $i++) {
-            $num = substr($cpf, $i, 1);
-            if (ord($num) >= 48 && ord($num) <= 57) {
-                $cleaned .= $num;
-            }
-        }
-        $cpf = $cleaned;
 
         $cpf = preg_replace("/[^\d]/", '', $cpf);
 
@@ -148,16 +139,19 @@ class Validate_ptBR
      *
      * @return  bool true if $cnpj is ok, false otherwise
      */
-    function cnpj($cnpj)
+    public static function cnpj($cnpj)
     {
-        $cleaned = '';
-        for ($i = 0; $i < strlen($cnpj); $i++) {
-            $num = substr($cnpj, $i, 1);
-            if (ord($num) >= 48 && ord($num) <= 57) {
-                $cleaned .= $num;
-            }
-        }
-        $cnpj = $cleaned;
+        $cnpj = addcslashes($cnpj, "\n");
+       
+        // Valid Format
+        if(!preg_match("/^\d{2}\.?\d{3}\.?\d{3}\/?\d{4}-?\d{2}$/", $cnpj))
+        {
+            return false;
+         }
+
+        // Clear != digit
+        $cnpj = preg_replace("/[^\d]/", '', $cnpj);
+
         if (strlen($cnpj) != 14) {
             return false;
         } elseif ($cnpj == '00000000000000') {
@@ -221,7 +215,7 @@ class Validate_ptBR
      * @return bool  true if $region is ok, false otherwise
      * @static
      */
-    function region($region)
+    public static function region($region)
     {
         switch (strtoupper($region)) {
         case 'AC':
@@ -270,7 +264,7 @@ class Validate_ptBR
      *
      * @return bool The valid or invalid phone number
      */
-    function phoneNumber($number, $requireAreaCode = true)
+    public static function phoneNumber($number, $requireAreaCode = true)
     {
         $number = addcslashes($number, "\n");
         if (!$requireAreaCode) {
@@ -297,7 +291,7 @@ class Validate_ptBR
      *
      * @return bool
      */
-    function carReg($reg)
+    public static function carReg($reg)
     {
         return (bool) preg_match('/^[A-Z]{3}[- ]?[0-9]{4}$/', addcslashes($reg, "\n"));
     }
@@ -315,7 +309,7 @@ class Validate_ptBR
      *
      * @return bool
      */
-    function pis($pis)
+    public static function pis($pis)
     {
         static $sum = 0;
 

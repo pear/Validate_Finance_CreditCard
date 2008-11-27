@@ -1,90 +1,169 @@
-<?xml version="1.0" encoding="ISO-8859-1"?>
-<!DOCTYPE package SYSTEM "http://pear.php.net/dtd/package-1.0">
-<package version="1.0">
-  <name>Validate_ptBR</name>
-  <summary>Validation class for ptBR</summary>
-  <description>Package contains locale validation for ptBR such as:
+<?xml version="1.0" encoding="UTF-8"?>
+<package packagerversion="1.7.2" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0
+http://pear.php.net/dtd/tasks-1.0.xsd
+http://pear.php.net/dtd/package-2.0
+http://pear.php.net/dtd/package-2.0.xsd">
+ <name>Validate_ptBR</name>
+ <channel>pear.php.net</channel>
+ <summary>Validation class for Brazilian Portuguese</summary>
+ <description>Package contains locale validation for Brazilian Portuguese such as:
  * Postal Code
  * CNPJ
  * CPF
  * Region (brazilian states)
  * Phone Number
- * Vehicle's plate
+ * Vehicle&apos;s plate
  * PIS
  </description>
-  <maintainers>
-    <maintainer>
-      <user>silvano</user>
-      <name>Silvano Girardi Jr.</name>
-      <email>silvano@php.net</email>
-      <role>lead</role>
-    </maintainer>
-    <maintainer>
-      <user>msaraujo</user>
-      <name>Marcelo Santos Araujo</name>
-      <email>msaraujo@php.net</email>
-      <role>lead</role>
-    </maintainer>
-  </maintainers>
+ <lead>
+  <name>Silvano Girardi Jr.</name>
+  <user>silvano</user>
+  <email>silvano@php.net</email>
+  <active>yes</active>
+ </lead>
+ <lead>
+  <name>Marcelo Santos Araujo</name>
+  <user>msaraujo</user>
+  <email>msaraujo@php.net</email>
+  <active>yes</active>
+ </lead>
+ <lead>
+  <name>Igor Feghali</name>
+  <user>ifeghali</user>
+  <email>ifeghali@php.net</email>
+  <active>yes</active>
+ </lead>
+ <date>2008-11-26</date>
+ <time>21:11:24</time>
+ <version>
+  <release>0.5.6</release>
+  <api>0.5.6</api>
+ </version>
+ <stability>
+  <release>alpha</release>
+  <api>alpha</api>
+ </stability>
+ <license uri="http://www.opensource.org/licenses/bsd-license.php">New BSD</license>
+ <notes>- Fixed Bug #12783 (thanks to jhenrique)
+- Fixed Bug #11823  phpcs/Coding Standards issues highlighted.
+- Avoid two strlen calls on pis() - cosmetic changes
+- PHP test updated
+ </notes>
+ <contents>
+  <dir name="/">
+   <dir name="tests">
+    <file name="ptBR.phpt" role="test" />
+   </dir> <!-- /tests -->
+   <dir name="Validate">
+    <file name="ptBR.php" role="php" />
+   </dir> <!-- /Validate -->
+   <file name="LICENSE" role="doc" />
+  </dir> <!-- / -->
+ </contents>
+ <dependencies>
+  <required>
+   <php>
+    <min>4.2.0</min>
+   </php>
+   <pearinstaller>
+    <min>1.4.0b1</min>
+   </pearinstaller>
+  </required>
+ </dependencies>
+ <phprelease />
+ <changelog>
   <release>
-    <version>0.5.5</version>
-    <date>2006-07-01</date>
-    <license>New BSD</license>
-    <state>alpha</state>
-    <notes>- add new method pis()</notes>
-    <deps>
-      <dep type="php" rel="ge" version="4.2.0"/>
-    </deps>
-    <filelist>
-      <file role="doc" name="LICENSE"/>
-      <file role="php" name="Validate/ptBR.php"/>
-      <dir name="tests">
-        <file role="test" name="ptBR.phpt"/>
-      </dir>
-    </filelist>
+   <version>
+    <release>0.5.5</release>
+    <api>0.5.5</api>
+   </version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api>
+   </stability>
+   <date>2006-07-01</date>
+   <license uri="http://www.opensource.org/licenses/bsd-license.php">new bsd</license>
+   <notes>- add new method pis()
+   </notes>
   </release>
-  <changelog>
-    <release>
-    <version>0.5.4</version>
-    <date>2006-05-16</date>
-    <license>New BSD</license>
-    <state>alpha</state>
-    <notes>- fix md5sum in the package</notes>
-    </release>
-    <release>
-      <version>0.5.3</version>
-      <date>2006-04-28</date>
-      <license>New BSD</license>
-      <state>alpha</state>
-      <notes>- Fix bug #7474, related to cpf method
-- postalCode with better regexp</notes>
-    </release>
-    <release>
-      <version>0.5.2</version>
-      <date>2005-12-29</date>
-      <license>New BSD</license>
-      <state>alpha</state>
-      <notes>New methods:
-- Regions (brazilian states)
-- Phone Number
-- Vehicle's plate</notes>
-    </release>
-    <release>
-      <version>0.5.1</version>
-      <date>2005-11-04</date>
-      <state>alpha</state>
-      <notes>- Switch to the new BSD License
-(see http://www.opensource.org/licenses/bsd-license.php)</notes>
-    </release>
-    <release>
-      <version>0.5.0</version>
-      <date>2005-05-20</date>
-      <state>alpha</state>
-      <notes>- Split from Validate into independent package
-- CS fixes
-- Fix Bug #3668, usage of $$foo were it should have been $foo
-- BC break!
-postalCode unified between countries (name wise), now all postcode validation funcs are named postalCode</notes>
-    </release>
-  </changelog>
+  <release>
+   <version>
+    <release>0.5.4</release>
+    <api>0.5.4</api>
+   </version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api>
+   </stability>
+   <date>2006-05-16</date>
+   <license uri="http://www.opensource.org/licenses/bsd-license.php">new bsd</license>
+   <notes>- fix md5sum in the package
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>0.5.3</release>
+    <api>0.5.3</api>
+   </version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api>
+   </stability>
+   <date>2006-04-28</date>
+   <license uri="http://www.opensource.org/licenses/bsd-license.php">new bsd</license>
+   <notes>- fix bug #7474, related to cpf method
+- postalcode with better regexp
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>0.5.2</release>
+    <api>0.5.2</api>
+   </version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api>
+   </stability>
+   <date>2005-12-29</date>
+   <license uri="http://www.opensource.org/licenses/bsd-license.php">new bsd</license>
+   <notes>new methods:
+- regions (brazilian states)
+- phone number
+- vehicle&apos;s plate
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>0.5.1</release>
+    <api>0.5.1</api>
+   </version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api>
+   </stability>
+   <date>2005-11-04</date>
+   <license>new bsd</license>
+   <notes>- switch to the new bsd license
+(see http://www.opensource.org/licenses/bsd-license.php)
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>0.5.0</release>
+    <api>0.5.0</api>
+   </version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api>
+   </stability>
+   <date>2005-05-20</date>
+   <license>new bsd</license>
+   <notes>- split from validate into independent package
+- cs fixes
+- fix bug #3668, usage of $$foo were it should have been $foo
+- bc break!
+postalCode unified between countries (name wise), now all postcode validation funcs are named postalCode
+   </notes>
+  </release>
+ </changelog>
 </package>
