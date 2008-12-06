@@ -1,23 +1,21 @@
 <?php
-/* vim: set expandtab tabstop=4 shiftwidth=4: */
-// +----------------------------------------------------------------------+
-// | Copyright (c) 1997-2006 Pierre-Alain Joye,Tomas V.V.Cox, Amir Saied  |
-// +----------------------------------------------------------------------+
-// | This source file is subject to the New BSD license, That is bundled  |
-// | with this package in the file LICENSE, and is available through      |
-// | the world-wide-web at                                                |
-// | http://www.opensource.org/licenses/bsd-license.php                   |
-// | If you did not receive a copy of the new BSDlicense and are unable   |
-// | to obtain it through the world-wide-web, please send a note to       |
-// | pajoye@php.net so we can mail you a copy immediately.                |
-// +----------------------------------------------------------------------+
-// | Author: Tomas V.V.Cox  <cox@idecnet.com>                             |
-// |         Pierre-Alain Joye <pajoye@php.net>                           |
-// |         Amir Mohammad Saied <amir@php.net>                           |
-// +----------------------------------------------------------------------+
-//
 /**
  * Validation class
+ *
+ * Copyright (c) 1997-2006 Pierre-Alain Joye,Tomas V.V.Cox, Amir Saied  
+ *
+ * This source file is subject to the New BSD license, That is bundled  
+ * with this package in the file LICENSE, and is available through      
+ * the world-wide-web at                                                
+ * http://www.opensource.org/licenses/bsd-license.php                   
+ * If you did not receive a copy of the new BSDlicense and are unable   
+ * to obtain it through the world-wide-web, please send a note to       
+ * pajoye@php.net so we can mail you a copy immediately.                
+ *
+ * Author: Tomas V.V.Cox  <cox@idecnet.com>                             
+ *         Pierre-Alain Joye <pajoye@php.net>                           
+ *         Amir Mohammad Saied <amir@php.net>                           
+ *
  *
  * Package to validate various datas. It includes :
  *   - numbers (min/max, decimal or not)
@@ -305,7 +303,9 @@ class Validate
                         '3', '4', '5', '6', '7', '8', '9', '+', ','
                     );
 
+
         $state = 0;
+
         if (!empty($string)) {
             $i = 0;
             while ($i <= strlen($string)) {
@@ -415,6 +415,7 @@ class Validate
             //     address     =  mailbox                      ; one addressee
             //                 /  group                        ; named list
             $address = '/^\s*(?:' . $mailbox . '|' . $group . ')$/';
+
             $uncomment =
             '/((?:(?:\\\\"|[^("])*(?:' . $quoted_string .
                                              ')?)*)((?<!\\\\)\((?:(?2)|.)*?(?<!\\\\)\))/';
@@ -450,6 +451,7 @@ class Validate
 
         foreach ($validate as $valid) {
             $tmpVar = '_' . (string)$valid;
+
             $toValidate[$valid] = $self->{$tmpVar};
         }
 
@@ -522,10 +524,11 @@ class Validate
          */
         if (strpos($email, '@') !== false) {
             list($name, $domain) = explode('@', $email, 2);
+
             // Check if the domain contains characters > 127 which means 
             // it's an idn domain name.
             $chars = count_chars($domain, 1);
-            if (max(array_keys($chars)) > 127) {
+            if (!empty($chars) && max(array_keys($chars)) > 127) {
                 include_once 'Net/IDNA.php';
                 $idna   =& Net_IDNA::singleton();
                 $domain = $idna->encode($domain);
@@ -562,7 +565,7 @@ class Validate
         if ($use_rfc822? Validate::__emailRFC822($email, $options) :
                 preg_match($regex, $email)) {
             if ($check_domain && function_exists('checkdnsrr')) {
-                list ($account, $domain)  = explode('@', $email);
+                list ($account, $domain) = explode('@', $email);
                 if (checkdnsrr($domain, 'MX') || checkdnsrr($domain, 'A')) {
                     return true;
                 }
@@ -589,20 +592,26 @@ class Validate
      */
     function string($string, $options)
     {
-        $format = null;
-        $min_length = $max_length = 0;
+        $format     = null;
+        $min_length = 0;
+        $max_length = 0;
+
         if (is_array($options)) {
             extract($options);
         }
+
         if ($format && !preg_match("|^[$format]*\$|s", $string)) {
             return false;
         }
+
         if ($min_length && strlen($string) < $min_length) {
             return false;
         }
+
         if ($max_length && strlen($string) > $max_length) {
             return false;
         }
+
         return true;
     }
 
@@ -721,8 +730,10 @@ class Validate
      */
     function date($date, $options)
     {
-        $max = $min = false;
+        $max    = false;
+        $min    = false;
         $format = '';
+
         if (is_array($options)) {
             extract($options);
         }
@@ -890,6 +901,16 @@ class Validate
         return true;
     }
 
+    /**
+     * Substr
+     *
+     * @param string &$date Date
+     * @param string $num   Length
+     * @param string $opt   Unknown   
+     *
+     * @access private
+     * @return string
+     */
     function _substr(&$date, $num, $opt = false)
     {
         if ($opt && strlen($date) >= $opt && preg_match('/^[0-9]{'.$opt.'}/', $date, $m)) {
@@ -1023,8 +1044,9 @@ class Validate
      */
     function multiple(&$data, &$val_type, $remove = false)
     {
-        $keys = array_keys($data);
+        $keys  = array_keys($data);
         $valid = array();
+
         foreach ($keys as $var_name) {
             if (!isset($val_type[$var_name])) {
                 if ($remove) {
