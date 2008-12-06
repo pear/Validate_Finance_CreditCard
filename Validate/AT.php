@@ -66,12 +66,19 @@ class Validate_AT
             static $postcodes;
 
             if (!isset($postcodes)) {
-                if ($dataDir != null && (is_file($dataDir . '/AT_postcodes.txt'))) {
-                    $file = $dataDir . '/AT_postcodes.txt';
-                } else {
-                    $file = '@DATADIR@/Validate_AT/AT_postcodes.txt';
+                $paths = array();
+                if (!empty($dataDir)) {
+                    $paths[] = $dataDir . '/AT_postcodes.txt';
                 }
-                $postcodes = array_map('trim', file($file));
+                $paths[] = '@DATADIR@/Validate_AT/AT_postcodes.txt';
+                $paths[] = dirname(dirname(__FILE__)) . '/data/AT_postcodes.txt';
+
+                foreach ($paths as $file) {
+                    if (file_exists($file)) {
+                        $postcodes = array_map('trim', file($file));
+                        break;
+                    }
+                }
             }
 
             return in_array((int)$postcode, $postcodes);
