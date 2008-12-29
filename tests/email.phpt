@@ -16,7 +16,7 @@ $emails = array(
         // with out the dns lookup
         'example@fluffffffrefrffrfrfrfrfrfr.is', // OK
 
-        array('davidc@php.net', array('fullTLDValidation' => VALIDATE_GTLD_EMAILS)),
+        array('davidc@php.net', array('fullTLDValidation' => true, 'VALIDATE_GTLD_EMAILS' => true)),
         array('example (though bad)@example.com', array('use_rfc822' => true)), // OK
         'bugme@not./com', // OK
 
