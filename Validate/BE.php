@@ -178,22 +178,33 @@ class Validate_BE
 
         $postcode = ltrim(ltrim(strtolower($postcode), 'b'), '-');
         if ($strong) {
+            $paths = array();
+            if (!empty($dataDir)) {
+                $paths[] = $dataDir . '/BE_postcodes.txt';
+            }
+            $paths[] = '@DATADIR@/Validate_BE/BE_postcodes.txt';
+            $paths[] = dirname(dirname(__FILE__)) . '/data/BE_postcodes.txt';
+
             if (!isset($postCodeList)) {
-                if ($dataDir != null && (is_file($dataDir . '/BE_postcodes.txt'))) {
-                    $file = $dataDir . '/BE_postcodes.txt';
-                } else {
-                    $file = '@DATADIR@/Validate_BE/BE_postcodes.txt';
+                $file = null;
+                foreach ($paths as $path) {
+                    if (file_exists($path)) {
+                        $file = $path;
+                    }
                 }
+
+                if (empty($file)) {
+                    return false;
+                }
+
                 if (file_exists($file)) {
                     foreach (file($file) as $line) {
                         $postCodeList[] = substr($line, 0, 4);
                     }
-                } else {
-                    return false;
                 }
             }
-            return (bool) ereg('^[1-9][0-9]{3}$', $postcode) && 
-                in_array((int) $postcode, $postCodeList);
+
+            return (bool) in_array((int) $postcode, $postCodeList);
         }
         return (bool) ereg('^[1-9][0-9]{3}$', $postcode);
     }
