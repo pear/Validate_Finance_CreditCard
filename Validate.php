@@ -522,19 +522,26 @@ class Validate
          * Check for IDN usage so we can encode the domain as Punycode
          * before continuing.
          */
-        if (strpos($email, '@') !== false) {
-            list($name, $domain) = explode('@', $email, 2);
+        $hasIDNA = false;
 
-            // Check if the domain contains characters > 127 which means 
-            // it's an idn domain name.
-            $chars = count_chars($domain, 1);
-            if (!empty($chars) && max(array_keys($chars)) > 127) {
-                include_once 'Net/IDNA.php';
-                $idna   =& Net_IDNA::singleton();
-                $domain = $idna->encode($domain);
+        if (@include_once('Net/IDNA.php')) {
+            $hasIDNA = true;
+        }
+
+        if ($hasIDNA === true) {
+            if (strpos($email, '@') !== false) {
+                list($name, $domain) = explode('@', $email, 2);
+
+                // Check if the domain contains characters > 127 which means 
+                // it's an idn domain name.
+                $chars = count_chars($domain, 1);
+                if (!empty($chars) && max(array_keys($chars)) > 127) {
+                    $idna   =& Net_IDNA::singleton();
+                    $domain = $idna->encode($domain);
+                }
+
+                $email = "$name@$domain";
             }
-
-            $email = "$name@$domain";
         }
         
         /**
