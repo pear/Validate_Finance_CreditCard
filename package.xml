@@ -65,6 +65,7 @@
  <license>New BSD</license>
  <notes>
  * Fix Bug #12658: New lines at end of file create output [davidc]
+ * Removed Net_ISDN Dependency
  </notes>
  <contents>
   <dir name="/">
@@ -92,16 +93,16 @@
    <pearinstaller>
     <min>1.4.0b1</min>
    </pearinstaller>
-   <package>
-    <name>Net_IDNA</name>
-    <channel>pear.php.net</channel>
-    <min>0.7.1</min>
-   </package>
   </required>
   <optional>
    <package>
     <name>Date</name>
     <channel>pear.php.net</channel>
+   </package>
+   <package>
+    <name>Net_IDNA</name>
+    <channel>pear.php.net</channel>
+    <min>0.7.1</min>
    </package>
   </optional>
  </dependencies>
@@ -141,7 +142,8 @@
 * Fix Bug #11592: Email validation not working properly [davidc]
 * Fix Bug #12452: EALPHA_LOWER is missing a Ã� [thesaur]
 * Implement Feature #11244: documentation [davidc]
-* Implement Feature #8073: a@a is valid email [amir]</notes>
+* Implement Feature #8073: a@a is valid email [amir]
+* Removed dependency on Net_ISDN [davidc]</notes>
   </release>
   <release>
    <version>
