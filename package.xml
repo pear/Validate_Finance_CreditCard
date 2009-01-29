@@ -37,7 +37,7 @@
  <lead>
   <name>David Coallier</name>
   <user>davidc</user>
-  <email>davidc@agoraproduction.com</email>
+  <email>david@echolibre.com</email>
   <active>yes</active>
  </lead>
  <lead>
@@ -52,8 +52,8 @@
   <email>pear.neufeind@speedpartner.de</email>
   <active>no</active>
  </developer>
- <date>2007-12-12</date>
- <time>14:14:46</time>
+ <date>2009-01-29</date>
+ <time>16:41:30</time>
  <version>
   <release>0.8.1</release>
   <api>0.7.0</api>
@@ -64,8 +64,16 @@
  </stability>
  <license>New BSD</license>
  <notes>
- * Fix Bug #12658: New lines at end of file create output [davidc]
- * Removed Net_ISDN Dependency
+ * Bug #12658: New lines at end of file create output (davidc)
+ * Bug #11001     RFC822 Comments break PCRE (davidc)
+ * Bug #14075     Validate::uri() rejects valid tag: URIs (davidc)
+ * Bug #14866     Notice: Undefined index: VALIDATE_ITLD_EMAILS (amir)
+ * Bug #14931     Warning: max(): Array must contain atleast one element (doconnor)
+ * Doc Bug #14180     Typo in $modulo variable description (amir)
+ * Doc Bug #14046     Docs desperately needed (amir)
+ * Request #956     Validate::email() doesn't allow Internationalized Domain Names (IDN) (davidc)
+ * Request #14791     Improve PHPCS Results [amir]
+ * Removed Net_ISDN Dependency [davidc]
  </notes>
  <contents>
   <dir name="/">
