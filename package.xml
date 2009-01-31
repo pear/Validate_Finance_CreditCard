@@ -55,7 +55,7 @@
  <date>2009-01-29</date>
  <time>16:41:30</time>
  <version>
-  <release>0.8.1</release>
+  <release>0.8.2</release>
   <api>0.7.0</api>
  </version>
  <stability>
@@ -73,7 +73,7 @@
  * Doc Bug #14046     Docs desperately needed (amir)
  * Request #956     Validate::email() doesn't allow Internationalized Domain Names (IDN) (davidc)
  * Request #14791     Improve PHPCS Results [amir]
- * Removed Net_ISDN Dependency [davidc]
+ * Removed Net_IDNA Dependency [davidc]
  </notes>
  <contents>
   <dir name="/">
@@ -151,7 +151,7 @@
 * Fix Bug #12452: EALPHA_LOWER is missing a Ã� [thesaur]
 * Implement Feature #11244: documentation [davidc]
 * Implement Feature #8073: a@a is valid email [amir]
-* Removed dependency on Net_ISDN [davidc]</notes>
+* Removed dependency on Net_IDNA [davidc]</notes>
   </release>
   <release>
    <version>
