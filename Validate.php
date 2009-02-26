@@ -534,7 +534,8 @@ class Validate
 
         if ($hasIDNA === true) {
             if (strpos($email, '@') !== false) {
-                list($name, $domain) = explode('@', $email, 2);
+                $tmpEmail = explode('@', $email);
+                $domain = array_pop($tmpEmail);
 
                 // Check if the domain contains characters > 127 which means 
                 // it's an idn domain name.
@@ -544,7 +545,8 @@ class Validate
                     $domain = $idna->encode($domain);
                 }
 
-                $email = "$name@$domain";
+                array_push($tmpEmail, $domain);
+                $email = implode('@', $tmpEmail);
             }
         }
         
