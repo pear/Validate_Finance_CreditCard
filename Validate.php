@@ -36,6 +36,7 @@
  * @link       http://pear.php.net/package/Validate
  */
 
+// {{{ Constants
 /**
  * Methods for common data validations
  */
@@ -55,6 +56,7 @@ define('VALIDATE_ITLD_EMAILS',  1);
 define('VALIDATE_GTLD_EMAILS',  2);
 define('VALIDATE_CCTLD_EMAILS', 4);
 define('VALIDATE_ALL_EMAILS',   8);
+// }}}
 
 /**
  * Validation class
@@ -79,6 +81,7 @@ define('VALIDATE_ALL_EMAILS',   8);
  */
 class Validate
 {
+    // {{{ International, Generic and Country code TLDs
     /**
      * International Top-Level Domain
      *
@@ -202,6 +205,7 @@ class Validate
         'ye','yt','yu','za',
         'zm','zw',
     );
+    // }}}
 
     /**
      * Validate a tag URI (RFC4151)
