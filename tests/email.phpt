@@ -92,6 +92,7 @@ $emails = array(
         'ip@127.0.0.1]' // NOK
     );
 
+list($version) = explode(".", phpversion(), 2);
 foreach ($emails as $email) {
     if (is_array($email)) {
         echo "{$email[0]}:";
@@ -100,8 +101,16 @@ foreach ($emails as $email) {
         }
         echo ' ' . $noYes[Validate::email($email[0], $email[1])]."\n";
     } else {
-        echo "{$email}: ".
-        $noYes[Validate::email($email)]."\n";
+        echo "{$email}: ";
+        if ((int)$version > 4) {
+            try {
+                echo $noYes[Validate::email($email)]."\n";
+            } catch (Exception $e) {
+                echo $e->getMessage()."\n";
+            }
+        } else {
+            echo $noYes[Validate::email($email)]."\n";
+        }
     }
 }
 ?>
