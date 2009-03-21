@@ -1,45 +1,59 @@
-<?xml version="1.0" encoding="ISO-8859-1" ?>
-<package version="1.0">
-   <name>Validate_NZ</name>
-   <summary>Validation class for NZ</summary>
-   <description>
-       Package containes locale validation for NZ such as:
-        *  IRD numbers
-        *  Regional codes 
-        *  Telephone number 
-        *  Postal code 
-        *  Bank AC
-        *  Vehicle License Plates  
-   </description>
-   <license>New BSD</license>
-   <maintainers>
-       <maintainer>
-           <user>badams</user>
-           <role>lead</role>
-           <name>Byron Adams</name>
-           <email>byron.adams54@gmail.com</email>
-       </maintainer>
-   </maintainers>
-    <release>
-       <version>0.1.2</version>
-       <state>alpha</state>
-       <date>2006-08-11</date>
-       <notes>new method CarReg
-       </notes>
-	   <filelist>
-           <dir name="/">
-               <file role="doc" name="LICENSE" />
-               <dir name="Validate">
-                   <file role="php" name="NZ.php"></file>
-               </dir>
-               <dir name="tests" role="test">
-                   <file>Validate_NZ.phpt</file>
-               </dir>
-           </dir>
-       </filelist>
-       <deps>
-           <dep type="php" rel="ge" version="4.2.0" />
-       </deps>
-    </release>
+<?xml version="1.0" encoding="UTF-8"?>
+<package packagerversion="1.8.0alpha1" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0
+http://pear.php.net/dtd/tasks-1.0.xsd
+http://pear.php.net/dtd/package-2.0
+http://pear.php.net/dtd/package-2.0.xsd">
+ <name>Validate_NZ</name>
+ <channel>pear.php.net</channel>
+ <summary>Validation class for NZ</summary>
+ <description>Package containes locale validation for NZ such as:
+ *  IRD numbers
+ *  Regional codes 
+ *  Telephone number 
+ *  Postal code 
+ *  Bank AC
+ *  Vehicle License Plates  
+ </description>
+ <lead>
+  <name>Byron Adams</name>
+  <user>badams</user>
+  <email>byron.adams54@gmail.com</email>
+  <active>yes</active>
+ </lead>
+ <date>2009-03-21</date>
+ <time>23:38:49</time>
+ <version>
+  <release>0.1.2</release>
+  <api>0.1.2</api>
+ </version>
+ <stability>
+  <release>alpha</release>
+  <api>alpha</api>
+ </stability>
+ <license>New BSD</license>
+ <notes>
+new method CarReg
+ </notes>
+ <contents>
+  <dir name="/">
+   <dir name="tests">
+    <file name="Validate_NZ.phpt" role="test" />
+   </dir> <!-- /tests -->
+   <dir name="Validate">
+    <file name="NZ.php" role="php" />
+   </dir> <!-- /Validate -->
+   <file name="LICENSE" role="doc" />
+  </dir> <!-- / -->
+ </contents>
+ <dependencies>
+  <required>
+   <php>
+    <min>4.2.0</min>
+   </php>
+   <pearinstaller>
+    <min>1.4.0b1</min>
+   </pearinstaller>
+  </required>
+ </dependencies>
+ <phprelease />
 </package>
-
