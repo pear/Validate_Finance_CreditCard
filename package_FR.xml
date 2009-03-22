@@ -1,103 +1,126 @@
-<?xml version="1.0" encoding="ISO-8859-1"?>
-<package version="1.0">
-  <name>Validate_FR</name>
-  <summary>Validation class for FR</summary>
-  <description>
-Package containes locale validation for FR such as:
+<?xml version="1.0" encoding="UTF-8"?>
+<package packagerversion="1.7.2" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0
+http://pear.php.net/dtd/tasks-1.0.xsd
+http://pear.php.net/dtd/package-2.0
+http://pear.php.net/dtd/package-2.0.xsd">
+ <name>Validate_FR</name>
+ <channel>pear.php.net</channel>
+ <summary>Validation class for FR</summary>
+ <description>Package containes locale validation for FR such as:
  * SSN
  * Postal Code
  * RIB
  * SIREN
  * SIRET
  * Region (Departements)
-  </description>
-  <license>New BSD</license>
-  <maintainers>
-    <maintainer>
-      <user>moosh</user>
-      <role>lead</role>
-      <name>Christophe Gesch&#233;</name>
-      <email>moosh@php.net</email>
-    </maintainer>
-    <maintainer>
-      <user>toggg</user>
-      <role>lead</role>
-      <name>bertrand Gugger</name>
-      <email>toggg@php.net</email>
-    </maintainer>
-  </maintainers>
+  
+ </description>
+ <lead>
+  <name>Christophe Gesché</name>
+  <user>moosh</user>
+  <email>moosh@php.net</email>
+  <active>yes</active>
+ </lead>
+ <lead>
+  <name>bertrand Gugger</name>
+  <user>toggg</user>
+  <email>toggg@php.net</email>
+  <active>yes</active>
+ </lead>
+ <date>2009-03-22</date>
+ <time>01:14:06</time>
+ <version>
+  <release>0.6.0</release>
+  <api>0.6.0</api>
+ </version>
+ <stability>
+  <release>beta</release>
+  <api>beta</api>
+ </stability>
+ <license>New BSD</license>
+ <notes>- release in beta
+- Moosh take lead
+ </notes>
+ <contents>
+  <dir name="/">
+   <dir name="tests">
+    <file name="bug7389.phpt" role="test" />
+    <file name="validate_FR.phpt" role="test" />
+    <file name="validate_functions.inc" role="test" />
+   </dir> <!-- /tests -->
+   <dir name="Validate">
+    <file name="FR.php" role="php" />
+   </dir> <!-- /Validate -->
+   <file name="LICENSE" role="doc" />
+  </dir> <!-- / -->
+ </contents>
+ <dependencies>
+  <required>
+   <php>
+    <min>4.2.0</min>
+   </php>
+   <pearinstaller>
+    <min>1.4.0b1</min>
+   </pearinstaller>
+   <package>
+    <name>Validate</name>
+    <channel>pear.php.net</channel>
+    <min>0.6.2</min>
+   </package>
+  </required>
+ </dependencies>
+ <phprelease />
+ <changelog>
   <release>
-    <version>0.6.0</version>
-    <state>beta</state>
-    <date>2006-10-05</date>
-    <notes>
-     - release in beta
-     - Moosh take lead
-    </notes>
-    <filelist>
-      <dir name="/">
-        <file role="doc" name="LICENSE"/>
-        <dir name="Validate">
-          <file role="php">FR.php</file>
-        </dir>
-        <dir name="tests" role="test">
-          <file>validate_functions.inc</file>
-          <file>validate_FR.phpt</file>
-          <file>bug7389.phpt</file>
-        </dir>
-      </dir>
-    </filelist>
-    <deps>
-      <dep type="php" rel="ge" version="4.2.0"/>
-      <dep type="pkg" rel="ge" version="0.6.2">Validate</dep>
-    </deps>
+   <version>
+    <release>0.5.2</release>
+    <api>0.5.2</api>
+   </version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api>
+   </stability>
+   <date>2006-04-18</date>
+   <license>New BSD</license>
+   <notes>- bug #7389, DOM/TOM and some regions are not recognized
+   </notes>
   </release>
-  <changelog>
   <release>
-    <version>0.5.2</version>
-    <state>alpha</state>
-    <date>2006-04-18</date>
-    <notes>
-- bug #7389, DOM/TOM and some regions are not recognized</notes>
-    <filelist>
-      <dir name="/">
-        <file role="doc" name="LICENSE"/>
-        <dir name="Validate">
-          <file role="php">FR.php</file>
-        </dir>
-        <dir name="tests" role="test">
-          <file>validate_FR.phpt</file>
-          <file>bug7389.phpt</file>
-        </dir>
-      </dir>
-    </filelist>
-    <deps>
-      <dep type="php" rel="ge" version="4.2.0"/>
-      <dep type="pkg" rel="ge" version="0.6.2">Validate</dep>
-    </deps>
-  </release>
-    <release>
-      <version>0.5.1</version>
-      <state>alpha</state>
-      <date>2005-11-04</date>
-      <notes>
-- Switch to the new BSD License
+   <version>
+    <release>0.5.1</release>
+    <api>0.5.1</api>
+   </version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api>
+   </stability>
+   <date>2005-11-04</date>
+   <license>New BSD</license>
+   <notes>- Switch to the new BSD License
 (see http://www.opensource.org/licenses/bsd-license.php)
-    </notes>
-    </release>
-    <release>
-      <version>0.5.0</version>
-      <state>alpha</state>
-      <date>2005-05-20</date>
-      <notes>
-- Split from Validate into independent package
+    
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>0.5.0</release>
+    <api>0.5.0</api>
+   </version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api>
+   </stability>
+   <date>2005-05-20</date>
+   <license>New BSD</license>
+   <notes>- Split from Validate into independent package
 - CS fixes
 - BC break!
 postalCode unified between countries (name wise), now all postcode validation funcs are named postalCode
 - added region() (departments) and postalCode
 - fixed rib calculation
 - bertrand Gugger added as lead/maintainer
-    </notes>
-    </release>
-  </changelog>
+    
+   </notes>
+  </release>
+ </changelog>
 </package>

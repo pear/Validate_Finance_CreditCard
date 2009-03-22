@@ -1,9 +1,12 @@
-<?xml version="1.0" encoding="ISO-8859-1" ?>
-<package version="1.0">
+<?xml version="1.0" encoding="UTF-8"?>
+<package packagerversion="1.7.2" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0
+http://pear.php.net/dtd/tasks-1.0.xsd
+http://pear.php.net/dtd/package-2.0
+http://pear.php.net/dtd/package-2.0.xsd">
  <name>Validate_BE</name>
+ <channel>pear.php.net</channel>
  <summary>Validation class for Belgium</summary>
- <description>
-Package containes locale validation for Belgium such as:
+ <description>Package containes locale validation for Belgium such as:
  * Postal Code
  * Bank Account Number
  * Structured Bank Transfer message
@@ -11,103 +14,146 @@ Package containes locale validation for Belgium such as:
  * VAT
  * Natitonal ID
  * Identity Card Number (not ready)
- * SIS CARD ID (belgian "s&#233;curit&#233; sociale" ID)
+ * SIS CARD ID (belgian &quot;sécurité sociale&quot; ID)
+ 
  </description>
+ <lead>
+  <name>Christophe Gesché</name>
+  <user>moosh</user>
+  <email>moosh@claroline.net</email>
+  <active>yes</active>
+ </lead>
+ <lead>
+  <name>bertrand Gugger</name>
+  <user>toggg</user>
+  <email>toggg@php.net</email>
+  <active>yes</active>
+ </lead>
+ <helper>
+  <name>Frederic Minne</name>
+  <user>zefredz</user>
+  <email>zefredz@php.net</email>
+  <active>yes</active>
+ </helper>
+ <date>2009-03-22</date>
+ <time>01:14:36</time>
+ <version>
+  <release>0.1.3</release>
+  <api>0.1.3</api>
+ </version>
+ <stability>
+  <release>beta</release>
+  <api>beta</api>
+ </stability>
  <license>New BSD</license>
- <maintainers>
-  <maintainer>
-    <user>moosh</user>
-    <role>lead</role>
-    <name>Christophe Gesch&#233;</name>
-    <email>moosh@claroline.net</email>
-  </maintainer>
-  <maintainer>
-    <user>zefredz</user>
-    <role>helper</role>
-    <name>Frederic Minne</name>
-    <email>zefredz@php.net</email>
-  </maintainer>
-  <maintainer>
-    <user>toggg</user>
-    <role>lead</role>
-    <name>bertrand Gugger</name>
-    <email>toggg@php.net</email>
-  </maintainer>
- </maintainers>
- <release>
-  <version>0.1.3</version>
-  <state>beta</state>
-  <date>2006-08-06</date>
-  <notes>
-  * ready for beta state
-  </notes>
+ <notes>* ready for beta state
+
+ </notes>
+ <contents>
+  <dir name="/">
+   <dir name="data">
+    <file name="BE_postcodes.txt" role="data" />
+   </dir> <!-- /data -->
+   <dir name="docs">
+    <file name="Validate_BE.txt" role="doc" />
+   </dir> <!-- /docs -->
+   <dir name="tests">
+    <file name="validate_BE_bank_codes.phpt" role="test" />
+    <file name="validate_BE_bank_transfer_message.phpt" role="test" />
+    <file name="validate_BE_national_id.phpt" role="test" />
+    <file name="validate_BE_phone_numbers.phpt" role="test" />
+    <file name="validate_BE_post_code.phpt" role="test" />
+    <file name="validate_BE_post_code_strong.phpt" role="test" />
+    <file name="validate_BE_ssn.phpt" role="test" />
+    <file name="validate_BE_vat.phpt" role="test" />
+    <file name="validate_functions.inc" role="test" />
+   </dir> <!-- /tests -->
+   <dir name="Validate">
+    <file name="BE.php" role="php">
+     <tasks:replace from="@DATADIR@" to="data_dir" type="pear-config" />
+    </file>
+   </dir> <!-- /Validate -->
+   <file name="LICENSE" role="doc" />
+  </dir> <!-- / -->
+ </contents>
+ <dependencies>
+  <required>
+   <php>
+    <min>4.2.0</min>
+   </php>
+   <pearinstaller>
+    <min>1.4.0b1</min>
+   </pearinstaller>
+   <package>
+    <name>Validate</name>
+    <channel>pear.php.net</channel>
+    <min>0.5.0</min>
+   </package>
+  </required>
+ </dependencies>
+ <phprelease>
   <filelist>
-   <dir name="/">
-    <file role="doc" name="LICENSE" />
-    <dir name="Validate">
-     <file role="php" name="BE.php">
-      <replace type="pear-config" from="@DATADIR@" to="data_dir" />
-     </file>
-    </dir>
-    <dir name="tests" role="test">
-     <file>validate_functions.inc</file>
-     <file>validate_BE_bank_codes.phpt</file>
-     <file>validate_BE_bank_transfer_message.phpt</file>
-     <file>validate_BE_national_id.phpt</file>
-     <file>validate_BE_phone_numbers.phpt</file>
-     <file>validate_BE_post_code.phpt</file>
-     <file>validate_BE_post_code_strong.phpt</file>
-     <file>validate_BE_ssn.phpt</file>
-     <file>validate_BE_vat.phpt</file>
-    </dir>
-    <dir name="docs" role="doc">
-     <file>Validate_BE.txt</file>
-    </dir>
-    <file role="data" name="data/BE_postcodes.txt" install-as="BE_postcodes.txt" />
-   </dir>
+   <install as="BE_postcodes.txt" name="data/BE_postcodes.txt" />
   </filelist>
-  <deps>
-   <dep type="php" rel="ge" version="4.2.0" />
-   <dep type="pkg" rel="ge" version="0.5.0">Validate</dep>
-  </deps>
- </release>
+ </phprelease>
  <changelog>
- <release>
-  <version>0.1.2</version>
-  <state>alpha</state>
-  <date>2005-11-04</date>
-  <notes>
-- Switch to the new BSD License
-(see http://www.opensource.org/licenses/bsd-license.php)
-  </notes>
- </release>
   <release>
-  <version>0.1.1</version>
-  <state>alpha</state>
-  <date>2005-09-30</date>
-  <notes>
-  * Add new method to validate structured Bank Transfert Messages
-  * Add new method to validate nationalId
-  * Fixed CS
-  * Fixed check phone was bug for mobil begining with 04
-  * split test files on per method
-  * toggg and moosh now co-leads
-  </notes>
+   <version>
+    <release>0.1.2</release>
+    <api>0.1.2</api>
+   </version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api>
+   </stability>
+   <date>2005-11-04</date>
+   <license>New BSD</license>
+   <notes>- Switch to the new BSD License
+(see http://www.opensource.org/licenses/bsd-license.php)
+  
+   </notes>
   </release>
- <release>
-  <version>0.1.0</version>
-  <state>alpha</state>
-  <date>2005-01-30</date>
-  <notes>
-  * first release 0.1.0
-    -Done- Post Code
-    -Done- Bank Account Number
-    -Todo- Transfer message (transfer from an bank account to another)
-    -Done- VAT
-    -Done- Natitonal ID
-    -Todo- Identity Card Number
-    -Done- SIS CARD ID (belgian "s&#233;curit&#233; sociale" ID)
-  </notes>
- </release>
+  <release>
+   <version>
+    <release>0.1.1</release>
+    <api>0.1.1</api>
+   </version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api>
+   </stability>
+   <date>2005-09-30</date>
+   <license>New BSD</license>
+   <notes>* Add new method to validate structured Bank Transfert Messages
+* Add new method to validate nationalId
+* Fixed CS
+* Fixed check phone was bug for mobil begining with 04
+* split test files on per method
+* toggg and moosh now co-leads
+
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>0.1.0</release>
+    <api>0.1.0</api>
+   </version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api>
+   </stability>
+   <date>2005-01-30</date>
+   <license>New BSD</license>
+   <notes>* first release 0.1.0
+  -Done- Post Code
+  -Done- Bank Account Number
+  -Todo- Transfer message (transfer from an bank account to another)
+  -Done- VAT
+  -Done- Natitonal ID
+  -Todo- Identity Card Number
+  -Done- SIS CARD ID (belgian &quot;sécurité sociale&quot; ID)
+
+   </notes>
+  </release>
  </changelog>
 </package>

@@ -1,58 +1,93 @@
-<?xml version="1.0" encoding="ISO-8859-1" ?>
-<package version="1.0">
-  <name>Validate_ZA</name>
-  <summary>Validation class for ZA</summary>
-  <description>
-Package containes locale validation for ZA such as:
+<?xml version="1.0" encoding="UTF-8"?>
+<package packagerversion="1.7.2" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0
+http://pear.php.net/dtd/tasks-1.0.xsd
+http://pear.php.net/dtd/package-2.0
+http://pear.php.net/dtd/package-2.0.xsd">
+ <name>Validate_ZA</name>
+ <channel>pear.php.net</channel>
+ <summary>Validation class for ZA</summary>
+ <description>Package containes locale validation for ZA such as:
  * Postal Code
  * Region (province)
  * SSN
-  </description>
-  <license>New BSD</license>
-  <maintainers>
-    <maintainer>
-      <user>jacques</user>
-      <role>lead</role>
-      <name>Jacques Marneweck</name>
-      <email>jacques@php.net</email>
-    </maintainer>
-   </maintainers>
-   <release>
-    <version>0.2.1</version>
-    <state>alpha</state>
-    <date>2005-11-04</date>
-    <notes>
-- Switch to the new BSD License
+  
+ </description>
+ <lead>
+  <name>Jacques Marneweck</name>
+  <user>jacques</user>
+  <email>jacques@php.net</email>
+  <active>yes</active>
+ </lead>
+ <date>2009-03-22</date>
+ <time>01:10:09</time>
+ <version>
+  <release>0.2.1</release>
+  <api>0.2.1</api>
+ </version>
+ <stability>
+  <release>alpha</release>
+  <api>alpha</api>
+ </stability>
+ <license>New BSD</license>
+ <notes>- Switch to the new BSD License
 (see http://www.opensource.org/licenses/bsd-license.php)
-    </notes>
-    <filelist>
-    <dir name="/">
-      <file role="doc" name="LICENSE" />
-      <dir name="Validate">
-        <file role="php" name="ZA.php">
-          <replace type="pear-config" from="@DATADIR@" to="data_dir" />
-        </file>
-      </dir>
-      <dir name="tests" role="test">
-        <file>validate_ZA.phpt</file>
-      </dir>
-      <file role="data" name="data/ZA_postcodes.txt" install-as="ZA_postcodes.txt" />
-    </dir>
-    </filelist>
-    <deps>
-      <dep type="php" rel="ge" version="4.2.0" />
-      <dep type="pkg" rel="ge" version="0.5.0">Validate</dep>
-      <dep type="pkg" rel="ge" version="0.5.0">Validate_Finance_CreditCard</dep>
-    </deps>
+    
+ </notes>
+ <contents>
+  <dir name="/">
+   <dir name="data">
+    <file name="ZA_postcodes.txt" role="data" />
+   </dir> <!-- /data -->
+   <dir name="tests">
+    <file name="validate_ZA.phpt" role="test" />
+   </dir> <!-- /tests -->
+   <dir name="Validate">
+    <file name="ZA.php" role="php">
+     <tasks:replace from="@DATADIR@" to="data_dir" type="pear-config" />
+    </file>
+   </dir> <!-- /Validate -->
+   <file name="LICENSE" role="doc" />
+  </dir> <!-- / -->
+ </contents>
+ <dependencies>
+  <required>
+   <php>
+    <min>4.2.0</min>
+   </php>
+   <pearinstaller>
+    <min>1.4.0b1</min>
+   </pearinstaller>
+   <package>
+    <name>Validate</name>
+    <channel>pear.php.net</channel>
+    <min>0.5.0</min>
+   </package>
+   <package>
+    <name>Validate_Finance_CreditCard</name>
+    <channel>pear.php.net</channel>
+    <min>0.5.0</min>
+   </package>
+  </required>
+ </dependencies>
+ <phprelease>
+  <filelist>
+   <install as="ZA_postcodes.txt" name="data/ZA_postcodes.txt" />
+  </filelist>
+ </phprelease>
+ <changelog>
+  <release>
+   <version>
+    <release>0.2.0</release>
+    <api>0.2.0</api>
+   </version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api>
+   </stability>
+   <date>2005-03-10</date>
+   <license>New BSD</license>
+   <notes>First release
+   </notes>
   </release>
-  <changelog>
-   <release>
-    <version>0.2.0</version>
-    <state>alpha</state>
-    <date>2005-03-10</date>
-    <notes>
-        First release
-    </notes>
-  </release>
-  </changelog>
+ </changelog>
 </package>
