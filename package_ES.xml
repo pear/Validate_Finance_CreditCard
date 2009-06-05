@@ -14,12 +14,12 @@ http://pear.php.net/dtd/package-2.0.xsd">
   <name>Tomas V.V.Cox</name>
   <user>cox</user>
   <email>cox@idecnet.com</email>
-  <active>yes</active>
+  <active>no</active>
  </lead>
  <date>2009-03-22</date>
  <time>01:14:21</time>
  <version>
-  <release>0.5.1</release>
+  <release>0.5.2</release>
   <api>0.5.1</api>
  </version>
  <stability>
@@ -27,8 +27,11 @@ http://pear.php.net/dtd/package-2.0.xsd">
   <api>alpha</api>
  </stability>
  <license>New BSD</license>
- <notes>- Switch to the new BSD License
-(see http://www.opensource.org/licenses/bsd-license.php)
+ <notes>
+QA release
+Updated to package 2.0
+Bug #9084 Validate_ES::dni wrong use of function arguments
+Bug #4660 La validación es incorrecta.
     
  </notes>
  <contents>
@@ -70,6 +73,21 @@ http://pear.php.net/dtd/package-2.0.xsd">
    <notes>- Split from Validate into independent package
 - CS fixes
     
+   </notes>
+  </release>
+  <release>
+   <version>
+    <release>0.5.1</release>
+    <api>0.5.0</api>
+   </version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api>
+   </stability>
+   <date>2005-11-04</date>
+   <license>New BSD</license>
+   <notes>Swapped to BSD licence
+
    </notes>
   </release>
  </changelog>
