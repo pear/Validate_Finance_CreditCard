@@ -219,8 +219,8 @@ class Validate_World
         }
         $last = $locale;
         $ret = array();
-       	if (!empty($locale) && is_string($locale)) {
-       	    $locale = array($locale);
+        if (!empty($locale) && is_string($locale)) {
+            $locale = array($locale);
         }
         $dh = opendir(dirname(__FILE__));
         if ($dh) {

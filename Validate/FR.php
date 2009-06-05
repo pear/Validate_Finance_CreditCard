@@ -81,7 +81,7 @@ class Validate_FR
         // special case for Corsica and DOM not 100% sure, but cannot test 
         // from a db :)
         if ($parts[4] == '2a' || $parts[4] == '2b' || $parts[4] == '9a' ||
-        	$parts[4] == '9b' || $parts[4] == '9c' || $parts[4] == '9d') {
+            $parts[4] == '9b' || $parts[4] == '9c' || $parts[4] == '9d') {
             if (strlen($str) == 15) {
                 return true;
             } else {

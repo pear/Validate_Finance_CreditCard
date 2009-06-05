@@ -115,10 +115,10 @@ class Validate_LV {
         // (in 2000 there is the February 29th, in 1900 isn't)
         // In fact everything between 4 and 324 would match
         $validDate = checkdate(substr($personId, 2, 2), substr($personId, 0, 2), '20' . substr($personId, 4, 2));
-		if (!$validDate)
-		{
-			return false;
-		}
+        if (!$validDate)
+        {
+            return false;
+        }
         
 
         // Checking last digit
@@ -214,7 +214,7 @@ class Validate_LV {
      */
     function personName($name, $length = 50) {
         $length--;
-        return ereg('^([A-Z]|Ē|Ū|Ī|Ā|Š|Ģ|Ķ|Ļ|Ž|Č|Ņ)[a-zA-ZēūīāšģķļžčņĒŪĪĀŠĢĶĻŽČŅ -]{1,'.$length.'}$',$name);	
+        return ereg('^([A-Z]|Ē|Ū|Ī|Ā|Š|Ģ|Ķ|Ļ|Ž|Č|Ņ)[a-zA-ZēūīāšģķļžčņĒŪĪĀŠĢĶĻŽČŅ -]{1,'.$length.'}$',$name);    
     }
 
 }
