@@ -49,7 +49,7 @@ define('VALIDATE_EALPHA_LOWER', VALIDATE_ALPHA_LOWER . 'αινσϊύΰθμςωδλοφόÿβκξτϋγρ
 define('VALIDATE_EALPHA_UPPER', VALIDATE_ALPHA_UPPER . 'ΑΙΝΣΪέΐΘΜÒΩΔΛΟΦάΎΒΚΞΤΫΓΡΥ¦ΕΖΗΌΠΨή');
 define('VALIDATE_EALPHA',       VALIDATE_EALPHA_LOWER . VALIDATE_EALPHA_UPPER);
 define('VALIDATE_PUNCTUATION',  VALIDATE_SPACE . '\.,;\:&"\'\?\!\(\)');
-define('VALIDATE_NAME',         VALIDATE_EALPHA . VALIDATE_SPACE . "'" . "-");
+define('VALIDATE_NAME',         VALIDATE_EALPHA . VALIDATE_SPACE . "'" . '\-');
 define('VALIDATE_STREET',       VALIDATE_NUM . VALIDATE_NAME . "/\\Ίͺ\.");
 
 define('VALIDATE_ITLD_EMAILS',  1);
