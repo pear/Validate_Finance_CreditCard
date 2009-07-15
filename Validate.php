@@ -578,7 +578,7 @@ class Validate
         if ($use_rfc822? Validate::__emailRFC822($email, $options) :
                 preg_match($regex, $email)) {
             if ($check_domain && function_exists('checkdnsrr')) {
-                list ($account, $domain) = explode('@', $email);
+                $domain = preg_replace('/[^-a-z.0-9]/i', '', array_pop(explode('@', $email)));
                 if (checkdnsrr($domain, 'MX') || checkdnsrr($domain, 'A')) {
                     return true;
                 }
