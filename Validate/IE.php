@@ -495,9 +495,8 @@ class Validate_IE
             $d   = substr($vat, 2);
             $new = "0" . substr($d, 2, 5) . substr($d, 0, 1) . substr($d, 7, 1);
             return Validate_IE::checkMOD23($new);
-        } else {
-            return false;
         }
+        return false;
     }
     // }}}
 }
