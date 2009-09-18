@@ -26,7 +26,7 @@ http://pear.php.net/dtd/package-2.0.xsd">
  <date>2009-03-21</date>
  <time>23:43:45</time>
  <version>
-  <release>0.0.1</release>
+  <release>0.0.2</release>
   <api>0.0.1</api>
  </version>
  <stability>
@@ -40,11 +40,13 @@ Validation class for Argentina
  - Postal Code
  </notes>
  <contents>
-  <dir name="/">
+  <dir baseinstalldir="/" name="/">
    <dir name="Validate">
     <file name="AR.php" role="php" />
    </dir> <!-- //Validate -->
    <file name="LICENSE" role="doc" />
+   <file name="tests/validate_AR_postal_code.phpt" role="test" />
+   <file name="tests/validate_AR_region.phpt" role="test" />
   </dir> <!-- / -->
  </contents>
  <dependencies>
@@ -53,7 +55,7 @@ Validation class for Argentina
     <min>4.2.0</min>
    </php>
    <pearinstaller>
-    <min>1.4.0b1</min>
+    <min>1.6.1</min>
    </pearinstaller>
   </required>
  </dependencies>
