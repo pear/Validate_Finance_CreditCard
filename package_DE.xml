@@ -17,23 +17,23 @@ http://pear.php.net/dtd/package-2.0.xsd">
   <email>pear.neufeind@speedpartner.de</email>
   <active>yes</active>
  </lead>
- <date>2009-03-22</date>
+ <date>2009-09-21</date>
  <time>01:07:51</time>
  <version>
-  <release>0.5.1</release>
-  <api>0.5.1</api>
+  <release>0.5.2</release>
+  <api>0.5.2</api>
  </version>
  <stability>
   <release>alpha</release>
   <api>alpha</api>
  </stability>
  <license>New BSD</license>
- <notes>- Switch to the new BSD License
-(see http://www.opensource.org/licenses/bsd-license.php)
-    
+ <notes>
+ QA release
+ Updated to Package 2.0
  </notes>
  <contents>
-  <dir name="/">
+  <dir baseinstalldir="/" name="/">
    <dir name="tests">
     <file name="validate_DE.phpt" role="test" />
    </dir> <!-- /tests -->
@@ -46,10 +46,10 @@ http://pear.php.net/dtd/package-2.0.xsd">
  <dependencies>
   <required>
    <php>
-    <min>4.1.0</min>
+    <min>4.4.0</min>
    </php>
    <pearinstaller>
-    <min>1.4.0b1</min>
+    <min>1.7.0</min>
    </pearinstaller>
   </required>
  </dependencies>
