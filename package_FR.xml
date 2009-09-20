@@ -25,9 +25,9 @@ http://pear.php.net/dtd/package-2.0.xsd">
   <name>bertrand Gugger</name>
   <user>toggg</user>
   <email>toggg@php.net</email>
-  <active>yes</active>
+  <active>no</active>
  </lead>
- <date>2009-03-22</date>
+ <date>2009-09-21</date>
  <time>01:14:06</time>
  <version>
   <release>0.6.0</release>
@@ -38,11 +38,14 @@ http://pear.php.net/dtd/package-2.0.xsd">
   <api>beta</api>
  </stability>
  <license>New BSD</license>
- <notes>- release in beta
-- Moosh take lead
+ <notes>
+ QA release
+ - release in beta
+ - Moosh take lead
+ - Updated to package 2.0 (doconnor)
  </notes>
  <contents>
-  <dir name="/">
+  <dir baseinstalldir="/" name="/">
    <dir name="tests">
     <file name="bug7389.phpt" role="test" />
     <file name="validate_FR.phpt" role="test" />
@@ -57,10 +60,10 @@ http://pear.php.net/dtd/package-2.0.xsd">
  <dependencies>
   <required>
    <php>
-    <min>4.2.0</min>
+    <min>4.4.0</min>
    </php>
    <pearinstaller>
-    <min>1.4.0b1</min>
+    <min>1.7.0</min>
    </pearinstaller>
    <package>
     <name>Validate</name>
