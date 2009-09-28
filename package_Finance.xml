@@ -37,6 +37,7 @@ http://pear.php.net/dtd/package-2.0.xsd">
  <notes>
 - changed license to PHP 3.01
 - coding-style fixes
+- code-improvements from #13007 submitted by kguest as part of a patch
 - IBAN: dropped support for CS (Serbia and Montenegro) - no longer exists
 - IBAN: added support for IL (Israel), MC (Monaco), ME (Montenegro), MU (Mauritius), SM (San Marino), RS (Serbia)
  </notes>
@@ -87,6 +88,7 @@ http://pear.php.net/dtd/package-2.0.xsd">
    <notes>
 - changed license to PHP 3.01
 - coding-style fixes
+- code-improvements from #13007 submitted by kguest as part of a patch
 - IBAN: dropped support for CS (Serbia and Montenegro) - no longer exists
 - IBAN: added support for IL (Israel), MC (Monaco), ME (Montenegro), MU (Mauritius), SM (San Marino), RS (Serbia)
    </notes>

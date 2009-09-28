@@ -470,15 +470,18 @@ class Validate_Finance_IBAN
             $_iban_countrycode_regex = Validate_Finance_IBAN::_getCountrycodeRegex();
         }
 
+        // 2 character abbreviation at start of IBAN - the country code
+        $abbrev = substr($iban, 0, 2);
+
         if (strlen($iban) <= 4) {
             $errorcode = VALIDATE_FINANCE_IBAN_TOO_SHORT;
-        } elseif (!isset( $_iban_countrycode_countryname[substr($iban, 0, 2)])) {
+        } elseif (!isset( $_iban_countrycode_countryname[$abbrev])) {
             $errorcode = VALIDATE_FINANCE_IBAN_COUNTRY_INVALID;
-        } elseif (strlen($iban) < $_iban_countrycode_ibanlength[substr($iban, 0, 2)]) {
+        } elseif (strlen($iban) < $_iban_countrycode_ibanlength[$abbrev]) {
             $errorcode = VALIDATE_FINANCE_IBAN_TOO_SHORT;
-        } elseif (strlen($iban) > $_iban_countrycode_ibanlength[substr($iban, 0, 2)]) {
+        } elseif (strlen($iban) > $_iban_countrycode_ibanlength[$abbrev]) {
             $errorcode = VALIDATE_FINANCE_IBAN_TOO_LONG;
-        } elseif (!preg_match($_iban_countrycode_regex[substr($iban, 0, 2)], $iban)) {
+        } elseif (!preg_match($_iban_countrycode_regex[$abbrev], $iban)) {
             $errorcode = VALIDATE_FINANCE_IBAN_INVALID_FORMAT;
         } else {
             // todo: maybe implement direct checks for bankcodes of certain countries
@@ -555,6 +558,7 @@ class Validate_Finance_IBAN
 
     /**
      * Returns the countryname of the IBAN
+     * If the name can not be determined then return the country code.
      *
      * @access    public
      * @return    string
@@ -563,8 +567,8 @@ class Validate_Finance_IBAN
     {
         $countrycode = $this->getCountrycode();
         if (is_string($countrycode)) {
-            $_iban_countrycode_countryname = Validate_Finance_IBAN::_getCountrycodeCountryname();
-            return $_iban_countrycode_countryname[$countrycode];
+            $countryname = Validate_Finance_IBAN::_getCountrycodeCountryname();
+            return $countryname[$countrycode];
         } else { // e.g. if it's an error
             return $countrycode;
         }
@@ -589,9 +593,11 @@ class Validate_Finance_IBAN
                 "$msg in VALIDATE_FINANCE_IBAN::getBankcode()"
             );
         } else {
-            $_iban_countrycode_bankcode = Validate_Finance_IBAN::_getCountrycodeBankcode();
-            $position                   = substr($this->_iban, 0, 2);
-            $currCountrycodeBankcode    = $_iban_country_code_bankcode[$position];
+            $bankcode = Validate_Finance_IBAN::_getCountrycodeBankcode();
+            $position = substr($this->_iban, 0, 2);
+            // find out where the bankcode is inside the iban
+            $currCountrycodeBankcode = $bankcode[$position];
+            // extract and return that code
             return substr(
                 $this->_iban, 
                 $currCountrycodeBankcode['start'], 
@@ -620,9 +626,9 @@ class Validate_Finance_IBAN
                 "$msg in VALIDATE_FINANCE_IBAN::getBankaccount()"
             );
         } else {
-            $_iban_countrycode_bankaccount = Validate_Finance_IBAN::_getCountrycodeBankaccount();
+            $bankaccount = Validate_Finance_IBAN::_getCountrycodeBankaccount();
             //extract details
-            $currCountrycodeBankaccount = $_iban_countrycode_bankaccount[substr($this->_iban, 0, 2)];
+            $currCountrycodeBankaccount = $bankaccount[substr($this->_iban, 0, 2)];
             return substr(
                 $this->_iban, 
                 $currCountrycodeBankaccount['start'], 
