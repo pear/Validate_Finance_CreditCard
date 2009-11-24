@@ -52,10 +52,10 @@
   <email>pear.neufeind@speedpartner.de</email>
   <active>no</active>
  </developer>
- <date>2009-01-29</date>
- <time>16:41:30</time>
+ <date>2009-11-24</date>
+ <time>06:13:30</time>
  <version>
-  <release>0.8.2</release>
+  <release>0.8.3</release>
   <api>0.7.0</api>
  </version>
  <stability>
@@ -64,16 +64,11 @@
  </stability>
  <license>New BSD</license>
  <notes>
- * Bug #12658: New lines at end of file create output (davidc)
- * Bug #11001     RFC822 Comments break PCRE (davidc)
- * Bug #14075     Validate::uri() rejects valid tag: URIs (davidc)
- * Bug #14866     Notice: Undefined index: VALIDATE_ITLD_EMAILS (amir)
- * Bug #14931     Warning: max(): Array must contain atleast one element (doconnor)
- * Doc Bug #14180     Typo in $modulo variable description (amir)
- * Doc Bug #14046     Docs desperately needed (amir)
- * Request #956     Validate::email() doesn't allow Internationalized Domain Names (IDN) (davidc)
- * Request #14791     Improve PHPCS Results [amir]
- * Removed Net_IDNA Dependency [davidc]
+ * Bug #14865   Fixing some unit test failures (amir)
+ * Bug #15945   Improper string used to check domain dns (amir)
+ * Bug #16381   String format validation fails for VALIDATE_NAME.VALIDATE_XXX (amir)
+ * Bug #16427   Email Validation not working for check_domain (amir)
+ * Bug #16811   Should determine whether Net/IDNA.php is available less "destructively" (kguest)
  </notes>
  <contents>
   <dir name="/">
@@ -116,6 +111,29 @@
  </dependencies>
  <phprelease />
  <changelog>
+  <release>
+   <version>
+    <release>0.8.2</release>
+    <api>0.7.0</api>
+   </version>
+   <stability>
+    <release>beta</release>
+    <api>beta</api>
+   </stability>
+   <license>New BSD</license>
+   <notes>
+ * Bug #12658: New lines at end of file create output (davidc)
+ * Bug #11001     RFC822 Comments break PCRE (davidc)
+ * Bug #14075     Validate::uri() rejects valid tag: URIs (davidc)
+ * Bug #14866     Notice: Undefined index: VALIDATE_ITLD_EMAILS (amir)
+ * Bug #14931     Warning: max(): Array must contain atleast one element (doconnor)
+ * Doc Bug #14180     Typo in $modulo variable description (amir)
+ * Doc Bug #14046     Docs desperately needed (amir)
+ * Request #956     Validate::email() doesn't allow Internationalized Domain Names (IDN) (davidc)
+ * Request #14791     Improve PHPCS Results [amir]
+ * Removed Net_IDNA Dependency [davidc]
+   </notes>
+  </release>
   <release>
    <version>
     <release>0.8.1</release>
