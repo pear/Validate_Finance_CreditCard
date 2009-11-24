@@ -529,6 +529,7 @@ class Validate
         $hasIDNA = false;
 
         if (Validate::_includePathFileExists('Net/IDNA.php')) {
+            include_once('Net/IDNA.php');
             $hasIDNA = true;
         }
 
