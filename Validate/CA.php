@@ -45,28 +45,6 @@ class Validate_CA
      * Validates a number according to Luhn check algorithm
      *
      * This function checks given number according Luhn check
-     * algorithm. It is published on several places, see links.
-     *
-     * @param string $number number to check
-     *
-     * @return bool    TRUE if number is valid, FALSE otherwise
-     * @access public
-     * @static
-     * @deprecated Scheduled for removal before beta release
-     * @link http://www.webopedia.com/TERM/L/Luhn_formula.html
-     * @link http://www.merriampark.com/anatomycc.htm
-     * @link http://hysteria.sk/prielom/prielom-12.html#3 (Slovak language)
-     * @link http://www.speech.cs.cmu.edu/~sburke/pub/luhn_lib.html (Perl lib)
-     */
-    function Luhn($number)
-    {
-        return Validate_CA::_luhn($number);
-    }
-
-    /**
-     * Validates a number according to Luhn check algorithm
-     *
-     * This function checks given number according Luhn check
      * algorithm. It is published on several places, see links:
      *
      * @param string $number number to check
@@ -103,7 +81,7 @@ class Validate_CA
      * this method is named ssn()
      *
      * @param string $ssn        number to validate
-     * @param int    $expiryDate expiry date for SIN starting 
+     * @param int    $expiryDate expiry date for SIN starting
      *                           with a 9 (UNIX timestamp)
      *
      * @return bool
@@ -255,12 +233,39 @@ class Validate_CA
 
         if (!$withAreaCode) {
             // just seven digits, maybe a space or dash
-            return (boolean)preg_match('/^[2-9]\d{2}[- ]?\d{4}$/', $number);
+            return (boolean)preg_match('/^[2-9](0[0-9]|10|1[2-9]|[2-9]\d)[- ]?\d{4}$/', $number);
         }
+
         // ten digits, maybe  spaces and/or dashes and/or parentheses
         // maybe a 1 or a 0..
-        $reg = '/^[0-1]?[- ]?(\()?[2-9]\d{2}(?(1)\))[- ]?[2-9]\d{2}[- ]?\d{4}$/';
-        return (boolean)preg_match($reg, $number);
+        $reg = '/^[0-1]?[- ]?(\()?[2-9](0[0-9]|10|1[2-9]|[2-8]\d)(?(1)\))[- ]?[2-9](0[0-9]|10|1[2-9]|[2-9]\d)[- ]?\d{4}$/';
+
+        // These special area codes allow "exchange" codes to end in 11
+        $special = array(
+            800,
+            822,
+            833,
+            844,
+            855,
+            866,
+            877,
+            880,
+            881,
+            882,
+            883,
+            884,
+            885,
+            886,
+            887,
+            888,
+            889,
+            900,
+        );
+        $reg2 = '/^[0-1]?[- ]?(\()?('.implode('|', $special)
+                                   .')(?(1)\))[- ]?[2-9]\d{2}[- ]?\d{4}$/';
+
+        return ((boolean)preg_match($reg, $number)
+                || (boolean)preg_match($reg2, $number));
     }
 }
 ?>

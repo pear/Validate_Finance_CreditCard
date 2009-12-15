@@ -5,7 +5,12 @@ validate_CA.phpt: Unit tests for
 // $Id$
 // Validate test script
 $noYes = array('NO', 'YES');
-require 'Validate/CA.php';
+
+if (is_file(dirname(__FILE__) . '/../Validate/CA.php')) {
+    require_once dirname(__FILE__) . '/../Validate/CA.php';
+} else {
+    require 'Validate/CA.php';
+}
 
 echo "Test Validate_CA\n";
 echo "****************\n";
@@ -72,7 +77,7 @@ $postalCodes = array(
                 'QN55 1PT'); // NOK
 
 $phonenumbers = array(
-                /* test allowed seven digit numbers */
+                /* test allowed seven digit numbers (area code not required) */
                 array('875-0987', false), // OK
                 array('875 0987', false), // OK
                 array('8750987', false), // OK
@@ -81,7 +86,7 @@ $phonenumbers = array(
                 array('875098a', false), // NOK
                 array('8dy0985', false), // NOK
 
-                /* test allowed seven digit numbers */
+                /* test allowed seven digit numbers (area code required) */
                 array('875-0987', true), // NOK
                 array('875 0987', true), // NOK
                 array('8750987', true), // NOK
@@ -146,9 +151,85 @@ $phonenumbers = array(
                 array('(46e) t75 0987', true), // NOK
                 array('(313 535-8553', true), // NOK
 
-                // This should fail, less digit then is needed
+                // This should fail, less digit than needed
                 array('(123) 456-78', true), // NOK
                 array('(517) 474-', true), // NOK
+
+                /* 1st digit of area code should be 2-9 */
+                array('100 555 0100', true), // NOK
+                array('200 555 0100', true), // OK
+                array('300 555 0100', true), // OK
+                array('400 555 0100', true), // OK
+                array('500 555 0100', true), // OK
+                array('600 555 0100', true), // OK
+                array('700 555 0100', true), // OK
+                array('800 555 0100', true), // OK
+                array('900 555 0100', true), // OK
+
+                /* 2nd digit of area code should be 0-8 */
+                array('200 555 0100', true), // OK
+                array('210 555 0100', true), // OK
+                array('220 555 0100', true), // OK
+                array('230 555 0100', true), // OK
+                array('240 555 0100', true), // OK
+                array('250 555 0100', true), // OK
+                array('260 555 0100', true), // OK
+                array('270 555 0100', true), // OK
+                array('280 555 0100', true), // OK
+                array('290 555 0100', true), // NOK
+
+                /* Area codes cannot end in 11 */
+                array('111 555 0100', true), // NOK
+                array('211 555 0100', true), // NOK
+                array('311 555 0100', true), // NOK
+                array('411 555 0100', true), // NOK
+                array('511 555 0100', true), // NOK
+                array('611 555 0100', true), // NOK
+                array('711 555 0100', true), // NOK
+                array('811 555 0100', true), // NOK
+                array('911 555 0100', true), // NOK
+
+                /* "Geographic" exchange codes cannot end in 11 */
+                array('222 011 0100', true), // NOK
+                array('222 111 0100', true), // NOK
+                array('222 211 0100', true), // NOK
+                array('222 311 0100', true), // NOK
+                array('222 411 0100', true), // NOK
+                array('222 511 0100', true), // NOK
+                array('222 611 0100', true), // NOK
+                array('222 711 0100', true), // NOK
+                array('222 811 0100', true), // NOK
+                array('222 911 0100', true), // NOK
+                array('011 0100', false), // NOK
+                array('111 0100', false), // NOK
+                array('211 0100', false), // NOK
+                array('311 0100', false), // NOK
+                array('411 0100', false), // NOK
+                array('511 0100', false), // NOK
+                array('611 0100', false), // NOK
+                array('711 0100', false), // NOK
+                array('811 0100', false), // NOK
+                array('911 0100', false), // NOK
+
+                /* Toll-free/premium "exchange" codes can end in 11 */
+                array('800 211 0100', true), // OK
+                array('822 211 0100', true), // OK
+                array('833 311 0100', true), // OK
+                array('844 411 0100', true), // OK
+                array('855 511 0100', true), // OK
+                array('866 611 0100', true), // OK
+                array('877 711 0100', true), // OK
+                array('880 811 0100', true), // OK
+                array('881 911 0100', true), // OK
+                array('882 211 0100', true), // OK
+                array('883 211 0100', true), // OK
+                array('884 211 0100', true), // OK
+                array('885 311 0100', true), // OK
+                array('886 411 0100', true), // OK
+                array('887 511 0100', true), // OK
+                array('888 611 0100', true), // OK
+                array('889 711 0100', true), // OK
+                array('900 811 0100', true), // OK
 
             );
 
@@ -321,6 +402,72 @@ Test phonenumber
 (313 535-8553 (10): NO
 (123) 456-78 (10): NO
 (517) 474- (10): NO
+100 555 0100 (10): NO
+200 555 0100 (10): YES
+300 555 0100 (10): YES
+400 555 0100 (10): YES
+500 555 0100 (10): YES
+600 555 0100 (10): YES
+700 555 0100 (10): YES
+800 555 0100 (10): YES
+900 555 0100 (10): YES
+200 555 0100 (10): YES
+210 555 0100 (10): YES
+220 555 0100 (10): YES
+230 555 0100 (10): YES
+240 555 0100 (10): YES
+250 555 0100 (10): YES
+260 555 0100 (10): YES
+270 555 0100 (10): YES
+280 555 0100 (10): YES
+290 555 0100 (10): NO
+111 555 0100 (10): NO
+211 555 0100 (10): NO
+311 555 0100 (10): NO
+411 555 0100 (10): NO
+511 555 0100 (10): NO
+611 555 0100 (10): NO
+711 555 0100 (10): NO
+811 555 0100 (10): NO
+911 555 0100 (10): NO
+222 011 0100 (10): NO
+222 111 0100 (10): NO
+222 211 0100 (10): NO
+222 311 0100 (10): NO
+222 411 0100 (10): NO
+222 511 0100 (10): NO
+222 611 0100 (10): NO
+222 711 0100 (10): NO
+222 811 0100 (10): NO
+222 911 0100 (10): NO
+011 0100 (7): NO
+111 0100 (7): NO
+211 0100 (7): NO
+311 0100 (7): NO
+411 0100 (7): NO
+511 0100 (7): NO
+611 0100 (7): NO
+711 0100 (7): NO
+811 0100 (7): NO
+911 0100 (7): NO
+800 211 0100 (10): YES
+822 211 0100 (10): YES
+833 311 0100 (10): YES
+844 411 0100 (10): YES
+855 511 0100 (10): YES
+866 611 0100 (10): YES
+877 711 0100 (10): YES
+880 811 0100 (10): YES
+881 911 0100 (10): YES
+882 211 0100 (10): YES
+883 211 0100 (10): YES
+884 211 0100 (10): YES
+885 311 0100 (10): YES
+886 411 0100 (10): YES
+887 511 0100 (10): YES
+888 611 0100 (10): YES
+889 711 0100 (10): YES
+900 811 0100 (10): YES
 Test region
 QC: YES
 SK: YES
