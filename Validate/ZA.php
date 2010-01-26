@@ -16,7 +16,7 @@
  * @category  Validate
  * @package   Validate_ZA
  * @author    Jacques Marneweck <jacques@php.net>
- * @copyright 1997-2005 Jacques Marneweck
+ * @copyright 1997-2010 Jacques Marneweck
  * @license   http://www.opensource.org/licenses/bsd-license.php  New BSD License
  * @version   CVS: $Id$
  * @link      http://pear.php.net/package/Validate_ZA
@@ -117,7 +117,7 @@ class Validate_ZA
      */
     function ssn($id)
     {
-        $match = preg_match("!^(\d{2})(\d{2})(\d{2})[0|5]\d{6}$!", $id, $matches);
+        $match = preg_match("!^(\d{2})(\d{2})(\d{2})\d\d{6}$!", $id, $matches);
         if (!$match) {
             return false;
         }
@@ -139,4 +139,3 @@ class Validate_ZA
         return false;
     }
 }
-?>
