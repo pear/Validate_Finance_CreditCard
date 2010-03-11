@@ -54,6 +54,7 @@
    <dir name="Validate">
     <file name="IE.php" role="php" />
    </dir> <!-- /Validate -->
+   <file name="data/IE_postcodes.txt" role="data" />
   </dir> <!-- / -->
  </contents>
  <dependencies>
