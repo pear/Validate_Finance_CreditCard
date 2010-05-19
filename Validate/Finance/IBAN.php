@@ -22,6 +22,9 @@
  * @link      http://pear.php.net/package/Validate_Finance
  */
 
+// needed for call to isError()
+require_once 'PEAR.php';
+
 /*
  * Error codes for the IBAN interface, which will be mapped to textual messages
  * in the IBAN::errorMessage() function.  If you are to add a new error code, be
@@ -665,7 +668,7 @@ class Validate_Finance_IBAN
         }
 
         // If this is an error object, then grab the corresponding error code
-        if (VALIDATE_FINANCE_IBAN::isError($value)) {
+        if (PEAR::isError($value)) {
             $value = $value->getCode();
         }
 
