@@ -243,4 +243,27 @@ class Validate_ES
         return ($c == $code);
     }
 
+
+    /**
+     * Validate Spanish Postal Code number
+     *
+     * @param string $postcode postcode to validate
+     *
+     * @return  bool    true if postcode is ok, false otherwise
+     */
+    function postalCode($postcode)
+    {
+        $postcode = trim($postcode);
+        if (preg_match("/^\d{5}$/", $postcode) == 0) {
+            return false;
+        }
+
+        $provinceCode = substr($postcode,0,2);
+        if (((int) $provinceCode > 52) || ((int) $provinceCode < 1)) {
+            return false;
+        }
+
+        return true;
+    }
+
 }
