@@ -56,9 +56,9 @@ class Validate_ES
     /**
     * Validate Spanish DNI number ("El documento de la identificación nacional")
     *
-    * In Spain, all Spanish citizens are issued with a DNI 
+    * In Spain, all Spanish citizens are issued with a DNI
     * the numbers are used as identification for almost all purposes.
-    * 
+    *
     * @param string $dni El Documento Nacional de Indentidad a chequear
     * @return bool returns true on success false otherwise
     * @author    Tomas V.V.Cox <cox@idecnet.com>
@@ -69,17 +69,17 @@ class Validate_ES
     function dni($dni)
     {
         $dni = str_replace("-", "", trim($dni));
-        $letters = 'TRWAGMYFPDXBNJZSQVHLCKET';   
-       
+        $letters = 'TRWAGMYFPDXBNJZSQVHLCKET';
+
         $start = (int)(strtoupper($dni{0}) == "X");
-        
+
         $number = substr($dni, $start, -1);
         $letter = strtoupper(substr($dni, -1));
-        
+
         if (!ctype_digit($number) || !ctype_alpha($letter)) {
            return false;
         }
-        
+
         return ($letter == $letters{$number % 23});
     }
 
@@ -87,7 +87,7 @@ class Validate_ES
      * Validate Spanish CIF number
      *
      * In Spain, all Spanish companies are issued with a CIF code.
-     * 
+     *
      * @param string $cif CIF to check
      *
      * @return bool returns true on success false otherwise
@@ -96,7 +96,7 @@ class Validate_ES
     {
         $cif = strtoupper(str_replace("-", "", trim($cif)));
 
-        $letters = 'ABCDEFGHJKLMNPRQSUVW';   
+        $letters = 'ABCDEFGHJKLMNPRQSUVW';
 
         if (preg_match("/^[$letters]\d{7}[\d[ABCDEFGHIJ]$/", $cif) == 0) {
             return false;
@@ -150,7 +150,7 @@ class Validate_ES
      * Validate Spanish Account Client Code number
      *
      * In Spain, all Spanish banking accounts are issued with a CCC code.
-     * 
+     *
      * @param string $ccc CCC to check
      *
      * @return bool returns true on success false otherwise
@@ -175,7 +175,7 @@ class Validate_ES
             $firstCodeResult += (int)$firstCode[$x] * $weight[$x];
         }
 
-        $firstCodeMod    = $firstCodeResult % 11; 
+        $firstCodeMod    = $firstCodeResult % 11;
         $firstCodeResult = 11 - $firstCodeMod;
 
         if ($firstCodeResult == 10) {
@@ -191,7 +191,7 @@ class Validate_ES
             $secondCodeResult += (int)$secondCode[$x] * $weight[$x];
         }
 
-        $secondCodeMod    = $secondCodeResult % 11; 
+        $secondCodeMod    = $secondCodeResult % 11;
         $secondCodeResult = 11 - $secondCodeMod;
 
         if ($secondCodeResult == 10) {
@@ -208,4 +208,39 @@ class Validate_ES
 
         return false;
     }
+
+
+    /**
+     * Validate Spanish Social Security number
+     *
+     * In Spain, all Spanish have a social security number.
+     *
+     * @param string $ss Social security number to check
+     *
+     * @return bool returns true on success false otherwise
+     */
+    function ss($ss)
+    {
+        $ss = str_replace(array("-", " ", "/"), "", trim($ss));
+
+        $a = substr($ss, 0, 2);
+        $b = substr($ss, 2, 8);
+
+        $code = substr($ss, 10, 2);
+
+        if (preg_match("/^\d{12}$/", $ss) == 0) {
+            return false;
+        }
+
+        if ((int)$b < 10000000) {
+            $d = (int)$b + ((int)$a * 10000000);
+        } else {
+            $d = $a . preg_replace("/0*$/", "", $b);
+        }
+
+        $c = (int)$d % 97;
+
+        return ($c == $code);
+    }
+
 }
