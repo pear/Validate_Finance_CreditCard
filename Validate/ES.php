@@ -145,4 +145,67 @@ class Validate_ES
 
         return true;
     }
+
+    /**
+     * Validate Spanish Account Client Code number
+     *
+     * In Spain, all Spanish banking accounts are issued with a CCC code.
+     * 
+     * @param string $ccc CCC to check
+     *
+     * @return bool returns true on success false otherwise
+     */
+    function ccc($ccc)
+    {
+        $ccc = str_replace(array("-", " "), "", trim($ccc));
+
+        $weight = array(1, 2, 4, 8, 5, 10, 9, 7, 3, 6);
+
+        $entity = substr($ccc, 0, 4);
+        $office = substr($ccc, 4, 4);
+
+        $controlCode = substr($ccc, 8, 2);
+        $account     = substr($ccc, 10, 10);
+
+        $firstCode  = $entity.$office."00";
+        $secondCode = $account;
+
+        $firstCodeResult = 0;
+        for ($x=0; $x < 10; $x++) {
+            $firstCodeResult += (int)$firstCode[$x] * $weight[$x];
+        }
+
+        $firstCodeMod    = $firstCodeResult % 11; 
+        $firstCodeResult = 11 - $firstCodeMod;
+
+        if ($firstCodeResult == 10) {
+            $firstCodeResult = 1;
+        }
+
+        if ($firstCodeResult == 11) {
+            $firstCodeResult = 0;
+        }
+
+        $secondCodeResult = 0;
+        for ($x=0; $x < 10; $x++) {
+            $secondCodeResult += (int)$secondCode[$x] * $weight[$x];
+        }
+
+        $secondCodeMod    = $secondCodeResult % 11; 
+        $secondCodeResult = 11 - $secondCodeMod;
+
+        if ($secondCodeResult == 10) {
+            $secondCodeResult = 1;
+        }
+
+        if ($secondCodeResult == 11) {
+            $secondCodeResult = 0;
+        }
+
+        if ($firstCodeResult == $controlCode[0] && $secondCodeResult == $controlCode[1]) {
+            return true;
+        }
+
+        return false;
+    }
 }
