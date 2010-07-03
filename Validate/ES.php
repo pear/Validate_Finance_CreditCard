@@ -215,20 +215,22 @@ class Validate_ES
      *
      * In Spain, all Spanish have a social security number.
      *
-     * @param string $ss Social security number to check
+     * @param string $ssn Social security number to check
      *
      * @return bool returns true on success false otherwise
      */
-    function ss($ss)
+    function ssn($ssn)
     {
-        $ss = str_replace(array("-", " ", "/"), "", trim($ss));
+        $ssn = str_replace(array("-", " ", "/"), "", trim($ssn));
 
-        $a = substr($ss, 0, 2);
-        $b = substr($ss, 2, 8);
+        $a = substr($ssn, 0, 2);
+        $b = substr($ssn, 2, 8);
 
-        $code = substr($ss, 10, 2);
+        $code = substr($ssn, 10, 2);
 
-        if (preg_match("/^\d{12}$/", $ss) == 0) {
+        $snn = sprintf("%012d",(int)$ssn);
+
+        if (preg_match("/^\d{12}$/", $ssn) == 0) {
             return false;
         }
 
