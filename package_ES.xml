@@ -8,18 +8,28 @@ http://pear.php.net/dtd/package-2.0.xsd">
  <summary>Validation class for ES</summary>
  <description>Package containes locale validation for ES such as:
  * DNI
+ * VAT Number (CIF)
+ * Back Account Number
+ * postalCode
+ * Social Security Number
   
  </description>
+ <lead>
+  <name>Jesús Espino</name>
+  <user>jespino</user>
+  <email>jespinog@gmail.com</email>
+  <active>yes</active>
+ </lead>
  <lead>
   <name>Tomas V.V.Cox</name>
   <user>cox</user>
   <email>cox@idecnet.com</email>
   <active>no</active>
  </lead>
- <date>2009-06-05</date>
- <time>01:14:21</time>
+ <date>2010-08-02</date>
+ <time>20:00:21</time>
  <version>
-  <release>0.5.2</release>
+  <release>0.6.0</release>
   <api>0.5.1</api>
  </version>
  <stability>
@@ -28,11 +38,13 @@ http://pear.php.net/dtd/package-2.0.xsd">
  </stability>
  <license>New BSD</license>
  <notes>
-QA release
-Updated to package 2.0
-Bug #9084 Validate_ES::dni wrong use of function arguments
-Bug #4660 La validación es incorrecta.
-    
+Bug #17452 Add check for Bank Account Number    
+Bug #17453 Add check for Postal Code    
+Bug #17454 Add check for CIF    
+Bug #17455 Add check for Social Security Number
+
+Added test for all checks (ccc, cif, dni, ssn and postalCode)
+
  </notes>
  <contents>
   <dir name="/">
@@ -59,6 +71,24 @@ Bug #4660 La validación es incorrecta.
  </dependencies>
  <phprelease />
  <changelog>
+  <release>
+   <version>
+    <release>0.5.2</release>
+    <api>0.5.1</api>
+   </version>
+   <stability>
+    <release>alpha</release>
+    <api>alpha</api>
+   </stability>
+   <license>New BSD</license>
+   <notes>
+QA release
+Updated to package 2.0
+Bug #9084 Validate_ES::dni wrong use of function arguments
+Bug #4660 La validación es incorrecta.
+       
+   </notes>
+  </release>
   <release>
    <version>
     <release>0.5.0</release>
