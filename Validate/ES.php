@@ -97,8 +97,9 @@ class Validate_ES
         $cif = strtoupper(str_replace("-", "", trim($cif)));
 
         $letters = 'ABCDEFGHJKLMNPRQSUVW';
+        $letters2 = 'ABCDEFGHIJ';
 
-        if (preg_match("/^[$letters]\d{7}[\d[ABCDEFGHIJ]$/", $cif) == 0) {
+        if (preg_match("/^[$letters]\d{7}[\d[$letters2]$/", $cif) == 0) {
             return false;
         }
 
@@ -109,11 +110,11 @@ class Validate_ES
         $number = substr($cif, 3, 5);
         $controlCode = substr($cif, 8, 1);
 
-        if (strpos($letter, "KPQS")!=0 && ctype_digit($controlCode)) {
+        if (strpos("CKLMNPQRSW", $letter)!==false && ctype_digit($controlCode)) {
             return false;
         }
 
-        if (strpos($letter, "ABEH")!=0 && ctype_alpha($controlCode)) {
+        if (strpos("ABDEFGHJUV", $letter)!==false && ctype_alpha($controlCode)) {
             return false;
         }
 
@@ -139,7 +140,7 @@ class Validate_ES
             $d = 0;
         }
 
-        if ((int)$controlCode != $d && $letters2[$controlCode] != $d) {
+        if ((int)$controlCode != $d && $letters2[$d] != $controlCode) {
             return false;
         }
 
@@ -159,6 +160,10 @@ class Validate_ES
     {
         $ccc = str_replace(array("-", " "), "", trim($ccc));
 
+        if (preg_match("/\d{20}$/", $ccc) == 0) {
+            return false;
+        }
+
         $weight = array(1, 2, 4, 8, 5, 10, 9, 7, 3, 6);
 
         $entity = substr($ccc, 0, 4);
@@ -167,7 +172,7 @@ class Validate_ES
         $controlCode = substr($ccc, 8, 2);
         $account     = substr($ccc, 10, 10);
 
-        $firstCode  = $entity.$office."00";
+        $firstCode  = "00".$entity.$office;
         $secondCode = $account;
 
         $firstCodeResult = 0;
