@@ -1,5 +1,23 @@
 <?php
 /* vim: set expandtab tabstop=4 shiftwidth=4: */
+/**
+ * Specific validation methods for data used in Spain
+ *
+ * PHP Versions 4 and 5
+ *
+ * @category  Validate
+ * @package   Validate_ES
+ * @author    Tomas V.V.Cox <cox@idecnet.com>
+ * @author    Byron Adams <byron.adams54@gmail.com>
+ * @author    Jesús Espino <jespinog@gmail.com>
+ * @copyright 1997-2005 Pierre-Alain Joye,Tomas V.V.Cox
+ * @copyright 2006 Byron Adams
+ * @copyright 2010 Jesús Espino
+ * @license   http://www.opensource.org/licenses/bsd-license.php  New BSD License
+ * @version   CVS: $Id$
+ * @link      http://pear.php.net/package/Validate_ES
+ */
+
 // +----------------------------------------------------------------------+
 // | Copyright (c) 1997-2005 Pierre-Alain Joye,Tomas V.V.Cox              |
 // +----------------------------------------------------------------------+
@@ -13,22 +31,10 @@
 // +----------------------------------------------------------------------+
 // | Author: Tomas V.V.Cox  <cox@idecnet.com>                             |
 // |         Pierre-Alain Joye <pajoye@php.net>                           |
-// |         Byron Adams <byron.adams54@gmail.com>
+// |         Byron Adams <byron.adams54@gmail.com>                        |
+// |         Jesús Espino <jespinog@gmail.com>                            |
 // +----------------------------------------------------------------------+
 //
-/**
- * Specific validation methods for data used in Spain
- *
- * @category   Validate
- * @package    Validate_ES
- * @author     Tomas V.V.Cox <cox@idecnet.com>
- * @author     Byron Adams <byron.adams54@gmail.com>
- * @copyright  1997-2005 Pierre-Alain Joye,Tomas V.V.Cox
- * @copyright  (c) 2006 Byron Adams
- * @license    http://www.opensource.org/licenses/bsd-license.php  New BSD License
- * @version    CVS: $Id$
- * @link       http://pear.php.net/package/Validate_ES
- */
 
 /**
 * Requires base class Validate
@@ -45,8 +51,10 @@ require_once 'Validate.php';
  * @package   Validate_ES
  * @author    Tomas V.V.Cox <cox@idecnet.com>
  * @author    Byron Adams <byron.adams54@gmail.com>
+ * @author    Jesús Espino <jespinog@gmail.com>
  * @copyright 1997-2005 Pierre-Alain Joye, Tomas V.V.Cox
- * @copyright (c) 2006 Byron Adams
+ * @copyright 2006 Byron Adams
+ * @copyright 2010 Jesús Espino
  * @license   http://www.opensource.org/licenses/bsd-license.php  New BSD License
  * @version   Release: @package_version@
  * @link      http://pear.php.net/package/Validate_ES
@@ -60,9 +68,11 @@ class Validate_ES
     * the numbers are used as identification for almost all purposes.
     *
     * @param string $dni El Documento Nacional de Indentidad a chequear
+    *
     * @return bool returns true on success false otherwise
     * @author    Tomas V.V.Cox <cox@idecnet.com>
     * @author    Byron Adams <byron.adams54@gmail.com>
+    * @author    Jesús Espino <jespinog@gmail.com>
     * @link      http://es.wikipedia.org/wiki/Algoritmo_para_obtener_la_letra_del_NIF
     * @link      http://nationalidentificationnumber.quickseek.com/#Spain
     */
@@ -77,7 +87,7 @@ class Validate_ES
         $letter = strtoupper(substr($dni, -1));
 
         if (!ctype_digit($number) || !ctype_alpha($letter)) {
-           return false;
+            return false;
         }
 
         return ($letter == $letters{$number % 23});
@@ -207,7 +217,9 @@ class Validate_ES
             $secondCodeResult = 0;
         }
 
-        if ($firstCodeResult == $controlCode[0] && $secondCodeResult == $controlCode[1]) {
+        if ($firstCodeResult == $controlCode[0]
+            && $secondCodeResult == $controlCode[1]
+        ) {
             return true;
         }
 
@@ -233,7 +245,7 @@ class Validate_ES
 
         $code = substr($ssn, 10, 2);
 
-        $snn = sprintf("%012d",(int)$ssn);
+        $snn = sprintf("%012d", (int)$ssn);
 
         if (preg_match("/^\d{12}$/", $ssn) == 0) {
             return false;
@@ -265,7 +277,7 @@ class Validate_ES
             return false;
         }
 
-        $provinceCode = substr($postcode,0,2);
+        $provinceCode = substr($postcode, 0, 2);
         if (((int) $provinceCode > 52) || ((int) $provinceCode < 1)) {
             return false;
         }
