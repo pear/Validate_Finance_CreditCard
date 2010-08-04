@@ -55,6 +55,8 @@ class Validate_ptBR
      *                           of postcodes) (not implanted)
      *
      * @return  bool true if $cep is ok, false otherwise
+     *
+     * @link http://en.wikipedia.org/wiki/Postal_codes_in_Brazil
      */
     public static function postalCode($postalCode, $strong = false)
     {
