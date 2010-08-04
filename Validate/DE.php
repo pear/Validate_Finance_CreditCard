@@ -53,7 +53,7 @@ class Validate_DE
         // $strong is not used here at the moment; added for API compatibility
         // checks might be added at a later stage
 
-        return (bool)ereg('^[0-9]{5}$', $postcode);
+        return (bool)preg_match('/^[0-9]{5}$/', $postcode);
     }
 
     /**
@@ -67,7 +67,7 @@ class Validate_DE
      */
     function bankcode($bankcode)
     {
-        return (bool)ereg('^[0-9]{8}$', $bankcode);
+        return (bool)preg_match('/^[0-9]{8}$/', $bankcode);
     }
 }
 ?>
