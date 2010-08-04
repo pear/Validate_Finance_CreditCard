@@ -34,7 +34,7 @@
  * @version   Release: @package_version@
  * @link      http://pear.php.net/package/Validate_DE
  */
-class Validate_LI
+class Validate_NO
 {
     /**
      * Validate a Norway postcode.
