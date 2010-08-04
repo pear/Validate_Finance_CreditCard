@@ -42,7 +42,7 @@ class Validate_LI
      *
      * @param string $postcode postcode to validate
      * @param bool   $strong   optional; strong checks (e.g. against a list of 
-     *                         postcodes) (not implemented)
+     *                         postcodes)
      *
      * @return bool true if postcode is ok, false otherwise
      *
@@ -55,7 +55,7 @@ class Validate_LI
             return (bool)preg_match('/^[0-9]{4}$/', $postcode);
         }
 
-        //list is crom geopostcodes.com
+        //list is from geopostcodes.com
         $codes = array(
             9485,
             9486,
