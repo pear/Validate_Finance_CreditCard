@@ -53,6 +53,9 @@ class Validate_AR
      *                           sensitive)
      *
      * @return  bool    true if CPA is ok, false otherwise
+     *
+     * @link http://en.wikipedia.org/wiki/Postal_codes_in_Argentina
+     * @link http://www.correoargentino.com.ar/consulta_cpa/cons_.php
      */
     function postalCode($postalCode, $strong = false, $casesens = true)
     {
