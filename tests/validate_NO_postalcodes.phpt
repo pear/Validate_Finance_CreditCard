@@ -6,7 +6,7 @@ $noYes = array('NO', 'YES');
 if (is_file(dirname(__FILE__) . '/../Validate/NO.php')) {
     require_once dirname(__FILE__) . '/../Validate/NO.php';
 } else {
-    require_once 'Validate/LI.php';
+    require_once 'Validate/NO.php';
 }
 
 
