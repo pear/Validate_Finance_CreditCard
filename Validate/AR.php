@@ -60,7 +60,7 @@ class Validate_AR
     function postalCode($postalCode, $strong = false, $casesens = true)
     {
         $regexp = $casesens ? '/^[B-T]\d{4}[A-Z]{3}$/' : '/^[B-T]\d{4}[A-Z]{3}$/i';
-        return preg_match($regexp, $postalCode);
+        return (bool)preg_match($regexp, $postalCode);
     }
     
     /**
