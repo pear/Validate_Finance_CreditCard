@@ -64,7 +64,7 @@ class Validate_NL
         // checks might be added at a later stage
 
         // '1234 AB', '1234AB', '1234 ab'
-        return (bool)ereg('^[0-9]{4}\ {0,1}[A-Za-z]{2}$', $postcode); 
+        return (bool) preg_match('/^[0-9]{4}\ {0,1}[A-Za-z]{2}$/', $postcode); 
     }
 
     /**
@@ -81,7 +81,7 @@ class Validate_NL
         $result = false;
 
         //we need at least 9 digits
-        if (ereg("^[+0-9]{9,}$", $number)) {
+        if (preg_match("/^[+0-9]{9,}$/", $number)) {
             $number = substr($number, strlen($number) - 9);
 
             //we only use the last 9 digits (so no troubles with 
@@ -121,7 +121,7 @@ class Validate_NL
      */
     function ssn($ssn)
     {
-        return (bool) ereg("^[0-9]{9}$", $ssn);
+        return (bool) preg_match("/^[0-9]{9}$/", $ssn);
     }
 
     /**

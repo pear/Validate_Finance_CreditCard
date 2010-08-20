@@ -214,7 +214,7 @@ class Validate_LV {
      */
     function personName($name, $length = 50) {
         $length--;
-        return ereg('^([A-Z]|Ē|Ū|Ī|Ā|Š|Ģ|Ķ|Ļ|Ž|Č|Ņ)[a-zA-ZēūīāšģķļžčņĒŪĪĀŠĢĶĻŽČŅ -]{1,'.$length.'}$',$name);    
+        return preg_match('/^([A-Z]|Ē|Ū|Ī|Ā|Š|Ģ|Ķ|Ļ|Ž|Č|Ņ)[a-zA-ZēūīāšģķļžčņĒŪĪĀŠĢĶĻŽČŅ -]{1,'.$length.'}$/',$name);    
     }
 
 }

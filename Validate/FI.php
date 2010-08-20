@@ -269,8 +269,8 @@ class Validate_FI
         static $century = array('+' => "18",
                 '-' => "19",
                 'A' => "20");
-        $reg = "^([0-9]{2})([0-9]{2})([0-9]{2})([+-A]{1})([0-9]{3})([0-9A-Z]{1})$";
-        if (ereg($reg, $pin, $regs)) {
+        $reg = "/^([0-9]{2})([0-9]{2})([0-9]{2})([+-A]{1})([0-9]{3})([0-9A-Z]{1})$/";
+        if (preg_match($reg, $pin, $regs)) {
             // Validate date of birth. Must be a Gregorian date.
             if (checkdate($regs[2], $regs[1], $century[$regs[4]].$regs[3])) {
                 $test = $regs[1].$regs[2].$regs[3].$regs[5];
@@ -326,7 +326,7 @@ class Validate_FI
         static $control = array("0", "1", "2", "3", "4", "5", "6", "7", "8", "9", 
                 "A", "B", "C", "D", "E", "F", "H", "J", "K", "L", 
                 "M", "N", "P", "R", "S", "T", "U", "V", "W", "X", "Y");
-        if (ereg("^([0-9]{8})([0-9A-Z]{1})$", $number, $regs)) {
+        if (preg_match("/^([0-9]{8})([0-9A-Z]{1})$/", $number, $regs)) {
             if ($control[intval($regs[1])%31] == $regs[2]) {
                 return true;
             }

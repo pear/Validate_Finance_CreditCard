@@ -194,13 +194,13 @@ class Validate_US
             fclose($fd);
         }
 
-        $lines       = explode("\n", ereg_replace("[^\n0-9]*", '', $source));
+        $lines       = explode("\n", preg_replace("/[^\n0-9]*/", '', $source));
         $high_groups = array();
         foreach ($lines as $line) {
-            $reg = '^([0-9]{3})([0-9]{2})([0-9]{3})([0-9]{2})([0-9]{3})'
+            $reg = '/^([0-9]{3})([0-9]{2})([0-9]{3})([0-9]{2})([0-9]{3})'
                  . '([0-9]{2})([0-9]{3})([0-9]{2})([0-9]{3})([0-9]{2})'
-                 . '([0-9]{3})([0-9]{2})$';
-            if (ereg($reg, $line, $grouping)) {
+                 . '([0-9]{3})([0-9]{2})$/';
+            if (preg_match($reg, $line, $grouping)) {
                 $high_groups[$grouping[1]]  = $grouping[2];
                 $high_groups[$grouping[3]]  = $grouping[4];
                 $high_groups[$grouping[5]]  = $grouping[6];

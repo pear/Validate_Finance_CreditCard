@@ -75,7 +75,7 @@ class Validate_ZA
             }
             return in_array((int)$postcode, $postcodes);
         }
-        return (bool)ereg('^[0-9]{4}$', $postcode);
+        return (bool) preg_match('/^[0-9]{4}$/', $postcode);
     }
 
     /**

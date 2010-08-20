@@ -75,7 +75,7 @@ class Validate_BE
         $nationalId = strtr($nationalId, '-/\ :', '.....');
         $nationalId = str_replace('.', '', $nationalId);
         // RULE 1 : 11 digit.
-        if (!(bool) ereg('^[0-9]{11}$', $nationalId)) {
+        if (!(bool) preg_match('/^[0-9]{11}$/', $nationalId)) {
             return false;
         }
 
@@ -126,7 +126,7 @@ class Validate_BE
     function ssn($ssn)
     {
         // RULE 1 : 11 digit.
-        if (!(bool) ereg('^[0-9]{11}$', $ssn)) {
+        if (!(bool) preg_match('/^[0-9]{11}$/', $ssn)) {
             return false;
         }
 
@@ -206,7 +206,7 @@ class Validate_BE
 
             return (bool) in_array((int) $postcode, $postCodeList);
         }
-        return (bool) ereg('^[1-9][0-9]{3}$', $postcode);
+        return (bool) preg_match('/^[1-9][0-9]{3}$/', $postcode);
     }
 
     /**
@@ -223,7 +223,7 @@ class Validate_BE
      */
     function bankCode($bankCode)
     {
-        if ((bool) ereg('^[0-9]{3}[ ./-]?[0-9]{7}[ ./-]?[0-9]{2}$', $bankCode)) {
+        if ((bool) preg_match('/^[0-9]{3}[ .\/-]?[0-9]{7}[ .\/-]?[0-9]{2}$/', $bankCode)) {
             $bankCode = str_replace(' ', '', strtr($bankCode, '/-.', '   '));
             $num      = substr($bankCode, 0, 10);
             $checksum = substr($bankCode, 10, 2);
@@ -251,7 +251,7 @@ class Validate_BE
      */
     function bankTransferMessage($bankTransferMessage)
     {
-        if ((bool) ereg('^[0-9]{3}[ ./-]?[0-9]{4}[ ./-]?[0-9]{5}$',
+        if ((bool) preg_match('/^[0-9]{3}[ \.\/-]?[0-9]{4}[ \.\/-]?[0-9]{5}$/',
                     $bankTransferMessage)) {
             $message = strtr($bankTransferMessage, '/-.', '   ');
 
@@ -284,7 +284,7 @@ class Validate_BE
      */
     function vat($vat)
     {
-        if ((bool) ( ereg('^[0-9]{3}[ ./-]?[0-9]{3}[ ./-]?[0-9]{3}$', 
+        if ((bool) ( preg_match('/^[0-9]{3}[ \.\/-]?[0-9]{3}[ \.\/-]?[0-9]{3}$/', 
                           $vat))) {
             $vat = str_replace(' ', '', strtr($vat, '/-.', '   '));
             if (strlen($vat) == 9) {
@@ -453,7 +453,7 @@ class Validate_BE
         }
 
         //we need at least 9 digits
-        if (ereg('^[+0-9]{9,}$', $phonenumber)) {
+        if (preg_match('/^[+0-9]{9,}$/', $phonenumber)) {
             $phonenumber = substr($phonenumber, -9);
             //we only use the last 9 digits (so no troubles with 
             //international numbers)
