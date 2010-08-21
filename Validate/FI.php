@@ -17,9 +17,9 @@
  * @category  Validate
  * @package   Validate_FI
  * @author    Jani Mikkonen <jani@mikkonen.info>
- * @copyright 2006-2007 Jani Mikkonen
+ * @copyright 2006-2010 Jani Mikkonen
  * @license   http://www.opensource.org/licenses/bsd-license.php  New BSD
- * @version   CVS: $Id$
+ * @version   SVN: $Id$
  * @link      http://pear.php.net/package/Validate_FI
  */
 
@@ -44,7 +44,7 @@
  * @category  Validate
  * @package   Validate_FI
  * @author    Jani Mikkonen <jani@mikkonen.info>
- * @copyright 2006-2007 Jani Mikkonen
+ * @copyright 2006-2010 Jani Mikkonen
  * @license   http://www.opensource.org/licenses/bsd-license.php  New BSD
  * @version   Release: @package_version@
  * @link      http://pear.php.net/package/Validate_FI
@@ -257,7 +257,7 @@ class Validate_FI
      * @return      mixed   Returns true or false if $info = false or
      *                      gender (Male or Female) and date of birth (YYYY-MM-DD)
      *                      in array if PIN is valid, false otherwise
-     * @link        http://koti.mbnet.fi/~thales/tarkmerk.htm#hetu1
+     * @link        http://tarkistusmerkit.teppovuori.fi/tarkmerk.htm#hetu1
      */
     function pin($number, $info = false)
     {
@@ -266,9 +266,7 @@ class Validate_FI
         static $control = array("0", "1", "2", "3", "4", "5", "6", "7", "8", "9", 
                 "A", "B", "C", "D", "E", "F", "H", "J", "K", "L", 
                 "M", "N", "P", "R", "S", "T", "U", "V", "W", "X", "Y");
-        static $century = array('+' => "18",
-                '-' => "19",
-                'A' => "20");
+        static $century = array('+' => "18", '-' => "19", 'A' => "20");
         $reg = "/^([0-9]{2})([0-9]{2})([0-9]{2})([+-A]{1})([0-9]{3})([0-9A-Z]{1})$/";
         if (preg_match($reg, $pin, $regs)) {
             // Validate date of birth. Must be a Gregorian date.
@@ -317,7 +315,7 @@ class Validate_FI
      * @static
      * @access      public
      * @return      bool    true if FINUID is valid, false otherwise
-     * @link        http://koti.mbnet.fi/~thales/tarkmerk.htm#satu
+     * @link        http://tarkistusmerkit.teppovuori.fi/tarkmerk.htm#satu
      */
     function finuid($number)
     {
@@ -364,12 +362,12 @@ class Validate_FI
      * @static
      * @access      public
      * @return      bool    true if Business ID is valid, false otherwise
-     * @link        http://koti.mbnet.fi/~thales/tarkmerk.htm#y-tunnus2
+     * @link        http://tarkistusmerkit.teppovuori.fi/tarkmerk.htm#y-tunnus2
      */
     function businessId($number)
     {
         if (preg_match("/^[0-9]{6,7}-[0-9]{1}$/", $number)) {
-            list($num, $control) = split('[-]', $number);
+            list($num, $control) = preg_split('[-]', $number);
             // Add leading zeros if number is < 7
             $num         = str_pad($num, 7, 0, STR_PAD_LEFT);
             $controlSum  = 0;
@@ -422,7 +420,7 @@ class Validate_FI
      * @access      public
      * @return      bool    true if number is valid, false otherwise
      * @see         Validate_FI::businessId()
-     * @link        http://koti.mbnet.fi/~thales/tarkmerk.htm#alv-numero
+     * @link        http://tarkistusmerkit.teppovuori.fi/tarkmerk.htm#alv-numero
      */
     function partyId($number)
     {
@@ -469,7 +467,7 @@ class Validate_FI
      * @access      public
      * @return      bool    true if VAT number is valid, false otherwise
      * @see         Validate_FI::businessId()
-     * @link        http://koti.mbnet.fi/~thales/tarkmerk.htm#alv-numero
+     * @link        http://tarkistusmerkit.teppovuori.fi/tarkmerk.htm#alv-numero
      */
     function vatNumber($number)
     {
@@ -513,7 +511,7 @@ class Validate_FI
      * @static
      * @access public
      * @return bool    true if bank account is valid, false otherwise
-     * @link   http://koti.mbnet.fi/~thales/tarkmerk.htm#pankkitili
+     * @link   http://tarkistusmerkit.teppovuori.fi/tarkmerk.htm#pankkitili
      * @link   http://www.pankkiyhdistys.fi/sisalto/upload/pdf/tilinrorakenne.pdf
      */
     function bankAccount($number)
@@ -527,7 +525,7 @@ class Validate_FI
             $bankGroup2 = array('4', '5');
             // split account number
             $regs = '';
-            ereg("([0-9]{6})-([0-9]{2,8})", $number, $regs);
+            preg_match("/([0-9]{6})-([0-9]{2,8})/", $number, $regs);
             if (in_array($bankType, $bankGroup1)) {
                 // Group 1: 999999-99999 -> 999999-00099999
                 $number = $regs[1] . str_pad($regs[2], 8, 0, STR_PAD_LEFT);
@@ -571,12 +569,12 @@ class Validate_FI
      * @static
      * @access      public
      * @return      bool    true if reference number is valid, false otherwise
-     * @link        http://koti.mbnet.fi/~thales/tarkmerk.htm#viitenumero
+     * @link        http://tarkistusmerkit.teppovuori.fi/tarkmerk.htm#viitenumero
      */
     function refNum($number)
     {
         // Remove non-numeric characters from $refnum. Only 4-20 digit number.
-        $refnum = ereg_replace('[^0-9]+', '', $number);
+        $refnum = preg_replace('/[^0-9]+/', '', $number);
         // The last digit is a control number.
         $controlNum = substr($refnum, -1, 1);
         // Subtract control number from the $refnum.
@@ -641,7 +639,7 @@ class Validate_FI
     function creditCard($number)
     {
         // Remove non-numeric characters from $number 
-        $number = ereg_replace('[^0-9]+', '', $number);
+        $number = preg_replace('/[^0-9]+/', '', $number);
         // Validate number
         return Validate_FI::_mod10($number);
     }
