@@ -13,12 +13,12 @@
  * to obtain it through the world-wide-web, please send a note to
  * pajoye@php.net so we can mail you a copy immediately.
  *
- * @category  Validate
- * @package   Validate_SE
- * @author    Christian Weiske <cweiske@php.net>
- * @license   http://www.opensource.org/licenses/bsd-license.php  New BSD License
- * @version   SVN: $Id: DE.php 242590 2007-09-16 17:35:37Z kguest $
- * @link      http://pear.php.net/package/Validate_DE
+ * @category Validate
+ * @package  Validate_SE
+ * @author   Christian Weiske <cweiske@php.net>
+ * @license  http://www.opensource.org/licenses/bsd-license.php  New BSD License
+ * @version  SVN: $Id: DE.php 242590 2007-09-16 17:35:37Z kguest $
+ * @link     http://pear.php.net/package/Validate_DE
  */
 
 /**
@@ -27,12 +27,12 @@
  * This class provides methods to validate:
  *  - Postal code
  *
- * @category  Validate
- * @package   Validate_SE
- * @author    Christian Weiske <cweiske@php.net>
- * @license   http://www.opensource.org/licenses/bsd-license.php  New BSD License
- * @version   Release: @package_version@
- * @link      http://pear.php.net/package/Validate_DE
+ * @category Validate
+ * @package  Validate_SE
+ * @author   Christian Weiske <cweiske@php.net>
+ * @license  http://www.opensource.org/licenses/bsd-license.php  New BSD License
+ * @version  Release: @package_version@
+ * @link     http://pear.php.net/package/Validate_DE
  */
 class Validate_SE
 {
@@ -52,5 +52,50 @@ class Validate_SE
         return (bool)preg_match('/^[0-9]{3}[ ]?[0-9]{2}$/', $postcode);
     }
 
+    /**
+     * Validate a Swedish county.
+     * 
+     * http://en.wikipedia.org/wiki/Counties_of_Sweden
+     *
+     * @param string $name   County to validate
+     * @param bool   $return If true, return name of county as string
+     *
+     * @return mixed True if county exists, or county name if $return is true.
+     *
+     * http://en.wikipedia.org/wiki/Postal_codes_in_Sweden
+     */
+    public function county($name, $return=false)
+    {
+        $counties = array(
+            "AB" => "Stockholms län",
+            "C" => "Uppsala län",
+            "D" => "Södermanlands län",
+            "E" => "Östergötlands län",
+            "F" => "Jönköpings län",
+            "G" => "Kronobergs län",
+            "H" => "Kalmar län",
+            "I" => "Gotlands län",
+            "K" => "Blekinge län",
+            "M" => "Skåne län",
+            "N" => "Hallands län",
+            "O" => "Västra Götalands län",
+            "S" => "Värmlands län",
+            "T" => "Örebro län",
+            "U" => "Västmanlands län",
+            "W" => "Dalarnas län",
+            "X" => "Gävleborgs län",
+            "Y" => "Västernorrlands län",
+            "Z" => "Jämtlands län",
+            "AC" => "Västerbottens län",
+            "BD" => "Norrbottens län");
+
+        $exists = array_key_exists(strtoupper($name), $counties);
+        
+        if (!$exists || !$return ) {
+            return $exists;
+        } else {
+            return $counties[strtoupper($name)];
+        }
+    }
 }
 ?>
