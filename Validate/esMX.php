@@ -80,7 +80,7 @@ class Validate_EsMX
             }
             return in_array((int)$postalCode, $postalCodes);
         } 
-        return (bool)ereg('^[0-9]{5}$', $postalCode);
+        return (bool)preg_match('/^[0-9]{5}/$', $postalCode);
     }
 
     /**
