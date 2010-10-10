@@ -24,7 +24,7 @@ http://pear.php.net/dtd/package-2.0.xsd">
  </lead>
  <date>2006-03-18</date>
  <version>
-  <release>0.1.0</release>
+  <release>0.1.1</release>
   <api>0.1.0</api>
  </version>
  <stability>
@@ -32,7 +32,12 @@ http://pear.php.net/dtd/package-2.0.xsd">
   <api>alpha</api>
  </stability>
  <license uri="http://www.gnu.org/copyleft/lesser.html">LGPL Version 2.1</license>
- <notes>Initial release of package.</notes>
+ <notes>
+QA release
+Bug #12043 	Ran phpcs on IN.php: found 45 errors and 13 warnings
+Bug #12044	attempt to install package fails
+Bug #12066	no test present for region method
+</notes>
  <contents>
   <dir name="/">
    <dir name="Validate">
