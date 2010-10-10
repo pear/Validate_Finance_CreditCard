@@ -34,8 +34,8 @@ http://pear.php.net/dtd/package-2.0.xsd">
  <date>2007-12-12</date>
  <time>19:40:40</time>
  <version>
-  <release>0.5.3</release>
-  <api>0.5.3</api>
+  <release>0.5.4</release>
+  <api>0.5.4</api>
  </version>
  <stability>
   <release>beta</release>
@@ -43,14 +43,9 @@ http://pear.php.net/dtd/package-2.0.xsd">
  </stability>
  <license>New BSD</license>
  <notes>
- * Fix Bug #2394: Validate_US needs updating [busterb]
- * Fix Bug #5867: Test bug. [davidc]
- * Fix Bug #11784: running phpcs on US.php highlights 138 errors + 15 warnings [kguest]
- * Fix Bug #11837: package now uses validate_functions.inc for tests but it is not
-   installed. [kguest]
- * Implement Feature #6676: just  a note about source code comments [davidc]
- * Implement Feature #6898: Change if empty() then true behavior of Validate_US::phoneNumber() [davidc]
- </notes>
+QA release
+Request #12498 Suggestion for US ZIP code validation
+</notes>
  <contents>
   <dir name="/">
    <dir name="tests">
