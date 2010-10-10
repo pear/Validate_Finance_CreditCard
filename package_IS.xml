@@ -31,6 +31,10 @@ http://pear.php.net/dtd/package-2.0.xsd">
  </stability>
  <license>New BSD</license>
  <notes>
+QA release
+Bug #11824	phpcs/Coding Standards issues highlighted in IS.php
+Bug #11864	test of postalCodes when run from CVS doesn't work
+Bug #14867	Can't run unit tests from CVS without warnings
  </notes>
  <contents>
   <dir name="/">
