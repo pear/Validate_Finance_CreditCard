@@ -26,7 +26,7 @@ http://pear.php.net/dtd/package-2.0.xsd">
  <date>2009-03-21</date>
  <time>23:43:45</time>
  <version>
-  <release>0.1.0</release>
+  <release>0.1.1</release>
   <api>0.1.0</api>
  </version>
  <stability>
@@ -35,10 +35,9 @@ http://pear.php.net/dtd/package-2.0.xsd">
  </stability>
  <license>New BSD</license>
  <notes>
-Validation class for Argentina
- - Regions (provinces)
- - Postal Code
- </notes>
+QA release
+Bug #17654  	postalCode does not return boolean but integer 
+</notes>
  <contents>
   <dir baseinstalldir="/" name="/">
    <dir name="Validate">
