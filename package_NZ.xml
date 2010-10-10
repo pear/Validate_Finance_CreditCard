@@ -23,8 +23,8 @@ http://pear.php.net/dtd/package-2.0.xsd">
  <date>2009-03-21</date>
  <time>23:38:49</time>
  <version>
-  <release>0.1.2</release>
-  <api>0.1.2</api>
+  <release>0.1.3</release>
+  <api>0.1.3</api>
  </version>
  <stability>
   <release>alpha</release>
@@ -32,7 +32,10 @@ http://pear.php.net/dtd/package-2.0.xsd">
  </stability>
  <license>New BSD</license>
  <notes>
-new method CarReg
+QA release
+Bug #11870 PHPCS
+Bug #11877 Section missing in phpt also there are tests that simply can't work as intended
+Bug #11879 IRD numbers must be mod 11 checked - else invalid IRD values are marked valid.
  </notes>
  <contents>
   <dir name="/">
