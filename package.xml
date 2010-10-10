@@ -61,7 +61,7 @@
  <date>2009-11-24</date>
  <time>06:13:30</time>
  <version>
-  <release>0.8.3</release>
+  <release>0.8.4</release>
   <api>0.7.0</api>
  </version>
  <stability>
@@ -70,12 +70,11 @@
  </stability>
  <license>New BSD</license>
  <notes>
- * Bug #14865   Fixing some unit test failures (amir)
- * Bug #15945   Improper string used to check domain dns (amir)
- * Bug #16381   String format validation fails for VALIDATE_NAME.VALIDATE_XXX (amir)
- * Bug #16427   Email Validation not working for check_domain (amir)
- * Bug #16811   Should determine whether Net/IDNA.php is available less "destructively" (kguest)
- </notes>
+QA release
+Bug #17555 Use correct pattern delim
+Bug #17755 Encoding to UTF-8 in Validate.php
+Bug #17756 Avoiding ereg 
+</notes>
  <contents>
   <dir name="/">
    <dir name="docs">
