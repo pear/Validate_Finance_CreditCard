@@ -1,5 +1,7 @@
 --TEST--
 testdate.phpt: Unit tests for 'Validate.php'
+--INI--
+date.timezone=UTC
 --FILE--
 <?php
 // $Id$
