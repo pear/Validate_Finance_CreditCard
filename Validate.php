@@ -1093,7 +1093,9 @@ class Validate
                 $class        = implode('_', $validateType);
                 $classPath    = str_replace('_', DIRECTORY_SEPARATOR, $class);
                 $class        = 'Validate_' . $class;
-                if (!Validate::_includePathFileExists("Validate/$classPath.php")) {
+                if (Validate::_includePathFileExists("Validate/$classPath.php")) {
+                    include_once "Validate/$classPath.php";
+                } else {
                     trigger_error("$class isn't installed or you may have some permission issues", E_USER_ERROR);
                 }
 
