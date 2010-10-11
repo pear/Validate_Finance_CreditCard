@@ -164,7 +164,6 @@ Test Validate_ISPN
 ******************
 
 Test UCC12
-
 614141210220 : YES
 614141210221 : NO
 
