@@ -45,20 +45,20 @@ class Validate_EsMX
      *
      * Validates the given postal code in two ways:
      *
-     *  - Check that the postal code really exists. It uses a file where  
+     *  - Check that the postal code really exists. It uses a file where
      *    all postal codes are.
      *  - Doing a simple regexp: postal codes should be formed of 5 numbers.
      *
      * @param int    $postalCode  Postal code to validate
-     * @param bool   $strongCheck True  = It uses a file and checks that the 
-     *                            postal code exists (Default) 
+     * @param bool   $strongCheck True  = It uses a file and checks that the
+     *                            postal code exists (Default)
      *                            False = It uses a regexp to do the validation.
      * @param string $dir         Optional; /path/to/data/dir
      *
      * @access public
      * @return bool    Passed / Not passed
      */
-    function postalCode($postalCode, $strongCheck = false, $dir = null) 
+    function postalCode($postalCode, $strongCheck = false, $dir = null)
     {
         if ($strongCheck) {
             static $postalCodes;
@@ -79,8 +79,8 @@ class Validate_EsMX
                 return false;
             }
             return in_array((int)$postalCode, $postalCodes);
-        } 
-        return (bool)preg_match('/^[0-9]{5}/$', $postalCode);
+        }
+        return (bool)preg_match('/^[0-9]{5}$/', $postalCode);
     }
 
     /**
@@ -107,7 +107,7 @@ class Validate_EsMX
         $regexp = '/^([A-Z][AEIOU][A-Z]{2})([0-9]{2})(0?[1-9]|1[0-2])'.
             '(0[1-9]|[1-2][0-9]|3[0-1])(H|M)([A-Z]{2})'.
             '([B-DF-HJ-NP-TV-Z]{3})([0-9]|[A-Z])([0-9]|[A-Z])/i';
-        if (preg_match($regexp, $dni, $matches) === 1) {        
+        if (preg_match($regexp, $dni, $matches) === 1) {
             //Check the region.
             if (isset($matches[6])) {
                 //Not a state or NE (foreign)
@@ -133,7 +133,7 @@ class Validate_EsMX
             } else {
                 return false;
             }
-            
+
             if (isset($matches[9])) {
                 //There's no sense in continue the process if $dni is < 17 chars
                 if (strlen($dni) < 17) {
@@ -157,21 +157,21 @@ class Validate_EsMX
                     if ($algChar == '') {
                         $algChar = '*';
                     }
-                    
+
                     $combinationPos = strpos($combinations, $algChar);
                     if ($combinationPos > -1) {
-                        $curpVerifier = $curpVerifier . 
+                        $curpVerifier = $curpVerifier .
                             $combinationsValues[$combinationPos];
                     } else {
                         $curpVerifier = $curpVerifier . '00';
                     }
                 }
-                
+
                 for ($i=1; $i<strlen($dni); $i++) {
                     $counterDigit += $curpVerifier{($i*2-1)} * (19 - $i);
                 }
 
-                $digitModule = $counterDigit % 10;                
+                $digitModule = $counterDigit % 10;
                 if ($digitModule == 0) {
                     $digitVerifier = '0';
                 } else {
@@ -181,7 +181,7 @@ class Validate_EsMX
                 if (strlen($digitVerifier) > 1) {
                     $digitVerifier = substr($digitVerifier, -1);
                 }
-                
+
                 if ($digitVerifier != $matches[9]) {
                     return false;
                 }
@@ -246,13 +246,13 @@ class Validate_EsMX
      * Check that the given telephone number is valid.
      *
      * According to COFETEL (Comision Federal de Telecomunicaciones) the telephone
-     * numbers can have 7 or 8 digits. Only 3 states can have 8 digit numbers, 
-     * which are: Distrito Federal, Guadalajara and Monterrey. Others need  
+     * numbers can have 7 or 8 digits. Only 3 states can have 8 digit numbers,
+     * which are: Distrito Federal, Guadalajara and Monterrey. Others need
      * to have 7 digits.
      *
-     * In the case of a required area code the required length should be 12 
+     * In the case of a required area code the required length should be 12
      * (including the 01). This is for all states.
-     * 
+     *
      * @param string $phone           Phone number
      * @param bool   $requireAreaCode require the area code? (default: true)
      *
@@ -268,13 +268,13 @@ class Validate_EsMX
      * Check that the given telephone number is valid.
      *
      * According to COFETEL (Comision Federal de Telecomunicaciones) the telephone
-     * numbers can have 7 or 8 digits. Only 3 states can have 8 digit numbers,  
-     * which are: Distrito Federal, Guadalajara and Monterrey. Others need 
+     * numbers can have 7 or 8 digits. Only 3 states can have 8 digit numbers,
+     * which are: Distrito Federal, Guadalajara and Monterrey. Others need
      * to have 7 digits.
      *
-     * In the case of a required area code the required length should be 12 
+     * In the case of a required area code the required length should be 12
      * (including the 01). This is for all states.
-     * 
+     *
      * @param string $phone           Phone number
      * @param bool   $requireAreaCode Require the area code? (default: true)
      *
