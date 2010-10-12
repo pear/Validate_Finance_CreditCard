@@ -377,7 +377,11 @@ class Validate
     {
         // Explicitly check for broken brackets Abigail <abigail(fo)o)@example.com>
         if (substr_count($email, "(") != substr_count($email, ")")) {
-            return false;
+
+            // And there is no quoting, anywhere
+            if (substr_count($email, '"') == 0) {
+                return false;
+            }
         }
 
         static $address   = null;
