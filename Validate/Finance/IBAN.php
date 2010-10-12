@@ -452,11 +452,12 @@ class Validate_Finance_IBAN
      */
     function validate($arg = null)
     {
-        if ( isset($this) && is_a($this, 'Validate_Finance_IBAN') ) {
+        if (isset($this) && is_a($this, 'Validate_Finance_IBAN')) {
             $iban = $this->_iban;
         } else {
             $iban = $arg;
         }
+        $iban = strtoupper($iban);
 
         $errorcode = VALIDATE_FINANCE_IBAN_OK;
 
