@@ -375,15 +375,6 @@ class Validate
      */
     function __emailRFC822(&$email, &$options)
     {
-        // Explicitly check for broken brackets Abigail <abigail(fo)o)@example.com>
-        if (substr_count($email, "(") != substr_count($email, ")")) {
-
-            // And there is no quoting, anywhere
-            if (substr_count($email, '"') == 0) {
-                return false;
-            }
-        }
-
         static $address   = null;
         static $uncomment = null;
         if (!$address) {
