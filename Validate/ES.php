@@ -81,7 +81,10 @@ class Validate_ES
         $dni = str_replace("-", "", trim($dni));
         $letters = 'TRWAGMYFPDXBNJZSQVHLCKET';
 
-        $start = (int)(strtoupper($dni{0}) == "X");
+        $start = 0;
+        if (!empty($dni)) {
+            $start = (strtoupper($dni{0}) == "X");
+        }
 
         $number = substr($dni, $start, -1);
         $letter = strtoupper(substr($dni, -1));
