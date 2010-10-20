@@ -105,17 +105,19 @@ class Validate_Finance_CreditCard
     function number($creditCard, $cardType = null)
     {
         $cc = str_replace(array('-', ' '), '', $creditCard);
-        if (($len = strlen($cc)) < 13
-            || strspn($cc, '0123456789') != $len) {
+        if ((($len = strlen($cc)) < 13)
+            || (strspn($cc, '0123456789') != $len)
+        ) {
 
             return false;
         }
 
         // Only apply the Luhn algorithm for cards other than enRoute
         // So check if we have a enRoute card now
-        if (strlen($cc) != 15
-            || (substr($cc, 0, 4) != '2014'
-                && substr($cc, 0, 4) != '2149')) {
+        if ((strlen($cc) != 15)
+            || ((substr($cc, 0, 4) != '2014')
+            &&  (substr($cc, 0, 4) != '2149'))
+        ) {
 
             if (!Validate_Finance_CreditCard::Luhn($cc)) {
                 return false;
@@ -245,8 +247,9 @@ class Validate_Finance_CreditCard
             return false;
         }
 
-        if (strlen($cvv) == $digits
-            && strspn($cvv, '0123456789') == $digits) {
+        if ((strlen($cvv) == $digits)
+            && (strspn($cvv, '0123456789') == $digits)
+        ) {
             return true;
         }
 
