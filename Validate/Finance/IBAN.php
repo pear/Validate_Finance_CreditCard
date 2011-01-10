@@ -122,6 +122,7 @@ class Validate_Finance_IBAN
                 'PT' => 'Portugal',
                 'RO' => 'Romania',
                 'RS' => 'Serbia',
+                'SA' => 'Saudi Arabia',
                 'SE' => 'Sweden',
                 'SI' => 'Slovenia',
                 'SK' => 'Slovak Republic',
@@ -187,6 +188,7 @@ class Validate_Finance_IBAN
                 'PT' => 25,
                 'RO' => 24,
                 'RS' => 22,
+                'SA' => 24,
                 'SE' => 24,
                 'SI' => 19,
                 'SK' => 24,
@@ -270,6 +272,7 @@ class Validate_Finance_IBAN
                 'PT' => array('start' =>  4, 'length' =>  8),
                 'RO' => array('start' =>  4, 'length' =>  4),
                 'RS' => array('start' =>  4, 'length' =>  3),
+                'SA' => array('start' =>  4, 'length' =>  2),
                 //SE: bankcode and branch
                 'SE' => array('start' =>  4, 'length' =>  3),
                 'SI' => array('start' =>  4, 'length' =>  5),
@@ -353,6 +356,7 @@ class Validate_Finance_IBAN
                 // branch and client account identifier
                 'RO' => array('start' =>  8, 'length' => 16),
                 'RS' => array('start' =>  7, 'length' => 15),
+                'SA' => array('start' =>  6, 'length' => 18),
                 //SE: followed by 1 char (checksum)
                 'SE' => array('start' =>  7, 'length' => 16),
                 //SI: followed by 2 chars (checksum)
@@ -421,6 +425,7 @@ class Validate_Finance_IBAN
                 'PT' => '/^PT[0-9]{2}[0-9]{8}[0-9]{13}$/',
                 'RO' => '/^RO[0-9]{2}[A-Z]{4}[A-Z0-9]{16}$/',
                 'RS' => '/^RS[0-9]{2}[0-9]{3}[0-9]{15}$/',
+                'SA' => '/^SA[0-9]{2}[0-9]{2}[A-Z0-9]{18}$/',
                 'SE' => '/^SE[0-9]{2}[0-9]{3}[0-9]{17}$/',
                 'SI' => '/^SI[0-9]{2}[0-9]{5}[0-9]{8}[0-9]{2}$/',
                 'SK' => '/^SK[0-9]{2}[0-9]{4}[0-9]{16}$/',
