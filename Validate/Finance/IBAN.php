@@ -113,6 +113,7 @@ class Validate_Finance_IBAN
                 'MC' => 'Monaco',
                 'ME' => 'Montenegro',
                 'MK' => 'Macedonia',
+                'MR' => 'Mauritania',
                 'MT' => 'Malta',
                 'MU' => 'Mauritius',
                 'NL' => 'The Netherlands',
@@ -177,6 +178,7 @@ class Validate_Finance_IBAN
                 'MC' => 27,
                 'ME' => 22,
                 'MK' => 19,
+                'MR' => 27,
                 'MT' => 31,
                 'MU' => 30,
                 'NL' => 18,
@@ -256,6 +258,8 @@ class Validate_Finance_IBAN
                 'MC' => array('start' =>  4, 'length' =>  10),
                 'ME' => array('start' =>  4, 'length' =>  3),
                 'MK' => array('start' =>  4, 'length' =>  3),
+                //MR: first 5 chars bankcode, last 5 chars branch
+                'M$' => array('start' =>  4, 'length' => 10),
                 //MT: first 4 chars bankcode, last 5 chars bank sort code
                 'MT' => array('start' =>  4, 'length' =>  9),
                 //MU: first 6 chars bankcode, last 2 chars branch
@@ -336,6 +340,8 @@ class Validate_Finance_IBAN
                 'ME' => array('start' =>  7, 'length' => 15),
                 //MK: followed by 2 chars (checksum)
                 'MK' => array('start' =>  7, 'length' => 10),
+                //MR: followed by 2 chars (checksum?)
+                'MR' => array('start' => 14, 'length' => 13), 
                 'MT' => array('start' => 13, 'length' => 18),
                 'MU' => array('start' => 12, 'length' => 18),
                 'NL' => array('start' =>  8, 'length' => 10),
@@ -406,6 +412,7 @@ class Validate_Finance_IBAN
                 'MC' => '/^MC[0-9]{2}[0-9]{10}[A-Z0-9]{11}[0-9]{2}$/',
                 'ME' => '/^ME[0-9]{2}[0-9]{3}[0-9]{15}$/',
                 'MK' => '/^MK[0-9]{2}[0-9]{3}[A-Z0-9]{10}[0-9]{2}$/',
+                'MR' => '/^MR[0-9]{2}[0-9]{10}[0-9]{13}$/',
                 'MT' => '/^MT[0-9]{2}[A-Z]{4}[0-9]{5}[A-Z0-9]{18}$/',
                 'MU' => '/^MU[0-9]{2}[A-Z]{4}[0-9]{4}[0-9]{15}[A-Z]{3}$/',
                 'NL' => '/^NL[0-9]{2}[A-Z]{4}[0-9]{10}$/',
