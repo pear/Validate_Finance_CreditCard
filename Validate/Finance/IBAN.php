@@ -80,6 +80,7 @@ class Validate_Finance_IBAN
         if (!isset($_iban_countrycode_countryname)) {
             $_iban_countrycode_countryname = array(
                 'AD' => 'Andorra',
+                'AE' => 'United Arab Emirates',
                 'AL' => 'Albania',
                 'AT' => 'Austria',
                 'BA' => 'Bosnia and Herzegovina',
@@ -146,6 +147,7 @@ class Validate_Finance_IBAN
         if (!isset($_iban_countrycode_length)) {
             $_iban_countrycode_length = array(
                 'AD' => 24,
+                'AE' => 23,
                 'AL' => 28,
                 'AT' => 20,
                 'BA' => 20,
@@ -214,6 +216,7 @@ class Validate_Finance_IBAN
             $_iban_countrycode_bankcode = array(
                 //AD: first 4 chars bankcode, last 4 chars branch
                 'AD' => array('start' =>  4, 'length' =>  8),
+                'AE' => array('start' =>  4, 'length' =>  3),
                 //AL: first 3 chars bankcode, next 4 chars branch, one char checksum
                 'AL' => array('start' =>  4, 'length' =>  8),
                 'AT' => array('start' =>  4, 'length' =>  5),
@@ -301,6 +304,7 @@ class Validate_Finance_IBAN
         if (!isset($_iban_countrycode_bankaccount)) {
             $_iban_countrycode_bankaccount = array(
                 'AD' => array('start' => 12, 'length' => 12),
+                'AE' => array('start' =>  7, 'length' => 23),
                 'AL' => array('start' => 12, 'length' => 16),
                 'AT' => array('start' =>  9, 'length' => 11),
                 //BA: followed by 2 chars (checksum)
@@ -383,6 +387,7 @@ class Validate_Finance_IBAN
         if (!isset($_iban_countrycode_regex)) {
             $_iban_countrycode_regex = array(
                 'AD' => '/^AD[0-9]{2}[0-9]{8}[A-Z0-9]{12}$/',
+                'AE' => '/^AE[0-9]{2}[0-9]{3}[0-9]{16}$/',
                 'AL' => '/^AL[0-9]{2}[0-9]{8}[A-Z0-9]{16}$/',
                 'AT' => '/^AT[0-9]{2}[0-9]{5}[0-9]{11}$/',
                 'BA' => '/^BA[0-9]{2}[0-9]{6}[0-9]{10}$/',
