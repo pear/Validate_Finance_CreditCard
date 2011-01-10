@@ -95,6 +95,7 @@ class Validate_Finance_IBAN
                 'FR' => 'France',
                 'FI' => 'Finland',
                 'GB' => 'United Kingdom',
+                'GE' => 'Georgia',
                 'GI' => 'Gibraltar',
                 'GR' => 'Greece',
                 'HR' => 'Croatia',
@@ -156,6 +157,7 @@ class Validate_Finance_IBAN
                 'FR' => 27,
                 'FI' => 18,
                 'GB' => 22,
+                'GE' => 22,
                 'GI' => 23,
                 'GR' => 27,
                 'HR' => 21,
@@ -225,6 +227,7 @@ class Validate_Finance_IBAN
                 'FI' => array('start' =>  4, 'length' =>  6),
                 //GB: first 4 chars bankidentifier, last 6 chars bank-branchcode
                 'GB' => array('start' =>  4, 'length' => 10),
+                'GE' => array('start' =>  4, 'length' =>  2),
                 'GI' => array('start' =>  4, 'length' =>  4),
                 //GR: first 3 chars bankcode, last 4 chars branch
                 'GR' => array('start' =>  4, 'length' =>  7),
@@ -306,6 +309,7 @@ class Validate_Finance_IBAN
                 //FI: followed by 1 char (checksum)
                 'FI' => array('start' => 10, 'length' =>  7),
                 'GB' => array('start' => 14, 'length' =>  8),
+                'GE' => array('start' =>  6, 'length' => 16),
                 'GI' => array('start' =>  8, 'length' => 15),
                 'GR' => array('start' => 11, 'length' => 16),
                 'HR' => array('start' => 11, 'length' => 10),
@@ -376,6 +380,7 @@ class Validate_Finance_IBAN
                 'FR' => '/^FR[0-9]{2}[0-9]{10}[A-Z0-9]{13}$/',
                 'FI' => '/^FI[0-9]{2}[0-9]{6}[0-9]{8}$/',
                 'GB' => '/^GB[0-9]{2}[A-Z]{4}[0-9]{14}$/',
+                'GE' => '/^GE[0-9]{2}[A-Z]{2}[0-9]{16}$/',
                 'GI' => '/^GI[0-9]{2}[A-Z]{4}[A-Z0-9]{15}$/',
                 'GR' => '/^GR[0-9]{2}[0-9]{7}[A-Z0-9]{16}$/',
                 'HR' => '/^HR[0-9]{2}[0-9]{7}[0-9]{10}$/',
