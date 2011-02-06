@@ -31,7 +31,6 @@
    <file name="Validate/IR.php" role="php" />
    <file name="tests/validate_IR_creditCard.phpt" role="test" />
    <file name="tests/validate_IR_alphaNumeric.phpt" role="test" />
-   <file name="tests/validate_IR_postal_code.phpt" role="test" />
    <file name="tests/validate_IR_mobileNumber.phpt" role="test" />
    <file name="tests/validate_IR_numeric.phpt" role="test" />
    <file name="tests/validate_IR_phoneNumber.phpt" role="test" />
