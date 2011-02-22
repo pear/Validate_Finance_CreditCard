@@ -54,7 +54,7 @@ class Validate_NZ
      * Validate  New Zealand postal codes
      *
      * @param string $postcode postcode to validate
-     * @param bool   $strong   optional; strong checks against a list of 
+     * @param bool   $strong   optional; strong checks against a list of
      *                         postcodes
      *
      * @static   array     $postcodes
@@ -161,6 +161,7 @@ class Validate_NZ
      * @param string $number          the number to validate
      * @param bool   $requireAreaCode Optional (default: true)
      *
+     * @see       http://en.wikipedia.org/wiki/Telephone_numbers_in_New_Zealand
      * @access    public
      * @static    array      $servicePrefix, $mobilePrefix
      * @return    bool       The valid or invalid phone number
@@ -198,6 +199,11 @@ class Validate_NZ
                 }
                 break;
             case 11:
+                if (substr($number, 0, 4) == '0800') {
+                    // Is 0800 with 7 digits?
+                    $regexp = "(^0800[0-9]{7}$)";
+                }
+
                 if (substr($number, 0, 3) == "640") {
                     // Is land line with country code
                     $regexp = "(^640(3|4|6|7|9)[0-9]{7})";
@@ -252,13 +258,13 @@ class Validate_NZ
     /**
      * Return true if the checksum[s] in the specified value is valid as
      * regards the value being a valid IRD number.
-     * 
+     *
      * @param string $ssn Value to perform the validation on
      *
      * @access public
      * @return boolean
      */
-    function checkIRD($ssn) 
+    function checkIRD($ssn)
     {
         $ird = (int) str_replace("-", "", $ssn);
         if (strlen("$ird") == 8 ) {
@@ -274,8 +280,8 @@ class Validate_NZ
             }
             $remainder  = ($sum%11);
             $checkdigit = 11 - $remainder;
-            if ($sird[7] == $checkdigit) { 
-                return true; 
+            if ($sird[7] == $checkdigit) {
+                return true;
             }
             if ($checkdigit == 10) {
                 $weights = array(4,3,2,5,2,7,6);
@@ -290,7 +296,7 @@ class Validate_NZ
                 }
                 return ($sird[7] == $checkdigit);
             }
-        } 
+        }
         return false;
     }
 }
