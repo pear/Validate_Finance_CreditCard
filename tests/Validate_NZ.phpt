@@ -143,7 +143,12 @@ $Carreg = array("AE12Y3", //Ok
                 "ABCDEF", //NOk
                 "AI14W"); //OK
 
-echo "----Test postalCode----\n";
+echo "----Test postalCode (lax)----\n";
+foreach ($postalCodes as $postalCode) {
+    echo "{$postalCode}: ".$noYes[Validate_NZ::postalCode($postalCode, false)]."\n";
+}
+
+echo "----Test postalCode (strict)----\n";
 foreach ($postalCodes as $postalCode) {
     echo "{$postalCode}: ".$noYes[Validate_NZ::postalCode($postalCode,true)]."\n";
 }
@@ -180,7 +185,35 @@ foreach ($Carreg as $Car) {
 
 Test Validate_NZ
 ****************
-----Test postalCode----
+----Test postalCode (lax)----
+0110: YES
+1010: YES
+0000: YES
+1501: YES
+1111: YES
+0800: YES
+011: NO
+a112: NO
+101010: NO
+O1lO: NO
+0610: YES
+0600: YES
+2012: YES
+2105: YES
+0505: YES
+1081: YES
+1022: YES
+2102: YES
+2010: YES
+2022: YES
+2013: YES
+0630: YES
+0614: YES
+0612: YES
+2014: YES
+1025: YES
+0931: YES
+----Test postalCode (strict)----
 0110: YES
 1010: YES
 0000: NO
