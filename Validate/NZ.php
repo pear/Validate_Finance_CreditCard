@@ -101,7 +101,7 @@ class Validate_NZ
                 return in_array($postcode, $postcodes);
             }
         }
-        return preg_match('^[0-9]{4}$', $postcode);
+        return preg_match('/^[0-9]{4}$/', $postcode);
     }
     /**
      * Validates a New Zealand IRD Number (ssn equiv)
