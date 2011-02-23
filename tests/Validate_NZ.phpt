@@ -7,8 +7,10 @@ $noYes = array('NO', 'YES');
 
 if (is_file(dirname(__FILE__) . '/../Validate/NZ.php')) {
     require_once dirname(__FILE__) . '/../Validate/NZ.php';
+    $dataDir = dirname(__FILE__) . '/../data';
 } else {
     require_once 'Validate/NZ.php';
+    $dataDir = null;
 }
 
 echo " Test Validate_NZ\n";
@@ -48,7 +50,8 @@ $postalCodes = array(
                      "0612",    //Ok
                      "2014",    //Ok
                      "1025",    //Ok
-                     "0931"         //Ok    
+                     "0931",    //Ok    
+		     "9893"	//Ok
                      );
                              
 $phoneNumbers = array(        
@@ -145,12 +148,12 @@ $Carreg = array("AE12Y3", //Ok
 
 echo "----Test postalCode (lax)----\n";
 foreach ($postalCodes as $postalCode) {
-    echo "{$postalCode}: ".$noYes[Validate_NZ::postalCode($postalCode, false)]."\n";
+    echo "{$postalCode}: ".$noYes[Validate_NZ::postalCode($postalCode, false, $dataDir)]."\n";
 }
 
 echo "----Test postalCode (strict)----\n";
 foreach ($postalCodes as $postalCode) {
-    echo "{$postalCode}: ".$noYes[Validate_NZ::postalCode($postalCode,true)]."\n";
+    echo "{$postalCode}: ".$noYes[Validate_NZ::postalCode($postalCode, true, $dataDir)]."\n";
 }
                         
 echo "----Test phonenumber----\n";
@@ -213,13 +216,14 @@ O1lO: NO
 2014: YES
 1025: YES
 0931: YES
+9893: YES
 ----Test postalCode (strict)----
 0110: YES
 1010: YES
 0000: NO
 1501: NO
 1111: NO
-0800: NO
+0800: YES
 011: NO
 a112: NO
 101010: NO
@@ -241,6 +245,7 @@ O1lO: NO
 2014: YES
 1025: YES
 0931: YES
+9893: YES
 ----Test phonenumber----
 (03) 684-5018: YES
 063471122: YES

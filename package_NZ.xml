@@ -20,11 +20,11 @@ http://pear.php.net/dtd/package-2.0.xsd">
   <email>byron.adams54@gmail.com</email>
   <active>yes</active>
  </lead>
- <date>2011-02-22</date>
+ <date>2011-02-23</date>
  <time>23:38:49</time>
  <version>
-  <release>0.1.4</release>
-  <api>0.1.4</api>
+  <release>0.1.5</release>
+  <api>0.1.5</api>
  </version>
  <stability>
   <release>alpha</release>
@@ -32,16 +32,21 @@ http://pear.php.net/dtd/package-2.0.xsd">
  </stability>
  <license>New BSD</license>
  <notes>
-Bug #18287	0800 numbers not supported
+Bug #18290	strict post code validation fails
+Bug #18291	Lax postcode validation doesn't work
  </notes>
  <contents>
   <dir name="/">
+   <file name="Validate/NZ.php" role="php">
+    <tasks:replace from="@DATADIR@" to="data_dir" type="pear-config" />
+   </file>
    <dir name="tests">
     <file name="Validate_NZ.phpt" role="test" />
    </dir> <!-- /tests -->
    <dir name="Validate">
     <file name="NZ.php" role="php" />
    </dir> <!-- /Validate -->
+   <file name="data/NZ_postcodes.txt" role="data" />
    <file name="LICENSE" role="doc" />
   </dir> <!-- / -->
  </contents>

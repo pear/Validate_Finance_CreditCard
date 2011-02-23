@@ -62,45 +62,27 @@ class Validate_NZ
      * @link     www.nzpost.co.nz/nzpost/images/addressing.nzpost/pdfs/postcodedirectory_nomaps.pdf
      * @access   public
      */
-    function postalCode($postcode, $strong = false)
+    function postalCode($postcode, $strong = false, $dataDir = null)
     {
         if (!ctype_digit($postcode)) {
             return false;
-        } else {
-            if ($strong) {
-                static $postcodes;
-                if ($postcode < 0110 || $postcode > 9822) {
-                    return false;
-                }
-                $postcodes = array("0110", "0420", "0310", "1010", "0610",
-                                   "0600", "2012", "2105", "0505", "1081",
-                                   "1022", "2102", "2010", "2022", "2013",
-                                   "0630", "0614", "0612", "2014", "1025",
-                                   "0931", "3210", "3214", "3204", "3200",
-                                   "3410", "3118", "3112", "3015", "4130",
-                                   "4122", "4110", "4312", "4501", "4500",
-                                   "4310", "4825", "4820", "5032", "5024",
-                                   "5510", "4410", "5036", "5018", "6022",
-                                   "5010", "6011", "6037", "5028", "5034",
-                                   "7281", "7173", "7196", "7073", "7183",
-                                   "7005", "7007", "7022", "7025", "7071",
-                                   "7072", "7077", "7081", "7091", "7095",
-                                   "7096", "7220", "7110", "7120", "7282",
-                                   "7284", "7175", "7182", "7194", "7192",
-                                   "7193", "7195", "7197", "7198", "7204",
-                                   "7210", "7100", "7271", "7272", "7273",
-                                   "7274", "7275", "7276", "7285", "7178",
-                                   "7201", "7010", "7011", "7020", "8013",
-                                   "8041", "7334", "8011", "7402", "8022",
-                                   "8083", "8062", "7999", "8024", "8053",
-                                   "8051", "7832", "7300", "7802", "8042",
-                                   "8025", "8081", "7610", "7825", "8014",
-                                   "9810", "9016", "9010", "9822", "9400",
-                                   "9012", "9014", "9022", "9013", "9023",
-                                   "9401", "9812");
-                return in_array($postcode, $postcodes);
-            }
         }
+
+        if ($strong) {
+            static $postcodes;
+
+            if (!isset($postcodes)) {
+                if ($dataDir != null && (is_file($dataDir . '/NZ_postcodes.txt'))) {
+                    $file = $dataDir . '/NZ_postcodes.txt';
+                } else {
+                    $file = '@DATADIR@/Validate_NZ/data/NZ_postcodes.txt';
+                }
+                $postcodes = array_map('trim', file($file));
+            }
+
+            return in_array((string)$postcode, $postcodes, true);
+        }
+
         return preg_match('/^[0-9]{4}$/', $postcode);
     }
     /**
