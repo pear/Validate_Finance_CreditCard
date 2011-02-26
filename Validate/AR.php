@@ -29,7 +29,7 @@
  * This class provides methods to validate:
  *  - Postal code CPA (Código Postal Argentino)
  *  - Regions - provinces of Argentina
- * 
+ *
  * @category  Validate
  * @package   Validate_AR
  * @author    Marcelo Santos Araujo <msaraujo@php.net>
@@ -48,8 +48,8 @@ class Validate_AR
      *
      * @param string $postalCode AR CPA/postalCode to validate
      * @param bool   $strong     optional; checks (e.g. against a list of postcodes)
-     *                           (not implemented) 
-     * @param bool   $casesens   optional; (true - case sensitive, false - not case 
+     *                           (not implemented)
+     * @param bool   $casesens   optional; (true - case sensitive, false - not case
      *                           sensitive)
      *
      * @return  bool    true if CPA is ok, false otherwise
@@ -59,10 +59,19 @@ class Validate_AR
      */
     function postalCode($postalCode, $strong = false, $casesens = true)
     {
-        $regexp = $casesens ? '/^[B-T]\d{4}[A-Z]{3}$/' : '/^[B-T]\d{4}[A-Z]{3}$/i';
-        return (bool)preg_match($regexp, $postalCode);
+        if (strlen($postalCode) == 8) {
+            $regexp = $casesens ? '/^[B-T]\d{4}[A-Z]{3}$/' : '/^[B-T]\d{4}[A-Z]{3}$/i';
+            return (bool) preg_match($regexp, $postalCode);
+        } elseif (strlen($postalCode) == 5) {
+            $regexp = $casesens ? '/^[B-T]\d{4}$/' : '/^[B-T]\d{4}$/i';
+            return (bool) preg_match($regexp, $postalCode);
+        } elseif (strlen($postalCode) == 4) {
+            return (bool) preg_match('/^\d{4}$/', $postalCode);
+        } else {
+            return false;
+        }
     }
-    
+
     /**
      * Validates a "region" (i.e. province) code
      *

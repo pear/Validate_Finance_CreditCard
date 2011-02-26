@@ -23,6 +23,8 @@ $codes = array(
 'U123AB', //NOK
 'U1234ABCD', //NOK
 'b1234abc', //NOK
+'1234', //OK
+'B1234'//OK
 );
 echo "\nTest Postal Codes\n";
 foreach ($codes as $code) {
@@ -43,3 +45,5 @@ U1234ABC: NO
 U123AB: NO
 U1234ABCD: NO
 b1234abc: NO
+1234: YES
+B1234: YES
