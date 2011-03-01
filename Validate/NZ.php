@@ -150,52 +150,129 @@ class Validate_NZ
      */
     function phoneNumber($number, $requireAreaCode = true)
     {
-        static $servicePrefix = array("0800", "0900", "0508");
-        static $mobilePrefix = array("021", "025", "027");
-        $regexp = '';
+        $servicePrefix = array("0800", "0900", "0508");
+
+        $areaCodes = array("024099", // for the Scott Base in the Ross Dependency
+                            "03", // for the South Island and the Chatham Islands
+                            "04", // for the Wellington Region to Kapiti, but not the Wairarapa and Otaki
+                            "06", // for the he remaining southern and eastern North Island including Taranaki, Manawatu-Wanganui (excluding Taumarunui), Hawke's Bay, Gisborne, the Wairarapa, and Otaki
+                            "07", // for the Waikato, the Bay of Plenty and Taumarunui
+                            "09", // for Auckland and Northland
+                            );
+
         // Remove non-numeric characters that we still accept
         $number = str_replace(array("+", " ", "(", ")", "-",), "", trim($number));
+
         // Sanity check
         if (!ctype_digit($number)) {
             return false;
-        } else {
-            $numlength = strlen($number);
-            switch ($numlength) {
-            case 7:
-            case 9:
-                if (!$requireAreaCode) {
-                    // Is land line w/o area code
-                    $regexp = "(^[0-9]{7}$)";
-                } else {
-                    // Is land line with area code
-                    $regexp = "(^0(3|4|6|7|9)[0-9]{7}$)";
-                }
-                break;
-            case 10:
-                if (in_array(substr($number, 0, 4), $servicePrefix)) {
-                    // Is 0800,0900 or 0508 number
-                    $regexp = "(^0(8|9|5)0(0|8)[0-9]{6}$)";
-                } elseif (in_array(substr($number, 0, 3), $mobilePrefix)) {
-                    //Is Mobile number
-                    $regexp = "(^02(1|5|7)[0-9]{3}[0-9]{4}$)";
-                }
-                break;
-            case 11:
-                if (substr($number, 0, 4) == '0800') {
-                    // Is 0800 with 7 digits?
-                    $regexp = "(^0800[0-9]{7}$)";
-                }
+        }
 
-                if (substr($number, 0, 3) == "640") {
-                    // Is land line with country code
-                    $regexp = "(^640(3|4|6|7|9)[0-9]{7})";
-                }
-                break;
+        // http://en.wikipedia.org/wiki/Telephone_numbers_in_New_Zealand#Mobile_Phones
+        $mobilePrefix = array("orcon" => "020", // Orcon
+                              "vodafone" => "021", // Vodafone; 6-8 digits
+                              "2degrees" => "022", // 2degrees; 7 digits; 2degrees was launched in August 2009.
+                              "telstraClear_unused" => "023", // Unused; Owned by TelstraClear
+                              "expansion" => "024", // Unused; Protected by Management Committee 30.01.09 to preserve the potential code expansion option.
+                              "telecomNZ_deprecated" => "025", // Was used by Telecom New Zealand until it was shut down on 31 March 2007. All numbers have now migrated to 027 (7-digit) and 0274 (6-digit).
+                              "telecomNZ" => "027", // Telecom New Zealand; 7 digits
+                              "compass" => "0280", // Compass Communications
+                              "callPlus" => "028",  // CallPlus or BLACK + WHITE
+                              "teletraders" => "0283",  // Teletraders MVNO
+                              "m2" => "02885",  // M2 MVNO
+                              "airnet" => "02896",  // Airnet NZ Ltd
+                              "telstraClear" => "029",  // TelstraClear
+                              );
+
+        // Is it a mobile number?
+        foreach ($mobilePrefix as $provider => $prefix) {
+            // Does it start with a recognised provider prefix?
+            if (substr($number, 0, strlen($prefix)) != $prefix) {
+                continue;
+            }
+            // Is it the Scott base / Ross Dependency?
+            if (substr($number, 0, 6) == '024099') {
+                continue;
+            }
+
+            switch ($provider) {
+                // Vodafone; 6-8 digits
+                case 'vodafone':
+                    if (preg_match('/^021[0-9]{6,8}$/', $number)) {
+                        return true;
+                    }
+                    break;
+                // 2degress; 7 digits
+                case '2degrees':
+                    if (preg_match('/^022[0-9]{7}$/', $number)) {
+                        return true;
+                    }
+                    break;
+
+                // These providers offer numbers with 02, then 7-9 digits
+                case 'orcon':
+                case 'compass':
+                case 'callPlus':
+                case 'teletraders':
+                case 'm2':
+                case 'airnet':
+                case 'telstraClear':
+                case 'telecomNZ':
+                    if (preg_match('/^02[0,7,8,9][0-9]{6,8}$/', $number)) {
+                        return true;
+                    }
+                    break;
+
+                // These providers aren't valid as of 1/03/2011
+                case 'expansion':
+                case 'telstraClear_unused':
+                case 'telecomNZ_deprecated':
+                    break;
             }
         }
-        if ($regexp != '') {
-            return preg_match($regexp, $number);
+
+        // Is it a service number of some type?
+        if (in_array(substr($number, 0, 4), $servicePrefix)) {
+            // Is 0800,0900 or 0508 number
+            if (preg_match("(^0(8|9|5)0(0|8)[0-9]{6}$)", $number)) {
+                return true;
+            }
         }
+
+        // Is 0800 with 7 digits?
+       if (substr($number, 0, 4) == '0800') {
+            if (preg_match("(^0800[0-9]{7}$)", $number)) {
+                return true;
+            }
+        }
+
+        // Is it a general landline of some type?
+        foreach ($areaCodes as $prefix) {
+            // Does it start with a recognised area prefix?
+            if (substr($number, 0, strlen($prefix) != $prefix)) {
+                continue;
+            }
+
+            if (!$requireAreaCode) {
+                // Is land line w/o area code
+                if (preg_match("(^[0-9]{7}$)", $number)) {
+                    return true;
+                }
+            } else {
+                // Is land line with area code
+                if (preg_match("(^0(3|4|6|7|9)[0-9]{7}$)", $number)) {
+                    return true;
+                }
+            }
+        }
+
+        // Is land line with country code
+        if (substr($number, 0, 3) == "640") {
+            if (preg_match("(^640(3|4|6|7|9)[0-9]{7})", $number)) {
+                return true;
+            }
+        }
+
         return false;
     }
     /**
