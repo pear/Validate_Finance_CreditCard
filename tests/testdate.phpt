@@ -9,7 +9,6 @@ require_once 'Validate.php';
 
 // Validate test script
 $noYes = array('NO', 'YES');
-require_once 'Date.php';
 
 echo "Test Validate_Date\n";
 echo "******************\n";
@@ -50,16 +49,7 @@ $dates = array(
     array('13120001', 'format'=>'%d%m%Y') // OK
 );
 
-$dateObjects = array(
-    array('11111996', 'format'=>'%d%m%Y', 'min' => new Date('19950101')), // OK
-    array('12121996', 'format'=>'%d%m%Y', 'min' => new Date('19970101')), // NOK
-    array('10101994', 'format'=>'%d%m%Y', 'max' => new Date('2005-04-27 06:24:05')), // OK
-    array('11111994', 'format'=>'%d%m%Y', 'max' => new Date('19920101')), // NOK
-    array('12121996', 'format'=>'%d%m%Y',
-                      'min' => new Date('19950101'), 'max' => new Date('2005-04-27 06:24:05')) // OK
-);
-
-echo "\nTest dates\n"; 
+echo "\nTest dates\n";
 foreach ($dates as $data){
     $date = array_shift($data);
     echo "{$date} (";
@@ -70,20 +60,6 @@ foreach ($dates as $data){
                 echo "{$elt} ";
             }
             echo "] ";
-        } else {
-            echo "{$key}=>{$val} ";
-        }
-    }
-    echo "): ".$noYes[Validate::date($date, $data)]."\n";
-}
-
-echo "\nTest dates with min max object\n"; 
-foreach ($dateObjects as $data){
-    $date = array_shift($data);
-    echo "{$date} (";
-    foreach ($data as $key=>$val) {
-        if (($key == 'min') or ($key == 'max')) {
-            echo "{$key}=>".$val->getDate()." ";
         } else {
             echo "{$key}=>{$val} ";
         }
@@ -120,10 +96,3 @@ Test dates
 25:00 (format=>%G:%i:%s ): NO
 121902 (format=>%m%Y ): YES
 13120001 (format=>%d%m%Y ): YES
-
-Test dates with min max object
-11111996 (format=>%d%m%Y min=>1995-01-01 00:00:00 ): YES
-12121996 (format=>%d%m%Y min=>1997-01-01 00:00:00 ): NO
-10101994 (format=>%d%m%Y max=>2005-04-27 06:24:05 ): YES
-11111994 (format=>%d%m%Y max=>1992-01-01 00:00:00 ): NO
-12121996 (format=>%d%m%Y min=>1995-01-01 00:00:00 max=>2005-04-27 06:24:05 ): YES
