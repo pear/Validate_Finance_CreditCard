@@ -29,14 +29,9 @@ $uris = array(
         '//-.com', // NOK
         '//example.-com', // NOK
         '//-example.com-', // NOK
-        // Try dns lookup
-        array('//php.net', 'domain_check' => true), // OK
-        array('//example.gor', 'domain_check' => true), // NOK
         // Try schemes lookup
         array('//example.org', 'allowed_schemes' => array('ftp', 'http')), // NOK
         array('http://example.org', 'allowed_schemes' => array('ftp', 'http')), // OK
-        array('http://php.net', 'allowed_schemes' => array('ftp', 'http'),
-                                    'domain_check' => true), // OK
         array(
         '//example.org/tkik-wkik_rss.php?ver=2http://www.hyperlecture.info//http://www.hyperlecture.info/accueil',
             'strict' => ''), // OK
@@ -83,11 +78,8 @@ http://user:password@127.0.0.1:8080/pub/ietf/uri;rfc2396?test=ok&end=next#Relate
 //-.com: NO
 //example.-com: NO
 //-example.com-: NO
-//php.net: schemes() with domain check : YES
-//example.gor: schemes() with domain check : NO
 //example.org: schemes(ftp,http) without domain check : NO
 http://example.org: schemes(ftp,http) without domain check : YES
-http://php.net: schemes(ftp,http) with domain check : YES
 //example.org/tkik-wkik_rss.php?ver=2http://www.hyperlecture.info//http://www.hyperlecture.info/accueil: schemes() without domain check : (strict : ) YES
 http://domain.tld//: YES
 http://domain.tld/.: YES
