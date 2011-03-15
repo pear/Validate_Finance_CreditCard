@@ -61,7 +61,7 @@
  <date>2010-10-10</date>
  <time>06:13:30</time>
  <version>
-  <release>0.8.4</release>
+  <release>0.8.5</release>
   <api>0.7.0</api>
  </version>
  <stability>
@@ -70,10 +70,9 @@
  </stability>
  <license>New BSD</license>
  <notes>
-QA release
-Bug #17555 Use correct pattern delim
-Bug #17755 Encoding to UTF-8 in Validate.php
-Bug #17756 Avoiding ereg
+
+Features:
+* Implemented Request #17963: Allow test suite to run without DNS resolver [patch by remicollet, adjustments by dufuz]
 </notes>
  <contents>
   <dir name="/">
@@ -83,11 +82,14 @@ Bug #17756 Avoiding ereg
    </dir> <!-- /docs -->
    <dir name="tests">
     <file name="email.phpt" role="test" />
+    <file name="email_domaincheck.phpt" role="test" />
     <file name="multicard.phpt" role="test" />
     <file name="multiple.phpt" role="test" />
     <file name="number.phpt" role="test" />
     <file name="testdate.phpt" role="test" />
+    <file name="testdate_minmax.phpt" role="test" />
     <file name="uri.phpt" role="test" />
+    <file name="uri_domaincheck.phpt" role="test" />
    </dir> <!-- /tests -->
    <file name="LICENSE" role="doc" />
    <file name="Validate.php" role="php" />
