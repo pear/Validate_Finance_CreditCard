@@ -107,7 +107,14 @@ class Validate_IR
     }
 
     /**
-     * Checks social security numbers for Iran called "kode melli"
+     * Checks social security numbers for Iran called "kode melli".
+     * kode melli's last digit from left is the check digit, here is the algorithm:
+     * A= last digit from left
+     * B= (first digit*10) + (2th digit*9) + ... (9th digit *2)
+     * C= B – (B/11)*11
+     * if C==0 and A==0 OK
+     * if C==1 and A==1 OK
+     * if C>1 and A==(C-11) OK
      *
      * @param string $check The value to check.
      *
