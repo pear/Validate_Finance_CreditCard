@@ -4,7 +4,11 @@ mobileNumber.phpt: Unit tests for
 <?php
 // Validate test script
 $noYes = array('NO', 'YES');
-require 'Validate/IR.php';
+if (is_file(dirname(__FILE__) . '/../Validate/IR.php')) {
+    require_once dirname(__FILE__) . '/../Validate/IR.php';
+} else {
+    require_once 'Validate/IR.php';
+}
 
 echo "Test mobileNumber\n";
 
