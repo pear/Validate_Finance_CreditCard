@@ -60,7 +60,7 @@ class Validate_IR
      */
     function creditCard($check) 
     {
-        $pattern = '/[0-9]{4}-?[0-9]{4}-?[0-9]{4}-?[0-9]{4}$/';
+        $pattern = '/^[0-9]{4}-?[0-9]{4}-?[0-9]{4}-?[0-9]{4}$/';
         return preg_match($pattern, $check);
     }
 
