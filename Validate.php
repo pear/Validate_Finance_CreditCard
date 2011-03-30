@@ -449,6 +449,10 @@ class Validate
         if(!empty($options["VALIDATE_GTLD_EMAILS"])) array_push($validate, 'gtld');
         if(!empty($options["VALIDATE_CCTLD_EMAILS"])) array_push($validate, 'cctld');
 
+        if (count($validate) === 0) {
+            array_push($validate, 'itld', 'gtld', 'cctld');
+        }
+
         $self = new Validate;
 
         $toValidate = array();
