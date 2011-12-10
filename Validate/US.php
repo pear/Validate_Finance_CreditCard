@@ -171,7 +171,7 @@ class Validate_US
          * keep the load down if having to validate more then one ssn in a row
          */
         static $high_groups = array();
-        static $lastUri = '';
+        static $lastUri     = '';
 
         if ($lastUri == $uri && !empty($high_groups)) {
             return $high_groups;
@@ -194,21 +194,19 @@ class Validate_US
             fclose($fd);
         }
 
-        $lines       = explode("\n", preg_replace("/[^\n0-9]*/", '', $source));
+        $lines       = explode("\n", preg_replace("/[^\n0-9]/", '', $source));
         $high_groups = array();
+
         foreach ($lines as $line) {
-            $reg = '/^([0-9]{3})([0-9]{2})([0-9]{3})([0-9]{2})([0-9]{3})'
-                 . '([0-9]{2})([0-9]{3})([0-9]{2})([0-9]{3})([0-9]{2})'
-                 . '([0-9]{3})([0-9]{2})$/';
-            if (preg_match($reg, $line, $grouping)) {
-                $high_groups[$grouping[1]]  = $grouping[2];
-                $high_groups[$grouping[3]]  = $grouping[4];
-                $high_groups[$grouping[5]]  = $grouping[6];
-                $high_groups[$grouping[7]]  = $grouping[8];
-                $high_groups[$grouping[9]]  = $grouping[10];
-                $high_groups[$grouping[11]] = $grouping[12];
+            if (preg_match('/^[0-9]+$/', $line) && !(($len = strlen($line)) % 5)) {
+                for ($x=0; $x<$len; $x+=5) {
+                    $index               = substr($line, $x, 3);
+                    $value               = substr($line, $x+3, 2);
+                    $high_groups[$index] = $value;
+                }
             }
         }
+
         return $high_groups;
     }
 
@@ -447,13 +445,13 @@ class Validate_US
         }
 
         // truncate code if longer than 5 characters
-        if (strlen($postalCode) > 5)
-            $postalCode = substr($postalCode, 0 , 5);
-
+        if (strlen($postalCode) > 5) {
+            $postalCode = substr($postalCode, 0, 5);
+        }
         // prepend code with zeros if shorter than 5 characters
-        if (strlen($postalCode) < 5)
+        if (strlen($postalCode) < 5) {
             $postalCode = str_repeat('0', 5 - strlen($postalCode)).$postalCode;
-
+        }
         // is code between some start and end range?
         $valid = false;
         foreach ($ranges as $start => $end) {
