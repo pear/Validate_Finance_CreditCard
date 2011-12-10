@@ -85,16 +85,12 @@ class Validate_DK
      */
     function ssn($cpr, $gender = false)
     {
-        static $control = array(4, 3, 2, 7, 6, 5, 4, 3, 2, 1);
-
         // remove spaces and uppercase it
-        $preg = "/^[0-9]{6}\-?[0-9]{4}$/";
+        $preg = "/^[0-3][0-9][0-1]\d{3}-\d{4}?/";
         if (preg_match($preg, $cpr)) {
+
             $cpr           = str_replace('-', '', $cpr);
-            $controlCipher = 0;
-            for ($i = 0; $i < count($control); $i++) {
-                $controlCipher += $control[$i] * substr($cpr, $i, 1);
-            }
+
             $y = substr($cpr, -1);
             switch ($gender) {
             case 'M':
@@ -107,7 +103,8 @@ class Validate_DK
                 $genderOK = true;
                 break;
             }
-            return ((($controlCipher % 11) === 0) && ($genderOK));
+
+            return $genderOK;
         } else {
             return false;
         }

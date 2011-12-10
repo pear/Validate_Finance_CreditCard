@@ -47,15 +47,19 @@ $ssns = array(
 				array(
 					'01a19.-1212',
 					false // no gender (wrong format)
-				), // NOK !(is male)
+				), // NOK !(wrong format)
 				array(
 					'no-way',
 					false // no gender (wrong format)
-				), // NOK !(is male)
+				), // NOK !(wrong format)
 				array(
 					'010192-1211',
 					false // no gender
-				) // NOK (cipher does not match)
+				), // OK (cipher does not match)
+				array(
+					'012092-1211',
+					false // no gender
+				) // NOK (Wrong format)
 			);
 
 $carregs = array(
@@ -101,7 +105,8 @@ Test ssn
 010192-1212, M: NO
 01a19.-1212, : NO
 no-way, : NO
-010192-1211, : NO
+010192-1211, : YES
+010120-1211, : NO
 Test phonenumber
 21021212: YES
 2121212: NO
