@@ -70,9 +70,11 @@
  </stability>
  <license>New BSD</license>
  <notes>
-
-Features:
-* Implemented Request #17963: Allow test suite to run without DNS resolver [patch by remicollet, adjustments by dufuz]
+QA Release
+Request #17963: Allow test suite to run without DNS resolver [patch by remicollet, adjustments by dufuz]
+Bug #17279 Validate::email() with 'fullTLDValidation' => 'true' always return false.
+Bug #17947 testdate test fails if date.timezone not set
+Bug #17948 multicard test fails
 </notes>
  <contents>
   <dir name="/">
