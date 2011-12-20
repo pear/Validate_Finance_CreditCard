@@ -25,6 +25,7 @@ abigail@
 phrase: abigail@example.com abigail@example.com ;
 invalid£char@example.com
 INVALIDS
+user@yahoo..com
 --FILE--
 <?php
 require 'Validate.php';
