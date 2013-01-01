@@ -22,7 +22,10 @@ $plates = array(
 '98-KY-2655', //OK
 '06-D-2600', //OK
 '06-DE-2600', //NOK - DE index doesn't exist
-'07=KY=23233' //NOK - wrong delimiters
+'07=KY=23233', //NOK - wrong delimiters
+'131-KY-23233', //OK
+'132-KY-23233', //OK
+'133-KY-23233', //NOK - first component with 3 digits may only end with a 1 or a 2.
 );
 echo "\nTest License Plates\n";
 foreach ($plates as $plate) {
@@ -47,4 +50,7 @@ ZV-7654321: NO
 06-D-2600: YES
 06-DE-2600: NO
 07=KY=23233: NO
+131-KY-23233: YES
+132-KY-23233: YES
+133-KY-23233: NO
 

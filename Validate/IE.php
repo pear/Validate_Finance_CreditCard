@@ -333,15 +333,25 @@ class Validate_IE
     {
         //in_array is case sensitive, so use strtoupper...
         $plate = strtoupper($number);
-        $regex = "/^\d{2}[\ -]([A-Z][A-Z]?)[\ -]\d{1,6}$/";
+        $regex = "/^(\d{2,3})[\ -]([A-Z][A-Z]?)[\ -]\d{1,6}$/";
 
         if (preg_match($regex, $plate, $matches)) {
-            $mark = strtoupper($matches[1]);
+            $mark = strtoupper($matches[2]);
             //check valid index mark
             $marks = array('C','CE','CN','CW','D','DL','G','KE','KK','KY','L',
                            'LD','LH','LK','LM','LS','MH','MN','MO','OY','RN',
                            'SO','TN','TS','W','WD','WH','WX','WW');
-            return in_array($mark, $marks);
+            if (in_array($mark, $marks)) {
+                // The first component, if 3 digits in length can only end
+                // with a '1' or a '2'.
+                if (strlen($matches[1]) == 3) {
+                    $end  = (int) substr($matches[1], 2, 1);
+                    return ($end == 1) || ($end == 2);
+                }
+                return true;
+            } else {
+                return false;
+            }
         } else {
             //two pre-1987 codes are still in use. ZZ and ZV.
             //format is ZZ nnnnn - 5 digits for ZZ code and as few as 4 for ZV
