@@ -23,11 +23,11 @@ $sort_codes = array(
 '123456789', //NOK - too many digits
 '1234567', //NOK - too few digits;
 );
-echo "\nTest bank accounts prefixed with sort codes\n";
+echo "\nTest bank accounts\n";
 foreach ($ACs as $AC) {
     echo "{$AC}: ".$noYes[Validate_IE::bankAC($AC)]."\n";
 }
-echo "\nTest bank accounts\n";
+echo "\nTest sort codes\n";
 foreach ($sort_codes as $sort_code) {
     echo "{$sort_code}: ".$noYes[Validate_IE::bankAC($sort_code, true)]."\n";
 }
@@ -38,13 +38,13 @@ exit(0);
 Test Validate_IE
 ****************
 
-Test bank accounts prefixed with sort codes
+Test bank accounts
 12345678901234: YES
 A2345678901234: NO
 123456789012345: NO
 12C4567890123: NO
 
-Test bank accounts
+Test sort codes
 12345678: YES
 A2345678: NO
 123456789: NO
