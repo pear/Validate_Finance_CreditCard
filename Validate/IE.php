@@ -367,6 +367,23 @@ class Validate_IE
         }
     }
     // }}}
+
+    // {{{ public function sortCode
+
+    /**
+     * Validate a sort code, no dashes or whitespace - just digits.
+     *
+     * @param string $sc The sort code.
+     *
+     * @access public
+     * @return bool
+     */
+    function sortCode($sc)
+    {
+        // 6 digits expected - starting with a '9'.
+        return (preg_match('/^9[0-9]{5}$/', $sc)) ? true : false;
+    }
+    // }}}
     // {{{ public function bankAC
     /**
      * Validate a bank account number

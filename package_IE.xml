@@ -4,15 +4,15 @@
  <channel>pear.php.net</channel>
  <summary>Validation class for Ireland</summary>
  <description>Package contains validation for Irish credentials:
-- PostalCodes
+- Postal Codes
 - Passport Numbers
 - Phone Numbers
 - Bank Account Numbers
-- swift codes
-- IBAN codes
+- Bank Sort Codes
+- Swift Codes
+- IBANs
 - Drivers Licence Numbers
-- PPSN / SSN Numbers
-- Swift numbers</description>
+- PPSN / Social Security Numbers</description>
  <lead>
   <name>David Coallier</name>
   <user>davidc</user>
@@ -25,19 +25,19 @@
   <email>ken@linux.ie</email>
   <active>yes</active>
  </lead>
- <date>2013-01-01</date>
- <time>02:04:00</time>
+ <date>2013-01-22</date>
+ <time>13:51:00</time>
  <version>
-  <release>1.0.3</release>
-  <api>1.0.0</api>
+  <release>1.1.0a1</release>
+  <api>1.0.1</api>
  </version>
  <stability>
-  <release>stable</release>
-  <api>stable</api>
+  <release>alpha</release>
+  <api>alpha</api>
  </stability>
  <license uri="http://www.gnu.org/licenses/lgpl.html">LGPL</license>
  <notes>
-* Validate the first component of license plates that consist of three digits.
+* Now also validate the form of bank sort codes.
  </notes>
  <contents>
   <dir name="/">
@@ -74,6 +74,21 @@
  </dependencies>
  <phprelease />
  <changelog>
+  <release>
+   <version>
+    <release>1.1.0a1</release>
+    <api>1.0.0</api>
+   </version>
+   <stability>
+    <release>stable</release>
+    <api>stable</api>
+   </stability>
+   <date>2013-01-22</date>
+   <license uri="http://www.gnu.org/licenses/lgpl.html">LGPL</license>
+   <notes>
+* Now also validate the form of bank sort codes.
+   </notes>
+  </release>
   <release>
    <version>
     <release>1.0.3</release>
