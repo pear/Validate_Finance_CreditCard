@@ -8,7 +8,7 @@ Supported card types are:
  * Visa
  * American Express
  * Diners Club
- * Carte BLance
+ * Carte Blanche
  * Discover
  * JCB
  * EnRoute
