@@ -8,7 +8,7 @@
     ],
     "autoload": {
         "psr-0": {
-            "Validate_Finance_CreditCard": "./"
+            "Validate": "./"
         }
     },
     "description": "Validation class for credit cards.",
