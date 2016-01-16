@@ -1,5 +1,7 @@
 <?php
+
 /* vim: set expandtab tabstop=4 shiftwidth=4: */
+
 /**
  * Validation methods for credit card related data
  *
@@ -63,19 +65,19 @@ class Validate_Finance_CreditCard
      * @access public
      * @static
      */
-    function Luhn($number)
+    public static function Luhn($number)
     {
         $len_number = strlen($number);
         $sum        = 0;
         for ($k = $len_number % 2; $k < $len_number; $k += 2) {
-            if ((intval($number{$k}) * 2) > 9) {
-                $sum += (intval($number{$k}) * 2) - 9;
+            if ((intval($number[$k]) * 2) > 9) {
+                $sum += (intval($number[$k]) * 2) - 9;
             } else {
-                $sum += intval($number{$k}) * 2;
+                $sum += intval($number[$k]) * 2;
             }
         }
         for ($k = ($len_number % 2) ^ 1; $k < $len_number; $k += 2) {
-            $sum += intval($number{$k});
+            $sum += intval($number[$k]);
         }
         return ($sum % 10) ? false : true;
     }
@@ -102,7 +104,7 @@ class Validate_Finance_CreditCard
      * @static
      * @see Luhn()
      */
-    function number($creditCard, $cardType = null)
+    public static function number($creditCard, $cardType = null)
     {
         $cc = str_replace(array('-', ' '), '', $creditCard);
         if ((($len = strlen($cc)) < 13)
@@ -119,18 +121,17 @@ class Validate_Finance_CreditCard
             &&  (substr($cc, 0, 4) != '2149'))
         ) {
 
-            if (!Validate_Finance_CreditCard::Luhn($cc)) {
+            if (!self::Luhn($cc)) {
                 return false;
             }
         }
 
         if (is_string($cardType)) {
-            return Validate_Finance_CreditCard::type($cc, $cardType);
+            return self::type($cc, $cardType);
         }
 
         return true;
     }
-
 
     /**
      * Validates the credit card number against a type
@@ -155,7 +156,7 @@ class Validate_Finance_CreditCard
      * @static
      * @link http://www.beachnet.com/~hstiles/cardtype.html
      */
-    function type($creditCard, $cardType)
+    public static function type($creditCard, $cardType)
     {
         switch (strtoupper($cardType)) {
         case 'MASTERCARD':
@@ -196,7 +197,6 @@ class Validate_Finance_CreditCard
         return (bool)preg_match($regex, $cc);
     }
 
-
     /**
      * Validates a card verification value format
      *
@@ -228,7 +228,7 @@ class Validate_Finance_CreditCard
      * @access public
      * @static
      */
-    function cvv($cvv, $cardType)
+    public static function cvv($cvv, $cardType)
     {
         switch (strtoupper($cardType)) {
         case 'MASTERCARD':
