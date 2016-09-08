@@ -27,6 +27,7 @@ $cardTypes = array(
         '4111-1111-1111-1111' => 'VISA',
         '4111111111111111'    => 'VISA',
         '5500 0000 0000 0004' => 'MasterCard',
+        '2223000048400011'    => 'MasterCard',
         '3400 0000 0000 009'  => 'AMEX',
         '3088 0000 0000 0009' => 'JCB',
         '2014 0000 0000 009'  => 'ENROUTE',
@@ -124,6 +125,7 @@ Big brother watch: NO
 4111-1111-1111-1111 : YES
 4111111111111111 : YES
 5500 0000 0000 0004 : YES
+2223000048400011 : YES
 3400 0000 0000 009 : YES
 3088 0000 0000 0009 : YES
 2014 0000 0000 009 : YES
@@ -134,6 +136,7 @@ On "4111 1111 1111 1111" is not a "DINERSCLUB" : NO
 On "4111-1111-1111-1111" is not a "DINERSCLUB" : NO
 On "4111111111111111" is not a "DINERSCLUB" : NO
 On "5500 0000 0000 0004" is not a "DINERSCLUB" : NO
+On "2223000048400011" is not a "DINERSCLUB" : NO
 On "3400 0000 0000 009" is not a "DINERSCLUB" : NO
 On "3088 0000 0000 0009" is not a "DINERSCLUB" : NO
 On "2014 0000 0000 009" is not a "DINERSCLUB" : NO
@@ -143,6 +146,7 @@ On "4111 1111 1111 1111" is not a "DISCOVER" : NO
 On "4111-1111-1111-1111" is not a "DISCOVER" : NO
 On "4111111111111111" is not a "DISCOVER" : NO
 On "5500 0000 0000 0004" is not a "DISCOVER" : NO
+On "2223000048400011" is not a "DISCOVER" : NO
 On "3400 0000 0000 009" is not a "DISCOVER" : NO
 On "3088 0000 0000 0009" is not a "DISCOVER" : NO
 On "2014 0000 0000 009" is not a "DISCOVER" : NO
@@ -152,6 +156,7 @@ On "4111 1111 1111 1111" is not a "ENROUTE" : NO
 On "4111-1111-1111-1111" is not a "ENROUTE" : NO
 On "4111111111111111" is not a "ENROUTE" : NO
 On "5500 0000 0000 0004" is not a "ENROUTE" : NO
+On "2223000048400011" is not a "ENROUTE" : NO
 On "3400 0000 0000 009" is not a "ENROUTE" : NO
 On "3088 0000 0000 0009" is not a "ENROUTE" : NO
 On "2014 0000 0000 009" is  a "ENROUTE" : YES
@@ -161,6 +166,7 @@ On "4111 1111 1111 1111" is not a "JCB" : NO
 On "4111-1111-1111-1111" is not a "JCB" : NO
 On "4111111111111111" is not a "JCB" : NO
 On "5500 0000 0000 0004" is not a "JCB" : NO
+On "2223000048400011" is not a "JCB" : NO
 On "3400 0000 0000 009" is not a "JCB" : NO
 On "3088 0000 0000 0009" is  a "JCB" : YES
 On "2014 0000 0000 009" is not a "JCB" : NO
@@ -170,6 +176,7 @@ On "4111 1111 1111 1111" is not a "AMEX" : NO
 On "4111-1111-1111-1111" is not a "AMEX" : NO
 On "4111111111111111" is not a "AMEX" : NO
 On "5500 0000 0000 0004" is not a "AMEX" : NO
+On "2223000048400011" is not a "AMEX" : NO
 On "3400 0000 0000 009" is  a "AMEX" : YES
 On "3088 0000 0000 0009" is not a "AMEX" : NO
 On "2014 0000 0000 009" is not a "AMEX" : NO
@@ -179,6 +186,7 @@ On "4111 1111 1111 1111" is not a "MasterCard" : NO
 On "4111-1111-1111-1111" is not a "MasterCard" : NO
 On "4111111111111111" is not a "MasterCard" : NO
 On "5500 0000 0000 0004" is  a "MasterCard" : YES
+On "2223000048400011" is  a "MasterCard" : YES
 On "3400 0000 0000 009" is not a "MasterCard" : NO
 On "3088 0000 0000 0009" is not a "MasterCard" : NO
 On "2014 0000 0000 009" is not a "MasterCard" : NO
@@ -188,6 +196,7 @@ On "4111 1111 1111 1111" is  a "VISA" : YES
 On "4111-1111-1111-1111" is  a "VISA" : YES
 On "4111111111111111" is  a "VISA" : YES
 On "5500 0000 0000 0004" is not a "VISA" : NO
+On "2223000048400011" is not a "VISA" : NO
 On "3400 0000 0000 009" is not a "VISA" : NO
 On "3088 0000 0000 0009" is not a "VISA" : NO
 On "2014 0000 0000 009" is not a "VISA" : NO
