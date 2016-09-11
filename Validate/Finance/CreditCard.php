@@ -162,7 +162,7 @@ class Validate_Finance_CreditCard
         case 'MASTERCARD':
         case 'EUROCARD':
         case 'EUROCARD/MASTERCARD':
-            $regex = '(5[1-5][0-9]{2}|2[3-6][0-9]{2}|22[3-9][0-9]|222[1-9]|27[0-1][0-9]|2720)[0-9]{12}';
+            $regex = '/^(5[1-5]\d{4}|677189)\d{10}$|^2(?:2(?:2[1-9]|[3-9]\d)|[3-6]\d\d|7(?:[01]\d|20))\d{12}$/';
             break;
         case 'VISA':
             $regex = '4([0-9]{12}|[0-9]{15})';
